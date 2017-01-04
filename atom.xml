@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-12-22T23:40:37.000Z</updated>
+  <updated>2017-01-04T09:28:09.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,61 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>iOS开发——解析崩溃日志</title>
+    <link href="http://yoursite.com/2017/01/04/iOS%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94%E8%A7%A3%E6%9E%90%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BF%97/"/>
+    <id>http://yoursite.com/2017/01/04/iOS开发——解析崩溃日志/</id>
+    <published>2017-01-04T09:19:51.000Z</published>
+    <updated>2017-01-04T09:28:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>iOS开发——解析崩溃日志</p>
+<p>在实际的开发过程中，作为开发者的我们常常会碰到一种场景，那就是真机调试时崩溃了，而有时又不能在Xcode中打印出崩溃信息，那么这时候我们就必须要获取到崩溃原因，从而解决问题。</p>
+<a id="more"></a>
+<p>而在万能的<strong>Xcode</strong>中，你可以找到自己测试机里的崩溃日志。<code>Window</code> -&gt; <code>Devices</code> -&gt; 选中自己的测试机 <code>View Device Logs</code> ，类似下图</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/134882-3eb075f8e82c2413.png?imageMogr2/auto-orient/strip%7CimageView2/2/format/jpg" alt=""></p>
+<p>而此时你可以选择导出自己的崩溃日志，并且这里的我们看到的崩溃日志，都是Xcode已经帮我们符号化的，很清晰的就可以看到崩溃原因，以及崩溃的位置。</p>
+<p>如果是其他用户，下载了我们的App之后出现了崩溃，我们可以从<code>iTunes Connect</code>中获取到其他用户的崩溃日志，但是这时如果你去看他人的崩溃日志，不出意外您是懵逼的。这是崩溃日志么？ 天书还差不多。而如何把他人的崩溃日志符号化呢？ 这就是我们接下来要讲的内容了。</p>
+<p>依旧是万能的<strong>Xcode</strong>给我们提供了一个工具 —— <strong>symbolicatecrash</strong>，这是一个<strong>Xcode</strong>自带的分析工具，可以通过机器上的崩溃日志和应用的<code>.dSYM</code>文件定位发生崩溃的位置，把<code>Crash</code>日志中的一堆地址替换成代码相应的位置。</p>
+<h1 id="如何使用symbolicatecrash分析崩溃日志"><a href="#如何使用symbolicatecrash分析崩溃日志" class="headerlink" title="如何使用symbolicatecrash分析崩溃日志"></a>如何使用symbolicatecrash分析崩溃日志</h1><ol>
+<li><p>在你的桌面创建一个新文件夹，并且命名为”CrashReport”</p>
+</li>
+<li><p>打开终端输入 <code>find /Applications/Xcode.app -name symbolicatecrash -type f</code>，然后终端会返回这个文件的路径,只要找到<code>symbolicatecrash</code>文件, 复制然后粘贴到刚才创建的 “CrashReport” 文件夹里面.</p>
+</li>
+<li><p>从<strong>Xcode Archive</strong>的二进制文件中找到<strong>.dSYM</strong>文件和<strong>.app</strong>文件拷贝到刚才创建的 <code>CrashReport</code> 文件夹里面.</p>
+</li>
+<li><p>打开终端进入<strong>CrashReport</strong>文件夹，依次输入以下命令行:</p>
+</li>
+</ol>
+<p>记得替换自己的<strong>Username</strong></p>
+<ul>
+<li><p><code>cd /Users/username/Desktop/CrashReport</code></p>
+</li>
+<li><p><code>export DEVELOPER_DIR=/Applications/XCode.app/Contents/Developer</code></p>
+</li>
+<li><p><code>./symbolicatecrash ./*.crash ./*.app.dSYM &gt; symbol.crash</code></p>
+</li>
+</ul>
+<p>这时候终端将会进行处理……<br>处理结果是生成一个新的文件symbol.crash。然后打开这个文件。<br>你就会看到日志跟我们调试APP的控制台输出的内容一样了！</p>
+<p>天书变成了可以看懂的崩溃记录，攻城狮们，赶紧改Bug吧。</p>
+<p>不知不觉博客更新了一年了，2017的第一篇日志，希望大家新年无Bug。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;iOS开发——解析崩溃日志&lt;/p&gt;
+&lt;p&gt;在实际的开发过程中，作为开发者的我们常常会碰到一种场景，那就是真机调试时崩溃了，而有时又不能在Xcode中打印出崩溃信息，那么这时候我们就必须要获取到崩溃原因，从而解决问题。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="iOS开发" scheme="http://yoursite.com/tags/iOS%E5%BC%80%E5%8F%91/"/>
+    
+      <category term="Crash" scheme="http://yoursite.com/tags/Crash/"/>
+    
+      <category term="symbolicatecrash" scheme="http://yoursite.com/tags/symbolicatecrash/"/>
+    
+  </entry>
   
   <entry>
     <title>iOS开发——带有暂停功能的计时器</title>
@@ -1152,42 +1207,6 @@
       <category term="圆形头像" scheme="http://yoursite.com/tags/%E5%9C%86%E5%BD%A2%E5%A4%B4%E5%83%8F/"/>
     
       <category term="头像设置" scheme="http://yoursite.com/tags/%E5%A4%B4%E5%83%8F%E8%AE%BE%E7%BD%AE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iOS 全局禁止横屏，但视频播放界面选择性横屏的解决办法</title>
-    <link href="http://yoursite.com/2016/07/14/iOS-%E5%85%A8%E5%B1%80%E7%A6%81%E6%AD%A2%E6%A8%AA%E5%B1%8F%EF%BC%8C%E4%BD%86%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E7%95%8C%E9%9D%A2%E9%80%89%E6%8B%A9%E6%80%A7%E6%A8%AA%E5%B1%8F%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"/>
-    <id>http://yoursite.com/2016/07/14/iOS-全局禁止横屏，但视频播放界面选择性横屏的解决办法/</id>
-    <published>2016-07-14T07:25:15.000Z</published>
-    <updated>2016-08-05T06:50:45.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>有时我们的APP并没有适配横屏的需求，但是在个别视频播放界面，我们需要在播放视频的时候横屏，退出全屏的时候不能横屏，但是有时候并没有原生API并没有给出解决方案。</p>
-<a id="more"></a>
-<h3 id="当其他界面不支持横屏时"><a href="#当其他界面不支持横屏时" class="headerlink" title="当其他界面不支持横屏时:"></a>当其他界面不支持横屏时:</h3><p>这个解决方法比较容易</p>
-<p>在 <code>APPDelegate.h</code> 文件中增加属性：是否支持横屏</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/***  是否允许横屏的标记 */</span></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>,<span class="keyword">assign</span>)<span class="built_in">BOOL</span> allowRotation;</div></pre></td></tr></table></figure>
-<p>在 <code>APPDelegate.m</code> 文件中增加方法，控制全部不支持横屏</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">UIInterfaceOrientationMask</span>)application:(<span class="built_in">UIApplication</span> *)application supportedInterfaceOrientationsForWindow:(<span class="built_in">UIWindow</span> *)window &#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.allowRotation) &#123;</div><div class="line">        <span class="keyword">return</span>  <span class="built_in">UIInterfaceOrientationMaskAllButUpsideDown</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">UIInterfaceOrientationMaskPortrait</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这样在其他界面想要横屏的时候，我们只要控制 <code>allowRotation</code> 这个属性就可以控制其他界面进行横屏了。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//需在上面#import "AppDelegate.h"</span></div><div class="line">AppDelegate *appDelegate = (AppDelegate *)[[<span class="built_in">UIApplication</span> sharedApplication] delegate];</div><div class="line">appDelegate.allowRotation = <span class="literal">YES</span>;</div><div class="line"><span class="comment">//不让横屏的时候 appDelegate.allowRotation = NO;即可</span></div></pre></td></tr></table></figure>
-<h3 id="播放界面横屏"><a href="#播放界面横屏" class="headerlink" title="播放界面横屏"></a>播放界面横屏</h3><p>所以这里可以使用 <code>UIWindow</code> 的通知，就可以解决</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[[<span class="built_in">NSNotificationCenter</span> defaultCenter] addObserver:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(begainFullScreen) name:<span class="built_in">UIWindowDidBecomeVisibleNotification</span> object:<span class="literal">nil</span>];<span class="comment">//进入全屏</span></div><div class="line">[[<span class="built_in">NSNotificationCenter</span> defaultCenter] addObserver:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(endFullScreen) name:<span class="built_in">UIWindowDidBecomeHiddenNotification</span> object:<span class="literal">nil</span>];<span class="comment">//退出全屏</span></div></pre></td></tr></table></figure>
-<p>在退出全屏时，增加逻辑让其强制编程竖屏，这样当全屏播放的时候，点击 <code>down(&quot;完成&quot;)</code> 时，就会自动变成竖屏了。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 进入全屏</span></div><div class="line">-(<span class="keyword">void</span>)begainFullScreen</div><div class="line">&#123;</div><div class="line">    AppDelegate *appDelegate = (AppDelegate *)[[<span class="built_in">UIApplication</span> sharedApplication] delegate];</div><div class="line">    appDelegate.allowRotation = <span class="literal">YES</span>;</div><div class="line">&#125;</div><div class="line"><span class="comment">// 退出全屏</span></div><div class="line">-(<span class="keyword">void</span>)endFullScreen</div><div class="line">&#123;</div><div class="line">    AppDelegate *appDelegate = (AppDelegate *)[[<span class="built_in">UIApplication</span> sharedApplication] delegate];</div><div class="line">    appDelegate.allowRotation = <span class="literal">NO</span>;</div><div class="line">    </div><div class="line">    <span class="comment">//强制归正：</span></div><div class="line">    <span class="keyword">if</span> ([[<span class="built_in">UIDevice</span> currentDevice] respondsToSelector:<span class="keyword">@selector</span>(setOrientation:)]) &#123;</div><div class="line">        SEL selector = <span class="built_in">NSSelectorFromString</span>(<span class="string">@"setOrientation:"</span>);</div><div class="line">        <span class="built_in">NSInvocation</span> *invocation = [<span class="built_in">NSInvocation</span> invocationWithMethodSignature:[<span class="built_in">UIDevice</span> instanceMethodSignatureForSelector:selector]];</div><div class="line">        [invocation setSelector:selector];</div><div class="line">        [invocation setTarget:[<span class="built_in">UIDevice</span> currentDevice]];</div><div class="line">        <span class="keyword">int</span> val =<span class="built_in">UIInterfaceOrientationPortrait</span>;</div><div class="line">        [invocation setArgument:&amp;val atIndex:<span class="number">2</span>];</div><div class="line">        [invocation invoke];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>上面的两个方案已经足够解决只有部分界面需要支持横屏的问题了，亲测可用</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;有时我们的APP并没有适配横屏的需求，但是在个别视频播放界面，我们需要在播放视频的时候横屏，退出全屏的时候不能横屏，但是有时候并没有原生API并没有给出解决方案。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="iOS开发" scheme="http://yoursite.com/tags/iOS%E5%BC%80%E5%8F%91/"/>
-    
-      <category term="横屏解决方案" scheme="http://yoursite.com/tags/%E6%A8%AA%E5%B1%8F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
     
   </entry>
   
