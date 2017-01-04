@@ -1,17 +1,11 @@
 <!DOCTYPE html><html lang=""><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> iOS开发——Instruments工具调试 | Originalee的博客</title><meta name="description" content="iOS开发——Instruments工具调试 - Originalee"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.ico"><link rel="stylesheet" href="/css/casual.css"><link rel="stylesheet" href="/css/semantic.min.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="Originalee的博客"></head><body><div class="sidebar"><div class="ui vertical inverted menu"><div class="h100"></div><h3 class="ui inverted aligned icon header"><div class="content"><a href="/" class="title-link">ORIGINALEE的博客</a></div></h3><div class="h50"></div><div class="side-nav"><a href="/" target="_self" class="item">HOME<i class="icon home"></i></a><a href="/archives" target="_self" class="item">ARCHIVE<i class="icon archive"></i></a><a href="/about" target="_self" class="item">INFO<i class="icon info"></i></a><a href="/atom.xml" target="_self" class="item">RSS<i class="icon rss"></i></a></div><div class="item"><div class="ui inverted transparent icon input"><input type="text" placeholder="Search..." class="st-default-search-input"><i class="search icon"></i></div></div><div class="h50"></div></div><div class="h50 mq"><a class="ui teal big label"><i class="content icon"></i></a></div><div class="author-info"><a href="/" class="img-link"><img src="/avatar.png" class="author-photo ui tiny circular image"></a><h4 class="ui aligned icon header"><div class="content">Originalee</div></h4><p class="author-desc">爱打篮球的程序员|目前移动端爬坑中</p><div class="social-outer"><div class="social-inner"><a href="https://github.com/originalix" target="_blank" class="social-link"><i class="icon github"></i></a><a href="mailto:xiao.liunit@gmail.com" target="_self" class="social-link"><i class="icon mail"></i></a></div></div></div></div><div class="main"><div class="wrap"><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">iOS开发——Instruments工具调试</h1><div class="post-info"><div class="post-date"><h6 class="ui header"><i class="calendar icon"></i><div class="content">Oct 24, 2016</div></h6></div></div><div class="post-content"><p>随着项目的进行，APP的优化必须要尽早的展开了，所以最近自己在学习很多APP的调试技巧，今天我们就来说说Xcode为我们准备的自带的调试工具。</p>
 <p>代码性能是个避不开的话题。随着项目的扩大和功能的增多，没经过认真调试和优化的代码，要么任性地卡顿运行，要么低调地崩溃了之……结果呢，大家用着不高兴，开发者也不开心。</p>
 <p>本篇重点讨论一下 iOS性能测试中的启动测试、内存泄露测试、CPU测试。</p>
-<p>&lt;!--more--&gt;</p>
-<p>##1.启动测试
-测试工具：Instruments &gt; TimeProfile
-可在 appDelegate.m中加入一段代码，来进行测试：</p>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (void)testLaunch</div><div class="line">&#123;</div><div class="line">	for(int i = 0; i &lt; 100000;i++)&#123;</div><div class="line">		NSLog(@&quot;test&quot;);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>###1）获得启动时间
-APP启动之后，中止 TimeProfile，按住 option键在监控窗口中拖拽，选中监控区域中起始点到打开 APP后的峰谷，查看APP启动所需时间，如下图：
-<img src="http://img.blog.csdn.net/20150428175349386" alt="图1 在 TimeProfile中查看启动时间"></p>
-<p>###2）分析可优化空间
-首先，需要注意一下右侧栏中的几个给力的筛选项，如下图：
-<img src="http://img.blog.csdn.net/20150428180729277" alt="图2 TimeProfile右边栏"></p>
+<a id="more"></a>
+<p>##1.启动测试<br>测试工具：Instruments &gt; TimeProfile<br>可在 appDelegate.m中加入一段代码，来进行测试：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (void)testLaunch</div><div class="line">&#123;</div><div class="line">	for(int i = 0; i &lt; 100000;i++)&#123;</div><div class="line">		NSLog(@&quot;test&quot;);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>###1）获得启动时间<br>APP启动之后，中止 TimeProfile，按住 option键在监控窗口中拖拽，选中监控区域中起始点到打开 APP后的峰谷，查看APP启动所需时间，如下图：<br><img src="http://img.blog.csdn.net/20150428175349386" alt="图1 在 TimeProfile中查看启动时间"></p>
+<p>###2）分析可优化空间<br>首先，需要注意一下右侧栏中的几个给力的筛选项，如下图：<br><img src="http://img.blog.csdn.net/20150428180729277" alt="图2 TimeProfile右边栏"></p>
 <p>（注：我觉得非常常用的标记为『必选项』）</p>
 <blockquote>
 <ul>
@@ -21,38 +15,21 @@ APP启动之后，中止 TimeProfile，按住 option键在监控窗口中拖拽�
 <li>Top Functions //按耗时降序排列，『必选项』</li>
 </ul>
 </blockquote>
-<p>Running Time列中显示运行每个方法所耗费的时间，根据耗时和占比猜测是否有代码需要优化。双击中间主窗口中的方法名进入具体的代码行查看，耗时多的代码行有颜色标记，并显示占比。
-<img src="http://img.blog.csdn.net/20150428182138433" alt="图3 TimeProfile 代码行"></p>
+<p>Running Time列中显示运行每个方法所耗费的时间，根据耗时和占比猜测是否有代码需要优化。双击中间主窗口中的方法名进入具体的代码行查看，耗时多的代码行有颜色标记，并显示占比。<br><img src="http://img.blog.csdn.net/20150428182138433" alt="图3 TimeProfile 代码行"></p>
 <p>获取 APP启动时间非常简单，但分析哪些地方可以优化，则需要对代码足够了解。项目的启动时间没有一个特定的值，利用该方法可以提供一个缩小的检测范围，尽可能发现可被优化的代码。</p>
-<p>##2.内存泄露测试
-有两种方法可以采用，第一利用静态分析，第二使用Instruments工具集。
-###1）静态分析
-在 xcode中长按运行按钮&gt;Analyze，可启动代码静态分析。
-<img src="http://img.blog.csdn.net/20150428182542806" alt="启动静态分析"></p>
-<p><img src="http://img.blog.csdn.net/20150428191837926" alt="这里写图片描述">
-对于 MRC项目，静态分析是必要的，对于 ARC项目，静态分析作为可选项。
-这项检查只覆盖代码编译时可能存在的问题，但并不能覆盖代码运行时。这时，我们还需要结合动态分析工具。
-###2）动态分析
-工具: Allocations,Leaks</p>
-<h4>【Allocation】</h4>
-<p>Allocations组件监控对象调用了 alloc方法申请内存后的内存使用情况，可记录对象生命周期中内存引用计数的变化，当对象被正常释放后不再继续追踪。</p>
-<p>####【Leaks】
-Leaks监控内存泄露，一般和 Allocations一起使用，在检测到内存泄露后，通过 Allocations定位到具体的代码。发现问题时，监控图会显示红条。修改代码后，再次查看，如果红色消失则表示内存泄露被修复成功了。</p>
+<p>##2.内存泄露测试<br>有两种方法可以采用，第一利用静态分析，第二使用Instruments工具集。</p>
+<p>###1）静态分析<br>在 xcode中长按运行按钮&gt;Analyze，可启动代码静态分析。<br><img src="http://img.blog.csdn.net/20150428182542806" alt="启动静态分析"></p>
+<p><img src="http://img.blog.csdn.net/20150428191837926" alt="这里写图片描述"><br>对于 MRC项目，静态分析是必要的，对于 ARC项目，静态分析作为可选项。<br>这项检查只覆盖代码编译时可能存在的问题，但并不能覆盖代码运行时。这时，我们还需要结合动态分析工具。</p>
+<p>###2）动态分析<br>工具: Allocations,Leaks</p>
+<h4 id="【Allocation】"><a href="#【Allocation】" class="headerlink" title="【Allocation】"></a>【Allocation】</h4><p>Allocations组件监控对象调用了 alloc方法申请内存后的内存使用情况，可记录对象生命周期中内存引用计数的变化，当对象被正常释放后不再继续追踪。</p>
+<p>####【Leaks】<br>Leaks监控内存泄露，一般和 Allocations一起使用，在检测到内存泄露后，通过 Allocations定位到具体的代码。发现问题时，监控图会显示红条。修改代码后，再次查看，如果红色消失则表示内存泄露被修复成功了。</p>
 <p>但 Leaks可能会『假摔』，例如每次 APP启动后，都会显示几个红条，因此 Leaks的使用过程中也需要人工判断分析。</p>
-<p>步骤：
-a）运行Profile&gt;Allocations，启动 APP后实时查看 Allocations\Leaks图，若 Leaks中出现红条，则双击红条，切换到 Leaks视图；
-<img src="http://img.blog.csdn.net/20150430114811540" alt="这里写图片描述">
-b) 选择右侧栏查看 stack trace，点击黑色图标（非系统类），查看具体的代码实现，分析可能出现的问题，如下图：
-<img src="http://img.blog.csdn.net/20150430140252822" alt="这里写图片描述"></p>
+<p>步骤：<br>a）运行Profile&gt;Allocations，启动 APP后实时查看 Allocations\Leaks图，若 Leaks中出现红条，则双击红条，切换到 Leaks视图；<br><img src="http://img.blog.csdn.net/20150430114811540" alt="这里写图片描述"><br>b) 选择右侧栏查看 stack trace，点击黑色图标（非系统类），查看具体的代码实现，分析可能出现的问题，如下图：<br><img src="http://img.blog.csdn.net/20150430140252822" alt="这里写图片描述"></p>
 <p>例如，上面的代码中，每次初始化都会创建一个NSMutableArray 对象，可以优化为removeAllObject后重利用。</p>
-<p>###3）CPU等指标
-工具：Activity Monitor
-可监控 CPU和内存指标，并可对比多次监控的结果。</p>
-<p>步骤：
-a)profile&gt;Activity Monitor 启动 APP, 运行过程中option选择峰值查看 cpu和内存使用量。
-b)对比多次监控的结果，把最差情况作为最终结果；</p>
+<p>###3）CPU等指标<br>工具：Activity Monitor<br>可监控 CPU和内存指标，并可对比多次监控的结果。</p>
+<p>步骤：<br>a)profile&gt;Activity Monitor 启动 APP, 运行过程中option选择峰值查看 cpu和内存使用量。<br>b)对比多次监控的结果，把最差情况作为最终结果；</p>
 <p><img src="http://img.blog.csdn.net/20150430141211461" alt="ActivityMonitor"></p>
-</div></article></div></section><footer><div class="paginator"><a href="/2016/10/26/iOS开发——TDD、BDD方法以及Kiwi单元测试框架/" class="prev"><button class="ui button teal">上一篇</button></a><a href="/2016/10/20/iOS开发——FMDB的使用/" class="next"><button class="ui button teal">下一篇</button></a></div><div data-thread-key="2016/10/24/iOS开发——Instruments工具调试/" data-title="iOS开发——Instruments工具调试" data-url="http://yoursite.com/2016/10/24/iOS开发——Instruments工具调试/" class="ds-share"><div class="ds-share-inline"><ul class="ds-share-icons-16"><li data-toggle="ds-share-icons-more"><span class="ds-more">分享到：</span></li><li><a href="javascript:void(0);" data-service="weibo" class="ds-weibo">微博</a></li><li><a href="javascript:void(0);" data-service="qqt" class="ds-qqt">腾讯微博</a></li><li><a href="javascript:void(0);" data-service="wechat" class="ds-wechat">微信</a></li></ul></div></div><div data-thread-key="2016/10/24/iOS开发——Instruments工具调试/" data-title="iOS开发——Instruments工具调试" data-url="http://yoursite.com/2016/10/24/iOS开发——Instruments工具调试/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"originalee"};
+</div></article></div></section><footer><div class="paginator"><a href="/2016/10/26/iOS开发——TDD、BDD方法以及Kiwi单元测试框架/" class="prev"><button class="ui button teal">PREV</button></a><a href="/2016/10/20/iOS开发——FMDB的使用/" class="next"><button class="ui button teal">NEXT</button></a></div><div data-thread-key="2016/10/24/iOS开发——Instruments工具调试/" data-title="iOS开发——Instruments工具调试" data-url="http://yoursite.com/2016/10/24/iOS开发——Instruments工具调试/" class="ds-share"><div class="ds-share-inline"><ul class="ds-share-icons-16"><li data-toggle="ds-share-icons-more"><span class="ds-more">分享到：</span></li><li><a href="javascript:void(0);" data-service="weibo" class="ds-weibo">微博</a></li><li><a href="javascript:void(0);" data-service="qqt" class="ds-qqt">腾讯微博</a></li><li><a href="javascript:void(0);" data-service="wechat" class="ds-wechat">微信</a></li></ul></div></div><div data-thread-key="2016/10/24/iOS开发——Instruments工具调试/" data-title="iOS开发——Instruments工具调试" data-url="http://yoursite.com/2016/10/24/iOS开发——Instruments工具调试/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"originalee"};
 (function() {
   var ds = document.createElement('script');
   ds.type = 'text/javascript';ds.async = true;
