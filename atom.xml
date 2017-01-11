@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-01-06T09:15:26.000Z</updated>
+  <updated>2017-01-11T09:56:17.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,39 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>iOS漫谈——对于项目架构的思考</title>
+    <link href="http://yoursite.com/2017/01/11/iOS%E6%BC%AB%E8%B0%88%E2%80%94%E2%80%94%E5%AF%B9%E4%BA%8E%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84%E7%9A%84%E6%80%9D%E8%80%83/"/>
+    <id>http://yoursite.com/2017/01/11/iOS漫谈——对于项目架构的思考/</id>
+    <published>2017-01-11T09:55:29.000Z</published>
+    <updated>2017-01-11T09:56:17.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>又一次的版本更新上架，心情容不得片刻舒缓，新的迭代任务又明白的摆在桌面上。今年上半年自己琢磨完<code>ReactiveCocoa</code>之后，对手上了项目做了<code>MVVM</code>架构的尝试，当时自我感觉效果还不错，代码之间的关系确实变得清楚了，并且有更加多的机会去进行单元测试，但是在新的一年，回头再去思考自己当时的架构，依旧会发现很多的问题，例如虽然逻辑清晰，但是并没有完全解耦，一些界面任务的处理，依旧通过<code>RAC</code>返回到<code>View</code>层去处理。只是<code>Controller</code>更干净了，心里自己觉得舒服罢了。</p>
+<p>之后又经手了现在这个项目，在最近不断的工作不断的熟悉业务代码的同时，近日来对于架构方面的思考也不少。这个项目模块之间功能清晰，业务A和业务B之间耦合较少，但是在未来的日子里，公司又有可能新启动项目，不出意外会使用到跟当前项目相同的模块，而如何能节约时间，亦或是在当前项目上调优架构，是我最近思考的主题。</p>
+<a id="more"></a>
+<p>在了解体会了项目中越来越多的缺点之后，我的脑子里首先蹦出来的就是<strong>模块化开发</strong>这个概念，这个概念在脑子里成形之后，我阅读了大量的他人组件化开发的源码，从阿里大神刘坤的博客里再到蘑菇街的组件化之路，大家再做<code>iOS</code>组件化开发时，似乎都或多或少的受到了路由这个概念的影响，这个概念是在各个模块之间，或者每个页面之间都用<code>url</code>来进行跳转，具体的话可以去查看<code>JLRoute</code>这个框架，是一个把<code>URL</code>跳转使用的非常好的一个框架，很理想。</p>
+<p>但是我认为<code>URL</code>的路由概念虽好，但是在App启动时需要实例化各组件的模块，说白了就是有个类似注册各个模块的行为，而在组件化的过程中，注册<code>URL</code>并不是充分必要条件，会造成不必要的内存常驻，如果是注册<code>Class</code>，内存常驻会小一点，如果是注册实例，组件多了，常驻的内存也就更大了。</p>
+<p>上述是第一点原因，其二，我认为当前团队，当开发人员去切换到路由模式，学习成本过大，我并不像在之前的公司，在软件团队里是一个决策者，当前我只是一个普通的程序员，改良架构这种事情的推动力度不够大，所以暂时先抛开组件化开发的这个想法。</p>
+<p>其三，目前项目的时机未到，当前的项目还没有到相对完善的时候，迭代的压力也比较大，就目前的项目状况来看，似乎常规的开发模式还是可以沿用一段时间的，毕竟组件化开发的成效在小团队模式单项目的模式下不会体现的特别明显，反而团队越大，组件开发的必要性越强。并且当前团队在用<code>Swift</code>开发项目，如果希望最优的模块化开发，还是需要依赖到OC的<code>runtime</code>的。</p>
+<p>至于如何进行组件化开发，我这里也就不赘述了，网上优秀的团队博客说了很多，比如阿里念纪、微信阅读、蘑菇街、casatwy等等。每一个都对组件化有独到的见解，而我现在能谈得所有见解，只不过是站在这些巨人的肩膀上汲取到的一点皮毛，真正的感想，还需等实践之后再来谈。</p>
+<p>最近就打算写个小模块，把这个模块完全封装成一个组件，植入到App中。</p>
+<p>对于缓存和数据持久化，我也想到了一个似乎可以更好处理，更干净的方案，等到测试完成，再写个文章单独讲述吧。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;又一次的版本更新上架，心情容不得片刻舒缓，新的迭代任务又明白的摆在桌面上。今年上半年自己琢磨完&lt;code&gt;ReactiveCocoa&lt;/code&gt;之后，对手上了项目做了&lt;code&gt;MVVM&lt;/code&gt;架构的尝试，当时自我感觉效果还不错，代码之间的关系确实变得清楚了，并且有更加多的机会去进行单元测试，但是在新的一年，回头再去思考自己当时的架构，依旧会发现很多的问题，例如虽然逻辑清晰，但是并没有完全解耦，一些界面任务的处理，依旧通过&lt;code&gt;RAC&lt;/code&gt;返回到&lt;code&gt;View&lt;/code&gt;层去处理。只是&lt;code&gt;Controller&lt;/code&gt;更干净了，心里自己觉得舒服罢了。&lt;/p&gt;
+&lt;p&gt;之后又经手了现在这个项目，在最近不断的工作不断的熟悉业务代码的同时，近日来对于架构方面的思考也不少。这个项目模块之间功能清晰，业务A和业务B之间耦合较少，但是在未来的日子里，公司又有可能新启动项目，不出意外会使用到跟当前项目相同的模块，而如何能节约时间，亦或是在当前项目上调优架构，是我最近思考的主题。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="iOS开发" scheme="http://yoursite.com/tags/iOS%E5%BC%80%E5%8F%91/"/>
+    
+      <category term="架构思考" scheme="http://yoursite.com/tags/%E6%9E%B6%E6%9E%84%E6%80%9D%E8%80%83/"/>
+    
+  </entry>
   
   <entry>
     <title>使用Block提高代码可读性</title>
@@ -1087,103 +1120,6 @@
       <category term="Swift宏定义" scheme="http://yoursite.com/tags/Swift%E5%AE%8F%E5%AE%9A%E4%B9%89/"/>
     
       <category term="Swift常用知识" scheme="http://yoursite.com/tags/Swift%E5%B8%B8%E7%94%A8%E7%9F%A5%E8%AF%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iOS开发 —— Runtime</title>
-    <link href="http://yoursite.com/2016/07/20/iOS%E5%BC%80%E5%8F%91-%E2%80%94%E2%80%94-Runtime/"/>
-    <id>http://yoursite.com/2016/07/20/iOS开发-——-Runtime/</id>
-    <published>2016-07-20T07:04:01.000Z</published>
-    <updated>2016-08-05T02:57:16.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Runtime"><a href="#Runtime" class="headerlink" title="Runtime"></a>Runtime</h1><p>因为Objc是一门动态语言，所以它总是想办法把一些决定工作从编译连接推迟到运行时。也就是说只有编译器是不够的，还需要一个运行时系统 (runtime system) 来执行编译后的代码。这就是 Objective-C Runtime 系统存在的意义，它是整个Objc运行框架的一块基石。</p>
-<p>Runtime基本是用C和汇编写的，可见苹果为了动态系统的高效而作出的努力。你可以在这里下到苹果维护的开源代码。苹果和GNU各自维护一个开源的runtime版本，这两个版本之间都在努力的保持一致。</p>
-<a id="more"></a>
-<h1 id="消息传递"><a href="#消息传递" class="headerlink" title="消息传递"></a>消息传递</h1><p>在很多语言中，比如C，调用一个方法其实就是跳到内存中的某一点并开始执行一段代码。没有任何动态的特性，因为这在编译时就决定好了。而在Objective-C中，类似 <code>[Receiver message]</code> 这种语法并不会立即执行 <code>message</code> 这个方法的代码。 它是在运行时给 <code>Receiver</code> 发送一条叫 <code>message</code> 的消息。 这个消息，也许会被 <code>Receiver</code> 来处理，也许会被转发给另一个对象，或者没有对象处理最终被报错导致程序崩溃。</p>
-<p>事实上，在编译时，我们所编写的 <code>Objective-C</code> 函数都会被翻译成一个C语言的函数调用。 <code>- objc_msgSend(id self, SEL op, ...)</code>。</p>
-<p>比如我们创建一个类 名字叫 <code>Family</code>  创建一个数组来存储我们生成的 <code>Family</code> 对象。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Family *family = [[Family alloc] init];</div><div class="line"></div><div class="line"><span class="built_in">NSMutableArray</span> *array = [<span class="built_in">NSMutableArray</span> array];</div></pre></td></tr></table></figure>
-<p>接下去的两行代码是等价的</p>
-<figure class="highlight obj-c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[array insertObject:family atIndex:<span class="number">0</span>];</div><div class="line">    </div><div class="line">objc_msgSend(array, <span class="keyword">@selector</span>(insertObject:atIndex:), family, <span class="number">0</span>);</div></pre></td></tr></table></figure>
-<p>在调用 <code>objc_msgSend</code> 这个方法时，我们先要包含 <code>#import &lt;objc/message.h&gt;</code> 这个头文件。 而且在编写 <code>objc_msgSend</code> 这个函数时，先去 <code>TARGETS</code> - <code>Build settings</code> - <code>Apple LLVM 7.0</code> - <code>Preprocessing</code> - <code>Enable Strict Checking of objc_msgSend Calls</code> 设置为NO。</p>
-<p>从这里我们就能得到一个结论 <code>objc_msgSend</code> 能确定消息名以及参数数目。</p>
-<p>消息传递的关键藏于 <code>objc_object</code> 中的 <code>isa</code> 指针和 <code>objc_class</code> 中的 <code>class dispatch table</code> 。</p>
-<h1 id="消息传递的过程"><a href="#消息传递的过程" class="headerlink" title="消息传递的过程"></a>消息传递的过程</h1><p>在 <code>Objective-C 中</code>，类、对象和方法都是一个 C 的结构体，从 <code>objc/objc.h</code> 头文件中，我们可以找到他们的定义。</p>
-<p>具体的定义分析可以在我的另一篇 解释 <code>Runtime</code> 中各种方法、属性的定义中去学习。</p>
-<p>从这些定义中可以看出发送一条消息也就 <code>objc_msgSend</code> 做了什么事。举 <code>objc_msgSend(array, @selector(insertObject:atIndex:), family, 0);</code> 这个例子来说：</p>
-<ol>
-<li><p>首先，通过array的isa指针找到它的class；（从之前的代码 得知是 <code>NSMutableArray</code> 类）</p>
-</li>
-<li><p>在 <code>class</code> 的 <code>method list</code> 中找 <code>insertObject:atIndex:</code> ；</p>
-</li>
-<li><p>如果 <code>class</code> 中 没有找到 <code>insertObject:atIndex:</code> 这个方法, 继续前往它的 <code>SuperClass</code> 中去找。</p>
-</li>
-<li><p>一旦找到 <code>insertObject:atIndex:</code> 这个函数，就去执行它的实现IMP。 </p>
-</li>
-</ol>
-<p>但这种实现有个问题，效率低。但一个 <code>class</code> 往往只有 20% 的函数会被经常调用，可能占总调用次数的 80% 。每个消息都需要遍历一次 <code>objc_method_list</code> 并不合理。如果把经常被调用的函数缓存下来，那可以大大提高函数查询的效率。这也就是 <code>objc_class</code> 中另一个重要成员 <code>objc_cache</code> 做的事情 - 再找到 <code>insertObject:atIndex:</code> 之后，把 <code>insertObject:atIndex:</code> 的 <code>method_name</code> 作为  <strong>key</strong> ，<code>method_imp</code> 作为 <strong>value</strong> 给存起来。当再次收到 <code>insertObject:atIndex:</code> 消息的时候，可以直接在 <code>cache</code> 里找到，避免去遍历 <code>objc_method_list</code>。</p>
-<h1 id="方法的动态解析和转发"><a href="#方法的动态解析和转发" class="headerlink" title="方法的动态解析和转发"></a>方法的动态解析和转发</h1><p>如果在 <code>Family</code> 类中，我运行了类中没有存在的 <code>- familyName:</code> 这个方法时。 会出现怎样的结果， 相信接下来的语句 每一个做过开发人员都应该见过  <strong>unrecognized selector sent to instance 0x7ffee1e90f00</strong> 。</p>
-<p>但是在这个异常抛出之前，我们的 <code>Objective-C</code> 尝试过用三种方法来拯救我们的程序。</p>
-<ol>
-<li>Method resolution</li>
-<li>Fast forwarding</li>
-<li>Normal forwarding</li>
-</ol>
-<h1 id="Method-Resolution"><a href="#Method-Resolution" class="headerlink" title="Method Resolution"></a>Method Resolution</h1><p>首先，<strong>Runtime</strong> 会调用 <code>+ (BOOL)resolveInstanceMethod:</code> 这个方法，让你有机会提供一个函数实现。如果你添加了函数并返回YES，那么 <strong>Runtime</strong> 系统就会重新启动一次消息发送的过程。</p>
-<p>以刚才我想实现的 <code>- familyName:</code> 这个方法为例。</p>
-<p>我在 <code>Family</code> 类中这样重写了 <code>+ (BOOL)resolveInstanceMethod:</code>  方法:</p>
-<figure class="highlight obj-c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  里边有三个类型别名,在这儿先解释一下</div><div class="line"> </div><div class="line">      SEL selector的简写,俗称方法选择器,实质存储的是方法的名称</div><div class="line">      IMP implement的简写,俗称方法实现,看源码得知它就是一个函数指针</div><div class="line">      Method 对上述两者的一个包装结构.</div><div class="line"> *</div><div class="line"> */</div><div class="line"> </div><div class="line"><span class="keyword">void</span> lostInstanceMethod()&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"this InstanceMethod was lost"</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">+ (<span class="built_in">BOOL</span>) resolveInstanceMethod:(SEL)sel&#123;</div><div class="line">    <span class="keyword">if</span> (sel == <span class="keyword">@selector</span>(familyName:)) &#123;</div><div class="line">        class_addMethod([<span class="keyword">self</span> <span class="keyword">class</span>], sel, (IMP)lostInstanceMethod, <span class="literal">nil</span>);</div><div class="line">        <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> [<span class="keyword">super</span> resolveClassMethod:sel];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在当我执行了  <code>objc_msgSend(family, @selector(familyName:), nil);</code>  这句语句时，程序不出意外的打印出了 <code>lostInstanceMethod()</code><br>函数中的那句话。</p>
-<figure class="highlight obj-c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">    *  这里当我们运行了类中没有存在的 familyName 这个方法时.</div><div class="line">    *  Objective_C 运行时 会调用 + (BOOL)resolveInstanceMethod:(SEL)sel</div><div class="line">    */</div><div class="line">   </div><div class="line">   <span class="comment">/**</span></div><div class="line">    *  但是当我注销掉 + (BOOL)resolveInstanceMethod:(SEL)sel 这个方法后</div><div class="line">    *  编译通过之后程序崩溃 并不会进入 + (BOOL)resolveClassMethod:(SEL)sel 这个方法</div><div class="line">    */</div><div class="line">   </div><div class="line"> objc_msgSend(family, <span class="keyword">@selector</span>(familyName:), <span class="literal">nil</span>);</div></pre></td></tr></table></figure>
-<h1 id="Fast-forwarding"><a href="#Fast-forwarding" class="headerlink" title="Fast forwarding"></a>Fast forwarding</h1><p>如果resolve方法返回了NO， 运行时就会移到下一步， 消息转发 （Message Forwarding）。</p>
-<p>如果目标对象实现了 <code>- (id)forwardingTargetForSelector:(SEL)aSelector</code> ， <strong>Runtime</strong> 这时就会调用这个方法，给你把这个消息转发给其他对象的机会。</p>
-<p>如果这是我运行这样一行代码:</p>
-<figure class="highlight obj-c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">objc_msgSend(family, <span class="keyword">@selector</span>(familyHouse:), <span class="literal">nil</span>);</div></pre></td></tr></table></figure>
-<p>我的 <code>Family</code> 类中并没有实现 <code>- familyHouse:</code> 这个方法，所以如果运行下去肯定会抛出异常代码 。</p>
-<p>但是我新建了一个 <code>FamilyHouse</code> 类， 我在 <code>FamilyHouse</code> 这个类中实现了 <code>-familyHouse:</code> 。</p>
-<figure class="highlight obj-c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"FamilyHouse.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">FamilyHouse</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)familyHouse:(<span class="built_in">NSString</span> *)house&#123;</div><div class="line">      <span class="built_in">NSLog</span>(<span class="string">@"this is my house"</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-<p>并且 我回到 <code>Family</code> 类中，重写 <code>- (id)forwardingTargetForSelector:(SEL)aSelector</code> 方法 。 </p>
-<p>首先定义一个 <code>House</code> 的对象，并将它初始化，之后重写方法。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">id</span>)forwardingTargetForSelector:(SEL)aSelector&#123;</div><div class="line">    <span class="keyword">if</span> (aSelector == <span class="keyword">@selector</span>(familyHouse:)) &#123;</div><div class="line">        <span class="keyword">return</span> _house;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> [<span class="keyword">super</span> forwardingTargetForSelector:aSelector];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这时当 <strong>Runtime</strong>在当前类找不到 <code>- familyHose:</code> 这个方法时，就会调用 <code>- forwardingTargetForSelector:</code> 这个方法，将消息分发到属于 <code>FamilyHouse</code> 类的对象 <code>house</code> 去执行这个方法。 </p>
-<p>只要这个方法返回的不是 <code>nil</code> 和 <code>self</code>，整个消息发送的过程就会被重启，当然发送的对象会变成你返回的那个对象。否则，就会继续 <strong>Normal Fowarding</strong> 。</p>
-<p>这里叫 Fast ，只是为了区别下一步的转发机制。因为这一步不会创建任何新的对象，但下一步转发会创建一个 <code>NSInvocation</code> 对象，所以相对更快点。</p>
-<h1 id="Normal-forwarding"><a href="#Normal-forwarding" class="headerlink" title="Normal forwarding"></a>Normal forwarding</h1><p>这一步是 <strong>Runtime</strong>最后一次给你机会挽救程序。 首先它会发送 <code>- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector</code> 这个消息来获取你转发消息的对象的函数参数和方法名。 </p>
-<p>如果 <code>- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector</code> 这个方法返回  <code>nil</code> ，<strong>Runtime</strong> 则会抛出 <code>- (void)doesNotRecognizeSelector:(SEL)aSelector</code> 这个消息，当然，你的程序也就华丽丽的挂掉了。 </p>
-<p>如果是 <code>- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector</code> 返回了一个函数签名，  <strong>Runtime</strong> 就会创建一个 <code>NSInvocation</code> 对象，并执行 <code>- (void)forwardInvocation:(NSInvocation *)anInvocation</code> 这个方法，转发消息给目标对象。</p>
-<p>接着上面的 <strong>Fast forwarding</strong> 部分叙述，假如我在第二步，并没有重写 <code>- (id)forwardingTargetForSelector:(SEL)aSelector</code> 这个方法我该怎么在最后一步完成拯救。</p>
-<p>首先是完成函数签名这个方法,注意这里的 <code>_house</code> 对象，是我已经初始化好的 <code>FamilyHouse</code> 类的对象。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSMethodSignature</span> *)methodSignatureForSelector:(SEL)aSelector&#123;</div><div class="line">    <span class="built_in">NSMethodSignature</span>* signature = [<span class="keyword">super</span> methodSignatureForSelector:aSelector];</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (!signature)&#123;</div><div class="line">        signature = [_house methodSignatureForSelector:aSelector];</div><div class="line">    &#125;</div><div class="line">        <span class="keyword">return</span> signature;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这步完成后，就会返回给程序一个函数签名，<strong>Runtime</strong> 就会创建一个 <strong>NSInvocation</strong> 对象并发送 <code>-forwardInvocation:</code> 消息给目标对象。</p>
-<p><code>NSInvocation</code> 实际上就是对一个消息的描述 ，包括方法名以及参数等信息。所以我们可以在 <code>- (void)forwardInvocation:(NSInvocation *)anInvocation</code> 里修改传进来的 <code>NSINvocation</code> 对象， 然后发送  <code>-invokeWithTarget:</code>  的消息给他，传进去一个新的对象</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)forwardInvocation:(<span class="built_in">NSInvocation</span> *)anInvocation&#123;</div><div class="line">    SEL sel = anInvocation.selector;</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> ([_house respondsToSelector:sel]) &#123;</div><div class="line">        [anInvocation invokeWithTarget:_house];</div><div class="line">    &#125;<span class="keyword">else</span> &#123;</div><div class="line">        [<span class="keyword">self</span> doesNotRecognizeSelector:sel];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这个代码的运行结果 就跟之前一样了。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p><code>Objective-C</code> 中给一个对象发送消息会经过以下几个步骤：</p>
-<ol>
-<li><p>在对象类的 <code>dispatch table</code> 中尝试找到该消息。如果找到了，跳到相应的函数IMP去执行实现代码；</p>
-</li>
-<li><p>如果没有找到，<strong>Runtime</strong> 会执行 <code>+ (BOOL)resolveInstanceMethod:(SEL)sel</code> 方法，尝试着去 <strong>resolve</strong>这个方法。</p>
-</li>
-<li><p>如果 <strong>resolve</strong> 方法返回 <strong>NO</strong>，<strong>Runtime</strong> 就发送 <code>-forwardingTargetForSelector:</code> 允许你把这个消息转发给另一个对象；</p>
-</li>
-<li><p>如果没有新的目标对象返回， <strong>Runtime</strong> 就会发送 <code>-methodSignatureForSelector:</code> 和 <code>-forwardInvocation:</code> 消息。你可以发送 <code>-invokeWithTarget:</code> 消息来手动转发消息或者发送 <code>-doesNotRecognizeSelector:</code> 抛出异常。</p>
-</li>
-</ol>
-<p>利用 <strong>Objective-C</strong> 的 <strong>Runtime</strong> 特性，我们可以自己来对语言进行扩展，解决项目开发中的一些设计和技术问题。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;Runtime&quot;&gt;&lt;a href=&quot;#Runtime&quot; class=&quot;headerlink&quot; title=&quot;Runtime&quot;&gt;&lt;/a&gt;Runtime&lt;/h1&gt;&lt;p&gt;因为Objc是一门动态语言，所以它总是想办法把一些决定工作从编译连接推迟到运行时。也就是说只有编译器是不够的，还需要一个运行时系统 (runtime system) 来执行编译后的代码。这就是 Objective-C Runtime 系统存在的意义，它是整个Objc运行框架的一块基石。&lt;/p&gt;
-&lt;p&gt;Runtime基本是用C和汇编写的，可见苹果为了动态系统的高效而作出的努力。你可以在这里下到苹果维护的开源代码。苹果和GNU各自维护一个开源的runtime版本，这两个版本之间都在努力的保持一致。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="iOS开发" scheme="http://yoursite.com/tags/iOS%E5%BC%80%E5%8F%91/"/>
-    
-      <category term="Runtime" scheme="http://yoursite.com/tags/Runtime/"/>
     
   </entry>
   
