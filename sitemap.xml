@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2017/01/18/hexo%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
+    
+    <lastmod>2017-01-18T08:01:54.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2017/01/17/iOS%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94%E5%9C%A8CocoaPods%E5%8F%91%E5%B8%83%E4%B8%AA%E4%BA%BA%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/</loc>
     
     <lastmod>2017-01-17T09:17:10.000Z</lastmod>
