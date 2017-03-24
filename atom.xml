@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-03-19T08:31:27.000Z</updated>
+  <updated>2017-03-24T08:31:54.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,52 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>《代码整洁之道》读书小结</title>
+    <link href="http://yoursite.com/2017/03/24/%E3%80%8A%E4%BB%A3%E7%A0%81%E6%95%B4%E6%B4%81%E4%B9%8B%E9%81%93%E3%80%8B%E8%AF%BB%E4%B9%A6%E5%B0%8F%E7%BB%93/"/>
+    <id>http://yoursite.com/2017/03/24/《代码整洁之道》读书小结/</id>
+    <published>2017-03-24T12:29:05.000Z</published>
+    <updated>2017-03-24T08:31:54.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近晚间的加班暂时暂停了，大概已经整整一个月每天焦头烂额的写着业务代码，被各种逻辑搞的整个人都不大好了，好在是写的差不多了。</p>
+<p>每当写了很多业务代码之后，我都会停下来反思一个问题，你的代码写的干净么，有需要重构的地方么。而这一次，因为一些临时性的需求变更，我自认为我写了一部分脏代码，这部分代码恰恰是bug的高发地段，而且也可能会带来后期维护的困难。那么如何来重构这部分代码呢？</p>
+<p>在我写下这部分脏代码之前，我自认为也是用了一些能够用上的设计模式，但是随着临时性的需求变更不断增加，有时候贪图省事直接在原有代码的基础上修改了事，很明显这违反了开放闭合原则。</p>
+<p>回到正题上来，回顾《clean code》这本书，正是帮助自己在反思的同时做好知识的回顾梳理，并且能够在重构中把学到的知识学以致用。虽然现在我还没有全部看完，但是也是可以从已经完成阅读的部分总结一点心得。</p>
+<p>第一次看这本书是在几年前，可以说这本书对我编写代码的风格形成了很深的影响，而初读此书时也有种醍醐灌顶的感觉，哦，原来代码还可以这么写。</p>
+<a id="more"></a>
+<h1 id="从命名谈起"><a href="#从命名谈起" class="headerlink" title="从命名谈起"></a>从命名谈起</h1><p>当我们在写代码时，面临的第一个问题大概就是命名，你想创建一个类，需要命名；写函数，需要命名；甚至初始化一个变量，也需要给变量命名。但是一个好的命名和差的命名，可是有着天差地别的区别的。好的命名，让人扫一眼，就大概知道这个函数的作用是什么，甚至连大体会输出什么都知道，提升了代码的可读性。而差的命名会极大降低代码的可读性，让下一个阅读你代码的人，花费大量的时间。举个栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">privite func syncDataWhenConnect() &#123;</div><div class="line">    //doSomething</div><div class="line">&#125;</div><div class="line"></div><div class="line">privite func syncData() &#123;</div><div class="line">    //doSomething</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上下两个函数，很明显你看完第一个，会更明白这个函数的目的是什么，所以建议在书写函数的时候，尽量的使用动词，来准确的秒数函数的目的。</p>
+<p>而给类命名则正好相反，再举个栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">AddressManager.php</div><div class="line">MacAddress.php</div></pre></td></tr></table></figure>
+<p>上下两个类名，这里我写的有点争议，其实在不同的语境里两个似乎都可以完成可读性的使命，但是假设一个程序，有存储用户地址的类，也有外接设备mac地址的类，哪个更易懂？所以类名的命名，尽量使用名词，并且要求简单直接，是什么就是什么，尽量少用动词，动词的活，让我们所在的文件夹，让命名空间们去阐述吧。</p>
+<p>虽然我上面反复提及了名字简短，但是只有很少比例的命名能又短又明确的阐述命名意义，所以如果是为了增加可读性，长命名也不是完全不可取，虽然很多人黑<strong>Objective-C</strong>命名是又臭又长，但是这种命名带来的便利就是你扫一眼便知道函数要完成的目的，以及需要的参数。长短之别，自己把握吧。</p>
+<h1 id="从简短代码谈起"><a href="#从简短代码谈起" class="headerlink" title="从简短代码谈起"></a>从简短代码谈起</h1><p>编程界的那帮金字塔尖的大牛们一致认为，函数是越短越好，如果实在控制不住，请不要超过20行，如果不小心超过了，那么你可以考虑拆分你的函数了。</p>
+<p>其实每次我去反思这点的时候，我觉得可有意思了，讲道理的说，我有可能做不到，为什么呢，因为水平不够，对语言的理解不够透彻，有很多更深层的语言特性，还不能熟练应用。所以只能在能够考虑到的范围内，尽量缩短自己的函数长度，向大牛们看齐。</p>
+<p>这次的手环模块，因为有很多蓝牙的连接状态判断，写了很多Swich ifelse等判断，而ifelse因为业务逻辑复杂，还在初次编写的时候夹杂了很多嵌套，所以需要重构的地方还是很多的。</p>
+<p>我们写代码，开发时间算20%，那么剩下的80%就是维护时间，什么样的函数易于修改，当然是短的函数，每次改动都能做到心中有数。</p>
+<p>而提到了维护，那么测试又不能不提，很可惜，我还没有看全测试，平时的工作中因为很多是移动端的编码，view层占的比重很大，有时候疏于测试，好好理解，好好实践，再来写下一篇心得吧。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近晚间的加班暂时暂停了，大概已经整整一个月每天焦头烂额的写着业务代码，被各种逻辑搞的整个人都不大好了，好在是写的差不多了。&lt;/p&gt;
+&lt;p&gt;每当写了很多业务代码之后，我都会停下来反思一个问题，你的代码写的干净么，有需要重构的地方么。而这一次，因为一些临时性的需求变更，我自认为我写了一部分脏代码，这部分代码恰恰是bug的高发地段，而且也可能会带来后期维护的困难。那么如何来重构这部分代码呢？&lt;/p&gt;
+&lt;p&gt;在我写下这部分脏代码之前，我自认为也是用了一些能够用上的设计模式，但是随着临时性的需求变更不断增加，有时候贪图省事直接在原有代码的基础上修改了事，很明显这违反了开放闭合原则。&lt;/p&gt;
+&lt;p&gt;回到正题上来，回顾《clean code》这本书，正是帮助自己在反思的同时做好知识的回顾梳理，并且能够在重构中把学到的知识学以致用。虽然现在我还没有全部看完，但是也是可以从已经完成阅读的部分总结一点心得。&lt;/p&gt;
+&lt;p&gt;第一次看这本书是在几年前，可以说这本书对我编写代码的风格形成了很深的影响，而初读此书时也有种醍醐灌顶的感觉，哦，原来代码还可以这么写。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="编码思考" scheme="http://yoursite.com/tags/%E7%BC%96%E7%A0%81%E6%80%9D%E8%80%83/"/>
+    
+      <category term="代码风格" scheme="http://yoursite.com/tags/%E4%BB%A3%E7%A0%81%E9%A3%8E%E6%A0%BC/"/>
+    
+      <category term="clean code" scheme="http://yoursite.com/tags/clean-code/"/>
+    
+  </entry>
   
   <entry>
     <title>在云服务器上部署Laravel</title>
@@ -1137,47 +1183,6 @@
       <category term="iOS开发" scheme="http://yoursite.com/tags/iOS%E5%BC%80%E5%8F%91/"/>
     
       <category term="Debug" scheme="http://yoursite.com/tags/Debug/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iOS开发——UINavigationBar中踩过的坑</title>
-    <link href="http://yoursite.com/2016/10/08/iOS%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94UINavigationBar%E4%B8%AD%E8%B8%A9%E8%BF%87%E7%9A%84%E5%9D%91/"/>
-    <id>http://yoursite.com/2016/10/08/iOS开发——UINavigationBar中踩过的坑/</id>
-    <published>2016-10-08T07:09:44.000Z</published>
-    <updated>2016-10-08T07:10:50.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>这段时间的一直在忙于编码，加上国庆假期等等时间，又有很长时间没有写过博客了。</p>
-<p>自从升级了Xcode8，以及在做iOS10的适配工作中，我发现在NavigationBar这个控件中，有了一个小小的坑。</p>
-<p>因为在iOS7之后，NavigationBar之后，默认有一条1px的细线，这条细线怎么去，我在这里就不赘述了，因为谷歌上以及StackOverflow上有太多的方法去除这条细线。但是我这次发现，在我升级到iOS10之后，iOS10的设备中虽然使用了以前的方法，但是还是出现了这个细线，但是iOS10以下的设备这条细线还是不存在的。</p>
-<a id="more"></a>
-<p>于是我自己得出了这么个结论，之前去除NavigationBar的这条细线的方法失效了（这里并不是说所有方法失效，至少我使用的方法是失效的），那么在发现自己有这个问题的时候，不妨可以来换一种方法实现隐藏NavigationBar底下的这条细线。</p>
-<p>我把我的新方法，写成了Category，这里直接贴代码出来吧。</p>
-<p>头文件中的方法声明</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * NavigationBar底部隐藏1px的线</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)lix_hideBottomHairline;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * NavigationBar底部显示1px的线</div><div class="line"> */</div><div class="line">- (<span class="keyword">void</span>)lix_showBottomHairline;</div></pre></td></tr></table></figure>
-<p>方法的实现</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)lix_hideBottomHairline &#123;</div><div class="line">    <span class="built_in">UIImageView</span> *navBarHairlineImageView = [<span class="keyword">self</span> findHairlineImageViewUnder:<span class="keyword">self</span>];</div><div class="line">    navBarHairlineImageView.hidden = <span class="literal">YES</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)lix_showBottomHairline &#123;</div><div class="line">    <span class="comment">// Show 1px hairline of translucent nav bar</span></div><div class="line">    <span class="built_in">UIImageView</span> *navBarHairlineImageView = [<span class="keyword">self</span> findHairlineImageViewUnder:<span class="keyword">self</span>];</div><div class="line">    navBarHairlineImageView.hidden = <span class="literal">NO</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="built_in">UIImageView</span> *)findHairlineImageViewUnder:(<span class="built_in">UIView</span> *)view &#123;</div><div class="line">    <span class="keyword">if</span> ([view isKindOfClass:<span class="built_in">UIImageView</span>.class] &amp;&amp; view.bounds.size.height &lt;= <span class="number">1.0</span>) &#123;</div><div class="line">        <span class="keyword">return</span> (<span class="built_in">UIImageView</span> *)view;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> (<span class="built_in">UIView</span> *subview <span class="keyword">in</span> view.subviews) &#123;</div><div class="line">        <span class="built_in">UIImageView</span> *imageView = [<span class="keyword">self</span> findHairlineImageViewUnder:subview];</div><div class="line">        <span class="keyword">if</span> (imageView) &#123;</div><div class="line">            <span class="keyword">return</span> imageView;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="literal">nil</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>简简单单，就可以随意切换NavigationBar底部线条的隐藏和显示，这样的代码可扩展性更好。</p>
-<p>既然讲到这里了，那就干脆把NavigationBar如何变成透明的这点也讲完好了。</p>
-<p>有时候，我们希望形成一个透明的NavigationBar，而不是像系统一样存在一个毛玻璃的效果，所以这时候我们应该如下设置NavigationBar</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">- (<span class="keyword">void</span>)lix_makeTransparent &#123;</div><div class="line">    [<span class="keyword">self</span> setTranslucent:<span class="literal">YES</span>];</div><div class="line">    [<span class="keyword">self</span> setBackgroundImage:[[<span class="built_in">UIImage</span> alloc] init] forBarMetrics:<span class="built_in">UIBarMetricsDefault</span>];</div><div class="line">    <span class="keyword">self</span>.backgroundColor = [<span class="built_in">UIColor</span> clearColor];</div><div class="line">    <span class="keyword">self</span>.shadowImage = [<span class="built_in">UIImage</span> new];    <span class="comment">// Hides the hairline</span></div><div class="line">    [<span class="keyword">self</span> lix_hideBottomHairline];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>如果要恢复默认，则如下设置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (void)lix_makeDefault &#123;</div><div class="line">    [self setTranslucent:YES];</div><div class="line">    [self setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];</div><div class="line">    self.backgroundColor = nil;</div><div class="line">    self.shadowImage = nil;    // Hides the hairline</div><div class="line">    [self lix_showBottomHairline];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这里就组成了整个NavigationBar的category，希望大家能在自己的项目中灵活运用。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;这段时间的一直在忙于编码，加上国庆假期等等时间，又有很长时间没有写过博客了。&lt;/p&gt;
-&lt;p&gt;自从升级了Xcode8，以及在做iOS10的适配工作中，我发现在NavigationBar这个控件中，有了一个小小的坑。&lt;/p&gt;
-&lt;p&gt;因为在iOS7之后，NavigationBar之后，默认有一条1px的细线，这条细线怎么去，我在这里就不赘述了，因为谷歌上以及StackOverflow上有太多的方法去除这条细线。但是我这次发现，在我升级到iOS10之后，iOS10的设备中虽然使用了以前的方法，但是还是出现了这个细线，但是iOS10以下的设备这条细线还是不存在的。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="iOS开发" scheme="http://yoursite.com/tags/iOS%E5%BC%80%E5%8F%91/"/>
-    
-      <category term="UINavigationBar" scheme="http://yoursite.com/tags/UINavigationBar/"/>
     
   </entry>
   
