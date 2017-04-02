@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-04-02T11:04:46.000Z</updated>
+  <updated>2017-04-02T11:06:25.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,13 +20,14 @@
     <link href="http://yoursite.com/2017/04/02/%E3%80%8AClean-Code%E3%80%8B-%E8%AF%BB%E4%B9%A6%E5%B0%8F%E8%8A%82%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
     <id>http://yoursite.com/2017/04/02/《Clean-Code》-读书小节（二）/</id>
     <published>2017-04-02T11:03:40.000Z</published>
-    <updated>2017-04-02T11:04:46.000Z</updated>
+    <updated>2017-04-02T11:06:25.000Z</updated>
     
     <content type="html"><![CDATA[<p>之前在看了《Clean Code》这本书的前两章时，就写下了第一篇读书小节，而随着读书的深入，便决定再总结一下后面一部分的读书心得。</p>
 <h1 id="那些多余的注释"><a href="#那些多余的注释" class="headerlink" title="那些多余的注释"></a>那些多余的注释</h1><p>相信每一个程序员都经历过一个坑，那就是去阅读甚至修改没有注释的代码。如果这些代码风格糟糕，命名不遵循规则，毫无疑问这是一段你永远都不想回忆的时光，而若是这些代码命名准确，设计模式使用的恰到好处，函数拆分合理，说不定你有一种怎么读别人的代码比回顾我自己写的代码还清晰的错觉。</p>
 <p>是的，毫无疑问我一直是代码是最好的注释这个说法的拥护者之一。但是，这里有个前提，就是你必须有能力写出优秀的代码，你才有资格去不写注释。我们要一直明白一个问题，我们的代码写出来是为了给别人看的，而不是仅仅给自己看的，如果你的团队有严谨的<strong>Code Review</strong>那你好意思写出脏乱不堪的代码被投影仪放到幕布上给所有部门同事看么？对于一个新手程序员来说，请老老实实的写好每一个关键函数的注释，也请在修改函数的时候，不吝时间的修改对应的注释。若是项目的目的是为了公开API给第三方开发者使用，那么请在开放api上写好注释，这是应该完善的工作。</p>
 <p>而上述说的类型您都不是，那么我想该强调一下谈这个话题的主题了，去除那些多余的注释吧。有时候，在一些明显目的的函数上，加注释，会给阅读你代码的开发者一种错觉，你的水平很低，不足以理解代码，所以需要在简单的语句上加上注释。打个比方，你是我的面试官，有一道面试题，我在写完之后交给你，你看到的是如下格式的面试题：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$arr = $User-&gt;where($where)-&gt;find(); <span class="comment">// 读取数据</span></div><div class="line"></div><div class="line">$list = [];</div><div class="line"><span class="keyword">foreach</span>($arr <span class="keyword">as</span> $key =&gt; $val) &#123; <span class="comment">// 遍历数组</span></div><div class="line">  $list[$key] = [</div><div class="line">    <span class="string">'name'</span> =&gt; $val[<span class="string">'name'</span>],</div><div class="line">    <span class="string">'age'</span> =&gt; $val[<span class="string">'age'</span>],</div><div class="line">  ];</div><div class="line">&#125;</div><div class="line"></div><div class="line">$list[<span class="string">'count'</span>] = count($arr); <span class="comment">// 其他属性</span></div><div class="line"></div><div class="line"><span class="keyword">echo</span> json_encode($list); <span class="comment">// 输出 json</span></div></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>这是随手找的一个php的栗子，显而易见他不足以成为一道面试题，但是假设您今天就问我这道题，如何输出一串json格式的数据。我提交了这样一段代码给您看，那么您来体会下你看到这样一段代码的心情。不知道你会不会觉得我是认为您水平不够，才写这样的代码给你看，难道读取数据和遍历数组都需要写一个注释么？所以，请把那些自以为能让代码很易懂的注释去掉吧。大胆的去掉，假设你去了这些注释，我相信这段代码依然会一眼就明白它将执行什么任务。</p>
 <p>其实最不应该随意加注释的原因是，我们往往勤于修改代码，而疏于及时变更注释。扪心自问一下，当有个紧急bug需要你修复的时候，你匆匆开电脑修改好了bug，会顺便把注释修改了么？所以，注释有时候是带有欺骗性质的，尤其是当版本迭代的越来越频繁的时候，注释的时效性就越来越差。往往会误导你理解代码。而永远不会欺骗你的，就是代码。</p>
 <h1 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h1><p>今天的格式我们不去讨论变量名、函数名以及缩进大小写等等代码风格的范畴，我们就来讨论一个很小的点——函数摆放的位置。</p>
@@ -37,13 +38,16 @@
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">struct</span> <span class="title">CGPoint</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">var</span> x: <span class="type">CGFloat</span></div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">var</span> y: <span class="type">CGFloat</span></div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">init</span>()</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">init</span>(x: <span class="type">CGFloat</span>, y: <span class="type">CGFloat</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这是Swift对于<code>CGPoint</code>这个结构体的定义，我们平时在使用<code>CGPoint</code>的过程中，直接使用构造器方法创建一个CGPoint实例。而这里对于x,y这两个属性是直接暴露的。而这也是我们众所周知的平面坐标系，所以适当的暴露你的数据结构换取可读性也是可取的。</p>
 <p>面向对象，和过程式编程本是一个冲突的思想，作为一个有思想的程序员，需要做出选择，目的是为了写出可读性更好的代码。</p>
-<p>继续看书了，下次再聊。</p>
+<p>继续看书了，下次再聊，希望可以评论交流对于编码的思考。</p>
 ]]></content>
     
     <summary type="html">
     
       &lt;p&gt;之前在看了《Clean Code》这本书的前两章时，就写下了第一篇读书小节，而随着读书的深入，便决定再总结一下后面一部分的读书心得。&lt;/p&gt;
-&lt;h1 id=&quot;那些多余的注释&quot;&gt;&lt;a href=&quot;#那些多余的注释&quot; class=&quot;headerlink&quot; title=&quot;那些多余
+&lt;h1 id=&quot;那些多余的注释&quot;&gt;&lt;a href=&quot;#那些多余的注释&quot; class=&quot;headerlink&quot; title=&quot;那些多余的注释&quot;&gt;&lt;/a&gt;那些多余的注释&lt;/h1&gt;&lt;p&gt;相信每一个程序员都经历过一个坑，那就是去阅读甚至修改没有注释的代码。如果这些代码风格糟糕，命名不遵循规则，毫无疑问这是一段你永远都不想回忆的时光，而若是这些代码命名准确，设计模式使用的恰到好处，函数拆分合理，说不定你有一种怎么读别人的代码比回顾我自己写的代码还清晰的错觉。&lt;/p&gt;
+&lt;p&gt;是的，毫无疑问我一直是代码是最好的注释这个说法的拥护者之一。但是，这里有个前提，就是你必须有能力写出优秀的代码，你才有资格去不写注释。我们要一直明白一个问题，我们的代码写出来是为了给别人看的，而不是仅仅给自己看的，如果你的团队有严谨的&lt;strong&gt;Code Review&lt;/strong&gt;那你好意思写出脏乱不堪的代码被投影仪放到幕布上给所有部门同事看么？对于一个新手程序员来说，请老老实实的写好每一个关键函数的注释，也请在修改函数的时候，不吝时间的修改对应的注释。若是项目的目的是为了公开API给第三方开发者使用，那么请在开放api上写好注释，这是应该完善的工作。&lt;/p&gt;
+&lt;p&gt;而上述说的类型您都不是，那么我想该强调一下谈这个话题的主题了，去除那些多余的注释吧。有时候，在一些明显目的的函数上，加注释，会给阅读你代码的开发者一种错觉，你的水平很低，不足以理解代码，所以需要在简单的语句上加上注释。打个比方，你是我的面试官，有一道面试题，我在写完之后交给你，你看到的是如下格式的面试题：&lt;/p&gt;
+&lt;figure class=&quot;highlight php&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;$arr = $User-&amp;gt;where($where)-&amp;gt;find(); &lt;span class=&quot;comment&quot;&gt;// 读取数据&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;$list = [];&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;foreach&lt;/span&gt;($arr &lt;span class=&quot;keyword&quot;&gt;as&lt;/span&gt; $key =&amp;gt; $val) &amp;#123; &lt;span class=&quot;comment&quot;&gt;// 遍历数组&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  $list[$key] = [&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;string&quot;&gt;&#39;name&#39;&lt;/span&gt; =&amp;gt; $val[&lt;span class=&quot;string&quot;&gt;&#39;name&#39;&lt;/span&gt;],&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;string&quot;&gt;&#39;age&#39;&lt;/span&gt; =&amp;gt; $val[&lt;span class=&quot;string&quot;&gt;&#39;age&#39;&lt;/span&gt;],&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  ];&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;$list[&lt;span class=&quot;string&quot;&gt;&#39;count&#39;&lt;/span&gt;] = count($arr); &lt;span class=&quot;comment&quot;&gt;// 其他属性&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;echo&lt;/span&gt; json_encode($list); &lt;span class=&quot;comment&quot;&gt;// 输出 json&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
     
     </summary>
     
