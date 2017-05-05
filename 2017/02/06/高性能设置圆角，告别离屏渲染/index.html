@@ -1,54 +1,41 @@
 <!DOCTYPE html><html lang=""><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 高性能设置圆角，告别离屏渲染 | Originalee的博客</title><meta name="description" content="高性能设置圆角，告别离屏渲染 - Originalee"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.ico"><link rel="stylesheet" href="/css/casual.css"><link rel="stylesheet" href="/css/semantic.min.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="Originalee的博客"></head><body><div class="sidebar"><div class="ui vertical inverted menu"><div class="h100"></div><h3 class="ui inverted aligned icon header"><div class="content"><a href="/" class="title-link">ORIGINALEE的博客</a></div></h3><div class="h50"></div><div class="side-nav"><a href="/" target="_self" class="item">HOME<i class="icon home"></i></a><a href="/archives" target="_self" class="item">ARCHIVE<i class="icon archive"></i></a><a href="/about" target="_self" class="item">INFO<i class="icon info"></i></a><a href="/atom.xml" target="_self" class="item">RSS<i class="icon rss"></i></a></div><div class="item"><div class="ui inverted transparent icon input"><input type="text" placeholder="Search..." class="st-default-search-input"><i class="search icon"></i></div></div><div class="h50"></div></div><div class="h50 mq"><a class="ui teal big label"><i class="content icon"></i></a></div><div class="author-info"><a href="/" class="img-link"><img src="/avatar.png" class="author-photo ui tiny circular image"></a><h4 class="ui aligned icon header"><div class="content">Originalee</div></h4><p class="author-desc">爱打篮球的程序员|目前移动端爬坑中</p><div class="social-outer"><div class="social-inner"><a href="https://github.com/originalix" target="_blank" class="social-link"><i class="icon github"></i></a><a href="mailto:xiao.liunit@gmail.com" target="_self" class="social-link"><i class="icon mail"></i></a></div></div></div></div><div class="main"><div class="wrap"><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">高性能设置圆角，告别离屏渲染</h1><div class="post-info"><div class="post-date"><h6 class="ui header"><i class="calendar icon"></i><div class="content">Feb 6, 2017</div></h6></div></div><div class="post-content"><p>今天来写一个老生常谈的话题，也是一个面试的高频问题，我也在面试时不止一次被问到过这个问题——如何高性能的设置圆角。就用他作为2017年春节上班之后的第一篇文章。</p>
-<h1>起因</h1>
-<p>在谈及圆角这个话题之前，我们必须先知道系统的<code>API</code>是怎样去简单方便的设置圆角的。以一个<code>imageView</code>控件来举例。</p>
-<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">imageView.layer.cornerRadius = <span class="built_in">CGFloat</span>(<span class="number">10</span>);</div></pre></td></tr></table></figure></p>
-<p>&lt;!--more--&gt;</p>
+<h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>在谈及圆角这个话题之前，我们必须先知道系统的<code>API</code>是怎样去简单方便的设置圆角的。以一个<code>imageView</code>控件来举例。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">imageView.layer.cornerRadius = <span class="built_in">CGFloat</span>(<span class="number">10</span>);</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>简单粗暴，就能设置圆角。而在这里的一行代码，必须为它洗白一件事情，设置圆角的这行代码，本身并不会带来任何的性能损耗。如果诸位看官看到此处不相信，大可打开<code>Instruments</code>用<code>Core Animation</code>来试试看，你就会发现既没有<code>Off-Screen Render</code>,也不会出现掉帧的情况。至于使用<code>Instruments</code>来对<code>UIKit</code>进行分析调试，到时候再写一篇文章来详解好了。</p>
 <p>但是，如果你给一个<code>UILabel</code>也使用了上面的一行代码，你会发现这个<code>UILabel</code>并不会有任何的变化，可是我们确实实实在在的为它设置了圆角属性。也就是说，很多时候这个属性对于内部还有子视图的控件是无能为力的。所以很多时候，我们会这么来设置圆角。</p>
-<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">imageView.layer.cornerRadius = <span class="built_in">CGFloat</span>(<span class="number">10</span>);</div><div class="line">imageView.layer.masksToBounds = <span class="literal">YES</span>;</div></pre></td></tr></table></figure></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">imageView.layer.cornerRadius = <span class="built_in">CGFloat</span>(<span class="number">10</span>);</div><div class="line">imageView.layer.masksToBounds = <span class="literal">YES</span>;</div></pre></td></tr></table></figure>
 <p>这时候咱们再打开<code>Instruments</code>去观察，恶心的离屏渲染如约而至。</p>
 <p>这里我在稍微赘述一下离屏渲染的概念，什么是离屏渲染呢？</p>
 <blockquote>
 <p>讨论造成离屏渲染的原因之前，先说明什么是离屏渲染：离屏渲染指的是在图像在绘制到当前屏幕前,需要先进行一次渲染,之后才绘制到当前屏幕。在第一次渲染时，GPU(Core Animation)或CPU(Core Graphics)需要额外的一块内存来进行渲染，完成后再绘制到屏幕。offscreen到onscreen需要进行上下文切换，这个切换的性能消耗是昂贵的。</p>
-</blockquote>
-<blockquote>
 <p>因此，我们必须避免不必要的离屏渲染。</p>
 </blockquote>
 <p>造成离屏渲染的原因有：</p>
 <ul>
-<li>
-<p>设置CALayer的cornerRadius，edgeAntialiasingMask，allowsEdgeAntialiasing属性</p>
+<li><p>设置CALayer的cornerRadius，edgeAntialiasingMask，allowsEdgeAntialiasing属性</p>
 </li>
-<li>
-<p>把CALayer的maskToBounds设为YES</p>
+<li><p>把CALayer的maskToBounds设为YES</p>
 </li>
-<li>
-<p>设置CALayer的shadow属性</p>
+<li><p>设置CALayer的shadow属性</p>
 </li>
-<li>
-<p>设置CALayer的mask属性</p>
+<li><p>设置CALayer的mask属性</p>
 </li>
-<li>
-<p>把CALayer的allowsGroupOpacity属性设为YES而且opacity小于1</p>
+<li><p>把CALayer的allowsGroupOpacity属性设为YES而且opacity小于1</p>
 </li>
 </ul>
 <p>讲到这里，大家大可不必对离屏渲染产生巨大的恐慌，因为当一个界面的圆角图片不够多的时候，对性能的损耗影响基本可以忽略不计。所以这里的圆角优化是针对一屏有很多个圆角的应用来说的。</p>
-<h1>UIImageView 添加圆角</h1>
-<p>一般我们最常见的是为<code>UIImageView</code>添加圆角，首先重要的事情放到前面讲，千万避免通过重写<code>drawRect</code>方法来设置圆角，不恰当的使用这个方法，会导致内存的暴增。其次，这种方法的同样会导致离屏渲染。</p>
+<h1 id="UIImageView-添加圆角"><a href="#UIImageView-添加圆角" class="headerlink" title="UIImageView 添加圆角"></a>UIImageView 添加圆角</h1><p>一般我们最常见的是为<code>UIImageView</code>添加圆角，首先重要的事情放到前面讲，千万避免通过重写<code>drawRect</code>方法来设置圆角，不恰当的使用这个方法，会导致内存的暴增。其次，这种方法的同样会导致离屏渲染。</p>
 <p>而一个比较理想的实现思路，是直接截取图片。</p>
-<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">CGSize</span> size = <span class="keyword">self</span>.bounds.size;</div><div class="line">    <span class="built_in">CGFloat</span> scale = [<span class="built_in">UIScreen</span> mainScreen].scale;</div><div class="line">    <span class="built_in">CGSize</span> cornerRadii = <span class="built_in">CGSizeMake</span>(cornerRadius, cornerRadius);</div><div class="line">    </div><div class="line">    <span class="built_in">UIGraphicsBeginImageContextWithOptions</span>(size, <span class="literal">YES</span>, scale);</div><div class="line">    <span class="built_in">CGContextRef</span> currentContext = <span class="built_in">UIGraphicsGetCurrentContext</span>();</div><div class="line">    <span class="keyword">if</span> (<span class="literal">nil</span> == currentContext) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">UIBezierPath</span> *cornerPath = [<span class="built_in">UIBezierPath</span> bezierPathWithRoundedRect:<span class="keyword">self</span>.bounds byRoundingCorners:rectCornerType cornerRadii:cornerRadii];</div><div class="line">    <span class="built_in">UIBezierPath</span> *backgroundRect = [<span class="built_in">UIBezierPath</span> bezierPathWithRect:<span class="keyword">self</span>.bounds];</div><div class="line">    [backgroundColor setFill];</div><div class="line">    [backgroundRect fill];</div><div class="line">    [cornerPath addClip];</div><div class="line">    [<span class="keyword">self</span>.layer renderInContext:currentContext];</div><div class="line">    [<span class="keyword">self</span> drawBorder:cornerPath];</div><div class="line">    <span class="built_in">UIImage</span> *processedImage = <span class="built_in">UIGraphicsGetImageFromCurrentImageContext</span>();</div><div class="line">    <span class="built_in">UIGraphicsEndImageContext</span>();</div><div class="line">    <span class="keyword">if</span> (processedImage) &#123;</div><div class="line">        objc_setAssociatedObject(processedImage, &amp;kProcessedImage, @(<span class="number">1</span>), OBJC_ASSOCIATION_RETAIN_NONATOMIC);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">self</span>.image = processedImage;</div></pre></td></tr></table></figure></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">CGSize</span> size = <span class="keyword">self</span>.bounds.size;</div><div class="line">    <span class="built_in">CGFloat</span> scale = [<span class="built_in">UIScreen</span> mainScreen].scale;</div><div class="line">    <span class="built_in">CGSize</span> cornerRadii = <span class="built_in">CGSizeMake</span>(cornerRadius, cornerRadius);</div><div class="line">    </div><div class="line">    <span class="built_in">UIGraphicsBeginImageContextWithOptions</span>(size, <span class="literal">YES</span>, scale);</div><div class="line">    <span class="built_in">CGContextRef</span> currentContext = <span class="built_in">UIGraphicsGetCurrentContext</span>();</div><div class="line">    <span class="keyword">if</span> (<span class="literal">nil</span> == currentContext) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">UIBezierPath</span> *cornerPath = [<span class="built_in">UIBezierPath</span> bezierPathWithRoundedRect:<span class="keyword">self</span>.bounds byRoundingCorners:rectCornerType cornerRadii:cornerRadii];</div><div class="line">    <span class="built_in">UIBezierPath</span> *backgroundRect = [<span class="built_in">UIBezierPath</span> bezierPathWithRect:<span class="keyword">self</span>.bounds];</div><div class="line">    [backgroundColor setFill];</div><div class="line">    [backgroundRect fill];</div><div class="line">    [cornerPath addClip];</div><div class="line">    [<span class="keyword">self</span>.layer renderInContext:currentContext];</div><div class="line">    [<span class="keyword">self</span> drawBorder:cornerPath];</div><div class="line">    <span class="built_in">UIImage</span> *processedImage = <span class="built_in">UIGraphicsGetImageFromCurrentImageContext</span>();</div><div class="line">    <span class="built_in">UIGraphicsEndImageContext</span>();</div><div class="line">    <span class="keyword">if</span> (processedImage) &#123;</div><div class="line">        objc_setAssociatedObject(processedImage, &amp;kProcessedImage, @(<span class="number">1</span>), OBJC_ASSOCIATION_RETAIN_NONATOMIC);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">self</span>.image = processedImage;</div></pre></td></tr></table></figure>
 <p>上面这段代码我只是给出了大致的实现思路，圆角路径直接用贝塞尔曲线绘制，而其中的属性，使用了<code>runtime</code>的黑魔法去设置，在<strong>Category</strong> 给一个现有的类添加属性，但是却不能添加实例变量，这似乎成为了 <strong>Objective-C</strong>的一个明显短板。然而值得庆幸的是，我们可以通过 <strong>Associated Objects</strong>来弥补这一不足。</p>
 <p>至于完整的Demo和方法库，网上已经有很多了，Github动手搜索吧。</p>
-<h1>总结</h1>
-<ol>
-<li>
-<p>如果能够只用 cornerRadius 解决问题，就不用优化。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li><p>如果能够只用 cornerRadius 解决问题，就不用优化。</p>
 </li>
-<li>
-<p>如果必须设置 masksToBounds，可以参考圆角视图的数量，如果数量较少（一页只有几个）也可以考虑不用优化。</p>
+<li><p>如果必须设置 masksToBounds，可以参考圆角视图的数量，如果数量较少（一页只有几个）也可以考虑不用优化。</p>
 </li>
-<li>
-<p>UIImageView 的圆角通过直接截取图片实现，其它视图的圆角可以通过 Core Graphics 画出圆角矩形实现。</p>
+<li><p>UIImageView 的圆角通过直接截取图片实现，其它视图的圆角可以通过 Core Graphics 画出圆角矩形实现。</p>
 </li>
 </ol>
 </div></article></div></section><footer><div class="paginator"><a href="/2017/02/08/iOS开发——影响图形性能的因素以及检测方法/" class="prev"><button class="ui button teal">PREV</button></a><a href="/2017/01/24/iOS开发——推送跳转到指定页面/" class="next"><button class="ui button teal">NEXT</button></a></div><div data-thread-key="2017/02/06/高性能设置圆角，告别离屏渲染/" data-title="高性能设置圆角，告别离屏渲染" data-url="http://yoursite.com/2017/02/06/高性能设置圆角，告别离屏渲染/" class="ds-share"><div class="ds-share-inline"><ul class="ds-share-icons-16"><li data-toggle="ds-share-icons-more"><span class="ds-more">分享到：</span></li><li><a href="javascript:void(0);" data-service="weibo" class="ds-weibo">微博</a></li><li><a href="javascript:void(0);" data-service="qqt" class="ds-qqt">腾讯微博</a></li><li><a href="javascript:void(0);" data-service="wechat" class="ds-wechat">微信</a></li></ul></div></div><div data-thread-key="2017/02/06/高性能设置圆角，告别离屏渲染/" data-title="高性能设置圆角，告别离屏渲染" data-url="http://yoursite.com/2017/02/06/高性能设置圆角，告别离屏渲染/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"originalee"};
