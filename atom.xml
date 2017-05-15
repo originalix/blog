@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-04-26T09:10:57.000Z</updated>
+  <updated>2017-05-15T08:37:21.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,175 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用Vagrant来搭建开发环境</title>
+    <link href="http://yoursite.com/2017/05/15/%E4%BD%BF%E7%94%A8Vagrant%E6%9D%A5%E6%90%AD%E5%BB%BA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/"/>
+    <id>http://yoursite.com/2017/05/15/使用Vagrant来搭建开发环境/</id>
+    <published>2017-05-15T08:36:31.000Z</published>
+    <updated>2017-05-15T08:37:21.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>在大半年前刚刚接触PHP的时候，因为那时候只想先熟悉PHP的语法，并且对配置服务器、Mysql等一干事情不想花费太多时间，于是在网上找到了XAMPP这个解决方案。当时那是惊为天人，感觉虚拟主机很是方便。但是随着后来自己的慢慢深入，并且也在云服务器上陆续的部署自己的小项目，这才感觉到一个很恶心的事情，就是本地和线上的开发环境不同意，导致自己在频繁的修改配置文件，并且主力开发机器是用mac，家里还有win10的台式机，线上是Liunx系统，各种不一样的环境让我想寻求一个解决方案，统一线上和线下的开发环境。</p>
+<p>在这种想法的指引下，很快有一个解决方案进入我的视线。通过搭建Liunx虚拟机，解决线上线下开发环境不统一的情况。这个解决方案，就是<code>VirtualBox</code> + <code>Vagrant</code>。目前他能完成我的所有需求，并且提供了很快捷的打包，来实现开发环境的迁移及统一部署，非常好用。本文就来记录如何使用Vagrant这个工具，好让我在日后部署环境的时候，能够把这些命令翻出来再看看。</p>
+<a id="more"></a>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><blockquote>
+<p>实际上Vagrant只是一个让你可以方便设置你想要的虚拟机的便携式工具，它底层支持VirtualBox、VMware甚至AWS作为虚拟机系统，本书中我们将使用VirtualBox来进行说明，所以第一步需要先安裝Vagrant和VirtualBox。</p>
+</blockquote>
+<p>安装环境：mac<br>注：windows环境下，基本一致</p>
+<h3 id="安装VirtualBox"><a href="#安装VirtualBox" class="headerlink" title="安装VirtualBox"></a>安装VirtualBox</h3><p>直接来到官网 <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="external">https://www.virtualbox.org/wiki/Downloads</a> 点击下载最新的virtualbox，双击安装，一路傻瓜化完成。</p>
+<h3 id="安装Vagrant"><a href="#安装Vagrant" class="headerlink" title="安装Vagrant"></a>安装Vagrant</h3><p>在进行完上一个步骤后，我们就要考虑我们的虚拟机需要使用什么操作系统了。因为我线上使用了<code>Ubuntu16.04</code>的操作系统，所以我线下也选择了16.04的<code>Ubuntu</code>操作系统。在以前使用vm的过程中，我们需要自己去下载镜像，然后进行相关的安装，设置系统等等操作。而vagrant的开源社区，提供了很多已经打包好的操作系统，在vagrant的世界里被称为box。在 <a href="http://www.vagrantbox.es/" target="_blank" rel="external">http://www.vagrantbox.es/</a> 这里你可以找到你想要的操作系统box，当然你也可以自己制作一个。后续教程会讲到，这里就不多说。</p>
+<p>我的开发机是Mac，所以我建立了如下的开发环境目录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ /Users/vagrant</div><div class="line">$ cd /Users/vagrant</div></pre></td></tr></table></figure>
+<p>这里注意，vagrant提供的在线安装，有可能因为天朝的网络原因，很慢或者下载失败，所以我会找到box的下载链接，用迅雷等工具下载好这个盒子。之后执行安装设置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ vagrant box add &#123;title&#125; &#123;url&#125;</div><div class="line">$ vagrant init &#123;title&#125;</div><div class="line">$ vagrant up</div></pre></td></tr></table></figure>
+<p><code>vagrant box add</code> 是添加box的命令<br>其中｛title｝可以自行设置，我这里使用的是 <code>Ubuntu</code> ，｛url｝是下载到本地box路径。我的路径是：/Users/vagrant/ubuntu.box</p>
+<p>box中的镜像文件被放到了：/Users/.vagrant.d/boxes/，如果在window系统中应该是放到了： C:\Users\当前用户名.vagrant.d\boxes\目录下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"># 如果是才add 的box，就必须执行本步骤，初始化一次后，以后启动系统，就不需要执行本步骤。</div><div class="line">$ vagrant init Ubuntu</div></pre></td></tr></table></figure>
+<p>输出如下 : </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">A `Vagrantfile` has been placed in this directory.</div><div class="line">You are now ready to `vagrant up` your first virtual environment!</div><div class="line">Please read the comments in the Vagrantfile as well as documentation on `vagrantup.com` for more information on using Vagrant.</div></pre></td></tr></table></figure>
+<p>这样就会在当前目录生成一个 Vagrantfile的文件，里面有很多配置信息，后面我在慢慢说，默认不做任何配置改动，也是可以启动系统的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># 启动系统</div><div class="line">$ vagrant up</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Bringing machine &apos;default&apos; up with &apos;virtualbox&apos; provider...</div><div class="line">[default] Importing base box &apos;base&apos;...</div><div class="line">[default] Matching MAC address for NAT networking...</div><div class="line">[default] Setting the name of the VM...</div><div class="line">[default] Clearing any previously set forwarded ports...</div><div class="line">...</div></pre></td></tr></table></figure>
+<h2 id="ssh链接到虚拟机"><a href="#ssh链接到虚拟机" class="headerlink" title="ssh链接到虚拟机"></a>ssh链接到虚拟机</h2><p>经过以上操作后，完成了虚拟机的安装，现在需要登录上虚拟机，进行操作。链接很简单，可以使用第三方（xshell等）shell工具或系统自带的，进行登录<br>在系统中，如mac，可直接使用 vagrant ssh 来完成链接。或者使用第三方如xshell，ip地址是：localhost，端口，需要观察，映射的22端口是多少。一般是2200 或者2222<br>用户名与密码均是： vagrant</p>
+<h2 id="vagrant的命令详解"><a href="#vagrant的命令详解" class="headerlink" title="vagrant的命令详解"></a>vagrant的命令详解</h2><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vagrant box add</td>
+<td>添加box的操作</td>
+</tr>
+<tr>
+<td>vagrant init</td>
+<td>初始化box的操作，会生成vagrant的配置文件Vagrantfile</td>
+</tr>
+<tr>
+<td>vagrant up</td>
+<td>启动本地环境</td>
+</tr>
+<tr>
+<td>vagrant ssh</td>
+<td>通过 ssh 登录本地环境所在虚拟机</td>
+</tr>
+<tr>
+<td>vagrant halt</td>
+<td>关闭本地环境</td>
+</tr>
+<tr>
+<td>vagrant suspend</td>
+<td>暂停本地环境</td>
+</tr>
+<tr>
+<td>vagrant resume</td>
+<td>恢复本地环境</td>
+</tr>
+<tr>
+<td>vagrant reload</td>
+<td>修改了 Vagrantfile 后，使之生效（相当于先 halt，再 up）</td>
+</tr>
+<tr>
+<td>vagrant destroy</td>
+<td>彻底移除本地环境</td>
+</tr>
+<tr>
+<td>vagrant box list</td>
+<td>显示当前已经添加的box列表</td>
+</tr>
+<tr>
+<td>vagrant box remove</td>
+<td>删除相应的box</td>
+</tr>
+<tr>
+<td>vagrant package</td>
+<td>打包命令，可以把当前的运行的虚拟机环境进行打包</td>
+</tr>
+<tr>
+<td>vagrant plugin</td>
+<td>用于安装卸载插件</td>
+</tr>
+<tr>
+<td>vagrant status</td>
+<td>获取当前虚拟机的状态</td>
+</tr>
+<tr>
+<td>vagrant global-status</td>
+<td>显示当前用户Vagrant的所有环境状态</td>
+</tr>
+</tbody>
+</table>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>配置好Vagrant只是开始，而之后在Linux配置环境，可以参考我之前的一篇文章，在《云服务器上部署Laravel》这篇文章，来配置自己的<code>LNMP</code>环境。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在大半年前刚刚接触PHP的时候，因为那时候只想先熟悉PHP的语法，并且对配置服务器、Mysql等一干事情不想花费太多时间，于是在网上找到了XAMPP这个解决方案。当时那是惊为天人，感觉虚拟主机很是方便。但是随着后来自己的慢慢深入，并且也在云服务器上陆续的部署自己的小项目，这才感觉到一个很恶心的事情，就是本地和线上的开发环境不同意，导致自己在频繁的修改配置文件，并且主力开发机器是用mac，家里还有win10的台式机，线上是Liunx系统，各种不一样的环境让我想寻求一个解决方案，统一线上和线下的开发环境。&lt;/p&gt;
+&lt;p&gt;在这种想法的指引下，很快有一个解决方案进入我的视线。通过搭建Liunx虚拟机，解决线上线下开发环境不统一的情况。这个解决方案，就是&lt;code&gt;VirtualBox&lt;/code&gt; + &lt;code&gt;Vagrant&lt;/code&gt;。目前他能完成我的所有需求，并且提供了很快捷的打包，来实现开发环境的迁移及统一部署，非常好用。本文就来记录如何使用Vagrant这个工具，好让我在日后部署环境的时候，能够把这些命令翻出来再看看。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Vagrant" scheme="http://yoursite.com/tags/Vagrant/"/>
+    
+      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>nginx配置二级域名</title>
+    <link href="http://yoursite.com/2017/05/05/nginx%E9%85%8D%E7%BD%AE%E4%BA%8C%E7%BA%A7%E5%9F%9F%E5%90%8D/"/>
+    <id>http://yoursite.com/2017/05/05/nginx配置二级域名/</id>
+    <published>2017-05-05T09:23:29.000Z</published>
+    <updated>2017-05-15T08:38:49.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近为了练手Vue框架，写了一个博客项目，昨天刚刚把个人博客部署上线，因为前后端分离，所以使用Ajax来请求后端api接口获取数据，部署的过程中碰到了一个坑。我只有一个域名，所以想让一级域名<code>originalix.com</code>来访问博客，而使用二级域名<code>demo.originalix.com</code>来访问后端页面并且请求api。</p>
+<p>怎么做呢，在查阅了资料以后发现，首先应该在域名供应商中添加一条二级域名的记录，比如我想使用的是<strong>demo</strong>。</p>
+<p><img src="http://originalix.github.io/assets/img/nginxdomain.png" alt=""></p>
+<p>设置好域名后，在本地<strong>ping</strong>一下看看能不能<strong>ping</strong>通过 <code>demo.originalix.com</code></p>
+<a id="more"></a>
+<p>接下来，ssh进服务器，找到你安装的nginx，启动并且配置。</p>
+<ul>
+<li>安装nginx</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install nginx</div></pre></td></tr></table></figure>
+<ul>
+<li>重启nginx</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo service nginx start</div></pre></td></tr></table></figure>
+<ul>
+<li>进入nginx配置文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vim /etc/nginx/sites-available/default</div></pre></td></tr></table></figure>
+<p>在配置文件中可以这样写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">server &#123;  </div><div class="line">    listen 80;</div><div class="line">    server_name originalix.com;</div><div class="line"></div><div class="line">    location / &#123;</div><div class="line">        proxy_set_header   X-Real-IP $remote_addr;</div><div class="line">        proxy_set_header   Host      $http_host;</div><div class="line">        proxy_pass         http://127.0.0.1:2368;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">server &#123;  </div><div class="line">    listen 80;</div><div class="line">    server_name demo.originalix.com;</div><div class="line"></div><div class="line">    location / &#123;</div><div class="line">        proxy_set_header   X-Real-IP $remote_addr;</div><div class="line">        proxy_set_header   Host      $http_host;</div><div class="line">        proxy_pass         http://127.0.0.1:8000;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>而我具体是因为后端是<code>Laravel</code>框架的项目，所以我得配置文件是这样写的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">server &#123;</div><div class="line">    listen 80 default_server;</div><div class="line">    listen [::]:80 default_server;</div><div class="line"></div><div class="line">    root /var/www/;</div><div class="line"></div><div class="line">    index index.html index.htm index.nginx-debian.html;</div><div class="line"></div><div class="line">    # server_name 110.223.38.82;</div><div class="line">    server_name http://originalix.xyz;</div><div class="line"></div><div class="line">    location / &#123;</div><div class="line">            try_files $uri $uri/ /index.php?$query_string;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    location ~ \.php$ &#123;</div><div class="line">            try_files $uri /index.php =404;</div><div class="line">            fastcgi_split_path_info ^(.+\.php)(/.+)$;</div><div class="line">            fastcgi_pass unix:/run/php/php7.0-fpm.sock;</div><div class="line">            fastcgi_index index.php;</div><div class="line">            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;</div><div class="line">            include fastcgi_params;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">server &#123;</div><div class="line">    listen 80;</div><div class="line">    server_name demo.originalix.com;</div><div class="line">    root /var/www/originalix/public;</div><div class="line">    index index.php index.html index.htm;</div><div class="line">    location / &#123;</div><div class="line">        try_files $uri $uri/ /index.php?$query_string;</div><div class="line">    &#125;</div><div class="line">    location ~ \.php$ &#123;</div><div class="line">      try_files $uri /index.php =404;</div><div class="line">      fastcgi_split_path_info ^(.+\.php)(/.+)$;</div><div class="line">      fastcgi_pass unix:/run/php/php7.0-fpm.sock;</div><div class="line">      fastcgi_index index.php;</div><div class="line">      fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;</div><div class="line">      include fastcgi_params;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>之后重启nginx，并且打开浏览器，输入 <code>demo.originalix.com</code> 就ok了</p>
+<p>ps:在整个过程中如果遇到什么问题，比如 nginx启动失败。可以看一下这里：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//这个命令可以看一下你的nginx配置文件有没有问题，</div><div class="line">//如果有问题它会指出，做相应的修改，直到没报错</div><div class="line">nginx -t </div><div class="line"></div><div class="line"></div><div class="line">//查看日志。比如我nginx -t明明没问题，老是启动失败，</div><div class="line">//看了日志才知道 Address already in use，端口被占用o(╯□╰)o</div><div class="line">cat /var/log/nginx/error.log</div></pre></td></tr></table></figure>
+<p>还是那句话，失败了一定要学会看日志！！！看日志！！！看日志！！！</p>
+<p>很简单的事情，我也是摸索了一会儿，崩溃ing。</p>
+<p>所以写个博客记录下来，希望能帮助到大家。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近为了练手Vue框架，写了一个博客项目，昨天刚刚把个人博客部署上线，因为前后端分离，所以使用Ajax来请求后端api接口获取数据，部署的过程中碰到了一个坑。我只有一个域名，所以想让一级域名&lt;code&gt;originalix.com&lt;/code&gt;来访问博客，而使用二级域名&lt;code&gt;demo.originalix.com&lt;/code&gt;来访问后端页面并且请求api。&lt;/p&gt;
+&lt;p&gt;怎么做呢，在查阅了资料以后发现，首先应该在域名供应商中添加一条二级域名的记录，比如我想使用的是&lt;strong&gt;demo&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://originalix.github.io/assets/img/nginxdomain.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;设置好域名后，在本地&lt;strong&gt;ping&lt;/strong&gt;一下看看能不能&lt;strong&gt;ping&lt;/strong&gt;通过 &lt;code&gt;demo.originalix.com&lt;/code&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
+    
+      <category term="nginx" scheme="http://yoursite.com/tags/nginx/"/>
+    
+  </entry>
   
   <entry>
     <title>简单的编程体会</title>
@@ -331,9 +500,9 @@
     </summary>
     
     
-      <category term="php" scheme="http://yoursite.com/tags/php/"/>
-    
       <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
+    
+      <category term="php" scheme="http://yoursite.com/tags/php/"/>
     
       <category term="Laravel部署" scheme="http://yoursite.com/tags/Laravel%E9%83%A8%E7%BD%B2/"/>
     
@@ -392,7 +561,7 @@
 <p>改成这样，判断并不会一层一层的累加下去，代码看上去也比之前美观易懂了很多，但是要注意的是不要搞错逻辑，免得直接<strong>return</strong>了。</p>
 <p>而这样的用法也符合<a href="https://github.com/github/swift-style-guide" target="_blank" rel="external">Swift编码规范</a>所强调的那样，尽早的<code>Return</code>或者<code>break</code>。</p>
 <h2 id="使用-guard-来判断类型"><a href="#使用-guard-来判断类型" class="headerlink" title="使用 guard 来判断类型"></a>使用 guard 来判断类型</h2><p>介于Swift里的Optional类型的增加，我们有时候也可以使用<strong>guard</strong>来判断一个属性的类型。例如如下代码所做的那样:</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 声明的function</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">doSomething</span><span class="params">(input: Bool, handler: <span class="params">(obj: AnyObject?)</span></span></span> -&gt; <span class="type">Void</span>) -&gt; <span class="type">Void</span> &#123;</div><div class="line">    <span class="keyword">let</span> someDict: [<span class="type">Int</span>: <span class="type">String</span>] = [<span class="number">1</span>: <span class="string">"One"</span>, <span class="number">2</span>: <span class="string">"Two"</span>, <span class="number">3</span>: <span class="string">"Three"</span>]</div><div class="line"></div><div class="line">    <span class="keyword">if</span> input &#123;</div><div class="line">        handler(obj: someDict)</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        handler(obj: [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 执行函数</span></div><div class="line">doSomething(<span class="literal">true</span>) &#123; (obj) -&gt; <span class="type">Void</span> <span class="keyword">in</span></div><div class="line">    <span class="comment">// 判断是否为 [Int:String] 的类型(Dictionary)</span></div><div class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> someDict = obj <span class="keyword">as</span>? [<span class="type">Int</span>:<span class="type">String</span>] <span class="keyword">else</span> &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"obj not match dictionary"</span>)</div><div class="line">        <span class="keyword">return</span></div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 将 Dictionary 里面每个 value 打印出来</span></div><div class="line">    <span class="keyword">for</span> (key, value) <span class="keyword">in</span> someDict &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"Dictionary key <span class="subst">\(key)</span> -  Dictionary value <span class="subst">\(value)</span>"</span>)</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 自行输入 key 但会印出 Optional</span></div><div class="line">    <span class="built_in">print</span>( <span class="string">"Value of key = 1 is <span class="subst">\(someDict[<span class="number">1</span>])</span>"</span> )</div><div class="line">    <span class="built_in">print</span>( <span class="string">"Value of key = 2 is <span class="subst">\(someDict[<span class="number">2</span>])</span>"</span> )</div><div class="line">    <span class="built_in">print</span>( <span class="string">"Value of key = 3 is <span class="subst">\(someDict[<span class="number">3</span>])</span>"</span> )</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 声明的function</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">doSomething</span><span class="params">(input: Bool, handler: <span class="params">(obj: AnyObject?)</span></span></span> -&gt; <span class="type">Void</span>) -&gt; <span class="type">Void</span> &#123;</div><div class="line">    <span class="keyword">let</span> someDict: [<span class="type">Int</span>: <span class="type">String</span>] = [<span class="number">1</span>: <span class="string">"One"</span>, <span class="number">2</span>: <span class="string">"Two"</span>, <span class="number">3</span>: <span class="string">"Three"</span>]</div><div class="line"></div><div class="line">    <span class="keyword">if</span> input &#123;</div><div class="line">        handler(obj: someDict)</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        handler(obj: [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 执行函数</span></div><div class="line">doSomething(<span class="literal">true</span>) &#123; (obj) -&gt; <span class="type">Void</span> <span class="keyword">in</span></div><div class="line">    <span class="comment">// 判断是否为 [Int:String] 的类型(Dictionary)</span></div><div class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> someDict = obj <span class="keyword">as</span>? [<span class="type">Int</span>:<span class="type">String</span>] <span class="keyword">else</span> &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"obj not match dictionary"</span>)</div><div class="line">        <span class="keyword">return</span></div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 将 Dictionary 里面每个 value 打印出来</span></div><div class="line">    <span class="keyword">for</span> (key, value) <span class="keyword">in</span> someDict &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"Dictionary key \(key) -  Dictionary value \(value)"</span>)</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 自行输入 key 但会印出 Optional</span></div><div class="line">    <span class="built_in">print</span>( <span class="string">"Value of key = 1 is \(someDict[1])"</span> )</div><div class="line">    <span class="built_in">print</span>( <span class="string">"Value of key = 2 is \(someDict[2])"</span> )</div><div class="line">    <span class="built_in">print</span>( <span class="string">"Value of key = 3 is \(someDict[3])"</span> )</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>通过上面的🌰，我们已经可以看到一个如何对可选类型解包的操作了。许多人在初入Swift的大门时，经常被可选类型搞的程序Crash，所以学以致用，用上优雅的警卫队吧。让他来帮助你实现更加优雅健壮的代码。</p>
 ]]></content>
     
@@ -850,7 +1019,7 @@
 <p>这里定义了四个方法，对应我们<strong>UI</strong>界面会出现的<strong>Button</strong>功能，<strong>Start</strong>、<strong>Pause</strong>、<strong>Continue</strong>、<strong>resetToStart</strong>。代码很简单，当start时添加当前时间至数组里，并且启动定时器，暂停时，销毁定时器，添加暂停的时间进入暂停数组。继续和重置同理。那么我们来看定时器启动时，对应的<strong>selector</strong>做了哪些事情。</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//MARK: - 计时器</span></div><div class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">func</span> <span class="title">timeCount</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">if</span> startTimes.<span class="built_in">count</span> == <span class="number">1</span> &#123;</div><div class="line">            <span class="keyword">let</span> currentTime = <span class="type">NSDate</span>()</div><div class="line">            timeNumber = <span class="type">Int</span>(<span class="type">CFDateGetTimeIntervalSinceDate</span>(currentTime, startTimes[<span class="number">0</span>]))</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            <span class="keyword">if</span> startTimes.<span class="built_in">count</span> - endTimes.<span class="built_in">count</span> == <span class="number">1</span> &#123;</div><div class="line">                endTimes.append(<span class="type">NSDate</span>())</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">let</span> index = startTimes.<span class="built_in">count</span> - <span class="number">1</span></div><div class="line">            endTimes[index] = <span class="type">NSDate</span>()</div><div class="line">            <span class="keyword">var</span> timeCount = <span class="number">0</span></div><div class="line">            <span class="keyword">for</span> startTime <span class="keyword">in</span> startTimes&#123;</div><div class="line">                timeCount += <span class="type">Int</span>(<span class="type">CFDateGetTimeIntervalSinceDate</span>(endTimes[startTimes.indexOf(startTime)!],startTime))</div><div class="line">            &#125;</div><div class="line">            timeNumber = timeCount</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="meta">@objc</span> <span class="keyword">private</span> <span class="function"><span class="keyword">func</span> <span class="title">count</span><span class="params">()</span></span>&#123;</div><div class="line">        timeCount()</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 <p>当计时器的<code>count()</code>方法运行时、调用<code>timeCount()</code>方法。<br>当我们第一次运行计时器时，获取的秒数就是开始时间与当前时间比对的差值。<br>而之后，就是跟暂停之后启动时间的对比了。<br>这里面使用<code>public func CFDateGetTimeIntervalSinceDate(theDate: CFDate!, _ otherDate: CFDate!) -&gt; CFTimeInterval</code>函数获取两个时间之间的时间戳差值。<br>最后再把前面那个秒数转格式化时间的方法也贴出来吧。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//从以秒计时的时间里获得表示时间的字符串用于显示</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">getTimeStringFromSecond</span><span class="params">(seconds: Int)</span></span> -&gt; <span class="type">String</span> &#123;</div><div class="line">    </div><div class="line">    <span class="keyword">let</span> secondNumber = seconds % <span class="number">60</span></div><div class="line">    <span class="keyword">let</span> minuteNumber = (seconds / <span class="number">60</span>) % <span class="number">60</span></div><div class="line">    <span class="keyword">let</span> hourNumber = (seconds / (<span class="number">60</span>*<span class="number">60</span>)) % <span class="number">24</span></div><div class="line">    </div><div class="line">    <span class="keyword">let</span> secondText = secondNumber &lt; <span class="number">10</span> ? <span class="string">"0<span class="subst">\(secondNumber)</span>"</span> : <span class="string">"<span class="subst">\(secondNumber)</span>"</span></div><div class="line">    <span class="keyword">let</span> minuteText = minuteNumber &lt; <span class="number">10</span> ? <span class="string">"0<span class="subst">\(minuteNumber)</span>"</span> : <span class="string">"<span class="subst">\(minuteNumber)</span>"</span></div><div class="line">    <span class="keyword">let</span> hourText = hourNumber &lt; <span class="number">10</span> ? <span class="string">"0<span class="subst">\(hourNumber)</span>"</span> : <span class="string">"<span class="subst">\(hourNumber)</span>"</span></div><div class="line">    </div><div class="line">    <span class="keyword">return</span> <span class="string">"<span class="subst">\(hourText)</span>:<span class="subst">\(minuteText)</span>:<span class="subst">\(secondText)</span>"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//从以秒计时的时间里获得表示时间的字符串用于显示</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">getTimeStringFromSecond</span><span class="params">(seconds: Int)</span></span> -&gt; <span class="type">String</span> &#123;</div><div class="line">    </div><div class="line">    <span class="keyword">let</span> secondNumber = seconds % <span class="number">60</span></div><div class="line">    <span class="keyword">let</span> minuteNumber = (seconds / <span class="number">60</span>) % <span class="number">60</span></div><div class="line">    <span class="keyword">let</span> hourNumber = (seconds / (<span class="number">60</span>*<span class="number">60</span>)) % <span class="number">24</span></div><div class="line">    </div><div class="line">    <span class="keyword">let</span> secondText = secondNumber &lt; <span class="number">10</span> ? <span class="string">"0\(secondNumber)"</span> : <span class="string">"\(secondNumber)"</span></div><div class="line">    <span class="keyword">let</span> minuteText = minuteNumber &lt; <span class="number">10</span> ? <span class="string">"0\(minuteNumber)"</span> : <span class="string">"\(minuteNumber)"</span></div><div class="line">    <span class="keyword">let</span> hourText = hourNumber &lt; <span class="number">10</span> ? <span class="string">"0\(hourNumber)"</span> : <span class="string">"\(hourNumber)"</span></div><div class="line">    </div><div class="line">    <span class="keyword">return</span> <span class="string">"\(hourText):\(minuteText):\(secondText)"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 ]]></content>
     
     <summary type="html">
@@ -890,7 +1059,7 @@
 <p><code>CoreMotion</code>框架中，专门有一个类是负责处理步数的，就是<code>CMPedometer</code>，所以在这里我们想获取到步数信息，也要创建一个这个对象,并且同时创建一个<code>int</code>对象保存步数数据</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">var</span> pedometer: <span class="type">CMPedometer</span>!</div><div class="line"><span class="built_in">lazy</span> <span class="keyword">private</span> <span class="keyword">var</span> numberOfSteps = <span class="number">0</span></div></pre></td></tr></table></figure>
 <p>接下来 我们来看看具体获取步数的代码。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">func</span> <span class="title">getPedonmeterData</span><span class="params">()</span></span>&#123;</div><div class="line">    pedometer = <span class="type">CMPedometer</span>()</div><div class="line">    <span class="keyword">if</span> <span class="type">CMPedometer</span>.isStepCountingAvailable()&#123;</div><div class="line">        <span class="keyword">if</span> startTime != <span class="literal">nil</span>&#123;</div><div class="line">            pedometer.queryPedometerDataFromDate(startTime!, toDate: endTime, withHandler: &#123; (data, error) <span class="keyword">in</span></div><div class="line">                <span class="keyword">if</span> error != <span class="literal">nil</span>&#123;</div><div class="line">                    <span class="built_in">print</span>(<span class="string">"<span class="subst">\(error?.localizedDescription)</span>"</span>)</div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                    <span class="keyword">if</span> data != <span class="literal">nil</span>&#123;</div><div class="line">                        dispatch_async(dispatch_get_main_queue(), &#123;</div><div class="line">                            <span class="keyword">self</span>.numberOfSteps = <span class="type">Int</span>(data!.numberOfSteps)</div><div class="line">                        &#125;)</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">func</span> <span class="title">getPedonmeterData</span><span class="params">()</span></span>&#123;</div><div class="line">    pedometer = <span class="type">CMPedometer</span>()</div><div class="line">    <span class="keyword">if</span> <span class="type">CMPedometer</span>.isStepCountingAvailable()&#123;</div><div class="line">        <span class="keyword">if</span> startTime != <span class="literal">nil</span>&#123;</div><div class="line">            pedometer.queryPedometerDataFromDate(startTime!, toDate: endTime, withHandler: &#123; (data, error) <span class="keyword">in</span></div><div class="line">                <span class="keyword">if</span> error != <span class="literal">nil</span>&#123;</div><div class="line">                    <span class="built_in">print</span>(<span class="string">"\(error?.localizedDescription)"</span>)</div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                    <span class="keyword">if</span> data != <span class="literal">nil</span>&#123;</div><div class="line">                        dispatch_async(dispatch_get_main_queue(), &#123;</div><div class="line">                            <span class="keyword">self</span>.numberOfSteps = <span class="type">Int</span>(data!.numberOfSteps)</div><div class="line">                        &#125;)</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>代码是否简单易懂，先判断该设备是否支持计步功能，若是时间不为空，那么调用<code>public func queryPedometerDataFromDate(start: NSDate, toDate end: NSDate, withHandler handler: CMPedometerHandler)</code>函数去查询步数数据，传入的参数有起止时间，之后的操作在闭包中完成，分别判断是否有错误信息以及返回的数据时，就可以轻易的获取到步数。</p>
 <p>今天的分享就到这里了，代码非常简短易懂，就不往GitHub上丢了</p>
 ]]></content>
@@ -952,186 +1121,6 @@
       <category term="Swift" scheme="http://yoursite.com/tags/Swift/"/>
     
       <category term="地址选择器" scheme="http://yoursite.com/tags/%E5%9C%B0%E5%9D%80%E9%80%89%E6%8B%A9%E5%99%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iOS开发——GCD在Swift中的变脸</title>
-    <link href="http://yoursite.com/2016/11/02/iOS%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94GCD%E5%9C%A8Swift%E4%B8%AD%E7%9A%84%E5%8F%98%E8%84%B8/"/>
-    <id>http://yoursite.com/2016/11/02/iOS开发——GCD在Swift中的变脸/</id>
-    <published>2016-11-02T00:34:25.000Z</published>
-    <updated>2016-11-02T00:35:30.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Xcode8正式发布后，Swift3也随即发布，为了跟上苹果这艘大船的脚步，赶紧逼着自己看文档哦。在看文档的过程中，发现GCD的变化跟OC相比简直都要不认识了，赶紧写个文章总结下，顺手复习下GCD中死锁的概念，死锁的总结发布在另一篇文章里了。</p>
-<h1 id="取消过去的接口"><a href="#取消过去的接口" class="headerlink" title="取消过去的接口"></a>取消过去的接口</h1><p>说起 GCD， 大家肯定回想起类似 <code>dispatch_async</code> 这样的语法。 GCD 的这个语法模式无论是和 Objc 还是 Swift 的整体风格都不太搭调。 所以 Swift 3 中对它的语法进行了彻底的改写。</p>
-<a id="more"></a>
-<p>比如最常用的，在一个异步队列中读取数据， 然后再返回主线程更新 UI， 这种操作在新的 Swift 语法中是这样的：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="type">DispatchQueue</span>.global().async &#123;</div><div class="line">    </div><div class="line">    <span class="type">DispatchQueue</span>.main.async &#123;</div><div class="line">        </div><div class="line">        <span class="keyword">self</span>.label?.text = <span class="string">"finished"</span></div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="DispatchQueue"><a href="#DispatchQueue" class="headerlink" title="DispatchQueue"></a>DispatchQueue</h1><p>首先，dispatch 的全局函数不再写为下划线风格的名称了，它变成了一个更符合 Swift 风格的 DispatchQueue 的样子。</p>
-<h1 id="main-thread"><a href="#main-thread" class="headerlink" title="main thread"></a>main thread</h1><p>同样的，你不需要在去用  <code>dispatch_get_main_queue()</code> 来获取主线程，而是 <code>DispatchQueue.main</code> ，那么要放到主线程的代码怎么执行呢？只需要在线程后边使用  <code>.async {}</code> 即可，也就是说，大概是这样：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="type">DispatchQueue</span>.main.async &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] <span class="keyword">in</span></div><div class="line">      your code runs <span class="keyword">in</span> main thread</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h1><p>无论从代码长度，已经语法含义上都清晰了一些呢。 另外， 这次对 <code>GCD</code> 的改进还包括优先级的概念。 以往我们使用 <code>Global Queue</code> 的时候，可以使用<code>DISPATCH_QUEUE_PRIORITY_DEFAULT</code> 或 <code>DISPATCH_QUEUE_PRIORITY_BACKGROUND</code> 等，来指定队列的优先级。 而新的 <code>GCD</code> 引入了 <code>QoS (Quality of Service)</code> 的概念，体现在代码上面就是优先级所对应的名称变了， 对应关系如下：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">* <span class="type">DISPATCH_QUEUE_PRIORITY_HIGH</span>:         .userInitiated</div><div class="line">* <span class="type">DISPATCH_QUEUE_PRIORITY_DEFAULT</span>:      .<span class="keyword">default</span></div><div class="line">* <span class="type">DISPATCH_QUEUE_PRIORITY_LOW</span>:          .utility</div><div class="line">* <span class="type">DISPATCH_QUEUE_PRIORITY_BACKGROUND</span>:   .background</div></pre></td></tr></table></figure>
-<p>举个例子，如果想以最高优先级执行这个队列， 那么就可以这样：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="type">DispatchQueue</span>.global(qos: .userInitiated).async &#123;</div><div class="line">            </div><div class="line">            </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>所以这个优先级概念的变化， 大家也需要留意一下。</p>
-<h1 id="获取一个队列"><a href="#获取一个队列" class="headerlink" title="获取一个队列"></a>获取一个队列</h1><p>我们使用  <code>DispatchQueue.global()</code> 获取一个系统的队列，这样的话获取的就是默认  <code>.default</code> 优先级的队列了，如果要获取其他优先级的队列，就使用 <code>DispatchQueue.global(qos: .userInitiated)</code> ，最后，我们使用 <code>.async {}</code> 来执行代码。</p>
-<h1 id="创建一个队列"><a href="#创建一个队列" class="headerlink" title="创建一个队列"></a>创建一个队列</h1><p>直接用<code>DispatchQueue</code> 的初始化器来创建一个队列。最简单直接的办法是这样：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> queue = <span class="type">DispatchQueue</span>(label: <span class="string">"myBackgroundQueue"</span>)</div></pre></td></tr></table></figure>
-<p>复杂一点？你可以指定优先级以及队列类别：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> queue = <span class="type">DispatchQueue</span>(label: <span class="string">"myBackgroundQueue"</span>, qos: .userInitiated, attributes: .concurrent)</div></pre></td></tr></table></figure>
-<p>然后把代码放进去即可：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">queue.async &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"aaa"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="组队列"><a href="#组队列" class="headerlink" title="组队列"></a>组队列</h1><p>对于组，现在你可以使用这样的语法直接创建一个组：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> group = <span class="type">DispatchGroup</span>()</div></pre></td></tr></table></figure>
-<p>至于使用，则是这样的：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> group = <span class="type">DispatchGroup</span>()</div><div class="line"> </div><div class="line"><span class="keyword">let</span> queue = <span class="type">DispatchQueue</span>(label: <span class="string">"myBackgroundQueue"</span>)</div><div class="line"> </div><div class="line">queue.async(group:group) &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"background working"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>那么，如果有多个并发队列在同一个组里，我们需要它们完成了再继续呢？</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">	</div><div class="line">group.wait()</div></pre></td></tr></table></figure>
-<h1 id="dispatch-time-t"><a href="#dispatch-time-t" class="headerlink" title="dispatch_time_t"></a>dispatch_time_t</h1><p>还有一个是对 dispatch_time_t 的改进：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> delay = <span class="type">DispatchTime</span>.now() + .seconds(<span class="number">60</span>)</div><div class="line"><span class="type">DispatchQueue</span>.main.after(when: delay) &#123;</div><div class="line">    <span class="comment">// Do something</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>语法使用起来更加简单。DispatchTime.now() 是当前事前， 然后加上 .seconds(60) 代表 60秒。 再使用 DispatchQueue.main.after 让这个操作在 60 秒后执行。 相比于之前的 GCD 语法，那就容易理解很多了。</p>
-<p>顺手儿把 GCD 以前获取当前时间的语法贴出来对比一下：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> dispatch_time = dispatch_time(<span class="type">DISPATCH_TIME_NOW</span>, <span class="type">Int64</span>(<span class="number">60</span> * <span class="type">NSEC_PER_SEC</span>))</div></pre></td></tr></table></figure>
-<p>这样一比， 立竿见影哈。 至少上面新的 GCD 语法， 我大概看了一眼，就能明白它是什么意思了。 而下面这个老的语法，如果不查阅相关文档的话，第一眼恐怕没那么容易看懂了。</p>
-<h1 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h1><p>Swift 3 对 GCD 的语法改进还是很大的。 新的语法结构还是很不错的， 当然大多数朋友应该都习惯了以前的写法，也包括我~ 所以肯定需要一点时间适应。 希望这篇文章能帮你节省查阅文档的时间， 在闲暇时刻了解一些技术点。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Xcode8正式发布后，Swift3也随即发布，为了跟上苹果这艘大船的脚步，赶紧逼着自己看文档哦。在看文档的过程中，发现GCD的变化跟OC相比简直都要不认识了，赶紧写个文章总结下，顺手复习下GCD中死锁的概念，死锁的总结发布在另一篇文章里了。&lt;/p&gt;
-&lt;h1 id=&quot;取消过去的接口&quot;&gt;&lt;a href=&quot;#取消过去的接口&quot; class=&quot;headerlink&quot; title=&quot;取消过去的接口&quot;&gt;&lt;/a&gt;取消过去的接口&lt;/h1&gt;&lt;p&gt;说起 GCD， 大家肯定回想起类似 &lt;code&gt;dispatch_async&lt;/code&gt; 这样的语法。 GCD 的这个语法模式无论是和 Objc 还是 Swift 的整体风格都不太搭调。 所以 Swift 3 中对它的语法进行了彻底的改写。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="iOS开发" scheme="http://yoursite.com/tags/iOS%E5%BC%80%E5%8F%91/"/>
-    
-      <category term="Swift" scheme="http://yoursite.com/tags/Swift/"/>
-    
-      <category term="多线程" scheme="http://yoursite.com/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iOS——GCD的死锁案例</title>
-    <link href="http://yoursite.com/2016/11/01/iOS%E2%80%94%E2%80%94GCD%E7%9A%84%E6%AD%BB%E9%94%81%E6%A1%88%E4%BE%8B/"/>
-    <id>http://yoursite.com/2016/11/01/iOS——GCD的死锁案例/</id>
-    <published>2016-11-01T04:57:11.000Z</published>
-    <updated>2016-11-01T04:58:09.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>在项目中，用GCD的时候非常多，但是我最近脑子里一直在问自己一个问题，死锁是什么。惭愧的是这个当初清晰的概念现在愈加模糊，考虑到自己并没有专门整理过死锁的文章，所以写一篇技术文章来帮助自己梳理概念。</p>
-<p>GCD提供了功能强大的任务和队列控制功能，相比于NSOperationQueue更加底层，因此如果不注意也会导致死锁。</p>
-<p>所谓死锁，通常指有两个线程A和B都卡住了，并等待对方完成某些操作。A不能完成是因为它在等待B完成。但B也不能完成，因为它在等待A完成。于是大家都完不成，就导致了死锁（DeadLock）。</p>
-<a id="more"></a>
-<h1 id="串行与并行"><a href="#串行与并行" class="headerlink" title="串行与并行"></a>串行与并行</h1><p>在使用GCD的时候，我们会把需要处理的任务放到<code>Block</code>中，然后将任务追加到相应的队列里面，这个队列，叫做<code>Dispatch Queue</code>。然而，存在于两种<code>Dispatch Queue</code>，一种是要等待上一个执行完，再执行下一个的<code>Serial Dispatch Queue</code>，这叫做串行队列；另一种，则是不需要上一个执行完，就能执行下一个的<code>Concurrent Dispatch Queue</code>，叫做并行队列。这两种，均遵循<code>FIFO</code>原则。</p>
-<blockquote>
-<p>举一个简单的例子，在三个任务中输出1、2、3，串行队列输出是有序的1、2、3，但是并行队列的先后顺序就不一定了。</p>
-</blockquote>
-<h1 id="同步与异步"><a href="#同步与异步" class="headerlink" title="同步与异步"></a>同步与异步</h1><p>串行与并行针对的是队列，而同步与异步，针对的则是线程。最大的区别在于，同步线程要阻塞当前线程，必须要等待同步线程中的任务执行完，返回以后，才能继续执行下一任务；而异步线程则是不用等待。</p>
-<h1 id="死锁的具体案例"><a href="#死锁的具体案例" class="headerlink" title="死锁的具体案例"></a>死锁的具体案例</h1><blockquote>
-<p>接下来所有的案例代码，我都会用Swift3的语言重写一遍，为了帮助自己加深对Swift3的语言的理解。</p>
-</blockquote>
-<p>##Demo1</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"1"</span>); <span class="comment">// 任务1</span></div><div class="line"></div><div class="line"><span class="built_in">dispatch_sync</span>(dispatch_get_main_queue(), ^&#123;</div><div class="line"></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"2"</span>); <span class="comment">// 任务2</span></div><div class="line"></div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"3"</span>); <span class="comment">// 任务3</span></div></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">print</span>(<span class="string">"1"</span>)   <span class="comment">//任务1</span></div><div class="line"> </div><div class="line"> <span class="type">DispatchQueue</span>.main.sync &#123;</div><div class="line">     <span class="built_in">print</span>(<span class="string">"2"</span>)  <span class="comment">//任务2</span></div><div class="line"> &#125;</div><div class="line"> </div><div class="line"> <span class="built_in">print</span>(<span class="string">"3"</span>)  <span class="comment">//任务3</span></div></pre></td></tr></table></figure>
-<p>接下来 控制器输出:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1</div></pre></td></tr></table></figure>
-<p>分析：</p>
-<ul>
-<li><p>dispatch_sync表示是一个同步线程；</p>
-</li>
-<li><p>dispatch_get_main_queue表示运行在主线程中的主队列；</p>
-</li>
-<li><p>任务2是同步线程的任务。</p>
-</li>
-<li><p>首先执行任务1，这是肯定没问题的，只是接下来，程序遇到了同步线程，那么它会进入等待，等待任务2执行完，然后执行任务3。但这是队列，有任务来，当然会将任务加到队尾，然后遵循FIFO原则执行任务。那么，现在任务2就会被加到最后，任务3排在了任务2前面</p>
-</li>
-<li><p>任务3要等任务2执行完才能执行，任务2由排在任务3后面，意味着任务2要在任务3执行完才能执行，所以他们进入了互相等待的局面。</p>
-</li>
-</ul>
-<h2 id="Demo2"><a href="#Demo2" class="headerlink" title="Demo2"></a>Demo2</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"1"</span>); <span class="comment">// 任务1</span></div><div class="line"></div><div class="line"><span class="built_in">dispatch_sync</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, <span class="number">0</span>), ^&#123;</div><div class="line"></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"2"</span>); <span class="comment">// 任务2</span></div><div class="line"></div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"3"</span>); <span class="comment">// 任务3</span></div></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">print</span>(<span class="string">"1"</span>)</div><div class="line">    </div><div class="line"><span class="type">DispatchQueue</span>.global(qos: .<span class="keyword">default</span>).sync &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"2"</span>)</div><div class="line">&#125;</div><div class="line">    </div><div class="line"><span class="built_in">print</span>(<span class="string">"3"</span>)</div></pre></td></tr></table></figure>
-<p>控制器输出</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1</div><div class="line"></div><div class="line">2</div><div class="line"></div><div class="line">3</div></pre></td></tr></table></figure>
-<ul>
-<li><p>首先执行任务1，接下来会遇到一个同步线程，程序会进入等待。</p>
-</li>
-<li><p>等待任务2执行完成以后，才能继续执行任务3。</p>
-</li>
-<li><p>从<code>dispatch_get_global_queue</code>可以看出，任务2被加入到了全局的并行队列中，当并行队列执行完任务2以后，返回到主队列，继续执行任务3。</p>
-</li>
-</ul>
-<h2 id="Demo3"><a href="#Demo3" class="headerlink" title="Demo3"></a>Demo3</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">dispatch_queue_t</span> queue = dispatch_queue_create(<span class="string">"com.demo.serialQueue"</span>, DISPATCH_QUEUE_SERIAL);</div><div class="line"></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"1"</span>); <span class="comment">// 任务1</span></div><div class="line"></div><div class="line"><span class="built_in">dispatch_async</span>(queue, ^&#123;</div><div class="line"></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"2"</span>); <span class="comment">// 任务2</span></div><div class="line"></div><div class="line">    <span class="built_in">dispatch_sync</span>(queue, ^&#123;  </div><div class="line"></div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"3"</span>); <span class="comment">// 任务3</span></div><div class="line"></div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"4"</span>); <span class="comment">// 任务4</span></div><div class="line"></div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"5"</span>); <span class="comment">// 任务5</span></div></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> queue = <span class="type">DispatchQueue</span>(label: <span class="string">"serealQueue"</span>, qos: .<span class="keyword">default</span>)</div><div class="line"><span class="built_in">print</span>(<span class="string">"1"</span>)</div><div class="line">queue.async &#123;</div><div class="line"><span class="built_in">print</span>(<span class="string">"2"</span>)</div><div class="line">queue.sync &#123;</div><div class="line"><span class="built_in">print</span>(<span class="string">"3"</span>)</div><div class="line">&#125;</div><div class="line"><span class="built_in">print</span>(<span class="string">"4"</span>)</div><div class="line">&#125;</div><div class="line"><span class="built_in">print</span>(<span class="string">"5"</span>)</div></pre></td></tr></table></figure>
-<p>控制台输出</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">1</div><div class="line"></div><div class="line">5</div><div class="line"></div><div class="line">2</div><div class="line"></div><div class="line">// 5和2的顺序不一定</div></pre></td></tr></table></figure>
-<p>分析：</p>
-<ul>
-<li><p>这个案例没有使用系统提供的串行或并行队列，而是自己通过<code>dispatch_queue_create</code>函数创建了一个<code>DISPATCH_QUEUE_SERIAL</code>的串行队列。</p>
-</li>
-<li><p>执行任务1；</p>
-</li>
-<li><p>遇到异步线程，将【任务2、同步线程、任务4】加入串行队列中。因为是异步线程，所以在主线程中的任务5不必等待异步线程中的所有任务完成；</p>
-</li>
-<li><p>因为任务5不必等待，所以2和5的输出顺序不能确定；</p>
-</li>
-<li><p>任务2执行完以后，遇到同步线程，这时，将任务3加入串行队列；</p>
-</li>
-<li><p>又因为任务4比任务3早加入串行队列，所以，任务3要等待任务4完成以后，才能执行。但是任务3所在的同步线程会阻塞，所以任务4必须等任务3执行完以后再执行。这就又陷入了无限的等待中，造成死锁。</p>
-</li>
-</ul>
-<h2 id="Demo4"><a href="#Demo4" class="headerlink" title="Demo4"></a>Demo4</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"1"</span>); <span class="comment">// 任务1</span></div><div class="line"></div><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(<span class="number">0</span>, <span class="number">0</span>), ^&#123;</div><div class="line"></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"2"</span>); <span class="comment">// 任务2</span></div><div class="line"></div><div class="line">    <span class="built_in">dispatch_sync</span>(dispatch_get_main_queue(), ^&#123;</div><div class="line"></div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"3"</span>); <span class="comment">// 任务3</span></div><div class="line"></div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"4"</span>); <span class="comment">// 任务4</span></div><div class="line"></div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"5"</span>); <span class="comment">// 任务5</span></div></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">print</span>(<span class="string">"1"</span>)</div><div class="line"><span class="type">DispatchQueue</span>.global(qos: .<span class="keyword">default</span>).async &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"2"</span>)</div><div class="line">    <span class="type">DispatchQueue</span>.main.sync &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"3"</span>)</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"4"</span>)</div><div class="line">&#125;</div><div class="line"><span class="built_in">print</span>(<span class="string">"5"</span>)</div></pre></td></tr></table></figure>
-<p>控制器输出</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">1</div><div class="line"></div><div class="line">2</div><div class="line"></div><div class="line">5</div><div class="line"></div><div class="line">3</div><div class="line"></div><div class="line">4</div><div class="line"></div><div class="line">// 5和2的顺序不一定</div></pre></td></tr></table></figure>
-<p>分析:</p>
-<ul>
-<li><p>首先，将【任务1、异步线程、任务5】加入Main Queue中，异步线程中的任务是：【任务2、同步线程、任务4】。</p>
-</li>
-<li><p>所以，先执行任务1，然后将异步线程中的任务加入到Global Queue中，因为异步线程，所以任务5不用等待，结果就是2和5的输出顺序不一定。</p>
-</li>
-<li><p>然后再看异步线程中的任务执行顺序。任务2执行完以后，遇到同步线程。将同步线程中的任务加入到Main Queue中，这时加入的任务3在任务5的后面。</p>
-</li>
-<li><p>当任务3执行完以后，没有了阻塞，程序继续执行任务4。</p>
-</li>
-<li><p>从以上的分析来看，得到的几个结果：1最先执行；2和5顺序不一定；4一定在3后面。</p>
-</li>
-</ul>
-<h2 id="Demo5"><a href="#Demo5" class="headerlink" title="Demo5"></a>Demo5</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(<span class="number">0</span>, <span class="number">0</span>), ^&#123;</div><div class="line"></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"1"</span>); <span class="comment">// 任务1</span></div><div class="line"></div><div class="line">    <span class="built_in">dispatch_sync</span>(dispatch_get_main_queue(), ^&#123;</div><div class="line"></div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"2"</span>); <span class="comment">// 任务2</span></div><div class="line"></div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"3"</span>); <span class="comment">// 任务3</span></div><div class="line"></div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"4"</span>); <span class="comment">// 任务4</span></div><div class="line"></div><div class="line"><span class="keyword">while</span> (<span class="number">1</span>) &#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"5"</span>); <span class="comment">// 任务5</span></div></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="type">DispatchQueue</span>.global(qos: .<span class="keyword">default</span>).async &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"1"</span>)</div><div class="line">    <span class="type">DispatchQueue</span>.main.sync &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"2"</span>)</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"3"</span>)</div><div class="line">&#125;</div><div class="line"><span class="built_in">print</span>(<span class="string">"4"</span>)</div><div class="line"><span class="keyword">while</span> (<span class="number">1</span> &gt; <span class="number">0</span>) &#123;</div><div class="line">    </div><div class="line">&#125;</div><div class="line"><span class="built_in">print</span>(<span class="string">"5"</span>)</div></pre></td></tr></table></figure>
-<p>控制器输出:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1</div><div class="line"></div><div class="line">4</div><div class="line"></div><div class="line">// 1和4的顺序不一定</div></pre></td></tr></table></figure>
-<p>分析：</p>
-<ul>
-<li><p>和上面几个案例的分析类似，先来看看都有哪些任务加入了Main Queue：【异步线程、任务4、死循环、任务5】。</p>
-</li>
-<li><p>在加入到Global Queue异步线程中的任务有：【任务1、同步线程、任务3】。</p>
-</li>
-<li><p>第一个就是异步线程，任务4不用等待，所以结果任务1和任务4顺序不一定。</p>
-</li>
-<li><p>任务4完成后，程序进入死循环，Main Queue阻塞。但是加入到Global Queue的异步线程不受影响，继续执行任务1后面的同步线程。</p>
-</li>
-<li><p>同步线程中，将任务2加入到了主线程，并且，任务3等待任务2完成以后才能执行。这时的主线程，已经被死循环阻塞了。所以任务2无法执行，当然任务3也无法执行，在死循环后的任务5也不会执行。</p>
-</li>
-<li><p>最终，只能得到1和4顺序不定的结果。</p>
-</li>
-</ul>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>在总结完这些GCD死锁的情况的以后，我觉得脑子里关于GCD中死锁的概念也逐渐清晰了。以后在项目中也会运用的时候也会更加注意。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在项目中，用GCD的时候非常多，但是我最近脑子里一直在问自己一个问题，死锁是什么。惭愧的是这个当初清晰的概念现在愈加模糊，考虑到自己并没有专门整理过死锁的文章，所以写一篇技术文章来帮助自己梳理概念。&lt;/p&gt;
-&lt;p&gt;GCD提供了功能强大的任务和队列控制功能，相比于NSOperationQueue更加底层，因此如果不注意也会导致死锁。&lt;/p&gt;
-&lt;p&gt;所谓死锁，通常指有两个线程A和B都卡住了，并等待对方完成某些操作。A不能完成是因为它在等待B完成。但B也不能完成，因为它在等待A完成。于是大家都完不成，就导致了死锁（DeadLock）。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="iOS开发" scheme="http://yoursite.com/tags/iOS%E5%BC%80%E5%8F%91/"/>
-    
-      <category term="GCD的死锁" scheme="http://yoursite.com/tags/GCD%E7%9A%84%E6%AD%BB%E9%94%81/"/>
     
   </entry>
   

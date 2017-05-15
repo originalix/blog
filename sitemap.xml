@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2017/05/05/nginx%E9%85%8D%E7%BD%AE%E4%BA%8C%E7%BA%A7%E5%9F%9F%E5%90%8D/</loc>
+    
+    <lastmod>2017-05-15T08:38:49.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2017/05/15/%E4%BD%BF%E7%94%A8Vagrant%E6%9D%A5%E6%90%AD%E5%BB%BA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/</loc>
+    
+    <lastmod>2017-05-15T08:37:21.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2017/04/26/%E7%AE%80%E5%8D%95%E7%9A%84%E7%BC%96%E7%A8%8B%E4%BD%93%E4%BC%9A/</loc>
     
     <lastmod>2017-04-26T09:10:57.000Z</lastmod>
