@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-05-15T08:37:21.000Z</updated>
+  <updated>2017-06-02T02:39:37.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,50 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Liunx的文件权限</title>
+    <link href="http://yoursite.com/2017/06/02/Liunx%E7%9A%84%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/"/>
+    <id>http://yoursite.com/2017/06/02/Liunx的文件权限/</id>
+    <published>2017-06-02T02:37:39.000Z</published>
+    <updated>2017-06-02T02:39:37.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>之前讲过为了统一开发环境生产环境以及更换开发机器的情况，我把环境统一由<code>Vagrant</code>部署在<code>Linux</code>的虚拟机中，但是由于我对<code>Linux</code>系统没有系统的学习过，对于环境的部署也仅仅通过谷歌等刚刚入门，所以在具体的开发中我还是经常在<code>Linux</code>中遇到问题，经常求教老大。看着老大熟练的把玩<code>Linux</code>，我也下定决心要把<code>Linux</code>掌握好。</p>
+<p>经自己了解，《鸟哥的Linux私房菜》一书备受推崇，于是于半个月前购入，开始拜读学习。在日常的工作时间之外，断断续续的学习着，确实受益匪浅，厚厚的一本书现在才看了四分之一左右，决定还是抽出时间记录一下自己曾经对于<code>Linux</code>感到困惑的一些事情。</p>
+<p>今天就来说说<code>Linux</code>中文件权限的一些门门道道。</p>
+<a id="more"></a>
+<p>当初我在部署第一个<code>Laravel</code>项目到阿里云的时候，在部署完成后，看到教程中要给<code>storage</code>文件设置权限，当时这个777 775等这种数字简直把我弄迷糊了。只能对照着命令乖乖的敲进去，神奇的是敲进去之后，果然问题解决了，站点能访问了。感觉甚是困惑。看完书中的文件权限一章之后，才发觉<code>Linux</code>中文件权限的神奇。</p>
+<p>查看文件权限的语句：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 在终端输入:</span></div><div class="line">ls <span class="_">-l</span> xxx.xxx （xxx.xxx是文件名）</div><div class="line"><span class="comment"># 那么就会出现相类似的信息，主要都是这些：</span></div><div class="line">-rw-rw-r--</div></pre></td></tr></table></figure>
+<p>一共有10位数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">其中： 最前面那个 - 代表的是类型</div><div class="line">中间那三个 rw- 代表的是所有者（user）</div><div class="line">然后那三个 rw- 代表的是组群（group）</div><div class="line">最后那三个 r-- 代表的是其他人（other）</div><div class="line">然后我再解释一下后面那9位数：</div><div class="line">r 表示文件可以被读（<span class="built_in">read</span>）</div><div class="line">w 表示文件可以被写（write）</div><div class="line">x 表示文件可以被执行（如果它是程序的话）</div><div class="line">- 表示相应的权限还没有被授予</div><div class="line"></div><div class="line">现在该说说修改文件权限了</div><div class="line">在终端输入：</div><div class="line">chmod o w xxx.xxx</div><div class="line">表示给其他人授予写xxx.xxx这个文件的权限</div><div class="line">chmod go-rw xxx.xxx</div><div class="line">表示删除xxx.xxx中组群和其他人的读和写的权限</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">其中：</div><div class="line">　　u 代表所有者（user）</div><div class="line">　　g 代表所有者所在的组群（group）</div><div class="line">　　o 代表其他人，但不是u和g （other）</div><div class="line">　　a 代表全部的人，也就是包括u，g和o</div><div class="line">　　r 表示文件可以被读（<span class="built_in">read</span>）</div><div class="line">　　w 表示文件可以被写（write）</div><div class="line">　　x 表示文件可以被执行（如果它是程序的话）</div><div class="line">　　其中：rwx也可以用数字来代替</div><div class="line">　　r ------------4</div><div class="line">　　w -----------2</div><div class="line">　　x ------------1</div><div class="line">　　- ------------0</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">行动：</div><div class="line">　　 表示添加权限</div><div class="line">　　- 表示删除权限</div><div class="line">　　= 表示使之成为唯一的权限</div><div class="line">　　当大家都明白了上面的东西之后，那么我们常见的以下的一些权限就很容易都明白了：</div><div class="line">　　-rw------- (600) 只有所有者才有读和写的权限</div><div class="line">　　-rw-r--r-- (644) 只有所有者才有读和写的权限，组群和其他人只有读的权限</div><div class="line">　　-rwx------ (700) 只有所有者才有读，写，执行的权限</div><div class="line">　　-rwxr-xr-x (755) 只有所有者才有读，写，执行的权限，组群和其他人只有读和执行的权限</div><div class="line">　　-rwx--x--x (711) 只有所有者才有读，写，执行的权限，组群和其他人只有执行的权限</div><div class="line">　　-rw-rw-rw- (666) 每个人都有读写的权限</div><div class="line">　　-rwxrwxrwx (777) 每个人都有读写和执行的权限</div></pre></td></tr></table></figure>
+<p>常用的权限修改命令:</p>
+<ul>
+<li>chgrp ：改变文件所属群组</li>
+<li>chown ：改变文件拥有者</li>
+<li>chmod ：改变文件的权限, SUID, SGID, SBIT等等的特性</li>
+</ul>
+<p>改变权限, chmod</p>
+<p>文件权限的改变使用的是chmod这个指令，但是，权限的设定方法有两种， 分别可以使用数字或者是符号来进行权限的变更。我们就来谈一谈：</p>
+<p>数字类型改变文件权限</p>
+<p>各权限的分数对照表如下：<br>r:4<br>w:2<br>x:1<br>每种身份(owner/group/others)各自的三个权限(r/w/x)分数是需要累加的，例如当权限为： [-rwxrwx—] 分数则是：<br>owner = rwx = 4+2+1 = 7<br>group = rwx = 4+2+1 = 7<br>others= — = 0+0+0 = 0</p>
+<p>在讲解清楚了这种权限分值的累加之后，再去体会自己当初敲入命令行中的数字，是不是恍然大悟了呢。不知道你们是不是，反正我是这样的。今天小小的知识点就记录到这里，下次有时间再更新咯。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;之前讲过为了统一开发环境生产环境以及更换开发机器的情况，我把环境统一由&lt;code&gt;Vagrant&lt;/code&gt;部署在&lt;code&gt;Linux&lt;/code&gt;的虚拟机中，但是由于我对&lt;code&gt;Linux&lt;/code&gt;系统没有系统的学习过，对于环境的部署也仅仅通过谷歌等刚刚入门，所以在具体的开发中我还是经常在&lt;code&gt;Linux&lt;/code&gt;中遇到问题，经常求教老大。看着老大熟练的把玩&lt;code&gt;Linux&lt;/code&gt;，我也下定决心要把&lt;code&gt;Linux&lt;/code&gt;掌握好。&lt;/p&gt;
+&lt;p&gt;经自己了解，《鸟哥的Linux私房菜》一书备受推崇，于是于半个月前购入，开始拜读学习。在日常的工作时间之外，断断续续的学习着，确实受益匪浅，厚厚的一本书现在才看了四分之一左右，决定还是抽出时间记录一下自己曾经对于&lt;code&gt;Linux&lt;/code&gt;感到困惑的一些事情。&lt;/p&gt;
+&lt;p&gt;今天就来说说&lt;code&gt;Linux&lt;/code&gt;中文件权限的一些门门道道。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>使用Vagrant来搭建开发环境</title>
@@ -136,7 +180,7 @@
     <link href="http://yoursite.com/2017/05/05/nginx%E9%85%8D%E7%BD%AE%E4%BA%8C%E7%BA%A7%E5%9F%9F%E5%90%8D/"/>
     <id>http://yoursite.com/2017/05/05/nginx配置二级域名/</id>
     <published>2017-05-05T09:23:29.000Z</published>
-    <updated>2017-05-15T08:41:06.000Z</updated>
+    <updated>2017-05-15T08:41:11.000Z</updated>
     
     <content type="html"><![CDATA[<p>最近为了练手Vue框架，写了一个博客项目，昨天刚刚把个人博客部署上线，因为前后端分离，所以使用Ajax来请求后端api接口获取数据，部署的过程中碰到了一个坑。我只有一个域名，所以想让一级域名<code>originalix.com</code>来访问博客，而使用二级域名<code>demo.originalix.com</code>来访问后端页面并且请求api。</p>
 <p>怎么做呢，在查阅了资料以后发现，首先应该在域名供应商中添加一条二级域名的记录，比如我想使用的是<strong>demo</strong>。</p>
@@ -178,9 +222,9 @@
     </summary>
     
     
-      <category term="nginx" scheme="http://yoursite.com/tags/nginx/"/>
-    
       <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
+    
+      <category term="nginx" scheme="http://yoursite.com/tags/nginx/"/>
     
       <category term="Domin" scheme="http://yoursite.com/tags/Domin/"/>
     
@@ -1079,50 +1123,6 @@
       <category term="Swift" scheme="http://yoursite.com/tags/Swift/"/>
     
       <category term="步数获取" scheme="http://yoursite.com/tags/%E6%AD%A5%E6%95%B0%E8%8E%B7%E5%8F%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iOS开发 —— Swift版地址选择器</title>
-    <link href="http://yoursite.com/2016/11/25/iOS%E5%BC%80%E5%8F%91-%E2%80%94%E2%80%94-Swift%E7%89%88%E5%9C%B0%E5%9D%80%E9%80%89%E6%8B%A9%E5%99%A8/"/>
-    <id>http://yoursite.com/2016/11/25/iOS开发-——-Swift版地址选择器/</id>
-    <published>2016-11-25T02:44:06.000Z</published>
-    <updated>2016-11-25T03:09:17.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>已经有二十多天没有更新自己的博客了，这段时间经历了很多事情，离开了生活了六七年的杭州，从离职再入职，忙的是一塌糊涂。</p>
-<p>现在这个公司的项目使用了Swift开发，我一直想在自己的项目中也运用Swift，但是一直也没有机会，所以这次能够使用Swift正儿八经的开发，我也是超级兴奋的。</p>
-<p>所以从以后开始，我的iOS系列的文章会逐渐的与Swift语言越来越相关。不得不说只有实际开发才能发现Swift中等着我要去踩的坑还有很多。没辙了，爱他就拼命的去填坑吧。</p>
-<p>刚入职的第一周写了个简单的页面来熟悉公司项目代码，并且了解下业务。做了一个电商方面相关的收货地址的选择。</p>
-<p>今天就来讲讲Swift版本的地址选择器的构建。</p>
-<a id="more"></a>
-<h2 id="构建思路"><a href="#构建思路" class="headerlink" title="构建思路"></a>构建思路</h2><p>刚开始领导丢给我了一个数据库包含着中国地区的省市区关系，但是以前处理这个问题常用Plist文件来搞定，所以我也就偷懒懒得再去写Sql语句了，直接用一个Plist文件来处理。</p>
-<p>之前OC写的很多省市选择器，都是封装的不够完善，直接调用存在很多问题。并且在处理省市联动的问题上，常常是通过拆分省市区为三个数组，当其中一个数据变化时，再根据 <code>index</code>来处理之后的数据联动。</p>
-<p>所以这次的类就本着提高复用性的想法，对地址选择界面做了比较全面的封装，在之后的任何地方调用就非常方便。</p>
-<p>首先把<code>UIPickerView</code>这个类的两个代理方法在自己的类里实现，以后调用的时候不用再去实现<code>UIPickerView</code>的两个<strong>Delegate Method</strong>，之后我们再提供一个协议，用最简单的方式来完成数据的获取。</p>
-<p>至于省市区的结构，我们用结构体来处理，将省市区写成两个<strong>Struct</strong>，再之后就是简单的数据处理了。将数据加载并且传入这个Struct中。</p>
-<p>最后，因为有时候不是省市区三个一起调用，有可能只是单个，或者两个。所以再用枚举声明三种类型，包括了<strong>省、省市、省市区</strong>三种情况，我想这样就可以满足所有情况的使用了。</p>
-<h2 id="简单调用"><a href="#简单调用" class="headerlink" title="简单调用"></a>简单调用</h2><p>贴上一个简单调用的方法吧，最直接的调用，非常的简单。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span>, <span class="title">LixAreaPickerDelegate</span> </span>&#123;</div><div class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> dataLabel: <span class="type">UILabel</span>!</div><div class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> subdivisionsPicker: <span class="type">LixAreaPickerView</span>!</div><div class="line"></div><div class="line">    <span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">selectPickerType</span><span class="params">(sender: UISegmentedControl)</span></span> &#123;</div><div class="line">        <span class="keyword">switch</span> sender.selectedSegmentIndex &#123;</div><div class="line">        <span class="keyword">case</span> <span class="number">0</span>:</div><div class="line">            subdivisionsPicker.pickerType = .<span class="type">Province</span></div><div class="line">        <span class="keyword">case</span> <span class="number">1</span>:</div><div class="line">            subdivisionsPicker.pickerType = .<span class="type">City</span></div><div class="line">        <span class="keyword">case</span> <span class="number">2</span>:</div><div class="line">            subdivisionsPicker.pickerType = .<span class="type">District</span></div><div class="line">        <span class="keyword">default</span>:</div><div class="line">            <span class="keyword">break</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">areaPickerDidUpdate</span><span class="params">(sender: LixAreaPickerView)</span></span> &#123;</div><div class="line">        dataLabel.text = (subdivisionsPicker.province ?? <span class="string">""</span>) + <span class="string">" "</span> + (subdivisionsPicker.city ?? <span class="string">""</span>) + <span class="string">" "</span> + (subdivisionsPicker.district ?? <span class="string">""</span>)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        subdivisionsPicker.pickerDelegate = <span class="keyword">self</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">didReceiveMemoryWarning</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.didReceiveMemoryWarning()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="源码地址"><a href="#源码地址" class="headerlink" title="源码地址"></a>源码地址</h2><p>源码我已经放在我的<a href="https://github.com/originalix/LixAreaPickerView" target="_blank" rel="external">Github</a>上面了，欢迎使用。<br>如果您觉得好用，麻烦Star</p>
-<p>谢谢。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;已经有二十多天没有更新自己的博客了，这段时间经历了很多事情，离开了生活了六七年的杭州，从离职再入职，忙的是一塌糊涂。&lt;/p&gt;
-&lt;p&gt;现在这个公司的项目使用了Swift开发，我一直想在自己的项目中也运用Swift，但是一直也没有机会，所以这次能够使用Swift正儿八经的开发，我也是超级兴奋的。&lt;/p&gt;
-&lt;p&gt;所以从以后开始，我的iOS系列的文章会逐渐的与Swift语言越来越相关。不得不说只有实际开发才能发现Swift中等着我要去踩的坑还有很多。没辙了，爱他就拼命的去填坑吧。&lt;/p&gt;
-&lt;p&gt;刚入职的第一周写了个简单的页面来熟悉公司项目代码，并且了解下业务。做了一个电商方面相关的收货地址的选择。&lt;/p&gt;
-&lt;p&gt;今天就来讲讲Swift版本的地址选择器的构建。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="iOS开发" scheme="http://yoursite.com/tags/iOS%E5%BC%80%E5%8F%91/"/>
-    
-      <category term="Swift" scheme="http://yoursite.com/tags/Swift/"/>
-    
-      <category term="地址选择器" scheme="http://yoursite.com/tags/%E5%9C%B0%E5%9D%80%E9%80%89%E6%8B%A9%E5%99%A8/"/>
     
   </entry>
   
