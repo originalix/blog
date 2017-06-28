@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-06-21T09:47:23.000Z</updated>
+  <updated>2017-06-28T09:37:51.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,60 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>iOS开发——自主设计日志系统</title>
+    <link href="http://yoursite.com/2017/06/28/iOS%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94%E8%87%AA%E4%B8%BB%E8%AE%BE%E8%AE%A1%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/"/>
+    <id>http://yoursite.com/2017/06/28/iOS开发——自主设计日志系统/</id>
+    <published>2017-06-28T09:37:01.000Z</published>
+    <updated>2017-06-28T09:37:51.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>好像很久没有写有关iOS的文章了，其实iOS的开发一直都是在进行的，但是最近有需求拓宽知识的宽度，所以一直在接触别的知识，当然啦，移动端开发并不能丢下。</p>
+<p>我平时开发的项目监测bug和崩溃的模块都是集成了鹅厂的<code>Bugly</code>系统，毕竟是谁用谁说好的第三方系统。而<code>Bugly</code>主要还是返回的还是崩溃之后的日志，所以如果想在平时的运行中，就能拿到客户手机中的日志怎么办呢。在这个需求的驱使下，便开始着手设计一个日志系统。</p>
+<p>需求还是不难的，记录手机操作的内容，如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">时间|日志级别|类名_函数名_行数|分类|Log内容</div></pre></td></tr></table></figure>
+<p>这样的一种日志形式。</p>
+<p>因为不希望频繁的读写，所以希望每十条Log生成之后，读写一次。而未写入硬盘的Log保存在内存中。按照天数，每天都有一份日志，并且在客户的手机异常之后，可以将所有日志压缩上传到服务器。需求介绍完了，并不难对不对。</p>
+<a id="more"></a>
+<p>在Log的生成方面，我的设计是枚举出日志的级别，之后利用Swift的 <code>#function</code> 和 <code>#line</code>等定义，方便的获取函数名和行数，类名我是利用一个对于<code>NSObject</code>的<code>extension</code>来完成的，类似这样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">NSObject</span> </span>&#123;</div><div class="line">    <span class="keyword">var</span> className: <span class="type">String</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="type">String</span>(describing: type(of: <span class="keyword">self</span>)).components(separatedBy: <span class="string">"."</span>).last!</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">var</span> <span class="title">className</span>: <span class="title">String</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="type">String</span>(describing: <span class="keyword">self</span>).components(separatedBy: <span class="string">"."</span>).last!</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>开箱可用，准确获取类名。</p>
+<p>生成log的核心函数例如如下这样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">createLog</span><span class="params">(level: DebugLevel, targetClass: AnyClass, type: OperateType, content: String,  <span class="number">_</span> line: Int = #line, <span class="number">_</span> function: String = #function)</span></span></div><div class="line">-&gt; <span class="type">String</span> &#123;</div><div class="line">    <span class="keyword">let</span> lineStr = <span class="type">String</span>.<span class="keyword">init</span>(format: <span class="string">"line:%d"</span>, line)</div><div class="line">    <span class="keyword">let</span> levelStr = levelToString(level: level)</div><div class="line">    <span class="keyword">let</span> separator = <span class="string">"|"</span></div><div class="line">    <span class="keyword">let</span> classSeparator = <span class="string">"_"</span></div><div class="line">    <span class="keyword">let</span> log: <span class="type">String</span> = <span class="type">Date</span>().<span class="built_in">toString</span>() + separator + levelStr + separator + targetClass.className + classSeparator + function + classSeparator + lineStr + separator + content + <span class="string">"\n"</span></div><div class="line">    <span class="built_in">print</span>(log)</div><div class="line">    <span class="keyword">return</span> log</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>而基于这个函数做一些封装，就能封装出很简便的打印各级别日志的API了。</p>
+<p>至此，介绍完Log的生成类： <code>LogGenerator</code>。</p>
+<p>之后是对日志的读写，需要有一个文件读写的类，暂定名为<code>LogStorage</code>。</p>
+<p>因为文件的读写都是常规的操作，所以代码就不贴出来了。我在这里只是贴出我在<code>LogStorage</code>类里暴露的接口方法</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">protocol</span> <span class="title">LogStorageProtocol</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">/// 获取日志缓存地址</span></div><div class="line">    <span class="comment">///</span></div><div class="line">    <span class="comment">/// - Returns: String</span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">getCachePath</span><span class="params">()</span></span> -&gt; <span class="type">String</span></div><div class="line"></div><div class="line">    <span class="comment">/// 删除文件</span></div><div class="line">    <span class="comment">///</span></div><div class="line">    <span class="comment">/// - Parameter fileName: String</span></div><div class="line">    <span class="comment">/// - Returns: Bool</span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">deleteFile</span><span class="params">(fileName: String)</span></span> -&gt; <span class="type">Bool</span></div><div class="line"></div><div class="line">    <span class="comment">/// 清除全部日志缓存</span></div><div class="line">    <span class="comment">///</span></div><div class="line">    <span class="comment">/// - Returns: Bool</span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">cleanCache</span><span class="params">()</span></span> -&gt; <span class="type">Bool</span></div><div class="line"></div><div class="line">    <span class="comment">/// 读取日志文件</span></div><div class="line">    <span class="comment">///</span></div><div class="line">    <span class="comment">/// - Parameter fileName: String</span></div><div class="line">    <span class="comment">/// - Returns: Data</span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">readFile</span><span class="params">(fileName: String)</span></span> -&gt; <span class="type">Data</span>?</div><div class="line"></div><div class="line">    <span class="comment">/// 更新写入Log数据</span></div><div class="line">    <span class="comment">///</span></div><div class="line">    <span class="comment">/// - Parameters:</span></div><div class="line">    <span class="comment">///   - fileName: String</span></div><div class="line">    <span class="comment">///   - data: Data</span></div><div class="line">    <span class="comment">/// - Returns: Data</span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">updateFile</span><span class="params">(fileName: String, data: Data)</span></span> -&gt; <span class="type">Bool</span></div><div class="line"></div><div class="line">    <span class="comment">/// 自动根据天数创建文件名</span></div><div class="line">    <span class="comment">///</span></div><div class="line">    <span class="comment">/// - Returns: String</span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">createFileName</span><span class="params">()</span></span> -&gt; <span class="type">String</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>而这个十条一写，没有达到标准的就暂时保存在内存里，我的想法是创建一个循环队列，根据FIFO原则，当满足十条Log时，做一次写入操作，而循环队列在空间上是非常节省资源的，如果没有满足十条日志，那就都暂存在队列里，整个开销就是循环队列的一个数组，容量是11个元素，还有一个充当哨兵。</p>
+<p>循环队列的数据结构是队列的数据结构里最基础的</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">QueueProtocol</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">createQueue</span><span class="params">()</span></span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">traverseQueue</span><span class="params">()</span></span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">isFullQueue</span><span class="params">()</span></span> -&gt; <span class="type">Bool</span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">isEmptyQueue</span><span class="params">()</span></span> -&gt; <span class="type">Bool</span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">Enqueue</span><span class="params">(log: String)</span></span> -&gt; <span class="type">Bool</span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">Dequeue</span><span class="params">()</span></span> -&gt; <span class="type">Bool</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在内部增加了一个遍历队列写入日志的函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">private func updateFileWhenTranverse() &#123;</div><div class="line">    var i = queue.front</div><div class="line">    while (i != queue.rear) &#123;</div><div class="line">        let fileName = LogStorage.share.createFileName()</div><div class="line">        let data = queue.logData[i].data(using: .utf8)</div><div class="line">        if (LogStorage.share.updateFile(fileName: fileName, data: data!)) &#123;</div><div class="line">            let _ = Dequeue()</div><div class="line">        &#125;</div><div class="line">        i += 1</div><div class="line">        i = i % queue.maxsize</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>而最后一个需求就是压缩上传了，在这里使用了<code>SSZipArchive</code>这个第三方库来压缩文件成zip格式。封装成<code>LogArchive</code>类。是不是三言两语间，整个日志系统就设计完成了，但是我是用<code>Swift</code>来写的，若是<code>Objective-C</code>调用怎么办呢。答案当然是用Objc强大的宏定义来搞定咯，几个宏定义，轻松的一行代码就调用了Log输出。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#define Cute_Debug(log) [[LogGenerator new] debugWithTargetClass:self.classForCoder content:[NSString stringWithFormat:@<span class="meta-string">"%@"</span>, log] :(NSInteger)__LINE__ :[NSString stringWithFormat:@<span class="meta-string">"%s"</span>, __FUNCTION__]];</span></div><div class="line"></div><div class="line"><span class="meta">#define Cute_Warning(log) [[LogGenerator new] warningWithTargetClass:self.classForCoder content:[NSString stringWithFormat:@<span class="meta-string">"%@"</span>, log] :(NSInteger)__LINE__ :[NSString stringWithFormat:@<span class="meta-string">"%s"</span>, __FUNCTION__]];</span></div><div class="line"></div><div class="line"><span class="meta">#define Cute_Info(log) [[LogGenerator new] infoWithTargetClass:self.classForCoder content:[NSString stringWithFormat:@<span class="meta-string">"%@"</span>, log] :(NSInteger)__LINE__ :[NSString stringWithFormat:@<span class="meta-string">"%s"</span>, __FUNCTION__]];</span></div><div class="line"></div><div class="line"><span class="meta">#define Cute_Error(log) [[LogGenerator new] errorWithTargetClass:self.classForCoder content:[NSString stringWithFormat:@<span class="meta-string">"%@"</span>, log] :(NSInteger)__LINE__ :[NSString stringWithFormat:@<span class="meta-string">"%s"</span>, __FUNCTION__]];</span></div></pre></td></tr></table></figure>
+<p>整个日志系统，我已经开源放在了我的<a href="https://github.com/originalix/CuteLogger" target="_blank" rel="external">github</a>上，具体的代码可以去github上看。<br>欢迎提issue，如果有用，请点个star谢谢。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;好像很久没有写有关iOS的文章了，其实iOS的开发一直都是在进行的，但是最近有需求拓宽知识的宽度，所以一直在接触别的知识，当然啦，移动端开发并不能丢下。&lt;/p&gt;
+&lt;p&gt;我平时开发的项目监测bug和崩溃的模块都是集成了鹅厂的&lt;code&gt;Bugly&lt;/code&gt;系统，毕竟是谁用谁说好的第三方系统。而&lt;code&gt;Bugly&lt;/code&gt;主要还是返回的还是崩溃之后的日志，所以如果想在平时的运行中，就能拿到客户手机中的日志怎么办呢。在这个需求的驱使下，便开始着手设计一个日志系统。&lt;/p&gt;
+&lt;p&gt;需求还是不难的，记录手机操作的内容，如&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;时间|日志级别|类名_函数名_行数|分类|Log内容&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这样的一种日志形式。&lt;/p&gt;
+&lt;p&gt;因为不希望频繁的读写，所以希望每十条Log生成之后，读写一次。而未写入硬盘的Log保存在内存中。按照天数，每天都有一份日志，并且在客户的手机异常之后，可以将所有日志压缩上传到服务器。需求介绍完了，并不难对不对。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="iOS开发" scheme="http://yoursite.com/tags/iOS%E5%BC%80%E5%8F%91/"/>
+    
+      <category term="Cute-Logger" scheme="http://yoursite.com/tags/Cute-Logger/"/>
+    
+      <category term="日志系统" scheme="http://yoursite.com/tags/%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux的用户管理(二)</title>
@@ -1128,61 +1182,6 @@
       <category term="Block" scheme="http://yoursite.com/tags/Block/"/>
     
       <category term="代码可读性" scheme="http://yoursite.com/tags/%E4%BB%A3%E7%A0%81%E5%8F%AF%E8%AF%BB%E6%80%A7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iOS开发——解析崩溃日志</title>
-    <link href="http://yoursite.com/2017/01/04/iOS%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94%E8%A7%A3%E6%9E%90%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BF%97/"/>
-    <id>http://yoursite.com/2017/01/04/iOS开发——解析崩溃日志/</id>
-    <published>2017-01-04T09:19:51.000Z</published>
-    <updated>2017-01-04T09:28:09.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>iOS开发——解析崩溃日志</p>
-<p>在实际的开发过程中，作为开发者的我们常常会碰到一种场景，那就是真机调试时崩溃了，而有时又不能在Xcode中打印出崩溃信息，那么这时候我们就必须要获取到崩溃原因，从而解决问题。</p>
-<a id="more"></a>
-<p>而在万能的<strong>Xcode</strong>中，你可以找到自己测试机里的崩溃日志。<code>Window</code> -&gt; <code>Devices</code> -&gt; 选中自己的测试机 <code>View Device Logs</code> ，类似下图</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/134882-3eb075f8e82c2413.png?imageMogr2/auto-orient/strip%7CimageView2/2/format/jpg" alt=""></p>
-<p>而此时你可以选择导出自己的崩溃日志，并且这里的我们看到的崩溃日志，都是Xcode已经帮我们符号化的，很清晰的就可以看到崩溃原因，以及崩溃的位置。</p>
-<p>如果是其他用户，下载了我们的App之后出现了崩溃，我们可以从<code>iTunes Connect</code>中获取到其他用户的崩溃日志，但是这时如果你去看他人的崩溃日志，不出意外您是懵逼的。这是崩溃日志么？ 天书还差不多。而如何把他人的崩溃日志符号化呢？ 这就是我们接下来要讲的内容了。</p>
-<p>依旧是万能的<strong>Xcode</strong>给我们提供了一个工具 —— <strong>symbolicatecrash</strong>，这是一个<strong>Xcode</strong>自带的分析工具，可以通过机器上的崩溃日志和应用的<code>.dSYM</code>文件定位发生崩溃的位置，把<code>Crash</code>日志中的一堆地址替换成代码相应的位置。</p>
-<h1 id="如何使用symbolicatecrash分析崩溃日志"><a href="#如何使用symbolicatecrash分析崩溃日志" class="headerlink" title="如何使用symbolicatecrash分析崩溃日志"></a>如何使用symbolicatecrash分析崩溃日志</h1><ol>
-<li><p>在你的桌面创建一个新文件夹，并且命名为”CrashReport”</p>
-</li>
-<li><p>打开终端输入 <code>find /Applications/Xcode.app -name symbolicatecrash -type f</code>，然后终端会返回这个文件的路径,只要找到<code>symbolicatecrash</code>文件, 复制然后粘贴到刚才创建的 “CrashReport” 文件夹里面.</p>
-</li>
-<li><p>从<strong>Xcode Archive</strong>的二进制文件中找到<strong>.dSYM</strong>文件和<strong>.app</strong>文件拷贝到刚才创建的 <code>CrashReport</code> 文件夹里面.</p>
-</li>
-<li><p>打开终端进入<strong>CrashReport</strong>文件夹，依次输入以下命令行:</p>
-</li>
-</ol>
-<p>记得替换自己的<strong>Username</strong></p>
-<ul>
-<li><p><code>cd /Users/username/Desktop/CrashReport</code></p>
-</li>
-<li><p><code>export DEVELOPER_DIR=/Applications/XCode.app/Contents/Developer</code></p>
-</li>
-<li><p><code>./symbolicatecrash ./*.crash ./*.app.dSYM &gt; symbol.crash</code></p>
-</li>
-</ul>
-<p>这时候终端将会进行处理……<br>处理结果是生成一个新的文件symbol.crash。然后打开这个文件。<br>你就会看到日志跟我们调试APP的控制台输出的内容一样了！</p>
-<p>天书变成了可以看懂的崩溃记录，攻城狮们，赶紧改Bug吧。</p>
-<p>不知不觉博客更新了一年了，2017的第一篇日志，希望大家新年无Bug。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;iOS开发——解析崩溃日志&lt;/p&gt;
-&lt;p&gt;在实际的开发过程中，作为开发者的我们常常会碰到一种场景，那就是真机调试时崩溃了，而有时又不能在Xcode中打印出崩溃信息，那么这时候我们就必须要获取到崩溃原因，从而解决问题。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="iOS开发" scheme="http://yoursite.com/tags/iOS%E5%BC%80%E5%8F%91/"/>
-    
-      <category term="Crash" scheme="http://yoursite.com/tags/Crash/"/>
-    
-      <category term="symbolicatecrash" scheme="http://yoursite.com/tags/symbolicatecrash/"/>
     
   </entry>
   
