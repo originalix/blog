@@ -1,46 +1,64 @@
-<!DOCTYPE html><html lang=""><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> iOS设计模式系列：单例设计模式 | Originalee的博客</title><meta name="description" content="iOS设计模式系列：单例设计模式 - Originalee"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.ico"><link rel="stylesheet" href="/css/casual.css"><link rel="stylesheet" href="/css/semantic.min.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="Originalee的博客"></head><body><div class="sidebar"><div class="ui vertical inverted menu"><div class="h100"></div><h3 class="ui inverted aligned icon header"><div class="content"><a href="/" class="title-link">ORIGINALEE的博客</a></div></h3><div class="h50"></div><div class="side-nav"><a href="/" target="_self" class="item">HOME<i class="icon home"></i></a><a href="/archives" target="_self" class="item">ARCHIVE<i class="icon archive"></i></a><a href="/about" target="_self" class="item">INFO<i class="icon info"></i></a><a href="/atom.xml" target="_self" class="item">RSS<i class="icon rss"></i></a></div><div class="item"><div class="ui inverted transparent icon input"><input type="text" placeholder="Search..." class="st-default-search-input"><i class="search icon"></i></div></div><div class="h50"></div></div><div class="h50 mq"><a class="ui teal big label"><i class="content icon"></i></a></div><div class="author-info"><a href="/" class="img-link"><img src="/avatar.png" class="author-photo ui tiny circular image"></a><h4 class="ui aligned icon header"><div class="content">Originalee</div></h4><p class="author-desc">爱打篮球的程序员|目前移动端爬坑中</p><div class="social-outer"><div class="social-inner"><a href="https://github.com/originalix" target="_blank" class="social-link"><i class="icon github"></i></a><a href="mailto:xiao.liunit@gmail.com" target="_self" class="social-link"><i class="icon mail"></i></a></div></div></div></div><div class="main"><div class="wrap"><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">iOS设计模式系列：单例设计模式</h1><div class="post-info"><div class="post-date"><h6 class="ui header"><i class="calendar icon"></i><div class="content">Mar 15, 2016</div></h6></div></div><div class="post-content"><p> 单例设计模式从字面意思上来说，就是一个类在系统运行时，只创建一个实例。可以用于需要被多次调用的或者多次使用的资源中。比如我们常见的网络请求类、工具类等等。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//iOS中大量的使用了单例方法，常见的有：</span></div><div class="line">[<span class="built_in">NSUserDefaults</span> standardUserDefaults]  轻量级的本地数据存储，存储自定义的对象，比如保存登陆界面的数据、用户名、密码等。</div><div class="line"></div><div class="line">[<span class="built_in">UIApplication</span> sharedApplication] 处理用户事件，main函数入口</div><div class="line"></div><div class="line">[<span class="built_in">UIScreen</span> mainScreen] 获取全屏幕尺寸</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<h3 id="单例模式的作用"><a href="#单例模式的作用" class="headerlink" title="单例模式的作用"></a>单例模式的作用</h3><p>它可以保证某个类在运行过程中，只有一个实例，也就是对象实例只占用一份系统内存资源。</p>
-<h3 id="单例的要点"><a href="#单例的要点" class="headerlink" title="单例的要点"></a>单例的要点</h3><ul>
-<li><p>该类有且只有一个实例</p>
+<!DOCTYPE html><html lang=""><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> iOS设计模式系列：单例设计模式 | Originalee的博客</title><meta name="description" content="iOS设计模式系列：单例设计模式 - Originalee"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.ico"><link rel="stylesheet" href="/css/casual.css"><link rel="stylesheet" href="/css/semantic.min.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="Originalee的博客"></head><body><div class="sidebar"><div class="ui vertical inverted menu"><div class="h100"></div><h3 class="ui inverted aligned icon header"><div class="content"><a href="/" class="title-link">ORIGINALEE的博客</a></div></h3><div class="h50"></div><div class="side-nav"><a href="/" target="_self" class="item">HOME<i class="icon home"></i></a><a href="/archives" target="_self" class="item">ARCHIVE<i class="icon archive"></i></a><a href="/about" target="_self" class="item">INFO<i class="icon info"></i></a><a href="/atom.xml" target="_self" class="item">RSS<i class="icon rss"></i></a></div><div class="item"><div class="ui inverted transparent icon input"><input type="text" placeholder="Search..." class="st-default-search-input"><i class="search icon"></i></div></div><div class="h50"></div></div><div class="h50 mq"><a class="ui teal big label"><i class="content icon"></i></a></div><div class="author-info"><a href="/" class="img-link"><img src="/avatar.png" class="author-photo ui tiny circular image"></a><h4 class="ui aligned icon header"><div class="content">Originalee</div></h4><p class="author-desc">爱打篮球的程序员|目前移动端爬坑中</p><div class="social-outer"><div class="social-inner"><a href="https://github.com/originalix" target="_blank" class="social-link"><i class="icon github"></i></a><a href="mailto:xiao.liunit@gmail.com" target="_self" class="social-link"><i class="icon mail"></i></a></div></div></div></div><div class="main"><div class="wrap"><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">iOS设计模式系列：单例设计模式</h1><div class="post-info"><div class="post-date"><h6 class="ui header"><i class="calendar icon"></i><div class="content">Mar 15, 2016</div></h6></div></div><div class="post-content"><p>单例设计模式从字面意思上来说，就是一个类在系统运行时，只创建一个实例。可以用于需要被多次调用的或者多次使用的资源中。比如我们常见的网络请求类、工具类等等。</p>
+<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//iOS中大量的使用了单例方法，常见的有：</span></div><div class="line">[<span class="built_in">NSUserDefaults</span> standardUserDefaults]  轻量级的本地数据存储，存储自定义的对象，比如保存登陆界面的数据、用户名、密码等。</div><div class="line"></div><div class="line">[<span class="built_in">UIApplication</span> sharedApplication] 处理用户事件，main函数入口</div><div class="line"></div><div class="line">[<span class="built_in">UIScreen</span> mainScreen] 获取全屏幕尺寸</div></pre></td></tr></table></figure></p>
+<p>&lt;!--more--&gt;</p>
+<h3>单例模式的作用</h3>
+<p>它可以保证某个类在运行过程中，只有一个实例，也就是对象实例只占用一份系统内存资源。</p>
+<h3>单例的要点</h3>
+<ul>
+<li>
+<p>该类有且只有一个实例</p>
 </li>
-<li><p>该类必须能自行创建这个实例</p>
+<li>
+<p>该类必须能自行创建这个实例</p>
 </li>
-<li><p>该类必须能够向整个系统提供这个实例</p>
+<li>
+<p>该类必须能够向整个系统提供这个实例</p>
 </li>
 </ul>
-<h3 id="单例的优缺点"><a href="#单例的优缺点" class="headerlink" title="单例的优缺点"></a>单例的优缺点</h3><p>优点：</p>
+<h3>单例的优缺点</h3>
+<p>优点：</p>
 <ul>
-<li><p>提供了唯一实例的受访对象</p>
+<li>
+<p>提供了唯一实例的受访对象</p>
 </li>
-<li><p>因为在系统中只存在一个实例，在频繁访问和调用时，节省了系统创建和销毁资源的开销，提高系统性能。</p>
+<li>
+<p>因为在系统中只存在一个实例，在频繁访问和调用时，节省了系统创建和销毁资源的开销，提高系统性能。</p>
 </li>
-<li><p>因为单例化的类，控制了实例化的过程，所以能更灵活修改实例化的过程。</p>
+<li>
+<p>因为单例化的类，控制了实例化的过程，所以能更灵活修改实例化的过程。</p>
 </li>
 </ul>
 <p>缺点：</p>
 <ul>
-<li><p>单例模式没有抽象层，不容易扩展。</p>
+<li>
+<p>单例模式没有抽象层，不容易扩展。</p>
 </li>
-<li><p>单例模式往往职责过重，一定程度上违背了“单一职责原则”。</p>
+<li>
+<p>单例模式往往职责过重，一定程度上违背了“单一职责原则”。</p>
 </li>
 </ul>
-<h3 id="单例类的实现"><a href="#单例类的实现" class="headerlink" title="单例类的实现"></a>单例类的实现</h3><ul>
-<li><p>为单例对象创建一个静态实例，可以写成全局的，也可以在类方法中实现，并置为nil。</p>
+<h3>单例类的实现</h3>
+<ul>
+<li>
+<p>为单例对象创建一个静态实例，可以写成全局的，也可以在类方法中实现，并置为nil。</p>
 </li>
-<li><p>用GCD多线程的方式来实现单例，用dispatch_once_t来保证线程的安全性和单一性。</p>
+<li>
+<p>用GCD多线程的方式来实现单例，用dispatch_once_t来保证线程的安全性和单一性。</p>
 </li>
-<li><p>检查生成的静态实例是否为nil，若是则创建并返回一个本类的实例。</p>
+<li>
+<p>检查生成的静态实例是否为nil，若是则创建并返回一个本类的实例。</p>
 </li>
-<li><p>重写allocWithZone方法，用来保证其他人想通过alloc、init方法创建实例的时候，不会产生新实例。</p>
+<li>
+<p>重写allocWithZone方法，用来保证其他人想通过alloc、init方法创建实例的时候，不会产生新实例。</p>
 </li>
-<li><p>适当实现copyWithZone。</p>
+<li>
+<p>适当实现copyWithZone。</p>
 </li>
 </ul>
 <p>代码如下：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"Singleton.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Singleton</span></span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//为单例对象创建的静态实例，置为nil，因为对象的唯一性，必须是static类型</span></div><div class="line"><span class="keyword">static</span> Singleton * _singleton = <span class="literal">nil</span>; </div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  重写allocWithZone方法，保证alloc或者init创建的实例不会产生新实例，因为该类覆盖了allocWithZone方法，所以只能通过其父类分配内存，即[super allocWithZone]</div><div class="line"> *</div><div class="line"> */</div><div class="line">+ (<span class="keyword">instancetype</span>)allocWithZone:(<span class="keyword">struct</span> _NSZone *)zone</div><div class="line">&#123;</div><div class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</div><div class="line">    </div><div class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</div><div class="line">        _singleton = [<span class="keyword">super</span> allocWithZone:zone];</div><div class="line">    &#125;);</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> _singleton;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  单例对象对外的唯一接口，用到dispatch_once在初始化时执行一次任务，且dispatch_once保证线程安全</div><div class="line"> *</div><div class="line"> */</div><div class="line">+ (<span class="keyword">instancetype</span>)shareSingleton</div><div class="line">&#123;</div><div class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken ;</div><div class="line">    </div><div class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</div><div class="line">        _singleton = [[<span class="keyword">self</span> alloc] init];</div><div class="line">    &#125;);</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> _singleton;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">id</span>)copyWithZone:(<span class="built_in">NSZone</span> *)zone</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> _singleton;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-<p> 到这里，一个简单的单例模式就基本完成了。<br> 如果有需要，还可以把整个单例模式封装成一个宏。</p>
+<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#import <span class="meta-string">"Singleton.h"</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Singleton</span></span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//为单例对象创建的静态实例，置为nil，因为对象的唯一性，必须是static类型</span></div><div class="line"><span class="keyword">static</span> Singleton * _singleton = <span class="literal">nil</span>; </div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  重写allocWithZone方法，保证alloc或者init创建的实例不会产生新实例，因为该类覆盖了allocWithZone方法，所以只能通过其父类分配内存，即[super allocWithZone]</div><div class="line"> *</div><div class="line"> */</div><div class="line">+ (<span class="keyword">instancetype</span>)allocWithZone:(<span class="keyword">struct</span> _NSZone *)zone</div><div class="line">&#123;</div><div class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</div><div class="line">    </div><div class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</div><div class="line">        _singleton = [<span class="keyword">super</span> allocWithZone:zone];</div><div class="line">    &#125;);</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> _singleton;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> *  单例对象对外的唯一接口，用到dispatch_once在初始化时执行一次任务，且dispatch_once保证线程安全</div><div class="line"> *</div><div class="line"> */</div><div class="line">+ (<span class="keyword">instancetype</span>)shareSingleton</div><div class="line">&#123;</div><div class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken ;</div><div class="line">    </div><div class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</div><div class="line">        _singleton = [[<span class="keyword">self</span> alloc] init];</div><div class="line">    &#125;);</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> _singleton;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">id</span>)copyWithZone:(<span class="built_in">NSZone</span> *)zone</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> _singleton;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure></p>
+<p>到这里，一个简单的单例模式就基本完成了。
+ 如果有需要，还可以把整个单例模式封装成一个宏。</p>
 </div></article></div></section><footer><div class="paginator"><a href="/2016/03/17/算法时间复杂度/" class="prev"><button class="ui button teal">PREV</button></a><a href="/2016/03/15/Hexo常用命令/" class="next"><button class="ui button teal">NEXT</button></a></div><div data-thread-key="2016/03/15/iOS单例设计模式/" data-title="iOS设计模式系列：单例设计模式" data-url="http://yoursite.com/2016/03/15/iOS单例设计模式/" class="ds-share"><div class="ds-share-inline"><ul class="ds-share-icons-16"><li data-toggle="ds-share-icons-more"><span class="ds-more">分享到：</span></li><li><a href="javascript:void(0);" data-service="weibo" class="ds-weibo">微博</a></li><li><a href="javascript:void(0);" data-service="qqt" class="ds-qqt">腾讯微博</a></li><li><a href="javascript:void(0);" data-service="wechat" class="ds-wechat">微信</a></li></ul></div></div><div data-thread-key="2016/03/15/iOS单例设计模式/" data-title="iOS设计模式系列：单例设计模式" data-url="http://yoursite.com/2016/03/15/iOS单例设计模式/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"originalee"};
 (function() {
   var ds = document.createElement('script');

@@ -1,31 +1,41 @@
 <!DOCTYPE html><html lang=""><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> iOS开发——解析崩溃日志 | Originalee的博客</title><meta name="description" content="iOS开发——解析崩溃日志 - Originalee"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.ico"><link rel="stylesheet" href="/css/casual.css"><link rel="stylesheet" href="/css/semantic.min.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="Originalee的博客"></head><body><div class="sidebar"><div class="ui vertical inverted menu"><div class="h100"></div><h3 class="ui inverted aligned icon header"><div class="content"><a href="/" class="title-link">ORIGINALEE的博客</a></div></h3><div class="h50"></div><div class="side-nav"><a href="/" target="_self" class="item">HOME<i class="icon home"></i></a><a href="/archives" target="_self" class="item">ARCHIVE<i class="icon archive"></i></a><a href="/about" target="_self" class="item">INFO<i class="icon info"></i></a><a href="/atom.xml" target="_self" class="item">RSS<i class="icon rss"></i></a></div><div class="item"><div class="ui inverted transparent icon input"><input type="text" placeholder="Search..." class="st-default-search-input"><i class="search icon"></i></div></div><div class="h50"></div></div><div class="h50 mq"><a class="ui teal big label"><i class="content icon"></i></a></div><div class="author-info"><a href="/" class="img-link"><img src="/avatar.png" class="author-photo ui tiny circular image"></a><h4 class="ui aligned icon header"><div class="content">Originalee</div></h4><p class="author-desc">爱打篮球的程序员|目前移动端爬坑中</p><div class="social-outer"><div class="social-inner"><a href="https://github.com/originalix" target="_blank" class="social-link"><i class="icon github"></i></a><a href="mailto:xiao.liunit@gmail.com" target="_self" class="social-link"><i class="icon mail"></i></a></div></div></div></div><div class="main"><div class="wrap"><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">iOS开发——解析崩溃日志</h1><div class="post-info"><div class="post-date"><h6 class="ui header"><i class="calendar icon"></i><div class="content">Jan 4, 2017</div></h6></div></div><div class="post-content"><p>iOS开发——解析崩溃日志</p>
 <p>在实际的开发过程中，作为开发者的我们常常会碰到一种场景，那就是真机调试时崩溃了，而有时又不能在Xcode中打印出崩溃信息，那么这时候我们就必须要获取到崩溃原因，从而解决问题。</p>
-<a id="more"></a>
+<p>&lt;!--more--&gt;</p>
 <p>而在万能的<strong>Xcode</strong>中，你可以找到自己测试机里的崩溃日志。<code>Window</code> -&gt; <code>Devices</code> -&gt; 选中自己的测试机 <code>View Device Logs</code> ，类似下图</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/134882-3eb075f8e82c2413.png?imageMogr2/auto-orient/strip%7CimageView2/2/format/jpg" alt=""></p>
 <p>而此时你可以选择导出自己的崩溃日志，并且这里的我们看到的崩溃日志，都是Xcode已经帮我们符号化的，很清晰的就可以看到崩溃原因，以及崩溃的位置。</p>
 <p>如果是其他用户，下载了我们的App之后出现了崩溃，我们可以从<code>iTunes Connect</code>中获取到其他用户的崩溃日志，但是这时如果你去看他人的崩溃日志，不出意外您是懵逼的。这是崩溃日志么？ 天书还差不多。而如何把他人的崩溃日志符号化呢？ 这就是我们接下来要讲的内容了。</p>
 <p>依旧是万能的<strong>Xcode</strong>给我们提供了一个工具 —— <strong>symbolicatecrash</strong>，这是一个<strong>Xcode</strong>自带的分析工具，可以通过机器上的崩溃日志和应用的<code>.dSYM</code>文件定位发生崩溃的位置，把<code>Crash</code>日志中的一堆地址替换成代码相应的位置。</p>
-<h1 id="如何使用symbolicatecrash分析崩溃日志"><a href="#如何使用symbolicatecrash分析崩溃日志" class="headerlink" title="如何使用symbolicatecrash分析崩溃日志"></a>如何使用symbolicatecrash分析崩溃日志</h1><ol>
-<li><p>在你的桌面创建一个新文件夹，并且命名为”CrashReport”</p>
+<h1>如何使用symbolicatecrash分析崩溃日志</h1>
+<ol>
+<li>
+<p>在你的桌面创建一个新文件夹，并且命名为&quot;CrashReport&quot;</p>
 </li>
-<li><p>打开终端输入 <code>find /Applications/Xcode.app -name symbolicatecrash -type f</code>，然后终端会返回这个文件的路径,只要找到<code>symbolicatecrash</code>文件, 复制然后粘贴到刚才创建的 “CrashReport” 文件夹里面.</p>
+<li>
+<p>打开终端输入 <code>find /Applications/Xcode.app -name symbolicatecrash -type f</code>，然后终端会返回这个文件的路径,只要找到<code>symbolicatecrash</code>文件, 复制然后粘贴到刚才创建的 &quot;CrashReport&quot; 文件夹里面.</p>
 </li>
-<li><p>从<strong>Xcode Archive</strong>的二进制文件中找到<strong>.dSYM</strong>文件和<strong>.app</strong>文件拷贝到刚才创建的 <code>CrashReport</code> 文件夹里面.</p>
+<li>
+<p>从<strong>Xcode Archive</strong>的二进制文件中找到**.dSYM<strong>文件和</strong>.app**文件拷贝到刚才创建的 <code>CrashReport</code> 文件夹里面.</p>
 </li>
-<li><p>打开终端进入<strong>CrashReport</strong>文件夹，依次输入以下命令行:</p>
+<li>
+<p>打开终端进入<strong>CrashReport</strong>文件夹，依次输入以下命令行:</p>
 </li>
 </ol>
 <p>记得替换自己的<strong>Username</strong></p>
 <ul>
-<li><p><code>cd /Users/username/Desktop/CrashReport</code></p>
+<li>
+<p><code>cd /Users/username/Desktop/CrashReport</code></p>
 </li>
-<li><p><code>export DEVELOPER_DIR=/Applications/XCode.app/Contents/Developer</code></p>
+<li>
+<p><code>export DEVELOPER_DIR=/Applications/XCode.app/Contents/Developer</code></p>
 </li>
-<li><p><code>./symbolicatecrash ./*.crash ./*.app.dSYM &gt; symbol.crash</code></p>
+<li>
+<p><code>./symbolicatecrash ./*.crash ./*.app.dSYM &gt; symbol.crash</code></p>
 </li>
 </ul>
-<p>这时候终端将会进行处理……<br>处理结果是生成一个新的文件symbol.crash。然后打开这个文件。<br>你就会看到日志跟我们调试APP的控制台输出的内容一样了！</p>
+<p>这时候终端将会进行处理......
+处理结果是生成一个新的文件symbol.crash。然后打开这个文件。
+你就会看到日志跟我们调试APP的控制台输出的内容一样了！</p>
 <p>天书变成了可以看懂的崩溃记录，攻城狮们，赶紧改Bug吧。</p>
 <p>不知不觉博客更新了一年了，2017的第一篇日志，希望大家新年无Bug。</p>
 </div></article></div></section><footer><div class="paginator"><a href="/2017/01/06/使用Block提高代码可读性/" class="prev"><button class="ui button teal">PREV</button></a><a href="/2016/12/23/iOS开发——带有暂停功能的计时器/" class="next"><button class="ui button teal">NEXT</button></a></div><div data-thread-key="2017/01/04/iOS开发——解析崩溃日志/" data-title="iOS开发——解析崩溃日志" data-url="http://yoursite.com/2017/01/04/iOS开发——解析崩溃日志/" class="ds-share"><div class="ds-share-inline"><ul class="ds-share-icons-16"><li data-toggle="ds-share-icons-more"><span class="ds-more">分享到：</span></li><li><a href="javascript:void(0);" data-service="weibo" class="ds-weibo">微博</a></li><li><a href="javascript:void(0);" data-service="qqt" class="ds-qqt">腾讯微博</a></li><li><a href="javascript:void(0);" data-service="wechat" class="ds-wechat">微信</a></li></ul></div></div><div data-thread-key="2017/01/04/iOS开发——解析崩溃日志/" data-title="iOS开发——解析崩溃日志" data-url="http://yoursite.com/2017/01/04/iOS开发——解析崩溃日志/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"originalee"};
