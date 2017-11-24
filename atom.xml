@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-11-24T11:10:12.000Z</updated>
+  <updated>2017-11-24T11:12:33.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,13 +20,14 @@
     <link href="http://yoursite.com/2017/11/24/%E5%8F%8D%E8%BD%AC%E5%8D%95%E5%90%91%E9%93%BE%E8%A1%A8/"/>
     <id>http://yoursite.com/2017/11/24/反转单向链表/</id>
     <published>2017-11-24T11:06:51.000Z</published>
-    <updated>2017-11-24T11:10:12.000Z</updated>
+    <updated>2017-11-24T11:12:33.000Z</updated>
     
     <content type="html"><![CDATA[<p>单向链表的反转是一个非常常见的链表类面试题，我在刷leetcode的过程中，发现了有许多链表题目的解法，都是以反转链表为基础进行的。所以我觉得有必要记录一下。</p>
 <p>首先先用一张图来理解单链表的反转。</p>
 <p><img src="https://originalix.github.io/assets/img/1.png" alt=""></p>
 <p><img src="https://originalix.github.io/assets/img/2.png" alt=""></p>
 <p>单链表的反转，就如上图一样，而单链表的反转也有几种方式，今天我主要是想记录我用得最频繁的迭代的方式。</p>
+<a id="more"></a>
 <p>先来看一下链表节点的定义:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> val;</div><div class="line">    ListNode next;</div><div class="line">    ListNode(<span class="keyword">int</span> x) &#123; val = x; &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这就是最基础的一个链表节点，而反转链表的代码，其实非常的短，关键点就在于理解这几行代码究竟让链表产生了什么变化。</p>
@@ -52,7 +53,9 @@
     
       &lt;p&gt;单向链表的反转是一个非常常见的链表类面试题，我在刷leetcode的过程中，发现了有许多链表题目的解法，都是以反转链表为基础进行的。所以我觉得有必要记录一下。&lt;/p&gt;
 &lt;p&gt;首先先用一张图来理解单链表的反转。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://origina
+&lt;p&gt;&lt;img src=&quot;https://originalix.github.io/assets/img/1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://originalix.github.io/assets/img/2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;单链表的反转，就如上图一样，而单链表的反转也有几种方式，今天我主要是想记录我用得最频繁的迭代的方式。&lt;/p&gt;
     
     </summary>
     

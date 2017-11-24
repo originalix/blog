@@ -3,6 +3,7 @@
 <p><img src="https://originalix.github.io/assets/img/1.png" alt=""></p>
 <p><img src="https://originalix.github.io/assets/img/2.png" alt=""></p>
 <p>单链表的反转，就如上图一样，而单链表的反转也有几种方式，今天我主要是想记录我用得最频繁的迭代的方式。</p>
+<a id="more"></a>
 <p>先来看一下链表节点的定义:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> val;</div><div class="line">    ListNode next;</div><div class="line">    ListNode(<span class="keyword">int</span> x) &#123; val = x; &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这就是最基础的一个链表节点，而反转链表的代码，其实非常的短，关键点就在于理解这几行代码究竟让链表产生了什么变化。</p>
