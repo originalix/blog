@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-11-24T11:06:51.000Z</updated>
+  <updated>2017-11-24T11:10:12.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,12 +20,46 @@
     <link href="http://yoursite.com/2017/11/24/%E5%8F%8D%E8%BD%AC%E5%8D%95%E5%90%91%E9%93%BE%E8%A1%A8/"/>
     <id>http://yoursite.com/2017/11/24/反转单向链表/</id>
     <published>2017-11-24T11:06:51.000Z</published>
-    <updated>2017-11-24T11:06:51.000Z</updated>
+    <updated>2017-11-24T11:10:12.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>单向链表的反转是一个非常常见的链表类面试题，我在刷leetcode的过程中，发现了有许多链表题目的解法，都是以反转链表为基础进行的。所以我觉得有必要记录一下。</p>
+<p>首先先用一张图来理解单链表的反转。</p>
+<p><img src="https://originalix.github.io/assets/img/1.png" alt=""></p>
+<p><img src="https://originalix.github.io/assets/img/2.png" alt=""></p>
+<p>单链表的反转，就如上图一样，而单链表的反转也有几种方式，今天我主要是想记录我用得最频繁的迭代的方式。</p>
+<p>先来看一下链表节点的定义:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> val;</div><div class="line">    ListNode next;</div><div class="line">    ListNode(<span class="keyword">int</span> x) &#123; val = x; &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这就是最基础的一个链表节点，而反转链表的代码，其实非常的短，关键点就在于理解这几行代码究竟让链表产生了什么变化。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseList</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">    ListNode next = <span class="keyword">null</span>;</div><div class="line">    ListNode pre = <span class="function"><span class="keyword">null</span></span></div><div class="line"></div><div class="line">    <span class="title">while</span> <span class="params">(head != <span class="keyword">null</span>)</span> &#123;</div><div class="line">        next = head.next;</div><div class="line">        head.next = pre;</div><div class="line">        pre = head;</div><div class="line">        head = next;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> pre;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们可以看到四行代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">next = head.next; <span class="comment">// 1</span></div><div class="line"></div><div class="line">head.next = pre;  <span class="comment">// 2</span></div><div class="line"></div><div class="line">pre = head;       <span class="comment">// 3</span></div><div class="line"></div><div class="line">head = next;      <span class="comment">// 4</span></div></pre></td></tr></table></figure>
+<p>第一行代码：<code>next = head.next;</code><br>将head.next赋值给next变量，也就是说next指向了节点2，先将节点2保存起来。</p>
+<p>第二行代码： <code>head.next = pre;</code><br>将pre变量赋值给了head.next，即节点1指向了null。</p>
+<p>第三行代码: <code>pre = head;</code><br>将head赋值给了pre，即pre指向节点1，将节点1设为“上一个节点”。</p>
+<p>第四行代码：<code>head = next;</code><br>将next赋值给head，即head指向了节点2。将节点2设置为“头结点”。</p>
+<p>一次循环的具体过程就是这样。</p>
+<p>所以总结一下单链表的反转：</p>
+<ul>
+<li>保存当前头结点的下个节点。</li>
+<li>将当前头结点的下一个节点指向“上一个节点”，这一步是实现了反转。</li>
+<li>将当前头结点设置为“上一个节点”。</li>
+<li>将保存的下一个节点设置为头结点。</li>
+</ul>
+<p>这样说起来确实有点拗口，但是我推荐大家在做链表类题目和理解链表的具体行为时，用一张纸和笔来辅助自己写写画画，相信很快你就会弄懂链表的具体思路的。</p>
+]]></content>
     
     <summary type="html">
     
+      &lt;p&gt;单向链表的反转是一个非常常见的链表类面试题，我在刷leetcode的过程中，发现了有许多链表题目的解法，都是以反转链表为基础进行的。所以我觉得有必要记录一下。&lt;/p&gt;
+&lt;p&gt;首先先用一张图来理解单链表的反转。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://origina
+    
     </summary>
     
+    
+      <category term="链表" scheme="http://yoursite.com/tags/%E9%93%BE%E8%A1%A8/"/>
+    
+      <category term="数据结构" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
   </entry>
   
@@ -57,9 +91,9 @@
     
       <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
     
-      <category term="Dijkstra" scheme="http://yoursite.com/tags/Dijkstra/"/>
-    
       <category term="最小生成树" scheme="http://yoursite.com/tags/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/"/>
+    
+      <category term="Dijkstra" scheme="http://yoursite.com/tags/Dijkstra/"/>
     
   </entry>
   
@@ -356,9 +390,9 @@
     </summary>
     
     
-      <category term="数据结构" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="链表" scheme="http://yoursite.com/tags/%E9%93%BE%E8%A1%A8/"/>
+    
+      <category term="数据结构" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
   </entry>
   
@@ -387,9 +421,9 @@
     </summary>
     
     
-      <category term="数据结构" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="链表" scheme="http://yoursite.com/tags/%E9%93%BE%E8%A1%A8/"/>
+    
+      <category term="数据结构" scheme="http://yoursite.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
   </entry>
   
