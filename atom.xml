@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Originalee的博客</title>
+  <title>Leon的博客</title>
   <icon>https://www.gravatar.com/avatar/9d151238658e9fa1d07c5b6b41f6fcbc</icon>
   <subtitle>Web Developer</subtitle>
   <link href="/atom.xml" rel="self"/>
@@ -84,9 +84,9 @@
     
       <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
     
-      <category term="最小生成树" scheme="http://yoursite.com/tags/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/"/>
-    
       <category term="Dijkstra" scheme="http://yoursite.com/tags/Dijkstra/"/>
+    
+      <category term="最小生成树" scheme="http://yoursite.com/tags/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/"/>
     
   </entry>
   
