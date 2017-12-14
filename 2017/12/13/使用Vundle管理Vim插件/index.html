@@ -1,26 +1,297 @@
-<!DOCTYPE html><html lang=""><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 使用Vundle管理Vim插件 | Originalee的博客</title><meta name="description" content="使用Vundle管理Vim插件 - Originalee"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.ico"><link rel="stylesheet" href="/css/casual.css"><link rel="stylesheet" href="/css/semantic.min.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="Originalee的博客"></head><body><div class="sidebar"><div class="ui vertical inverted menu"><div class="h100"></div><h3 class="ui inverted aligned icon header"><div class="content"><a href="/" class="title-link">ORIGINALEE的博客</a></div></h3><div class="h50"></div><div class="side-nav"><a href="/" target="_self" class="item">HOME<i class="icon home"></i></a><a href="/archives" target="_self" class="item">ARCHIVE<i class="icon archive"></i></a><a href="/about" target="_self" class="item">INFO<i class="icon info"></i></a><a href="/atom.xml" target="_self" class="item">RSS<i class="icon rss"></i></a></div><div class="item"><div class="ui inverted transparent icon input"><input type="text" placeholder="Search..." class="st-default-search-input"><i class="search icon"></i></div></div><div class="h50"></div></div><div class="h50 mq"><a class="ui teal big label"><i class="content icon"></i></a></div><div class="author-info"><a href="/" class="img-link"><img src="/avatar.png" class="author-photo ui tiny circular image"></a><h4 class="ui aligned icon header"><div class="content">Originalee</div></h4><p class="author-desc">爱打篮球的程序员|目前移动端爬坑中</p><div class="social-outer"><div class="social-inner"><a href="https://github.com/originalix" target="_blank" class="social-link"><i class="icon github"></i></a><a href="mailto:xiao.liunit@gmail.com" target="_self" class="social-link"><i class="icon mail"></i></a></div></div></div></div><div class="main"><div class="wrap"><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">使用Vundle管理Vim插件</h1><div class="post-info"><div class="post-date"><h6 class="ui header"><i class="calendar icon"></i><div class="content">Dec 13, 2017</div></h6></div></div><div class="post-content"><p>编辑器流派的划分在程序员群体中一直存在着，而我也在尝试了SublimeText、VSCode和Atom这些代表着现代时尚功能的编辑器之后试着使用Vim，其实说到学习使用Vim那已经是很早之前的事情了，但是每次看到各种配置，各种插件，总感觉把折腾Vim的配置是一件很要命的事情，如果把时间用在看书上或许会提高的更多，在这种阿Q的想法下，我始终没有认真的去研究过Vim的配置。</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      使用Vundle管理Vim插件 | Originalee的博客 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="李晓">
+    
+    
+
+    <meta name="description" content="编辑器流派的划分在程序员群体中一直存在着，而我也在尝试了SublimeText、VSCode和Atom这些代表着现代时尚功能的编辑器之后试着使用Vim，其实说到学习使用Vim那已经是很早之前的事情了，但是每次看到各种配置，各种插件，总感觉把折腾Vim的配置是一件很要命的事情，如果把时间用在看书上或许会提高的更多，在这种阿Q的想法下，我始终没有认真的去研究过Vim的配置。 但是最近也算突然心血来潮，">
+<meta name="keywords" content="Vim">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Vundle管理Vim插件 | Originalee的博客">
+<meta property="og:url" content="http://yoursite.com/2017/12/13/使用Vundle管理Vim插件/index.html">
+<meta property="og:site_name" content="Originalee的博客">
+<meta property="og:description" content="编辑器流派的划分在程序员群体中一直存在着，而我也在尝试了SublimeText、VSCode和Atom这些代表着现代时尚功能的编辑器之后试着使用Vim，其实说到学习使用Vim那已经是很早之前的事情了，但是每次看到各种配置，各种插件，总感觉把折腾Vim的配置是一件很要命的事情，如果把时间用在看书上或许会提高的更多，在这种阿Q的想法下，我始终没有认真的去研究过Vim的配置。 但是最近也算突然心血来潮，">
+<meta property="og:updated_time" content="2017-12-13T12:48:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用Vundle管理Vim插件 | Originalee的博客">
+<meta name="twitter:description" content="编辑器流派的划分在程序员群体中一直存在着，而我也在尝试了SublimeText、VSCode和Atom这些代表着现代时尚功能的编辑器之后试着使用Vim，其实说到学习使用Vim那已经是很早之前的事情了，但是每次看到各种配置，各种插件，总感觉把折腾Vim的配置是一件很要命的事情，如果把时间用在看书上或许会提高的更多，在这种阿Q的想法下，我始终没有认真的去研究过Vim的配置。 但是最近也算突然心血来潮，">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Originalee的博客</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          Web Developer
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/originalix" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">使用Vundle管理Vim插件</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-12-13" class="post-meta__date date">2017-12-13</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Vim/">Vim</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>编辑器流派的划分在程序员群体中一直存在着，而我也在尝试了SublimeText、VSCode和Atom这些代表着现代时尚功能的编辑器之后试着使用Vim，其实说到学习使用Vim那已经是很早之前的事情了，但是每次看到各种配置，各种插件，总感觉把折腾Vim的配置是一件很要命的事情，如果把时间用在看书上或许会提高的更多，在这种阿Q的想法下，我始终没有认真的去研究过Vim的配置。</p>
 <p>但是最近也算突然心血来潮，一直在敲前端和PHP的代码，因为有了一点嫌弃移动鼠标的麻烦，开始折腾起了Vim，也想配置出一个自己用得顺手的编辑器。虽然网上有很多完善强大的Vim配置文件，但是总感觉不是自己配置的，再怎么用也不舒服。所以一点一点折腾，一点一点爬坑，总算配置出了一个自己满足自己敲敲前端代码和日常编辑文本功能的编辑器。</p>
 <a id="more"></a>
 <p>而折腾完才发现，Vim的代码补全，编译及错误跳转等插件功能其实还是足够使用的，尤其是我经常在家中和办公室切换电脑使用，各种系统之间跨平台支持做的非常的好，希望是一个可以终生使用的工具。</p>
 <p>对于Vim中如此众多的插件，一个好的插件管理工具是必不可少的，所以今天在这里，我们来讲解一下Vundle这款插件管理器的使用。首先如果你不适用插件管理工具的话，那么你对插件的安装、配置和管理相对会麻烦很多，曾经没使用Vundle的时候，我经常遇到无法安装一些vim插件，但是使用Vundle后你只要在文件中添加一行你的插件名就ok了。</p>
-<p>首先我们要去<a href="https://github.com/VundleVim/Vundle.vim" target="_blank" rel="external">Vundle的github库</a>下载安装Vundle。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">clone</span> https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim</div></pre></td></tr></table></figure>
+<p>首先我们要去<a href="https://github.com/VundleVim/Vundle.vim" target="_blank" rel="noopener">Vundle的github库</a>下载安装Vundle。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim</span><br></pre></td></tr></table></figure>
 <p>执行上面的命令，将Vundle库下载到本地的<code>~/.vim/bundle/</code>目录下。</p>
 <p>之后编辑我们的<code>.vimrc</code>文件，将下面的文本拷贝到你的<code>.vimrc</code>文件中，并且你可以选择性的删除你暂时不想安装的插件。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">set</span> nocompatible              <span class="string">" be iMproved, required</span></div><div class="line">filetype off                  " required</div><div class="line"></div><div class="line"><span class="string">" set the runtime path to include Vundle and initialize</span></div><div class="line">set rtp+=~/.vim/bundle/Vundle.vim</div><div class="line">call vundle#begin()</div><div class="line">" alternatively, pass a path <span class="built_in">where</span> Vundle should install plugins</div><div class="line"><span class="string">"call vundle#begin('~/some/path/here')</span></div><div class="line"></div><div class="line">" <span class="built_in">let</span> Vundle manage Vundle, required</div><div class="line">Plugin <span class="string">'VundleVim/Vundle.vim'</span></div><div class="line"></div><div class="line"><span class="string">" The following are examples of different formats supported.</span></div><div class="line">" Keep Plugin commands between vundle<span class="comment">#begin/end.</span></div><div class="line"><span class="string">" plugin on GitHub repo</span></div><div class="line">Plugin 'tpope/vim-fugitive'</div><div class="line">" plugin from http://vim-scripts.org/vim/scripts.html</div><div class="line"><span class="string">" Plugin 'L9'</span></div><div class="line">" Git plugin not hosted on GitHub</div><div class="line">Plugin <span class="string">'git://git.wincent.com/command-t.git'</span></div><div class="line"><span class="string">" git repos on your local machine (i.e. when working on your own plugin)</span></div><div class="line">Plugin 'file:///home/gmarik/path/to/plugin'</div><div class="line">" The sparkup vim script is <span class="keyword">in</span> a subdirectory of this repo called vim.</div><div class="line"><span class="string">" Pass the path to set the runtimepath properly.</span></div><div class="line">Plugin 'rstacruz/sparkup', &#123;'rtp': 'vim/'&#125;</div><div class="line">" Install L9 and avoid a Naming conflict <span class="keyword">if</span> you<span class="string">'ve already installed a</span></div><div class="line">" different version somewhere else.</div><div class="line">" Plugin 'ascenator/L9<span class="string">', &#123;'</span>name<span class="string">': '</span>newL9<span class="string">'&#125;</span></div><div class="line"></div><div class="line">" All of your Plugins must be added before the following line</div><div class="line">call vundle#end()            " required</div><div class="line">filetype plugin indent on    " required</div><div class="line">" To ignore plugin indent changes, instead use:</div><div class="line">"filetype plugin on</div><div class="line">"</div><div class="line">" Brief help</div><div class="line">" :PluginList       - lists configured plugins</div><div class="line">" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate</div><div class="line">" :PluginSearch foo - searches for foo; append `!` to refresh local cache</div><div class="line">" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal</div><div class="line">"</div><div class="line">" see :h vundle for more details or wiki for FAQ</div><div class="line">" Put your non-Plugin stuff after this line</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> nocompatible              <span class="string">" be iMproved, required</span></span><br><span class="line"><span class="string">filetype off                  "</span> required</span><br><span class="line"></span><br><span class="line"><span class="string">" set the runtime path to include Vundle and initialize</span></span><br><span class="line"><span class="string">set rtp+=~/.vim/bundle/Vundle.vim</span></span><br><span class="line"><span class="string">call vundle#begin()</span></span><br><span class="line"><span class="string">"</span> alternatively, pass a path <span class="built_in">where</span> Vundle should install plugins</span><br><span class="line"><span class="string">"call vundle#begin('~/some/path/here')</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"</span> <span class="built_in">let</span> Vundle manage Vundle, required</span><br><span class="line">Plugin <span class="string">'VundleVim/Vundle.vim'</span></span><br><span class="line"></span><br><span class="line"><span class="string">" The following are examples of different formats supported.</span></span><br><span class="line"><span class="string">"</span> Keep Plugin commands between vundle<span class="comment">#begin/end.</span></span><br><span class="line"><span class="string">" plugin on GitHub repo</span></span><br><span class="line"><span class="string">Plugin 'tpope/vim-fugitive'</span></span><br><span class="line"><span class="string">"</span> plugin from http://vim-scripts.org/vim/scripts.html</span><br><span class="line"><span class="string">" Plugin 'L9'</span></span><br><span class="line"><span class="string">"</span> Git plugin not hosted on GitHub</span><br><span class="line">Plugin <span class="string">'git://git.wincent.com/command-t.git'</span></span><br><span class="line"><span class="string">" git repos on your local machine (i.e. when working on your own plugin)</span></span><br><span class="line"><span class="string">Plugin 'file:///home/gmarik/path/to/plugin'</span></span><br><span class="line"><span class="string">"</span> The sparkup vim script is <span class="keyword">in</span> a subdirectory of this repo called vim.</span><br><span class="line"><span class="string">" Pass the path to set the runtimepath properly.</span></span><br><span class="line"><span class="string">Plugin 'rstacruz/sparkup', &#123;'rtp': 'vim/'&#125;</span></span><br><span class="line"><span class="string">"</span> Install L9 and avoid a Naming conflict <span class="keyword">if</span> you<span class="string">'ve already installed a</span></span><br><span class="line"><span class="string">" different version somewhere else.</span></span><br><span class="line"><span class="string">" Plugin '</span>ascenator/L9<span class="string">', &#123;'</span>name<span class="string">': '</span>newL9<span class="string">'&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">" All of your Plugins must be added before the following line</span></span><br><span class="line"><span class="string">call vundle#end()            " required</span></span><br><span class="line"><span class="string">filetype plugin indent on    " required</span></span><br><span class="line"><span class="string">" To ignore plugin indent changes, instead use:</span></span><br><span class="line"><span class="string">"filetype plugin on</span></span><br><span class="line"><span class="string">"</span></span><br><span class="line"><span class="string">" Brief help</span></span><br><span class="line"><span class="string">" :PluginList       - lists configured plugins</span></span><br><span class="line"><span class="string">" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate</span></span><br><span class="line"><span class="string">" :PluginSearch foo - searches for foo; append `!` to refresh local cache</span></span><br><span class="line"><span class="string">" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal</span></span><br><span class="line"><span class="string">"</span></span><br><span class="line"><span class="string">" see :h vundle for more details or wiki for FAQ</span></span><br><span class="line"><span class="string">" Put your non-Plugin stuff after this line</span></span><br></pre></td></tr></table></figure>
 <p>类似于<code>Plugin &#39;tpope/vim-fugitive&#39;</code>这样的一行语句，就是安装一个新的插件，例如此行为安装<code>vim-fugitive</code>插件，例如这是一个Vim的Git相关插件，利用他可以很方便的查看对于文件的改动，还是很推荐安装使用的。</p>
 <p>之后在我们的终端键入<code>vim</code>跳进vim编辑器的乌干达主界面，并且输入<code>:PluginInstall</code>，则会开始自动的执行插件安装过程，我们说的毫不费劲便是在此体现，一行语句对应一个插件。</p>
 <p>在执行完毕后输入<code>qall</code>退出我们的插件安装界面，至此插件便安装完毕了。</p>
 <p>至于怎么移除插件呢，同样是在<code>.vimrc</code>文件中删除对应的语句，并且在vim编辑器的界面，输入<code>PluginClean</code>就完成插件的清理了。</p>
-</div></article></div></section><footer><div class="paginator"><a href="/2017/11/24/反转单向链表/" class="next"><button class="ui button teal">NEXT</button></a></div><div data-thread-key="2017/12/13/使用Vundle管理Vim插件/" data-title="使用Vundle管理Vim插件" data-url="http://yoursite.com/2017/12/13/使用Vundle管理Vim插件/" class="ds-share"><div class="ds-share-inline"><ul class="ds-share-icons-16"><li data-toggle="ds-share-icons-more"><span class="ds-more">分享到：</span></li><li><a href="javascript:void(0);" data-service="weibo" class="ds-weibo">微博</a></li><li><a href="javascript:void(0);" data-service="qqt" class="ds-qqt">腾讯微博</a></li><li><a href="javascript:void(0);" data-service="wechat" class="ds-wechat">微信</a></li></ul></div></div><div data-thread-key="2017/12/13/使用Vundle管理Vim插件/" data-title="使用Vundle管理Vim插件" data-url="http://yoursite.com/2017/12/13/使用Vundle管理Vim插件/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"originalee"};
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-   || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
 
-</script><div class="copyright"><p>© 2015 - 2017 <a href="http://yoursite.com">Originalee</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and theme by <a href="https://github.com/littlewin-wang/hexo-theme-casual" target="_blank">casual</a></p></div></footer></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script><script src="/js/jquery.goup.min.js"></script><script src="/js/semantic.min.js"></script><script src="/js/casual.js"></script><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>$(document).ready(function(){$.goup({trigger:100,bottomOffset:100,locationOffset:5,title:'',titleAsText:true});});</script><script>(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-_st('install','TvAnFS4AVxjiJUvrZJRB','2.0.0');</script></div></body></html>
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

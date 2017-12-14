@@ -1,34 +1,259 @@
-<!DOCTYPE html><html lang=""><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> iOS开发——Carthage安装和使用教程 | Originalee的博客</title><meta name="description" content="iOS开发——Carthage安装和使用教程 - Originalee"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.ico"><link rel="stylesheet" href="/css/casual.css"><link rel="stylesheet" href="/css/semantic.min.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="Originalee的博客"></head><body><div class="sidebar"><div class="ui vertical inverted menu"><div class="h100"></div><h3 class="ui inverted aligned icon header"><div class="content"><a href="/" class="title-link">ORIGINALEE的博客</a></div></h3><div class="h50"></div><div class="side-nav"><a href="/" target="_self" class="item">HOME<i class="icon home"></i></a><a href="/archives" target="_self" class="item">ARCHIVE<i class="icon archive"></i></a><a href="/about" target="_self" class="item">INFO<i class="icon info"></i></a><a href="/atom.xml" target="_self" class="item">RSS<i class="icon rss"></i></a></div><div class="item"><div class="ui inverted transparent icon input"><input type="text" placeholder="Search..." class="st-default-search-input"><i class="search icon"></i></div></div><div class="h50"></div></div><div class="h50 mq"><a class="ui teal big label"><i class="content icon"></i></a></div><div class="author-info"><a href="/" class="img-link"><img src="/avatar.png" class="author-photo ui tiny circular image"></a><h4 class="ui aligned icon header"><div class="content">Originalee</div></h4><p class="author-desc">爱打篮球的程序员|目前移动端爬坑中</p><div class="social-outer"><div class="social-inner"><a href="https://github.com/originalix" target="_blank" class="social-link"><i class="icon github"></i></a><a href="mailto:xiao.liunit@gmail.com" target="_self" class="social-link"><i class="icon mail"></i></a></div></div></div></div><div class="main"><div class="wrap"><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">iOS开发——Carthage安装和使用教程</h1><div class="post-info"><div class="post-date"><h6 class="ui header"><i class="calendar icon"></i><div class="content">Sep 22, 2016</div></h6></div></div><div class="post-content"><h1 id="Carthage是什么？"><a href="#Carthage是什么？" class="headerlink" title="Carthage是什么？"></a>Carthage是什么？</h1><p>Carthage 使用于 Swift 语言编写，只支持动态框架，只支持 iOS8+的Cocoa依赖管理工具。</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      iOS开发——Carthage安装和使用教程 | Originalee的博客 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="李晓">
+    
+    
+
+    <meta name="description" content="Carthage是什么？Carthage 使用于 Swift 语言编写，只支持动态框架，只支持 iOS8+的Cocoa依赖管理工具。 与现在流行的 CocoaPods 不同，Carthage编译你的依赖，并提供框架的二进制.framework文件，但你仍然保留对项目的结构和设置的完整控制，Carthage不会自动的修改你的项目文件或编译设置。是一个去中心化的Cocoa依赖管理工具">
+<meta name="keywords" content="iOS开发,Carthage">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS开发——Carthage安装和使用教程 | Originalee的博客">
+<meta property="og:url" content="http://yoursite.com/2016/09/22/iOS开发——Carthage安装和使用教程/index.html">
+<meta property="og:site_name" content="Originalee的博客">
+<meta property="og:description" content="Carthage是什么？Carthage 使用于 Swift 语言编写，只支持动态框架，只支持 iOS8+的Cocoa依赖管理工具。 与现在流行的 CocoaPods 不同，Carthage编译你的依赖，并提供框架的二进制.framework文件，但你仍然保留对项目的结构和设置的完整控制，Carthage不会自动的修改你的项目文件或编译设置。是一个去中心化的Cocoa依赖管理工具">
+<meta property="og:image" content="http://www.skyfox.org/wp-content/uploads/2016/05/C888B12C-6500-4B6F-B7BE-075379FD5E95.jpg">
+<meta property="og:image" content="http://www.skyfox.org/wp-content/uploads/2016/05/A5A69D07-3A4F-49EC-A1BB-8BF087C669D6.jpg">
+<meta property="og:updated_time" content="2016-09-22T01:54:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS开发——Carthage安装和使用教程 | Originalee的博客">
+<meta name="twitter:description" content="Carthage是什么？Carthage 使用于 Swift 语言编写，只支持动态框架，只支持 iOS8+的Cocoa依赖管理工具。 与现在流行的 CocoaPods 不同，Carthage编译你的依赖，并提供框架的二进制.framework文件，但你仍然保留对项目的结构和设置的完整控制，Carthage不会自动的修改你的项目文件或编译设置。是一个去中心化的Cocoa依赖管理工具">
+<meta name="twitter:image" content="http://www.skyfox.org/wp-content/uploads/2016/05/C888B12C-6500-4B6F-B7BE-075379FD5E95.jpg">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Originalee的博客</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          Web Developer
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/originalix" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">iOS开发——Carthage安装和使用教程</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-09-22" class="post-meta__date date">2016-09-22</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Carthage/">Carthage</a>, <a class="tags-link" href="/tags/iOS开发/">iOS开发</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h1 id="Carthage是什么？"><a href="#Carthage是什么？" class="headerlink" title="Carthage是什么？"></a>Carthage是什么？</h1><p>Carthage 使用于 Swift 语言编写，只支持动态框架，只支持 iOS8+的Cocoa依赖管理工具。</p>
 <p>与现在流行的 CocoaPods 不同，Carthage编译你的依赖，并提供框架的二进制.framework文件，但你仍然保留对项目的结构和设置的完整控制，Carthage不会自动的修改你的项目文件或编译设置。是一个去中心化的Cocoa依赖管理工具</p>
 <a id="more"></a>
 <h1 id="如何下载和安装Carthage？"><a href="#如何下载和安装Carthage？" class="headerlink" title="如何下载和安装Carthage？"></a>如何下载和安装Carthage？</h1><h2 id="使用Brew安装-建议"><a href="#使用Brew安装-建议" class="headerlink" title="使用Brew安装(建议)"></a>使用Brew安装(建议)</h2><ol>
 <li>安装Mac OSX流行的的软件包管理工具Homebrew之前要检查Mac中是否有Ruby环境,目前的版本基本都内置了Ruby,终端输入</li>
 </ol>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ruby -v</div></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby -v</span><br></pre></td></tr></table></figure>
 <p>显示类似 ruby 2.0.0p648 (2015-12-16 revision 53162) [universal.x86_64-darwin15]</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew -v</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew -v</span><br></pre></td></tr></table></figure>
 <p>显示类似文本 Homebrew 0.9.9 (git revision 2f20; last commit 2016-05-15) 说明已经安装brew不需要再次安装</p>
 <ol>
 <li>如果电脑中没有Homebrew,终端执行脚本安装即可</li>
 </ol>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ruby -e <span class="string">"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"</span></div></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ruby -e <span class="string">"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"</span></span><br></pre></td></tr></table></figure>
 <ol>
 <li>每次使用 Homebrew 进行安装Carthage 或者其他软件之前,习惯性的先对Homebrew进行更新一下, 不然可能会安装到比较老版本的Carthage等软件</li>
 </ol>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew update</div></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew update</span><br></pre></td></tr></table></figure>
 <p>提示 Already up-to-date…….  更新到最新啦!!</p>
 <ol>
 <li>假如你在本地已经安装好Homebrew环境，那么下载和安装carthage将十分简单，只需要一行命令。</li>
 </ol>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install carthage</div></pre></td></tr></table></figure>
-<h2 id="PKG文件安装"><a href="#PKG文件安装" class="headerlink" title="PKG文件安装"></a>PKG文件安装</h2><p>直接下载pkg文件：<a href="https://github.com/Carthage/Carthage/releases" target="_blank" rel="external">https://github.com/Carthage/Carthage/releases</a> 进行安装即可</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install carthage</span><br></pre></td></tr></table></figure>
+<h2 id="PKG文件安装"><a href="#PKG文件安装" class="headerlink" title="PKG文件安装"></a>PKG文件安装</h2><p>直接下载pkg文件：<a href="https://github.com/Carthage/Carthage/releases" target="_blank" rel="noopener">https://github.com/Carthage/Carthage/releases</a> 进行安装即可</p>
 <h1 id="如何使用Carthage？"><a href="#如何使用Carthage？" class="headerlink" title="如何使用Carthage？"></a>如何使用Carthage？</h1><p>包管理工具,不管是CocoaPods,还是Node 的NPM,配置依赖管理都是在工程目录,建立相应的配置文件,Carthage的配置文件即 Cartfile文件</p>
 <h2 id="添加-Cartfile-文件-需要提交到-Git"><a href="#添加-Cartfile-文件-需要提交到-Git" class="headerlink" title="添加 Cartfile 文件 (需要提交到 Git)"></a>添加 Cartfile 文件 (需要提交到 Git)</h2><p>建立添加Cartfile（配置文件）文件在</p>
 <p>通过终端或者文本编辑器 进入到项目所在的文件夹建立一个 空的Cartfile文件</p>
 <p>现在只支持GitHub库(GitHub.com和GitHub企业),指定GitHub的关键字:</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">github <span class="string">"ReactiveCocoa/ReactiveCocoa"</span> <span class="comment"># GitHub.com</span></div><div class="line">github <span class="string">"https://enterprise.local/ghe/desktop/git-error-translations"</span> <span class="comment"># GitHub Enterprise</span></div></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">github <span class="string">"ReactiveCocoa/ReactiveCocoa"</span> <span class="comment"># GitHub.com</span></span><br><span class="line">github <span class="string">"https://enterprise.local/ghe/desktop/git-error-translations"</span> <span class="comment"># GitHub Enterprise</span></span><br></pre></td></tr></table></figure>
 <p>或者是其他git源,指定git关键词:</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git <span class="string">"https://enterprise.local/desktop/git-error-translations2.git"</span></div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="string">"https://enterprise.local/desktop/git-error-translations2.git"</span></span><br></pre></td></tr></table></figure>
 <p>其他可能的源在未来也会会被添加</p>
 <h2 id="版本指定"><a href="#版本指定" class="headerlink" title="版本指定"></a>版本指定</h2><p>Carthage 支持以下几种版本指定方法:</p>
 <ol>
@@ -39,14 +264,14 @@
 </ol>
 <p>如果没有版本要求,任何版本的依赖是允许的。</p>
 <p>版本好的兼容性是根据语语义化版本控制决定的。这意味着任何大于或等于1.5.1版本,但小于2.0,将认为与1.5.1“兼容”。</p>
-<h2 id="Cartfile示例"><a href="#Cartfile示例" class="headerlink" title="Cartfile示例"></a>Cartfile示例</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"># Require <span class="keyword">version</span> <span class="number">2.3</span>.<span class="number">1</span> <span class="built_in">or</span> <span class="keyword">later</span> 最低<span class="number">2.3</span>.<span class="number">1</span>版本</div><div class="line">github <span class="string">"ReactiveCocoa/ReactiveCocoa"</span> &gt;= <span class="number">2.3</span>.<span class="number">1</span></div><div class="line"></div><div class="line"># Require <span class="keyword">version</span> <span class="number">1</span>.<span class="keyword">x</span>   必须<span class="number">1</span>.<span class="keyword">x</span>版本</div><div class="line">github <span class="string">"Mantle/Mantle"</span> ~&gt; <span class="number">1.0</span>    # (大于或等于 <span class="number">1.0</span> ，小于 <span class="number">2.0</span>)</div><div class="line"></div><div class="line"># Require exactly <span class="keyword">version</span> <span class="number">0.4</span>.<span class="number">1</span> 必须<span class="number">0.4</span>.<span class="number">1</span>版本</div><div class="line">github <span class="string">"jspahrsummers/libextobjc"</span> == <span class="number">0.4</span>.<span class="number">1</span></div><div class="line"></div><div class="line"># Use the latest <span class="keyword">version</span>  使用最新版本</div><div class="line">github <span class="string">"jspahrsummers/xcconfigs"</span></div><div class="line"></div><div class="line"># Use the branch  使用git分支</div><div class="line">github <span class="string">"jspahrsummers/xcconfigs"</span> <span class="string">"branch"</span></div><div class="line"></div><div class="line"># Use <span class="keyword">a</span> project from GitHub Enterprise  使用一个企业项目，在 <span class="string">"development"</span> 分支</div><div class="line">github <span class="string">"https://enterprise.local/ghe/desktop/git-error-translations"</span></div><div class="line"></div><div class="line"># Use <span class="keyword">a</span> project from any arbitrary server, <span class="keyword">on</span> the <span class="string">"development"</span> branch  使用一个私有项目，在 <span class="string">"development"</span> 分支</div><div class="line">git <span class="string">"https://enterprise.local/desktop/git-error-translations2.git"</span> <span class="string">"development"</span></div><div class="line"></div><div class="line"># Use <span class="keyword">a</span> local project   使用一个本地的项目</div><div class="line">git <span class="string">"file:///directory/to/project"</span> <span class="string">"branch"</span></div></pre></td></tr></table></figure>
+<h2 id="Cartfile示例"><a href="#Cartfile示例" class="headerlink" title="Cartfile示例"></a>Cartfile示例</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># Require <span class="keyword">version</span> <span class="number">2.3</span>.<span class="number">1</span> <span class="built_in">or</span> <span class="keyword">later</span> 最低<span class="number">2.3</span>.<span class="number">1</span>版本</span><br><span class="line">github <span class="string">"ReactiveCocoa/ReactiveCocoa"</span> &gt;= <span class="number">2.3</span>.<span class="number">1</span></span><br><span class="line"></span><br><span class="line"># Require <span class="keyword">version</span> <span class="number">1</span>.<span class="keyword">x</span>   必须<span class="number">1</span>.<span class="keyword">x</span>版本</span><br><span class="line">github <span class="string">"Mantle/Mantle"</span> ~&gt; <span class="number">1.0</span>    # (大于或等于 <span class="number">1.0</span> ，小于 <span class="number">2.0</span>)</span><br><span class="line"></span><br><span class="line"># Require exactly <span class="keyword">version</span> <span class="number">0.4</span>.<span class="number">1</span> 必须<span class="number">0.4</span>.<span class="number">1</span>版本</span><br><span class="line">github <span class="string">"jspahrsummers/libextobjc"</span> == <span class="number">0.4</span>.<span class="number">1</span></span><br><span class="line"></span><br><span class="line"># Use the latest <span class="keyword">version</span>  使用最新版本</span><br><span class="line">github <span class="string">"jspahrsummers/xcconfigs"</span></span><br><span class="line"></span><br><span class="line"># Use the branch  使用git分支</span><br><span class="line">github <span class="string">"jspahrsummers/xcconfigs"</span> <span class="string">"branch"</span></span><br><span class="line"></span><br><span class="line"># Use <span class="keyword">a</span> project from GitHub Enterprise  使用一个企业项目，在 <span class="string">"development"</span> 分支</span><br><span class="line">github <span class="string">"https://enterprise.local/ghe/desktop/git-error-translations"</span></span><br><span class="line"></span><br><span class="line"># Use <span class="keyword">a</span> project from any arbitrary server, <span class="keyword">on</span> the <span class="string">"development"</span> branch  使用一个私有项目，在 <span class="string">"development"</span> 分支</span><br><span class="line">git <span class="string">"https://enterprise.local/desktop/git-error-translations2.git"</span> <span class="string">"development"</span></span><br><span class="line"></span><br><span class="line"># Use <span class="keyword">a</span> local project   使用一个本地的项目</span><br><span class="line">git <span class="string">"file:///directory/to/project"</span> <span class="string">"branch"</span></span><br></pre></td></tr></table></figure>
 <h2 id="安装依赖-just-do-it"><a href="#安装依赖-just-do-it" class="headerlink" title="安装依赖 just do it"></a>安装依赖 just do it</h2><p>执行以下命令 拉取指定版本代码并编译为 .Framework 文件</p>
 <p>内部工作流程即  carthage update =&gt; carthage checkout =&gt; checkout build</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">carthage <span class="keyword">update</span></div></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">carthage <span class="keyword">update</span></span><br></pre></td></tr></table></figure>
 <p>只编译iOS平台的类库</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">carthage <span class="keyword">update</span> --platform iOS</div></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">carthage <span class="keyword">update</span> --platform iOS</span><br></pre></td></tr></table></figure>
 <p>结果如下,(PS我只留了一个Mantle依赖)</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Jakey-Pro:test jakey$ carthage <span class="keyword">update</span></div><div class="line">*** Fetching Mantle</div><div class="line">*** Checking out Mantle at <span class="string">"1.5.7"</span></div><div class="line">*** xcodebuild output can <span class="keyword">be</span> found in /var/folders/<span class="keyword">sm</span>/b5fssgjx147b722vsgx20mg00000gn/T/carthage-xcodebuild.b3IHTG.<span class="built_in">log</span></div><div class="line">*** Building scheme <span class="string">"Mantle Mac"</span> in Mantle.xcworkspace</div><div class="line"></div><div class="line">...balabala</div></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Jakey-Pro:test jakey$ carthage <span class="keyword">update</span></span><br><span class="line">*** Fetching Mantle</span><br><span class="line">*** Checking out Mantle at <span class="string">"1.5.7"</span></span><br><span class="line">*** xcodebuild output can <span class="keyword">be</span> found in /var/folders/<span class="keyword">sm</span>/b5fssgjx147b722vsgx20mg00000gn/T/carthage-xcodebuild.b3IHTG.<span class="built_in">log</span></span><br><span class="line">*** Building scheme <span class="string">"Mantle Mac"</span> in Mantle.xcworkspace</span><br><span class="line"></span><br><span class="line">...balabala</span><br></pre></td></tr></table></figure>
 <p>工程目录多了以下文件</p>
 <p><img src="http://www.skyfox.org/wp-content/uploads/2016/05/C888B12C-6500-4B6F-B7BE-075379FD5E95.jpg" alt=""></p>
 <h2 id="Cartfile-resolved-需要提交到-Git"><a href="#Cartfile-resolved-需要提交到-Git" class="headerlink" title="Cartfile.resolved (需要提交到 Git)"></a>Cartfile.resolved (需要提交到 Git)</h2><p>在执行 carthage update 命令后会在根目录创建一个 Cartfile.resolved 文件，这个文件是生成后的依赖关系，不能修改。</p>
@@ -61,19 +286,68 @@
 </ul>
 <p>注意:动态库拷贝到Embedded  Binarie会同时自动加入到Linked Frameworks and Libraries,但是错误的拖入到Linked Frameworks and Libraries是不会自动增加到Embedded  Binarie中的,会导致动态库加载失败</p>
 <p>2 . 在对应 Target 中的 Build Setting 中的 Framework Search Path 项加入以下路径，Xcode 便会自动搜索目录下的 Framework： </p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$(PROJECT_DIR)/Carthage/Build/iOS</div></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(PROJECT_DIR)/Carthage/Build/iOS</span><br></pre></td></tr></table></figure>
 <h1 id="Git-中忽略不需要提交到版本库的文件与文件夹"><a href="#Git-中忽略不需要提交到版本库的文件与文件夹" class="headerlink" title="Git 中忽略不需要提交到版本库的文件与文件夹"></a>Git 中忽略不需要提交到版本库的文件与文件夹</h1><p>则修改 .gitignore 文件，增加忽略 Carthage 文件夹就行了：</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#Carthage</div><div class="line">Carthage</div></pre></td></tr></table></figure>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#Carthage</span><br><span class="line">Carthage</span><br></pre></td></tr></table></figure>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本人在实际项目中迟迟没有使用CocoaPods的原因就是,啰里啰嗦…对原有工程破坏性大(建立workspace,增加一堆乱七八糟的文件),侵入性太强,耦合太高,Carthage的出现的确是茉莉花香扑鼻而至!</p>
-</div></article></div></section><footer><div class="paginator"><a href="/2016/10/08/iOS开发——UINavigationBar中踩过的坑/" class="prev"><button class="ui button teal">PREV</button></a><a href="/2016/09/21/AES加密——Java与iOS的解决方案/" class="next"><button class="ui button teal">NEXT</button></a></div><div data-thread-key="2016/09/22/iOS开发——Carthage安装和使用教程/" data-title="iOS开发——Carthage安装和使用教程" data-url="http://yoursite.com/2016/09/22/iOS开发——Carthage安装和使用教程/" class="ds-share"><div class="ds-share-inline"><ul class="ds-share-icons-16"><li data-toggle="ds-share-icons-more"><span class="ds-more">分享到：</span></li><li><a href="javascript:void(0);" data-service="weibo" class="ds-weibo">微博</a></li><li><a href="javascript:void(0);" data-service="qqt" class="ds-qqt">腾讯微博</a></li><li><a href="javascript:void(0);" data-service="wechat" class="ds-wechat">微信</a></li></ul></div></div><div data-thread-key="2016/09/22/iOS开发——Carthage安装和使用教程/" data-title="iOS开发——Carthage安装和使用教程" data-url="http://yoursite.com/2016/09/22/iOS开发——Carthage安装和使用教程/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"originalee"};
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-   || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
 
-</script><div class="copyright"><p>© 2015 - 2017 <a href="http://yoursite.com">Originalee</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and theme by <a href="https://github.com/littlewin-wang/hexo-theme-casual" target="_blank">casual</a></p></div></footer></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script><script src="/js/jquery.goup.min.js"></script><script src="/js/semantic.min.js"></script><script src="/js/casual.js"></script><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>$(document).ready(function(){$.goup({trigger:100,bottomOffset:100,locationOffset:5,title:'',titleAsText:true});});</script><script>(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-_st('install','TvAnFS4AVxjiJUvrZJRB','2.0.0');</script></div></body></html>
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

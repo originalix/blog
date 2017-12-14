@@ -1,4 +1,226 @@
-<!DOCTYPE html><html lang=""><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> iOS——GCD的死锁案例 | Originalee的博客</title><meta name="description" content="iOS——GCD的死锁案例 - Originalee"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.ico"><link rel="stylesheet" href="/css/casual.css"><link rel="stylesheet" href="/css/semantic.min.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="Originalee的博客"></head><body><div class="sidebar"><div class="ui vertical inverted menu"><div class="h100"></div><h3 class="ui inverted aligned icon header"><div class="content"><a href="/" class="title-link">ORIGINALEE的博客</a></div></h3><div class="h50"></div><div class="side-nav"><a href="/" target="_self" class="item">HOME<i class="icon home"></i></a><a href="/archives" target="_self" class="item">ARCHIVE<i class="icon archive"></i></a><a href="/about" target="_self" class="item">INFO<i class="icon info"></i></a><a href="/atom.xml" target="_self" class="item">RSS<i class="icon rss"></i></a></div><div class="item"><div class="ui inverted transparent icon input"><input type="text" placeholder="Search..." class="st-default-search-input"><i class="search icon"></i></div></div><div class="h50"></div></div><div class="h50 mq"><a class="ui teal big label"><i class="content icon"></i></a></div><div class="author-info"><a href="/" class="img-link"><img src="/avatar.png" class="author-photo ui tiny circular image"></a><h4 class="ui aligned icon header"><div class="content">Originalee</div></h4><p class="author-desc">爱打篮球的程序员|目前移动端爬坑中</p><div class="social-outer"><div class="social-inner"><a href="https://github.com/originalix" target="_blank" class="social-link"><i class="icon github"></i></a><a href="mailto:xiao.liunit@gmail.com" target="_self" class="social-link"><i class="icon mail"></i></a></div></div></div></div><div class="main"><div class="wrap"><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">iOS——GCD的死锁案例</h1><div class="post-info"><div class="post-date"><h6 class="ui header"><i class="calendar icon"></i><div class="content">Nov 1, 2016</div></h6></div></div><div class="post-content"><p>在项目中，用GCD的时候非常多，但是我最近脑子里一直在问自己一个问题，死锁是什么。惭愧的是这个当初清晰的概念现在愈加模糊，考虑到自己并没有专门整理过死锁的文章，所以写一篇技术文章来帮助自己梳理概念。</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      iOS——GCD的死锁案例 | Originalee的博客 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="李晓">
+    
+    
+
+    <meta name="description" content="在项目中，用GCD的时候非常多，但是我最近脑子里一直在问自己一个问题，死锁是什么。惭愧的是这个当初清晰的概念现在愈加模糊，考虑到自己并没有专门整理过死锁的文章，所以写一篇技术文章来帮助自己梳理概念。 GCD提供了功能强大的任务和队列控制功能，相比于NSOperationQueue更加底层，因此如果不注意也会导致死锁。 所谓死锁，通常指有两个线程A和B都卡住了，并等待对方完成某些操作。A不能完成是因">
+<meta name="keywords" content="iOS开发,GCD的死锁">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS——GCD的死锁案例 | Originalee的博客">
+<meta property="og:url" content="http://yoursite.com/2016/11/01/iOS——GCD的死锁案例/index.html">
+<meta property="og:site_name" content="Originalee的博客">
+<meta property="og:description" content="在项目中，用GCD的时候非常多，但是我最近脑子里一直在问自己一个问题，死锁是什么。惭愧的是这个当初清晰的概念现在愈加模糊，考虑到自己并没有专门整理过死锁的文章，所以写一篇技术文章来帮助自己梳理概念。 GCD提供了功能强大的任务和队列控制功能，相比于NSOperationQueue更加底层，因此如果不注意也会导致死锁。 所谓死锁，通常指有两个线程A和B都卡住了，并等待对方完成某些操作。A不能完成是因">
+<meta property="og:updated_time" content="2016-11-01T04:58:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS——GCD的死锁案例 | Originalee的博客">
+<meta name="twitter:description" content="在项目中，用GCD的时候非常多，但是我最近脑子里一直在问自己一个问题，死锁是什么。惭愧的是这个当初清晰的概念现在愈加模糊，考虑到自己并没有专门整理过死锁的文章，所以写一篇技术文章来帮助自己梳理概念。 GCD提供了功能强大的任务和队列控制功能，相比于NSOperationQueue更加底层，因此如果不注意也会导致死锁。 所谓死锁，通常指有两个线程A和B都卡住了，并等待对方完成某些操作。A不能完成是因">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Originalee的博客</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          Web Developer
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/originalix" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">iOS——GCD的死锁案例</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-11-01" class="post-meta__date date">2016-11-01</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/GCD的死锁/">GCD的死锁</a>, <a class="tags-link" href="/tags/iOS开发/">iOS开发</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>在项目中，用GCD的时候非常多，但是我最近脑子里一直在问自己一个问题，死锁是什么。惭愧的是这个当初清晰的概念现在愈加模糊，考虑到自己并没有专门整理过死锁的文章，所以写一篇技术文章来帮助自己梳理概念。</p>
 <p>GCD提供了功能强大的任务和队列控制功能，相比于NSOperationQueue更加底层，因此如果不注意也会导致死锁。</p>
 <p>所谓死锁，通常指有两个线程A和B都卡住了，并等待对方完成某些操作。A不能完成是因为它在等待B完成。但B也不能完成，因为它在等待A完成。于是大家都完不成，就导致了死锁（DeadLock）。</p>
 <a id="more"></a>
@@ -11,10 +233,10 @@
 <p>接下来所有的案例代码，我都会用Swift3的语言重写一遍，为了帮助自己加深对Swift3的语言的理解。</p>
 </blockquote>
 <p>##Demo1</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"1"</span>); <span class="comment">// 任务1</span></div><div class="line"></div><div class="line"><span class="built_in">dispatch_sync</span>(dispatch_get_main_queue(), ^&#123;</div><div class="line"></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"2"</span>); <span class="comment">// 任务2</span></div><div class="line"></div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"3"</span>); <span class="comment">// 任务3</span></div></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">print</span>(<span class="string">"1"</span>)   <span class="comment">//任务1</span></div><div class="line"> </div><div class="line"> <span class="type">DispatchQueue</span>.main.sync &#123;</div><div class="line">     <span class="built_in">print</span>(<span class="string">"2"</span>)  <span class="comment">//任务2</span></div><div class="line"> &#125;</div><div class="line"> </div><div class="line"> <span class="built_in">print</span>(<span class="string">"3"</span>)  <span class="comment">//任务3</span></div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"1"</span>); <span class="comment">// 任务1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">dispatch_sync</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"2"</span>); <span class="comment">// 任务2</span></span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"3"</span>); <span class="comment">// 任务3</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">"1"</span>)   <span class="comment">//任务1</span></span><br><span class="line"> </span><br><span class="line"> <span class="type">DispatchQueue</span>.main.sync &#123;</span><br><span class="line">     <span class="built_in">print</span>(<span class="string">"2"</span>)  <span class="comment">//任务2</span></span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="built_in">print</span>(<span class="string">"3"</span>)  <span class="comment">//任务3</span></span><br></pre></td></tr></table></figure>
 <p>接下来 控制器输出:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">1</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1</span><br></pre></td></tr></table></figure>
 <p>分析：</p>
 <ul>
 <li><p>dispatch_sync表示是一个同步线程；</p>
@@ -28,10 +250,10 @@
 <li><p>任务3要等任务2执行完才能执行，任务2由排在任务3后面，意味着任务2要在任务3执行完才能执行，所以他们进入了互相等待的局面。</p>
 </li>
 </ul>
-<h2 id="Demo2"><a href="#Demo2" class="headerlink" title="Demo2"></a>Demo2</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"1"</span>); <span class="comment">// 任务1</span></div><div class="line"></div><div class="line"><span class="built_in">dispatch_sync</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, <span class="number">0</span>), ^&#123;</div><div class="line"></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"2"</span>); <span class="comment">// 任务2</span></div><div class="line"></div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"3"</span>); <span class="comment">// 任务3</span></div></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">print</span>(<span class="string">"1"</span>)</div><div class="line">    </div><div class="line"><span class="type">DispatchQueue</span>.global(qos: .<span class="keyword">default</span>).sync &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"2"</span>)</div><div class="line">&#125;</div><div class="line">    </div><div class="line"><span class="built_in">print</span>(<span class="string">"3"</span>)</div></pre></td></tr></table></figure>
+<h2 id="Demo2"><a href="#Demo2" class="headerlink" title="Demo2"></a>Demo2</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"1"</span>); <span class="comment">// 任务1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">dispatch_sync</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, <span class="number">0</span>), ^&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"2"</span>); <span class="comment">// 任务2</span></span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"3"</span>); <span class="comment">// 任务3</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">"1"</span>)</span><br><span class="line">    </span><br><span class="line"><span class="type">DispatchQueue</span>.global(qos: .<span class="keyword">default</span>).sync &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"2"</span>)</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="built_in">print</span>(<span class="string">"3"</span>)</span><br></pre></td></tr></table></figure>
 <p>控制器输出</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1</div><div class="line"></div><div class="line">2</div><div class="line"></div><div class="line">3</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line"></span><br><span class="line">2</span><br><span class="line"></span><br><span class="line">3</span><br></pre></td></tr></table></figure>
 <ul>
 <li><p>首先执行任务1，接下来会遇到一个同步线程，程序会进入等待。</p>
 </li>
@@ -40,10 +262,10 @@
 <li><p>从<code>dispatch_get_global_queue</code>可以看出，任务2被加入到了全局的并行队列中，当并行队列执行完任务2以后，返回到主队列，继续执行任务3。</p>
 </li>
 </ul>
-<h2 id="Demo3"><a href="#Demo3" class="headerlink" title="Demo3"></a>Demo3</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">dispatch_queue_t</span> queue = dispatch_queue_create(<span class="string">"com.demo.serialQueue"</span>, DISPATCH_QUEUE_SERIAL);</div><div class="line"></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"1"</span>); <span class="comment">// 任务1</span></div><div class="line"></div><div class="line"><span class="built_in">dispatch_async</span>(queue, ^&#123;</div><div class="line"></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"2"</span>); <span class="comment">// 任务2</span></div><div class="line"></div><div class="line">    <span class="built_in">dispatch_sync</span>(queue, ^&#123;  </div><div class="line"></div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"3"</span>); <span class="comment">// 任务3</span></div><div class="line"></div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"4"</span>); <span class="comment">// 任务4</span></div><div class="line"></div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"5"</span>); <span class="comment">// 任务5</span></div></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> queue = <span class="type">DispatchQueue</span>(label: <span class="string">"serealQueue"</span>, qos: .<span class="keyword">default</span>)</div><div class="line"><span class="built_in">print</span>(<span class="string">"1"</span>)</div><div class="line">queue.async &#123;</div><div class="line"><span class="built_in">print</span>(<span class="string">"2"</span>)</div><div class="line">queue.sync &#123;</div><div class="line"><span class="built_in">print</span>(<span class="string">"3"</span>)</div><div class="line">&#125;</div><div class="line"><span class="built_in">print</span>(<span class="string">"4"</span>)</div><div class="line">&#125;</div><div class="line"><span class="built_in">print</span>(<span class="string">"5"</span>)</div></pre></td></tr></table></figure>
+<h2 id="Demo3"><a href="#Demo3" class="headerlink" title="Demo3"></a>Demo3</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dispatch_queue_t</span> queue = dispatch_queue_create(<span class="string">"com.demo.serialQueue"</span>, DISPATCH_QUEUE_SERIAL);</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"1"</span>); <span class="comment">// 任务1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">dispatch_async</span>(queue, ^&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"2"</span>); <span class="comment">// 任务2</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">dispatch_sync</span>(queue, ^&#123;  </span><br><span class="line"></span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"3"</span>); <span class="comment">// 任务3</span></span><br><span class="line"></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"4"</span>); <span class="comment">// 任务4</span></span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"5"</span>); <span class="comment">// 任务5</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> queue = <span class="type">DispatchQueue</span>(label: <span class="string">"serealQueue"</span>, qos: .<span class="keyword">default</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"1"</span>)</span><br><span class="line">queue.async &#123;</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"2"</span>)</span><br><span class="line">queue.sync &#123;</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"3"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"4"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"5"</span>)</span><br></pre></td></tr></table></figure>
 <p>控制台输出</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">1</div><div class="line"></div><div class="line">5</div><div class="line"></div><div class="line">2</div><div class="line"></div><div class="line">// 5和2的顺序不一定</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line"></span><br><span class="line">5</span><br><span class="line"></span><br><span class="line">2</span><br><span class="line"></span><br><span class="line">// 5和2的顺序不一定</span><br></pre></td></tr></table></figure>
 <p>分析：</p>
 <ul>
 <li><p>这个案例没有使用系统提供的串行或并行队列，而是自己通过<code>dispatch_queue_create</code>函数创建了一个<code>DISPATCH_QUEUE_SERIAL</code>的串行队列。</p>
@@ -59,10 +281,10 @@
 <li><p>又因为任务4比任务3早加入串行队列，所以，任务3要等待任务4完成以后，才能执行。但是任务3所在的同步线程会阻塞，所以任务4必须等任务3执行完以后再执行。这就又陷入了无限的等待中，造成死锁。</p>
 </li>
 </ul>
-<h2 id="Demo4"><a href="#Demo4" class="headerlink" title="Demo4"></a>Demo4</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"1"</span>); <span class="comment">// 任务1</span></div><div class="line"></div><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(<span class="number">0</span>, <span class="number">0</span>), ^&#123;</div><div class="line"></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"2"</span>); <span class="comment">// 任务2</span></div><div class="line"></div><div class="line">    <span class="built_in">dispatch_sync</span>(dispatch_get_main_queue(), ^&#123;</div><div class="line"></div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"3"</span>); <span class="comment">// 任务3</span></div><div class="line"></div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"4"</span>); <span class="comment">// 任务4</span></div><div class="line"></div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"5"</span>); <span class="comment">// 任务5</span></div></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">print</span>(<span class="string">"1"</span>)</div><div class="line"><span class="type">DispatchQueue</span>.global(qos: .<span class="keyword">default</span>).async &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"2"</span>)</div><div class="line">    <span class="type">DispatchQueue</span>.main.sync &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"3"</span>)</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"4"</span>)</div><div class="line">&#125;</div><div class="line"><span class="built_in">print</span>(<span class="string">"5"</span>)</div></pre></td></tr></table></figure>
+<h2 id="Demo4"><a href="#Demo4" class="headerlink" title="Demo4"></a>Demo4</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"1"</span>); <span class="comment">// 任务1</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(<span class="number">0</span>, <span class="number">0</span>), ^&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"2"</span>); <span class="comment">// 任务2</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">dispatch_sync</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"3"</span>); <span class="comment">// 任务3</span></span><br><span class="line"></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"4"</span>); <span class="comment">// 任务4</span></span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"5"</span>); <span class="comment">// 任务5</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">"1"</span>)</span><br><span class="line"><span class="type">DispatchQueue</span>.global(qos: .<span class="keyword">default</span>).async &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"2"</span>)</span><br><span class="line">    <span class="type">DispatchQueue</span>.main.sync &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"3"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"4"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"5"</span>)</span><br></pre></td></tr></table></figure>
 <p>控制器输出</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">1</div><div class="line"></div><div class="line">2</div><div class="line"></div><div class="line">5</div><div class="line"></div><div class="line">3</div><div class="line"></div><div class="line">4</div><div class="line"></div><div class="line">// 5和2的顺序不一定</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line"></span><br><span class="line">2</span><br><span class="line"></span><br><span class="line">5</span><br><span class="line"></span><br><span class="line">3</span><br><span class="line"></span><br><span class="line">4</span><br><span class="line"></span><br><span class="line">// 5和2的顺序不一定</span><br></pre></td></tr></table></figure>
 <p>分析:</p>
 <ul>
 <li><p>首先，将【任务1、异步线程、任务5】加入Main Queue中，异步线程中的任务是：【任务2、同步线程、任务4】。</p>
@@ -76,10 +298,10 @@
 <li><p>从以上的分析来看，得到的几个结果：1最先执行；2和5顺序不一定；4一定在3后面。</p>
 </li>
 </ul>
-<h2 id="Demo5"><a href="#Demo5" class="headerlink" title="Demo5"></a>Demo5</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(<span class="number">0</span>, <span class="number">0</span>), ^&#123;</div><div class="line"></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"1"</span>); <span class="comment">// 任务1</span></div><div class="line"></div><div class="line">    <span class="built_in">dispatch_sync</span>(dispatch_get_main_queue(), ^&#123;</div><div class="line"></div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"2"</span>); <span class="comment">// 任务2</span></div><div class="line"></div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"3"</span>); <span class="comment">// 任务3</span></div><div class="line"></div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"4"</span>); <span class="comment">// 任务4</span></div><div class="line"></div><div class="line"><span class="keyword">while</span> (<span class="number">1</span>) &#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"5"</span>); <span class="comment">// 任务5</span></div></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="type">DispatchQueue</span>.global(qos: .<span class="keyword">default</span>).async &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"1"</span>)</div><div class="line">    <span class="type">DispatchQueue</span>.main.sync &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"2"</span>)</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"3"</span>)</div><div class="line">&#125;</div><div class="line"><span class="built_in">print</span>(<span class="string">"4"</span>)</div><div class="line"><span class="keyword">while</span> (<span class="number">1</span> &gt; <span class="number">0</span>) &#123;</div><div class="line">    </div><div class="line">&#125;</div><div class="line"><span class="built_in">print</span>(<span class="string">"5"</span>)</div></pre></td></tr></table></figure>
+<h2 id="Demo5"><a href="#Demo5" class="headerlink" title="Demo5"></a>Demo5</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(<span class="number">0</span>, <span class="number">0</span>), ^&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"1"</span>); <span class="comment">// 任务1</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">dispatch_sync</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"2"</span>); <span class="comment">// 任务2</span></span><br><span class="line"></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"3"</span>); <span class="comment">// 任务3</span></span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"4"</span>); <span class="comment">// 任务4</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"5"</span>); <span class="comment">// 任务5</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">DispatchQueue</span>.global(qos: .<span class="keyword">default</span>).async &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"1"</span>)</span><br><span class="line">    <span class="type">DispatchQueue</span>.main.sync &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"2"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"3"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"4"</span>)</span><br><span class="line"><span class="keyword">while</span> (<span class="number">1</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"5"</span>)</span><br></pre></td></tr></table></figure>
 <p>控制器输出:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1</div><div class="line"></div><div class="line">4</div><div class="line"></div><div class="line">// 1和4的顺序不一定</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line"></span><br><span class="line">4</span><br><span class="line"></span><br><span class="line">// 1和4的顺序不一定</span><br></pre></td></tr></table></figure>
 <p>分析：</p>
 <ul>
 <li><p>和上面几个案例的分析类似，先来看看都有哪些任务加入了Main Queue：【异步线程、任务4、死循环、任务5】。</p>
@@ -96,15 +318,64 @@
 </li>
 </ul>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>在总结完这些GCD死锁的情况的以后，我觉得脑子里关于GCD中死锁的概念也逐渐清晰了。以后在项目中也会运用的时候也会更加注意。</p>
-</div></article></div></section><footer><div class="paginator"><a href="/2016/11/02/iOS开发——GCD在Swift中的变脸/" class="prev"><button class="ui button teal">PREV</button></a><a href="/2016/10/26/iOS开发——TDD、BDD方法以及Kiwi单元测试框架/" class="next"><button class="ui button teal">NEXT</button></a></div><div data-thread-key="2016/11/01/iOS——GCD的死锁案例/" data-title="iOS——GCD的死锁案例" data-url="http://yoursite.com/2016/11/01/iOS——GCD的死锁案例/" class="ds-share"><div class="ds-share-inline"><ul class="ds-share-icons-16"><li data-toggle="ds-share-icons-more"><span class="ds-more">分享到：</span></li><li><a href="javascript:void(0);" data-service="weibo" class="ds-weibo">微博</a></li><li><a href="javascript:void(0);" data-service="qqt" class="ds-qqt">腾讯微博</a></li><li><a href="javascript:void(0);" data-service="wechat" class="ds-wechat">微信</a></li></ul></div></div><div data-thread-key="2016/11/01/iOS——GCD的死锁案例/" data-title="iOS——GCD的死锁案例" data-url="http://yoursite.com/2016/11/01/iOS——GCD的死锁案例/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"originalee"};
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-   || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
 
-</script><div class="copyright"><p>© 2015 - 2017 <a href="http://yoursite.com">Originalee</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and theme by <a href="https://github.com/littlewin-wang/hexo-theme-casual" target="_blank">casual</a></p></div></footer></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script><script src="/js/jquery.goup.min.js"></script><script src="/js/semantic.min.js"></script><script src="/js/casual.js"></script><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>$(document).ready(function(){$.goup({trigger:100,bottomOffset:100,locationOffset:5,title:'',titleAsText:true});});</script><script>(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-_st('install','TvAnFS4AVxjiJUvrZJRB','2.0.0');</script></div></body></html>
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

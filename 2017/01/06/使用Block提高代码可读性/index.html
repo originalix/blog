@@ -1,33 +1,306 @@
-<!DOCTYPE html><html lang=""><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 使用Block提高代码可读性 | Originalee的博客</title><meta name="description" content="使用Block提高代码可读性 - Originalee"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.ico"><link rel="stylesheet" href="/css/casual.css"><link rel="stylesheet" href="/css/semantic.min.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="Originalee的博客"></head><body><div class="sidebar"><div class="ui vertical inverted menu"><div class="h100"></div><h3 class="ui inverted aligned icon header"><div class="content"><a href="/" class="title-link">ORIGINALEE的博客</a></div></h3><div class="h50"></div><div class="side-nav"><a href="/" target="_self" class="item">HOME<i class="icon home"></i></a><a href="/archives" target="_self" class="item">ARCHIVE<i class="icon archive"></i></a><a href="/about" target="_self" class="item">INFO<i class="icon info"></i></a><a href="/atom.xml" target="_self" class="item">RSS<i class="icon rss"></i></a></div><div class="item"><div class="ui inverted transparent icon input"><input type="text" placeholder="Search..." class="st-default-search-input"><i class="search icon"></i></div></div><div class="h50"></div></div><div class="h50 mq"><a class="ui teal big label"><i class="content icon"></i></a></div><div class="author-info"><a href="/" class="img-link"><img src="/avatar.png" class="author-photo ui tiny circular image"></a><h4 class="ui aligned icon header"><div class="content">Originalee</div></h4><p class="author-desc">爱打篮球的程序员|目前移动端爬坑中</p><div class="social-outer"><div class="social-inner"><a href="https://github.com/originalix" target="_blank" class="social-link"><i class="icon github"></i></a><a href="mailto:xiao.liunit@gmail.com" target="_self" class="social-link"><i class="icon mail"></i></a></div></div></div></div><div class="main"><div class="wrap"><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">使用Block提高代码可读性</h1><div class="post-info"><div class="post-date"><h6 class="ui header"><i class="calendar icon"></i><div class="content">Jan 6, 2017</div></h6></div></div><div class="post-content"><p>最近一直在思考并持续的扩充着自己的技术栈，比如每天坚持着学习前端知识，并且时常想着在移动端这条路上，自己的技术盲区。诚然，想要在一个领域达到一定的技术高度是挺困难的一件事情，操之过急万万不可，最主要的还是保持对技术的热情，慢慢沉淀。</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      使用Block提高代码可读性 | Originalee的博客 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="李晓">
+    
+    
+
+    <meta name="description" content="最近一直在思考并持续的扩充着自己的技术栈，比如每天坚持着学习前端知识，并且时常想着在移动端这条路上，自己的技术盲区。诚然，想要在一个领域达到一定的技术高度是挺困难的一件事情，操之过急万万不可，最主要的还是保持对技术的热情，慢慢沉淀。 以前的公司并不需要高强度的加班，所以时长有时间去发掘一些新鲜玩意儿，圈内有了技术热潮，也能及时跟进观望或者学习，但是最近在一波高强度加班过后，这种业务代码与自身学习之">
+<meta name="keywords" content="iOS开发,Block,代码可读性">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Block提高代码可读性 | Originalee的博客">
+<meta property="og:url" content="http://yoursite.com/2017/01/06/使用Block提高代码可读性/index.html">
+<meta property="og:site_name" content="Originalee的博客">
+<meta property="og:description" content="最近一直在思考并持续的扩充着自己的技术栈，比如每天坚持着学习前端知识，并且时常想着在移动端这条路上，自己的技术盲区。诚然，想要在一个领域达到一定的技术高度是挺困难的一件事情，操之过急万万不可，最主要的还是保持对技术的热情，慢慢沉淀。 以前的公司并不需要高强度的加班，所以时长有时间去发掘一些新鲜玩意儿，圈内有了技术热潮，也能及时跟进观望或者学习，但是最近在一波高强度加班过后，这种业务代码与自身学习之">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/783864-3ad5d92333756aa7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-01-06T09:15:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用Block提高代码可读性 | Originalee的博客">
+<meta name="twitter:description" content="最近一直在思考并持续的扩充着自己的技术栈，比如每天坚持着学习前端知识，并且时常想着在移动端这条路上，自己的技术盲区。诚然，想要在一个领域达到一定的技术高度是挺困难的一件事情，操之过急万万不可，最主要的还是保持对技术的热情，慢慢沉淀。 以前的公司并不需要高强度的加班，所以时长有时间去发掘一些新鲜玩意儿，圈内有了技术热潮，也能及时跟进观望或者学习，但是最近在一波高强度加班过后，这种业务代码与自身学习之">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/783864-3ad5d92333756aa7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Originalee的博客</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          Web Developer
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/originalix" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">使用Block提高代码可读性</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-01-06" class="post-meta__date date">2017-01-06</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Block/">Block</a>, <a class="tags-link" href="/tags/iOS开发/">iOS开发</a>, <a class="tags-link" href="/tags/代码可读性/">代码可读性</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>最近一直在思考并持续的扩充着自己的技术栈，比如每天坚持着学习前端知识，并且时常想着在移动端这条路上，自己的技术盲区。诚然，想要在一个领域达到一定的技术高度是挺困难的一件事情，操之过急万万不可，最主要的还是保持对技术的热情，慢慢沉淀。</p>
 <p>以前的公司并不需要高强度的加班，所以时长有时间去发掘一些新鲜玩意儿，圈内有了技术热潮，也能及时跟进观望或者学习，但是最近在一波高强度加班过后，这种业务代码与自身学习之间的冲突也让我产生了一些自己的看法。一个程序员，不论何时，不能抛掉持续学习的习惯。</p>
 <p>最近的大面积写业务代码，当碰到两个类之间的传值问题，我习惯性的解决方案是使用<code>delegate</code>，我觉得<code>delegate</code>本身当命名得当并且功能单一时，可阅读性会比较好。在习惯了这种思维后，开发中也养成了自己的习惯。</p>
 <p>但是在最近封装代码的时候，我发觉<code>delegate</code>对于我自己定义并编写代码来说，可读性和使用性很好，但是当他人来使用我封装的代码的时候，也许<code>Block</code>更容易被理解一点。举个简单的例子，就比如</p>
 <a id="more"></a>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[<span class="built_in">UIView</span> animateWithDuration:<span class="number">1</span> animations:^&#123;</div><div class="line">       <span class="comment">//do something</span></div><div class="line">           </div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">UIView</span> animateWithDuration:<span class="number">1</span> animations:^&#123;</span><br><span class="line">       <span class="comment">//do something</span></span><br><span class="line">           </span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 <p>这是我们日常最常用的<code>Block</code>结构之一，需要执行的事情，只要在<code>Block</code>中交代清楚就可以了，在阅读他人的代码时，可以直接在<code>Block</code>中直接阅读到执行的事件，并不用再去关注各种<code>delegate</code>中执行了什么。大大提高了代码的可读性。</p>
 <p>我认为，程序员首先是写人能看得懂的代码，顺便运行。</p>
 <p>在这个理念的驱使下，我大概会在之后的开发过程中，对可读性这个概念更上心一点，能用<code>block</code>处理的事件，尽量的用<code>block</code>处理。很久以前我写过一篇博客，讲述的是<code>blcok</code>的传值，<strong>iOS4.0</strong>开始，苹果爸爸引入了<code>block</code>的特性，而自从<code>block</code>特性诞生之日起，似乎它就受到了苹果爸爸特殊的照顾和青睐。字面上说，<code>block</code>就是一个代码块，但是它的神奇之处在于在内联(inline)执行的时候(这和C++很像)还可以传递参数。同时block本身也可以被作为参数在方法和函数间传递，这就给予了<code>block</code>无限的可能。</p>
 <p>在日常的<code>coding</code>里绝大时间里开发者会是各种<code>block</code>的使用者，但是当你需要构建一些比较基础的，提供给别人用的类的时候，使用<code>block</code>会给别人的使用带来很多便利。当然如果你已经厌烦了一直使用<code>delegate</code>模式来编程的话，偶尔转转写一些<code>block</code>，不仅可以锻炼思维，也能让你写的代码看起来高端洋气一些，而且因为代码跳转变少，所以可读性也会增加。</p>
 <p>今天我用一个判断奇数偶数的例子，来说说如何在封装的方法中，根据条件来执行方法内携带的<code>block</code>。</p>
 <p>首先看看我们这个含有<code>blcok</code>的类是如何声明的。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">void</span> (^LixExcuteOperation)(<span class="built_in">NSInteger</span>);</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">void</span>(^LixError)(<span class="keyword">void</span>);</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">LixBlock</span> : <span class="title">NSObject</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)isOddNumber:(<span class="built_in">NSInteger</span>)number Excute:(LixExcuteOperation)excute Lixerror:(LixError)error;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">void</span> (^LixExcuteOperation)(<span class="built_in">NSInteger</span>);</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">void</span>(^LixError)(<span class="keyword">void</span>);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">LixBlock</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)isOddNumber:(<span class="built_in">NSInteger</span>)number Excute:(LixExcuteOperation)excute Lixerror:(LixError)error;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
 <p>结合下面的图片，来看看<code>block</code>是如何声明并且定义的。</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/783864-3ad5d92333756aa7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="block的声明与定义"></p>
 <p>再来看看这个方法的内部，是如何使用<code>block</code>的，因为是示例，所以我很粗略的去判断了奇偶数，并没有考虑特殊情况，见谅，只是个栗子。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)isOddNumber:(<span class="built_in">NSInteger</span>)number Excute:(LixExcuteOperation)excute Lixerror:(LixError)error &#123;</div><div class="line">    <span class="built_in">BOOL</span> isOddNum = number % <span class="number">2</span> == <span class="number">0</span> ? <span class="literal">NO</span> : <span class="literal">YES</span>;</div><div class="line">    <span class="keyword">if</span> (isOddNum &amp;&amp; excute) &#123;</div><div class="line">            excute(number);</div><div class="line">                </div><div class="line">    &#125;</div><div class="line">        </div><div class="line">    <span class="keyword">if</span> (!isOddNum &amp;&amp; error) &#123;</div><div class="line">            error();</div><div class="line">                </div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)isOddNumber:(<span class="built_in">NSInteger</span>)number Excute:(LixExcuteOperation)excute Lixerror:(LixError)error &#123;</span><br><span class="line">    <span class="built_in">BOOL</span> isOddNum = number % <span class="number">2</span> == <span class="number">0</span> ? <span class="literal">NO</span> : <span class="literal">YES</span>;</span><br><span class="line">    <span class="keyword">if</span> (isOddNum &amp;&amp; excute) &#123;</span><br><span class="line">            excute(number);</span><br><span class="line">                </span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">if</span> (!isOddNum &amp;&amp; error) &#123;</span><br><span class="line">            error();</span><br><span class="line">                </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>至于调用，就更加随意了。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">LixBlock *block = [[LixBlock alloc] init];</div><div class="line">[block isOddNumber:<span class="number">9</span> Excute:^(<span class="built_in">NSInteger</span> number) &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"is OddNumber %ld"</span>, number);</div><div class="line">            </div><div class="line">&#125; Lixerror:^&#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"is not OddNumber"</span>);</div><div class="line">            </div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">LixBlock *block = [[LixBlock alloc] init];</span><br><span class="line">[block isOddNumber:<span class="number">9</span> Excute:^(<span class="built_in">NSInteger</span> number) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"is OddNumber %ld"</span>, number);</span><br><span class="line">            </span><br><span class="line">&#125; Lixerror:^&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"is not OddNumber"</span>);</span><br><span class="line">            </span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 <p>至此，一个简单的封装<code>block</code>进方法的栗子就已经讲完了。举一反三的讲，我们在对网络请求进行二次封装，执行<code>success</code>或者<code>error</code>状态的闭包时，就可以用到类似的思想了。代码的可读性是否如愿提升了呢。</p>
 <p>简单的栗子讲到这里，<code>Coding</code>还是需要多写多思考的。</p>
-</div></article></div></section><footer><div class="paginator"><a href="/2017/01/11/iOS漫谈——对于项目架构的思考/" class="prev"><button class="ui button teal">PREV</button></a><a href="/2017/01/04/iOS开发——解析崩溃日志/" class="next"><button class="ui button teal">NEXT</button></a></div><div data-thread-key="2017/01/06/使用Block提高代码可读性/" data-title="使用Block提高代码可读性" data-url="http://yoursite.com/2017/01/06/使用Block提高代码可读性/" class="ds-share"><div class="ds-share-inline"><ul class="ds-share-icons-16"><li data-toggle="ds-share-icons-more"><span class="ds-more">分享到：</span></li><li><a href="javascript:void(0);" data-service="weibo" class="ds-weibo">微博</a></li><li><a href="javascript:void(0);" data-service="qqt" class="ds-qqt">腾讯微博</a></li><li><a href="javascript:void(0);" data-service="wechat" class="ds-wechat">微信</a></li></ul></div></div><div data-thread-key="2017/01/06/使用Block提高代码可读性/" data-title="使用Block提高代码可读性" data-url="http://yoursite.com/2017/01/06/使用Block提高代码可读性/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"originalee"};
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-   || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
 
-</script><div class="copyright"><p>© 2015 - 2017 <a href="http://yoursite.com">Originalee</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and theme by <a href="https://github.com/littlewin-wang/hexo-theme-casual" target="_blank">casual</a></p></div></footer></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script><script src="/js/jquery.goup.min.js"></script><script src="/js/semantic.min.js"></script><script src="/js/casual.js"></script><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>$(document).ready(function(){$.goup({trigger:100,bottomOffset:100,locationOffset:5,title:'',titleAsText:true});});</script><script>(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-_st('install','TvAnFS4AVxjiJUvrZJRB','2.0.0');</script></div></body></html>
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

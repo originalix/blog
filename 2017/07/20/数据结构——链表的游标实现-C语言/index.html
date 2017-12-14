@@ -1,4 +1,226 @@
-<!DOCTYPE html><html lang=""><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 数据结构——链表的游标实现(C语言) | Originalee的博客</title><meta name="description" content="数据结构——链表的游标实现(C语言) - Originalee"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.ico"><link rel="stylesheet" href="/css/casual.css"><link rel="stylesheet" href="/css/semantic.min.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="Originalee的博客"></head><body><div class="sidebar"><div class="ui vertical inverted menu"><div class="h100"></div><h3 class="ui inverted aligned icon header"><div class="content"><a href="/" class="title-link">ORIGINALEE的博客</a></div></h3><div class="h50"></div><div class="side-nav"><a href="/" target="_self" class="item">HOME<i class="icon home"></i></a><a href="/archives" target="_self" class="item">ARCHIVE<i class="icon archive"></i></a><a href="/about" target="_self" class="item">INFO<i class="icon info"></i></a><a href="/atom.xml" target="_self" class="item">RSS<i class="icon rss"></i></a></div><div class="item"><div class="ui inverted transparent icon input"><input type="text" placeholder="Search..." class="st-default-search-input"><i class="search icon"></i></div></div><div class="h50"></div></div><div class="h50 mq"><a class="ui teal big label"><i class="content icon"></i></a></div><div class="author-info"><a href="/" class="img-link"><img src="/avatar.png" class="author-photo ui tiny circular image"></a><h4 class="ui aligned icon header"><div class="content">Originalee</div></h4><p class="author-desc">爱打篮球的程序员|目前移动端爬坑中</p><div class="social-outer"><div class="social-inner"><a href="https://github.com/originalix" target="_blank" class="social-link"><i class="icon github"></i></a><a href="mailto:xiao.liunit@gmail.com" target="_self" class="social-link"><i class="icon mail"></i></a></div></div></div></div><div class="main"><div class="wrap"><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">数据结构——链表的游标实现(C语言)</h1><div class="post-info"><div class="post-date"><h6 class="ui header"><i class="calendar icon"></i><div class="content">Jul 20, 2017</div></h6></div></div><div class="post-content"><p>上一篇博文我们用指针实现了链表，但是诸如BASIC和FORTRAN等许多语言都不支持指针。如果需要链表而又不能使用指针，这时我们可以使用游标（cursor）实现法来实现链表。</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      数据结构——链表的游标实现(C语言) | Originalee的博客 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="李晓">
+    
+    
+
+    <meta name="description" content="上一篇博文我们用指针实现了链表，但是诸如BASIC和FORTRAN等许多语言都不支持指针。如果需要链表而又不能使用指针，这时我们可以使用游标（cursor）实现法来实现链表。 在链表的实现中有两个重要的特点：  数据存储在一组结构体中。每一个结构体包含有数据以及指向下一个结构体的指针。  一个新的结构体可以通过调用malloc而从系统全局内存（global memory）得到，并可以通过free而">
+<meta name="keywords" content="链表,数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构——链表的游标实现(C语言) | Originalee的博客">
+<meta property="og:url" content="http://yoursite.com/2017/07/20/数据结构——链表的游标实现-C语言/index.html">
+<meta property="og:site_name" content="Originalee的博客">
+<meta property="og:description" content="上一篇博文我们用指针实现了链表，但是诸如BASIC和FORTRAN等许多语言都不支持指针。如果需要链表而又不能使用指针，这时我们可以使用游标（cursor）实现法来实现链表。 在链表的实现中有两个重要的特点：  数据存储在一组结构体中。每一个结构体包含有数据以及指向下一个结构体的指针。  一个新的结构体可以通过调用malloc而从系统全局内存（global memory）得到，并可以通过free而">
+<meta property="og:updated_time" content="2017-07-20T00:15:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构——链表的游标实现(C语言) | Originalee的博客">
+<meta name="twitter:description" content="上一篇博文我们用指针实现了链表，但是诸如BASIC和FORTRAN等许多语言都不支持指针。如果需要链表而又不能使用指针，这时我们可以使用游标（cursor）实现法来实现链表。 在链表的实现中有两个重要的特点：  数据存储在一组结构体中。每一个结构体包含有数据以及指向下一个结构体的指针。  一个新的结构体可以通过调用malloc而从系统全局内存（global memory）得到，并可以通过free而">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Originalee的博客</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          Web Developer
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/originalix" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">数据结构——链表的游标实现(C语言)</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-07-20" class="post-meta__date date">2017-07-20</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/数据结构/">数据结构</a>, <a class="tags-link" href="/tags/链表/">链表</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>上一篇博文我们用指针实现了链表，但是诸如BASIC和FORTRAN等许多语言都不支持指针。如果需要链表而又不能使用指针，这时我们可以使用游标（cursor）实现法来实现链表。</p>
 <p>在链表的实现中有两个重要的特点：</p>
 <ul>
 <li><p>数据存储在一组结构体中。每一个结构体包含有数据以及指向下一个结构体的指针。</p>
@@ -8,20 +230,69 @@
 </ul>
 <p>游标法必须能够模仿实现这两条特性 。 下面给出实现代码:</p>
 <a id="more"></a>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _CursorList_H</span></div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> PtrToNode;</div><div class="line"><span class="keyword">typedef</span> PtrToNode List;</div><div class="line"><span class="keyword">typedef</span> PtrToNode Position;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> ElementType;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">InitializeCursorSpace</span><span class="params">( <span class="keyword">void</span> )</span></span>;</div><div class="line"></div><div class="line"><span class="function">List <span class="title">MakeEmpty</span><span class="params">( List L )</span></span>;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">IsEmpty</span><span class="params">( <span class="keyword">const</span> List L )</span></span>;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">IsLast</span><span class="params">( <span class="keyword">const</span> Position P, <span class="keyword">const</span> List L )</span></span>;</div><div class="line"><span class="function">Position <span class="title">Find</span><span class="params">( ElementType X, <span class="keyword">const</span> List L )</span></span>;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Delete</span><span class="params">( ElementType X, List L )</span></span>;</div><div class="line"><span class="function">Position <span class="title">FindPrevious</span><span class="params">( ElementType X, <span class="keyword">const</span> List L)</span></span>;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Insert</span><span class="params">( ElementType X, List L, Position P )</span></span>;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">DeleteList</span><span class="params">( <span class="keyword">const</span> List L )</span></span>;</div><div class="line"><span class="function">Position <span class="title">Header</span><span class="params">( <span class="keyword">const</span> List L )</span></span>;</div><div class="line"><span class="function">Position <span class="title">First</span><span class="params">( <span class="keyword">const</span> List L)</span></span>;</div><div class="line"><span class="function">Position <span class="title">Advance</span><span class="params">( <span class="keyword">const</span> Position P )</span></span>;</div><div class="line"><span class="function">ElementType <span class="title">Retrieve</span><span class="params">( <span class="keyword">const</span> Position P )</span></span>;</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/*_CUrsor_H */</span></span></div></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _CursorList_H</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> PtrToNode;</span><br><span class="line"><span class="keyword">typedef</span> PtrToNode List;</span><br><span class="line"><span class="keyword">typedef</span> PtrToNode Position;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> ElementType;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InitializeCursorSpace</span><span class="params">( <span class="keyword">void</span> )</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">List <span class="title">MakeEmpty</span><span class="params">( List L )</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">IsEmpty</span><span class="params">( <span class="keyword">const</span> List L )</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">IsLast</span><span class="params">( <span class="keyword">const</span> Position P, <span class="keyword">const</span> List L )</span></span>;</span><br><span class="line"><span class="function">Position <span class="title">Find</span><span class="params">( ElementType X, <span class="keyword">const</span> List L )</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Delete</span><span class="params">( ElementType X, List L )</span></span>;</span><br><span class="line"><span class="function">Position <span class="title">FindPrevious</span><span class="params">( ElementType X, <span class="keyword">const</span> List L)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Insert</span><span class="params">( ElementType X, List L, Position P )</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DeleteList</span><span class="params">( <span class="keyword">const</span> List L )</span></span>;</span><br><span class="line"><span class="function">Position <span class="title">Header</span><span class="params">( <span class="keyword">const</span> List L )</span></span>;</span><br><span class="line"><span class="function">Position <span class="title">First</span><span class="params">( <span class="keyword">const</span> List L)</span></span>;</span><br><span class="line"><span class="function">Position <span class="title">Advance</span><span class="params">( <span class="keyword">const</span> Position P )</span></span>;</span><br><span class="line"><span class="function">ElementType <span class="title">Retrieve</span><span class="params">( <span class="keyword">const</span> Position P )</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/*_CUrsor_H */</span></span></span><br></pre></td></tr></table></figure>
 <p>可以从上面的代码上看到，链表的游标实现跟链表的接口定义几乎是一样的。</p>
 <p>下面放上实现代码:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"CursorList.h"</span></span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> OK 1</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> ERROR 0</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TRUE 1</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> FALSE 0</span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> SpaceSize 10</span></div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> Status;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> Node</div><div class="line">&#123;</div><div class="line">    ElementType Element;</div><div class="line">    Position Next;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> Node CursorSpace[ SpaceSize ];</div><div class="line"></div><div class="line"><span class="comment">/* initialize the CursorSpace */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">InitCursorSpace</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> i;</div><div class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; SpaceSize; i++)</div><div class="line">        CursorSpace[i].Next = i == SpaceSize<span class="number">-1</span> ? <span class="number">0</span> : i+<span class="number">1</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">static</span> Position <span class="title">CursorAlloc</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">    Position P;</div><div class="line"></div><div class="line">    P = CursorSpace[<span class="number">0</span>].Next;</div><div class="line">    CursorSpace[<span class="number">0</span>].Next = CursorSpace[P].Next;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> P;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">CursorFree</span><span class="params">(Position P)</span></span></div><div class="line">&#123;</div><div class="line">    CursorSpace[P].Next = CursorSpace[<span class="number">0</span>].Next;</div><div class="line">    CursorSpace[<span class="number">0</span>].Next = P;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/* Return true if L is empty */</span></div><div class="line"><span class="function">Status <span class="title">IsEmpty</span><span class="params">(List L)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (CursorSpace[L].Next == <span class="number">0</span>)</div><div class="line">        <span class="keyword">return</span> TRUE;</div><div class="line">    <span class="keyword">else</span></div><div class="line">        <span class="keyword">return</span> FALSE;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/* Return true if P is the last position in list L */</span></div><div class="line"><span class="comment">/* Parameter L is unused in this implementation */</span></div><div class="line"><span class="function">Status <span class="title">IsLast</span><span class="params">(Position P, List L)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (CursorSpace[P].Next == <span class="number">0</span>)</div><div class="line">        <span class="keyword">return</span> TRUE;</div><div class="line">    <span class="keyword">else</span></div><div class="line">        <span class="keyword">return</span> FALSE;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/* Return Position of X in L; 0 if not found */</span></div><div class="line"><span class="comment">/* Uses a header node */</span></div><div class="line"><span class="function">Position <span class="title">Find</span><span class="params">(ElementType X, List L)</span></span></div><div class="line">&#123;</div><div class="line">    Position P;</div><div class="line"></div><div class="line">    P = CursorSpace[L].Next;</div><div class="line">    <span class="keyword">while</span>(P &amp;&amp; CursorSpace[P].Element != X) &#123;</div><div class="line">        P = CursorSpace[P].Next;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> P;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/* Delete first occurrence of X from a list */</span></div><div class="line"><span class="comment">/* Assume use of a header node */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Delete</span><span class="params">(ElementType X, List L)</span></span></div><div class="line">&#123;</div><div class="line">    Position P, TmpCell;</div><div class="line"></div><div class="line">    P = FindPrevious(X, L);</div><div class="line">    <span class="keyword">if</span> (!IsLast(P, L))</div><div class="line">        TmpCell = CursorSpace[P].Next;</div><div class="line">        CursorSpace[P].Next = CursorSpace[TmpCell].Next;</div><div class="line">        CursorFree(TmpCell);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/* Find the front of the first X of The list */</span></div><div class="line"><span class="comment">/* Return 0 if not found */</span></div><div class="line"><span class="function">Position <span class="title">FindPrevious</span><span class="params">(ElementType X, <span class="keyword">const</span> List L)</span></span></div><div class="line">&#123;</div><div class="line">    Position P;</div><div class="line">    P = L;</div><div class="line">    <span class="keyword">while</span>(P &amp;&amp; CursorSpace[CursorSpace[P].Next].Element != X)</div><div class="line">    &#123;</div><div class="line">        P = CursorSpace[P].Next;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> P;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/* Insert(after legal position P) */</span></div><div class="line"><span class="comment">/* Header implementation assumed */</span></div><div class="line"><span class="comment">/* Parameter L is unused in this implemention */</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">Insert</span><span class="params">(ElementType X, List L, Position P)</span></span></div><div class="line">&#123;</div><div class="line">    Position TmpCell;</div><div class="line"></div><div class="line">    TmpCell = CursorAlloc();</div><div class="line">    <span class="keyword">if</span> (TmpCell == <span class="number">0</span>)</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"Out of space!\n"</span>);</div><div class="line">    CursorSpace[TmpCell].Element = X;</div><div class="line">    CursorSpace[TmpCell].Next = CursorSpace[P].Next;</div><div class="line">    CursorSpace[P].Next = TmpCell;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_list</span><span class="params">(List L)</span></span></div><div class="line">&#123;</div><div class="line">    List p = L;</div><div class="line">    <span class="keyword">if</span> (<span class="literal">NULL</span> == p)</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"print_list: 链表为空!\n"</span>);</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    Position P;</div><div class="line"></div><div class="line">    P = CursorSpace[L].Next;</div><div class="line">    <span class="keyword">while</span>(P != <span class="literal">NULL</span>) &#123;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"%d, \n"</span>, CursorSpace[P].Element);</div><div class="line">        P = CursorSpace[P].Next;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></div><div class="line">&#123;</div><div class="line">    InitCursorSpace();</div><div class="line">    List L = CursorAlloc();</div><div class="line">    CursorSpace[L].Next = <span class="literal">NULL</span>;</div><div class="line">    Insert(<span class="number">1</span>, L, L);</div><div class="line">    Insert(<span class="number">0</span>, L, L);</div><div class="line">    Insert(<span class="number">21</span>, L, L);</div><div class="line">    Insert(<span class="number">1201</span>, L, L);</div><div class="line">    Position P;</div><div class="line">    P = Find(<span class="number">21</span>, L);</div><div class="line">    <span class="keyword">if</span> (P)</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"找到元素: %d\n"</span>, CursorSpace[P].Element);</div><div class="line">    <span class="keyword">else</span></div><div class="line">        <span class="built_in">printf</span>(<span class="string">"未找到21元素\n"</span>);</div><div class="line">    Delete(<span class="number">0</span>, L);</div><div class="line">    Delete(<span class="number">1</span>, L);</div><div class="line">    print_list(L);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"检查链表是否为空: %d\n"</span>, IsEmpty(L));</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"Hello World\n"</span>);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"CursorList.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OK 1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ERROR 0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TRUE 1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FALSE 0</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SpaceSize 10</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> Status;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ElementType Element;</span><br><span class="line">    Position Next;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> <span class="title">CursorSpace</span>[ <span class="title">SpaceSize</span> ];</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* initialize the CursorSpace */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InitCursorSpace</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; SpaceSize; i++)</span><br><span class="line">        CursorSpace[i].Next = i == SpaceSize<span class="number">-1</span> ? <span class="number">0</span> : i+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> Position <span class="title">CursorAlloc</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Position P;</span><br><span class="line"></span><br><span class="line">    P = CursorSpace[<span class="number">0</span>].Next;</span><br><span class="line">    CursorSpace[<span class="number">0</span>].Next = CursorSpace[P].Next;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> P;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">CursorFree</span><span class="params">(Position P)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    CursorSpace[P].Next = CursorSpace[<span class="number">0</span>].Next;</span><br><span class="line">    CursorSpace[<span class="number">0</span>].Next = P;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Return true if L is empty */</span></span><br><span class="line"><span class="function">Status <span class="title">IsEmpty</span><span class="params">(List L)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (CursorSpace[L].Next == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> TRUE;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Return true if P is the last position in list L */</span></span><br><span class="line"><span class="comment">/* Parameter L is unused in this implementation */</span></span><br><span class="line"><span class="function">Status <span class="title">IsLast</span><span class="params">(Position P, List L)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (CursorSpace[P].Next == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> TRUE;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Return Position of X in L; 0 if not found */</span></span><br><span class="line"><span class="comment">/* Uses a header node */</span></span><br><span class="line"><span class="function">Position <span class="title">Find</span><span class="params">(ElementType X, List L)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Position P;</span><br><span class="line"></span><br><span class="line">    P = CursorSpace[L].Next;</span><br><span class="line">    <span class="keyword">while</span>(P &amp;&amp; CursorSpace[P].Element != X) &#123;</span><br><span class="line">        P = CursorSpace[P].Next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> P;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Delete first occurrence of X from a list */</span></span><br><span class="line"><span class="comment">/* Assume use of a header node */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Delete</span><span class="params">(ElementType X, List L)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Position P, TmpCell;</span><br><span class="line"></span><br><span class="line">    P = FindPrevious(X, L);</span><br><span class="line">    <span class="keyword">if</span> (!IsLast(P, L))</span><br><span class="line">        TmpCell = CursorSpace[P].Next;</span><br><span class="line">        CursorSpace[P].Next = CursorSpace[TmpCell].Next;</span><br><span class="line">        CursorFree(TmpCell);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Find the front of the first X of The list */</span></span><br><span class="line"><span class="comment">/* Return 0 if not found */</span></span><br><span class="line"><span class="function">Position <span class="title">FindPrevious</span><span class="params">(ElementType X, <span class="keyword">const</span> List L)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Position P;</span><br><span class="line">    P = L;</span><br><span class="line">    <span class="keyword">while</span>(P &amp;&amp; CursorSpace[CursorSpace[P].Next].Element != X)</span><br><span class="line">    &#123;</span><br><span class="line">        P = CursorSpace[P].Next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> P;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Insert(after legal position P) */</span></span><br><span class="line"><span class="comment">/* Header implementation assumed */</span></span><br><span class="line"><span class="comment">/* Parameter L is unused in this implemention */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Insert</span><span class="params">(ElementType X, List L, Position P)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Position TmpCell;</span><br><span class="line"></span><br><span class="line">    TmpCell = CursorAlloc();</span><br><span class="line">    <span class="keyword">if</span> (TmpCell == <span class="number">0</span>)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Out of space!\n"</span>);</span><br><span class="line">    CursorSpace[TmpCell].Element = X;</span><br><span class="line">    CursorSpace[TmpCell].Next = CursorSpace[P].Next;</span><br><span class="line">    CursorSpace[P].Next = TmpCell;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_list</span><span class="params">(List L)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    List p = L;</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">NULL</span> == p)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"print_list: 链表为空!\n"</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Position P;</span><br><span class="line"></span><br><span class="line">    P = CursorSpace[L].Next;</span><br><span class="line">    <span class="keyword">while</span>(P != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d, \n"</span>, CursorSpace[P].Element);</span><br><span class="line">        P = CursorSpace[P].Next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    InitCursorSpace();</span><br><span class="line">    List L = CursorAlloc();</span><br><span class="line">    CursorSpace[L].Next = <span class="literal">NULL</span>;</span><br><span class="line">    Insert(<span class="number">1</span>, L, L);</span><br><span class="line">    Insert(<span class="number">0</span>, L, L);</span><br><span class="line">    Insert(<span class="number">21</span>, L, L);</span><br><span class="line">    Insert(<span class="number">1201</span>, L, L);</span><br><span class="line">    Position P;</span><br><span class="line">    P = Find(<span class="number">21</span>, L);</span><br><span class="line">    <span class="keyword">if</span> (P)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"找到元素: %d\n"</span>, CursorSpace[P].Element);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"未找到21元素\n"</span>);</span><br><span class="line">    Delete(<span class="number">0</span>, L);</span><br><span class="line">    Delete(<span class="number">1</span>, L);</span><br><span class="line">    print_list(L);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"检查链表是否为空: %d\n"</span>, IsEmpty(L));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Hello World\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>实现过程比较简单，最后的main函数是对游标链表的测试。代码直接开箱即用，可以看到测试过程。</p>
-</div></article></div></section><footer><div class="paginator"><a href="/2017/07/29/数据结构——二叉查找树(C语言)/" class="prev"><button class="ui button teal">PREV</button></a><a href="/2017/07/16/数据结构——链表(C语言实现)/" class="next"><button class="ui button teal">NEXT</button></a></div><div data-thread-key="2017/07/20/数据结构——链表的游标实现-C语言/" data-title="数据结构——链表的游标实现(C语言)" data-url="http://yoursite.com/2017/07/20/数据结构——链表的游标实现-C语言/" class="ds-share"><div class="ds-share-inline"><ul class="ds-share-icons-16"><li data-toggle="ds-share-icons-more"><span class="ds-more">分享到：</span></li><li><a href="javascript:void(0);" data-service="weibo" class="ds-weibo">微博</a></li><li><a href="javascript:void(0);" data-service="qqt" class="ds-qqt">腾讯微博</a></li><li><a href="javascript:void(0);" data-service="wechat" class="ds-wechat">微信</a></li></ul></div></div><div data-thread-key="2017/07/20/数据结构——链表的游标实现-C语言/" data-title="数据结构——链表的游标实现(C语言)" data-url="http://yoursite.com/2017/07/20/数据结构——链表的游标实现-C语言/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"originalee"};
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-   || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
 
-</script><div class="copyright"><p>© 2015 - 2017 <a href="http://yoursite.com">Originalee</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and theme by <a href="https://github.com/littlewin-wang/hexo-theme-casual" target="_blank">casual</a></p></div></footer></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script><script src="/js/jquery.goup.min.js"></script><script src="/js/semantic.min.js"></script><script src="/js/casual.js"></script><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>$(document).ready(function(){$.goup({trigger:100,bottomOffset:100,locationOffset:5,title:'',titleAsText:true});});</script><script>(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-_st('install','TvAnFS4AVxjiJUvrZJRB','2.0.0');</script></div></body></html>
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

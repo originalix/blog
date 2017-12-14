@@ -1,9 +1,240 @@
-<!DOCTYPE html><html lang=""><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> iOS开发——Instruments工具调试 | Originalee的博客</title><meta name="description" content="iOS开发——Instruments工具调试 - Originalee"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.ico"><link rel="stylesheet" href="/css/casual.css"><link rel="stylesheet" href="/css/semantic.min.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="Originalee的博客"></head><body><div class="sidebar"><div class="ui vertical inverted menu"><div class="h100"></div><h3 class="ui inverted aligned icon header"><div class="content"><a href="/" class="title-link">ORIGINALEE的博客</a></div></h3><div class="h50"></div><div class="side-nav"><a href="/" target="_self" class="item">HOME<i class="icon home"></i></a><a href="/archives" target="_self" class="item">ARCHIVE<i class="icon archive"></i></a><a href="/about" target="_self" class="item">INFO<i class="icon info"></i></a><a href="/atom.xml" target="_self" class="item">RSS<i class="icon rss"></i></a></div><div class="item"><div class="ui inverted transparent icon input"><input type="text" placeholder="Search..." class="st-default-search-input"><i class="search icon"></i></div></div><div class="h50"></div></div><div class="h50 mq"><a class="ui teal big label"><i class="content icon"></i></a></div><div class="author-info"><a href="/" class="img-link"><img src="/avatar.png" class="author-photo ui tiny circular image"></a><h4 class="ui aligned icon header"><div class="content">Originalee</div></h4><p class="author-desc">爱打篮球的程序员|目前移动端爬坑中</p><div class="social-outer"><div class="social-inner"><a href="https://github.com/originalix" target="_blank" class="social-link"><i class="icon github"></i></a><a href="mailto:xiao.liunit@gmail.com" target="_self" class="social-link"><i class="icon mail"></i></a></div></div></div></div><div class="main"><div class="wrap"><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">iOS开发——Instruments工具调试</h1><div class="post-info"><div class="post-date"><h6 class="ui header"><i class="calendar icon"></i><div class="content">Oct 24, 2016</div></h6></div></div><div class="post-content"><p>随着项目的进行，APP的优化必须要尽早的展开了，所以最近自己在学习很多APP的调试技巧，今天我们就来说说Xcode为我们准备的自带的调试工具。</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      iOS开发——Instruments工具调试 | Originalee的博客 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="李晓">
+    
+    
+
+    <meta name="description" content="随着项目的进行，APP的优化必须要尽早的展开了，所以最近自己在学习很多APP的调试技巧，今天我们就来说说Xcode为我们准备的自带的调试工具。 代码性能是个避不开的话题。随着项目的扩大和功能的增多，没经过认真调试和优化的代码，要么任性地卡顿运行，要么低调地崩溃了之……结果呢，大家用着不高兴，开发者也不开心。 本篇重点讨论一下 iOS性能测试中的启动测试、内存泄露测试、CPU测试。">
+<meta name="keywords" content="iOS开发,Instruments工具,调试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS开发——Instruments工具调试 | Originalee的博客">
+<meta property="og:url" content="http://yoursite.com/2016/10/24/iOS开发——Instruments工具调试/index.html">
+<meta property="og:site_name" content="Originalee的博客">
+<meta property="og:description" content="随着项目的进行，APP的优化必须要尽早的展开了，所以最近自己在学习很多APP的调试技巧，今天我们就来说说Xcode为我们准备的自带的调试工具。 代码性能是个避不开的话题。随着项目的扩大和功能的增多，没经过认真调试和优化的代码，要么任性地卡顿运行，要么低调地崩溃了之……结果呢，大家用着不高兴，开发者也不开心。 本篇重点讨论一下 iOS性能测试中的启动测试、内存泄露测试、CPU测试。">
+<meta property="og:image" content="http://img.blog.csdn.net/20150428175349386">
+<meta property="og:image" content="http://img.blog.csdn.net/20150428180729277">
+<meta property="og:image" content="http://img.blog.csdn.net/20150428182138433">
+<meta property="og:image" content="http://img.blog.csdn.net/20150428182542806">
+<meta property="og:image" content="http://img.blog.csdn.net/20150428191837926">
+<meta property="og:image" content="http://img.blog.csdn.net/20150430114811540">
+<meta property="og:image" content="http://img.blog.csdn.net/20150430140252822">
+<meta property="og:image" content="http://img.blog.csdn.net/20150430141211461">
+<meta property="og:updated_time" content="2016-10-24T05:27:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS开发——Instruments工具调试 | Originalee的博客">
+<meta name="twitter:description" content="随着项目的进行，APP的优化必须要尽早的展开了，所以最近自己在学习很多APP的调试技巧，今天我们就来说说Xcode为我们准备的自带的调试工具。 代码性能是个避不开的话题。随着项目的扩大和功能的增多，没经过认真调试和优化的代码，要么任性地卡顿运行，要么低调地崩溃了之……结果呢，大家用着不高兴，开发者也不开心。 本篇重点讨论一下 iOS性能测试中的启动测试、内存泄露测试、CPU测试。">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20150428175349386">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Originalee的博客</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          Web Developer
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/originalix" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">iOS开发——Instruments工具调试</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-10-24" class="post-meta__date date">2016-10-24</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Instruments工具/">Instruments工具</a>, <a class="tags-link" href="/tags/iOS开发/">iOS开发</a>, <a class="tags-link" href="/tags/调试/">调试</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>随着项目的进行，APP的优化必须要尽早的展开了，所以最近自己在学习很多APP的调试技巧，今天我们就来说说Xcode为我们准备的自带的调试工具。</p>
 <p>代码性能是个避不开的话题。随着项目的扩大和功能的增多，没经过认真调试和优化的代码，要么任性地卡顿运行，要么低调地崩溃了之……结果呢，大家用着不高兴，开发者也不开心。</p>
 <p>本篇重点讨论一下 iOS性能测试中的启动测试、内存泄露测试、CPU测试。</p>
 <a id="more"></a>
 <p>##1.启动测试<br>测试工具：Instruments &gt; TimeProfile<br>可在 appDelegate.m中加入一段代码，来进行测试：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (void)testLaunch</div><div class="line">&#123;</div><div class="line">	for(int i = 0; i &lt; 100000;i++)&#123;</div><div class="line">		NSLog(@&quot;test&quot;);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (void)testLaunch</span><br><span class="line">&#123;</span><br><span class="line">	for(int i = 0; i &lt; 100000;i++)&#123;</span><br><span class="line">		NSLog(@&quot;test&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>###1）获得启动时间<br>APP启动之后，中止 TimeProfile，按住 option键在监控窗口中拖拽，选中监控区域中起始点到打开 APP后的峰谷，查看APP启动所需时间，如下图：<br><img src="http://img.blog.csdn.net/20150428175349386" alt="图1 在 TimeProfile中查看启动时间"></p>
 <p>###2）分析可优化空间<br>首先，需要注意一下右侧栏中的几个给力的筛选项，如下图：<br><img src="http://img.blog.csdn.net/20150428180729277" alt="图2 TimeProfile右边栏"></p>
 <p>（注：我觉得非常常用的标记为『必选项』）</p>
@@ -29,15 +260,64 @@
 <p>###3）CPU等指标<br>工具：Activity Monitor<br>可监控 CPU和内存指标，并可对比多次监控的结果。</p>
 <p>步骤：<br>a)profile&gt;Activity Monitor 启动 APP, 运行过程中option选择峰值查看 cpu和内存使用量。<br>b)对比多次监控的结果，把最差情况作为最终结果；</p>
 <p><img src="http://img.blog.csdn.net/20150430141211461" alt="ActivityMonitor"></p>
-</div></article></div></section><footer><div class="paginator"><a href="/2016/10/26/iOS开发——TDD、BDD方法以及Kiwi单元测试框架/" class="prev"><button class="ui button teal">PREV</button></a><a href="/2016/10/20/iOS开发——FMDB的使用/" class="next"><button class="ui button teal">NEXT</button></a></div><div data-thread-key="2016/10/24/iOS开发——Instruments工具调试/" data-title="iOS开发——Instruments工具调试" data-url="http://yoursite.com/2016/10/24/iOS开发——Instruments工具调试/" class="ds-share"><div class="ds-share-inline"><ul class="ds-share-icons-16"><li data-toggle="ds-share-icons-more"><span class="ds-more">分享到：</span></li><li><a href="javascript:void(0);" data-service="weibo" class="ds-weibo">微博</a></li><li><a href="javascript:void(0);" data-service="qqt" class="ds-qqt">腾讯微博</a></li><li><a href="javascript:void(0);" data-service="wechat" class="ds-wechat">微信</a></li></ul></div></div><div data-thread-key="2016/10/24/iOS开发——Instruments工具调试/" data-title="iOS开发——Instruments工具调试" data-url="http://yoursite.com/2016/10/24/iOS开发——Instruments工具调试/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"originalee"};
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-   || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
 
-</script><div class="copyright"><p>© 2015 - 2017 <a href="http://yoursite.com">Originalee</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and theme by <a href="https://github.com/littlewin-wang/hexo-theme-casual" target="_blank">casual</a></p></div></footer></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script><script src="/js/jquery.goup.min.js"></script><script src="/js/semantic.min.js"></script><script src="/js/casual.js"></script><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>$(document).ready(function(){$.goup({trigger:100,bottomOffset:100,locationOffset:5,title:'',titleAsText:true});});</script><script>(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-_st('install','TvAnFS4AVxjiJUvrZJRB','2.0.0');</script></div></body></html>
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

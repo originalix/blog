@@ -1,10 +1,236 @@
-<!DOCTYPE html><html lang=""><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> iOS开发——Block在实际项目中的传值 | Originalee的博客</title><meta name="description" content="iOS开发——Block在实际项目中的传值 - Originalee"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.ico"><link rel="stylesheet" href="/css/casual.css"><link rel="stylesheet" href="/css/semantic.min.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="Originalee的博客"></head><body><div class="sidebar"><div class="ui vertical inverted menu"><div class="h100"></div><h3 class="ui inverted aligned icon header"><div class="content"><a href="/" class="title-link">ORIGINALEE的博客</a></div></h3><div class="h50"></div><div class="side-nav"><a href="/" target="_self" class="item">HOME<i class="icon home"></i></a><a href="/archives" target="_self" class="item">ARCHIVE<i class="icon archive"></i></a><a href="/about" target="_self" class="item">INFO<i class="icon info"></i></a><a href="/atom.xml" target="_self" class="item">RSS<i class="icon rss"></i></a></div><div class="item"><div class="ui inverted transparent icon input"><input type="text" placeholder="Search..." class="st-default-search-input"><i class="search icon"></i></div></div><div class="h50"></div></div><div class="h50 mq"><a class="ui teal big label"><i class="content icon"></i></a></div><div class="author-info"><a href="/" class="img-link"><img src="/avatar.png" class="author-photo ui tiny circular image"></a><h4 class="ui aligned icon header"><div class="content">Originalee</div></h4><p class="author-desc">爱打篮球的程序员|目前移动端爬坑中</p><div class="social-outer"><div class="social-inner"><a href="https://github.com/originalix" target="_blank" class="social-link"><i class="icon github"></i></a><a href="mailto:xiao.liunit@gmail.com" target="_self" class="social-link"><i class="icon mail"></i></a></div></div></div></div><div class="main"><div class="wrap"><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">iOS开发——Block在实际项目中的传值</h1><div class="post-info"><div class="post-date"><h6 class="ui header"><i class="calendar icon"></i><div class="content">May 12, 2016</div></h6></div></div><div class="post-content"><p>在iOS开发中，我们会在实际过程中大量使用Block，其中Block有个很基础的功能，就是完成两个页面间的传值。而今天，我就用实际的项目中的页面，来展示如何完成两个页面间的传值。</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      iOS开发——Block在实际项目中的传值 | Originalee的博客 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="李晓">
+    
+    
+
+    <meta name="description" content="在iOS开发中，我们会在实际过程中大量使用Block，其中Block有个很基础的功能，就是完成两个页面间的传值。而今天，我就用实际的项目中的页面，来展示如何完成两个页面间的传值。">
+<meta name="keywords" content="iOS开发,Block">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS开发——Block在实际项目中的传值 | Originalee的博客">
+<meta property="og:url" content="http://yoursite.com/2016/05/12/iOS开发——Block在实际项目中的传值/index.html">
+<meta property="og:site_name" content="Originalee的博客">
+<meta property="og:description" content="在iOS开发中，我们会在实际过程中大量使用Block，其中Block有个很基础的功能，就是完成两个页面间的传值。而今天，我就用实际的项目中的页面，来展示如何完成两个页面间的传值。">
+<meta property="og:image" content="https://raw.githubusercontent.com/originalix/OuGeCameraTest/master/%E6%B5%B7%E5%BA%B7C2C%E6%B5%8B%E8%AF%95/img/IMG_5389.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/originalix/OuGeCameraTest/master/%E6%B5%B7%E5%BA%B7C2C%E6%B5%8B%E8%AF%95/img/IMG_5391.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/originalix/OuGeCameraTest/master/%E6%B5%B7%E5%BA%B7C2C%E6%B5%8B%E8%AF%95/img/IMG_5392.PNG">
+<meta property="og:updated_time" content="2016-08-05T06:48:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS开发——Block在实际项目中的传值 | Originalee的博客">
+<meta name="twitter:description" content="在iOS开发中，我们会在实际过程中大量使用Block，其中Block有个很基础的功能，就是完成两个页面间的传值。而今天，我就用实际的项目中的页面，来展示如何完成两个页面间的传值。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/originalix/OuGeCameraTest/master/%E6%B5%B7%E5%BA%B7C2C%E6%B5%8B%E8%AF%95/img/IMG_5389.PNG">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Originalee的博客</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          Web Developer
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/originalix" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">iOS开发——Block在实际项目中的传值</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-05-12" class="post-meta__date date">2016-05-12</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Block/">Block</a>, <a class="tags-link" href="/tags/iOS开发/">iOS开发</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>在iOS开发中，我们会在实际过程中大量使用Block，其中Block有个很基础的功能，就是完成两个页面间的传值。而今天，我就用实际的项目中的页面，来展示如何完成两个页面间的传值。</p>
 <a id="more"></a>
 <p><img src="https://raw.githubusercontent.com/originalix/OuGeCameraTest/master/%E6%B5%B7%E5%BA%B7C2C%E6%B5%8B%E8%AF%95/img/IMG_5389.PNG" alt=""></p>
 <p><img src="https://raw.githubusercontent.com/originalix/OuGeCameraTest/master/%E6%B5%B7%E5%BA%B7C2C%E6%B5%8B%E8%AF%95/img/IMG_5391.PNG" alt=""></p>
 <p>首先我们先来看，这个界面中，我们需要传递什么值。我们需要在点击选择房间之后，跳转到房间列表界面，在<code>UITableViewController</code>中，选择房间名，之后按下<code>确定</code>按钮后，跳转回第一个界面，使我们选择的房间名，显示在<code>房间</code>选项处。</p>
 <h1 id="房间列表界面"><a href="#房间列表界面" class="headerlink" title="房间列表界面"></a>房间列表界面</h1><p>因为事件其实是发生在第二个界面，按下<code>确定</code>按钮时，所以我们在第二个界面，声明并定义Block。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">void</span>(^SelectedRoomBlock)(<span class="built_in">NSString</span> *roomName);</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">SelectRoomTypeVC</span> : <span class="title">UIViewController</span></span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) SelectedRoomBlock selectedRoomBlock;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)returnRoomName:(SelectedRoomBlock)block;</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">void</span>(^SelectedRoomBlock)(<span class="built_in">NSString</span> *roomName);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">SelectRoomTypeVC</span> : <span class="title">UIViewController</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) SelectedRoomBlock selectedRoomBlock;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)returnRoomName:(SelectedRoomBlock)block;</span><br></pre></td></tr></table></figure>
 <ul>
 <li><p>我们先用<code>typedef</code>声明一个叫<code>SelectedRoomBlock</code>的<code>Block</code>，它需要有一个类型为<code>NSString</code>的参数。</p>
 </li>
@@ -14,28 +240,77 @@
 </li>
 </ul>
 <p>接下来我们就要开始来使用Block传值了，我们先来实现刚刚定义的函数方法。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)returnRoomName:(SelectedRoomBlock)block&#123;</div><div class="line">    <span class="keyword">self</span>.selectedRoomBlock = block;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)returnRoomName:(SelectedRoomBlock)block&#123;</span><br><span class="line">    <span class="keyword">self</span>.selectedRoomBlock = block;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>很清晰的实现，就是为了再后来调用时，出现一个Block代码块，更加清晰。</p>
 <p>把传进来的Block语句块保存到本类的实例变量selectedRoomBlock（.h中定义的属性）中，然后寻找一个时机调用，而这个时机就是上面说到的，当确认按钮按下时。</p>
 <p>之后声明一个字符串类型的变量，保存我们刚刚存储的房间的值。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *selectedRoomStr;</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *selectedRoomStr;</span><br></pre></td></tr></table></figure>
 <p>而获取值在<code>UITableView</code>的代理方法中实现，这里就不赘述了。</p>
 <p>因为我们按下确定按钮开始传值，所以我们在<code>ButtonAction</code>中来实现。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">-  (<span class="keyword">void</span>)ButtonAction:(<span class="built_in">UIBarButtonItem</span> *)sender&#123;</div><div class="line">    <span class="keyword">switch</span> (sender.tag) &#123;</div><div class="line">        <span class="keyword">case</span> <span class="number">107</span>:&#123;</div><div class="line">            <span class="keyword">if</span> (<span class="keyword">self</span>.selectedRoomBlock != <span class="literal">nil</span>) &#123;</div><div class="line">                <span class="keyword">self</span>.selectedRoomBlock(<span class="keyword">self</span>.selectedRoom);</div><div class="line">            &#125;</div><div class="line">            [<span class="keyword">self</span>.navigationController popViewControllerAnimated:<span class="literal">YES</span>];</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">default</span>:</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">-  (<span class="keyword">void</span>)ButtonAction:(<span class="built_in">UIBarButtonItem</span> *)sender&#123;</span><br><span class="line">    <span class="keyword">switch</span> (sender.tag) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">107</span>:&#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">self</span>.selectedRoomBlock != <span class="literal">nil</span>) &#123;</span><br><span class="line">                <span class="keyword">self</span>.selectedRoomBlock(<span class="keyword">self</span>.selectedRoom);</span><br><span class="line">            &#125;</span><br><span class="line">            [<span class="keyword">self</span>.navigationController popViewControllerAnimated:<span class="literal">YES</span>];</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="第一个视图界面"><a href="#第一个视图界面" class="headerlink" title="第一个视图界面"></a>第一个视图界面</h1><p>我们回到第一个视图界面，在<code>Push</code>出第二个界面时生成第二个界面的地方，调用我们的Block属性。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[<span class="keyword">self</span>.navigationController pushViewController:_selectRoomVC animated:<span class="literal">YES</span>];</div><div class="line">   </div><div class="line">[_selectRoomVC returnRoomName:^(<span class="built_in">NSString</span> *roomName) &#123;</div><div class="line">        _addDeviceCellInfo.roomName = roomName;</div><div class="line">  &#125;];</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span>.navigationController pushViewController:_selectRoomVC animated:<span class="literal">YES</span>];</span><br><span class="line">   </span><br><span class="line">[_selectRoomVC returnRoomName:^(<span class="built_in">NSString</span> *roomName) &#123;</span><br><span class="line">        _addDeviceCellInfo.roomName = roomName;</span><br><span class="line">  &#125;];</span><br></pre></td></tr></table></figure>
 <p>这里我们就可以用任意的变量，来匹配Block传递进来的roomName参数。</p>
 <p><img src="https://raw.githubusercontent.com/originalix/OuGeCameraTest/master/%E6%B5%B7%E5%BA%B7C2C%E6%B5%8B%E8%AF%95/img/IMG_5392.PNG" alt=""></p>
 <p>至此，就已经完成了Block在两个页面间的传值，效果如上图,是不是其实也特别简单呢。</p>
-</div></article></div></section><footer><div class="paginator"><a href="/2016/05/19/iOS开发——数据持久化之归档/" class="prev"><button class="ui button teal">PREV</button></a><a href="/2016/05/11/iOS开发——UITableView勾选效果/" class="next"><button class="ui button teal">NEXT</button></a></div><div data-thread-key="2016/05/12/iOS开发——Block在实际项目中的传值/" data-title="iOS开发——Block在实际项目中的传值" data-url="http://yoursite.com/2016/05/12/iOS开发——Block在实际项目中的传值/" class="ds-share"><div class="ds-share-inline"><ul class="ds-share-icons-16"><li data-toggle="ds-share-icons-more"><span class="ds-more">分享到：</span></li><li><a href="javascript:void(0);" data-service="weibo" class="ds-weibo">微博</a></li><li><a href="javascript:void(0);" data-service="qqt" class="ds-qqt">腾讯微博</a></li><li><a href="javascript:void(0);" data-service="wechat" class="ds-wechat">微信</a></li></ul></div></div><div data-thread-key="2016/05/12/iOS开发——Block在实际项目中的传值/" data-title="iOS开发——Block在实际项目中的传值" data-url="http://yoursite.com/2016/05/12/iOS开发——Block在实际项目中的传值/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"originalee"};
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-   || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
 
-</script><div class="copyright"><p>© 2015 - 2017 <a href="http://yoursite.com">Originalee</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and theme by <a href="https://github.com/littlewin-wang/hexo-theme-casual" target="_blank">casual</a></p></div></footer></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script><script src="/js/jquery.goup.min.js"></script><script src="/js/semantic.min.js"></script><script src="/js/casual.js"></script><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>$(document).ready(function(){$.goup({trigger:100,bottomOffset:100,locationOffset:5,title:'',titleAsText:true});});</script><script>(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-_st('install','TvAnFS4AVxjiJUvrZJRB','2.0.0');</script></div></body></html>
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

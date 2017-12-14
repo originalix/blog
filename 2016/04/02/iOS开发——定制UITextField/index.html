@@ -1,34 +1,305 @@
-<!DOCTYPE html><html lang=""><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> iOS开发——定制UITextField | Originalee的博客</title><meta name="description" content="iOS开发——定制UITextField - Originalee"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.ico"><link rel="stylesheet" href="/css/casual.css"><link rel="stylesheet" href="/css/semantic.min.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="Originalee的博客"></head><body><div class="sidebar"><div class="ui vertical inverted menu"><div class="h100"></div><h3 class="ui inverted aligned icon header"><div class="content"><a href="/" class="title-link">ORIGINALEE的博客</a></div></h3><div class="h50"></div><div class="side-nav"><a href="/" target="_self" class="item">HOME<i class="icon home"></i></a><a href="/archives" target="_self" class="item">ARCHIVE<i class="icon archive"></i></a><a href="/about" target="_self" class="item">INFO<i class="icon info"></i></a><a href="/atom.xml" target="_self" class="item">RSS<i class="icon rss"></i></a></div><div class="item"><div class="ui inverted transparent icon input"><input type="text" placeholder="Search..." class="st-default-search-input"><i class="search icon"></i></div></div><div class="h50"></div></div><div class="h50 mq"><a class="ui teal big label"><i class="content icon"></i></a></div><div class="author-info"><a href="/" class="img-link"><img src="/avatar.png" class="author-photo ui tiny circular image"></a><h4 class="ui aligned icon header"><div class="content">Originalee</div></h4><p class="author-desc">爱打篮球的程序员|目前移动端爬坑中</p><div class="social-outer"><div class="social-inner"><a href="https://github.com/originalix" target="_blank" class="social-link"><i class="icon github"></i></a><a href="mailto:xiao.liunit@gmail.com" target="_self" class="social-link"><i class="icon mail"></i></a></div></div></div></div><div class="main"><div class="wrap"><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">iOS开发——定制UITextField</h1><div class="post-info"><div class="post-date"><h6 class="ui header"><i class="calendar icon"></i><div class="content">Apr 2, 2016</div></h6></div></div><div class="post-content"><p>在iOS中UITextField这个控件作为文本输入控件一定是使用率最高的几个控件之一，而iOS提供的默认的原始TextField的造型肯定在开发时很难满足我们的要求，原因很简单，不够美观，实在太单调。所以今天我们从一些简单的复写UITextField方法开始，来讲一讲如何定制一个属于自己的UITextField。</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      iOS开发——定制UITextField | Originalee的博客 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="李晓">
+    
+    
+
+    <meta name="description" content="在iOS中UITextField这个控件作为文本输入控件一定是使用率最高的几个控件之一，而iOS提供的默认的原始TextField的造型肯定在开发时很难满足我们的要求，原因很简单，不够美观，实在太单调。所以今天我们从一些简单的复写UITextField方法开始，来讲一讲如何定制一个属于自己的UITextField。">
+<meta name="keywords" content="iOS开发,UITextField">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS开发——定制UITextField | Originalee的博客">
+<meta property="og:url" content="http://yoursite.com/2016/04/02/iOS开发——定制UITextField/index.html">
+<meta property="og:site_name" content="Originalee的博客">
+<meta property="og:description" content="在iOS中UITextField这个控件作为文本输入控件一定是使用率最高的几个控件之一，而iOS提供的默认的原始TextField的造型肯定在开发时很难满足我们的要求，原因很简单，不够美观，实在太单调。所以今天我们从一些简单的复写UITextField方法开始，来讲一讲如何定制一个属于自己的UITextField。">
+<meta property="og:updated_time" content="2016-08-05T06:45:53.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS开发——定制UITextField | Originalee的博客">
+<meta name="twitter:description" content="在iOS中UITextField这个控件作为文本输入控件一定是使用率最高的几个控件之一，而iOS提供的默认的原始TextField的造型肯定在开发时很难满足我们的要求，原因很简单，不够美观，实在太单调。所以今天我们从一些简单的复写UITextField方法开始，来讲一讲如何定制一个属于自己的UITextField。">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Originalee的博客</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          Web Developer
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/originalix" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">iOS开发——定制UITextField</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-04-02" class="post-meta__date date">2016-04-02</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/UITextField/">UITextField</a>, <a class="tags-link" href="/tags/iOS开发/">iOS开发</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>在iOS中UITextField这个控件作为文本输入控件一定是使用率最高的几个控件之一，而iOS提供的默认的原始TextField的造型肯定在开发时很难满足我们的要求，原因很简单，不够美观，实在太单调。所以今天我们从一些简单的复写UITextField方法开始，来讲一讲如何定制一个属于自己的UITextField。</p>
 <a id="more"></a>
 <p>之前的文章我们讲过UITextField中，如何设置leftView，圆角以及控制文字输入时的距离。今天我们主要从UITextField的键盘收起、placeholder的设置以及自定义距离、字体，以及控制输入文本时，距离UITextField边框的距离和UITextField中一些常用的方法和枚举变量等方面来阐述如何定制自己的UITextField。</p>
 <h3 id="键盘的收起"><a href="#键盘的收起" class="headerlink" title="键盘的收起"></a>键盘的收起</h3><p>首先我们先来看UITextField的键盘弹出和回收，UITextField在默认的情况下，键盘在输入完成后是不会自动回收的，这里我们讲解如何在按下Return键时，键盘自动回收。首先我们要遵循<uitextfielddelegate>协议，之后在后面写入</uitextfielddelegate></p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">BOOL</span>)textFieldShouldReturn:(<span class="built_in">UITextField</span> *)textField</div><div class="line">&#123;</div><div class="line">    [textField resignFirstResponder];</div><div class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)textFieldShouldReturn:(<span class="built_in">UITextField</span> *)textField</span><br><span class="line">&#123;</span><br><span class="line">    [textField resignFirstResponder];</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>通过写入这个方法，来实现按下Return按钮回收键盘。</p>
 <h3 id="placeholder的设置"><a href="#placeholder的设置" class="headerlink" title="placeholder的设置"></a>placeholder的设置</h3><p>在一些特定功能的文本输入框，我们常常要设置placeholder属性来指明当期UITextField的功能，例如：请在此处输入密码。可是placeholde的默认属性是紧贴文本输入框的，而且字体以及字体大小也不美观，于是我们可以这么来设置placeholder</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">//控制placeHolder的位置，左右缩20</span></div><div class="line">-(<span class="built_in">CGRect</span>)placeholderRectForBounds:(<span class="built_in">CGRect</span>)bounds</div><div class="line">&#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">CGRectInset</span>(bounds, <span class="number">20</span>, <span class="number">4</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//控制左视图位置</span></div><div class="line">- (<span class="built_in">CGRect</span>)leftViewRectForBounds:(<span class="built_in">CGRect</span>)bounds</div><div class="line">&#123;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="built_in">CGRectInset</span>(bounds,<span class="number">0</span>,<span class="number">0</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//控制编辑文本的位置</span></div><div class="line">-(<span class="built_in">CGRect</span>)editingRectForBounds:(<span class="built_in">CGRect</span>)bounds</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">CGRectInset</span>( bounds, <span class="number">20</span>, <span class="number">0</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//控制显示文本的位置</span></div><div class="line">-(<span class="built_in">CGRect</span>)textRectForBounds:(<span class="built_in">CGRect</span>)bounds</div><div class="line">&#123;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">CGRectInset</span>(bounds, <span class="number">20</span>, <span class="number">0</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//控制placeHolder的位置，左右缩20</span></span><br><span class="line">-(<span class="built_in">CGRect</span>)placeholderRectForBounds:(<span class="built_in">CGRect</span>)bounds</span><br><span class="line">&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">CGRectInset</span>(bounds, <span class="number">20</span>, <span class="number">4</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//控制左视图位置</span></span><br><span class="line">- (<span class="built_in">CGRect</span>)leftViewRectForBounds:(<span class="built_in">CGRect</span>)bounds</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">CGRectInset</span>(bounds,<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//控制编辑文本的位置</span></span><br><span class="line">-(<span class="built_in">CGRect</span>)editingRectForBounds:(<span class="built_in">CGRect</span>)bounds</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">CGRectInset</span>( bounds, <span class="number">20</span>, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//控制显示文本的位置</span></span><br><span class="line">-(<span class="built_in">CGRect</span>)textRectForBounds:(<span class="built_in">CGRect</span>)bounds</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">CGRectInset</span>(bounds, <span class="number">20</span>, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>我们可以先如上面的代码一样，设置placeholder的位置，同时要注意的一点是，在设置了placeholder的位置之后，我们也要相应的调整文本显示的位置，以及在编辑完成后，文本显示在输入框的位置。</p>
 <p>至于placeholder的字体和字体大小设置 可以用如下方法设置，记住这个方法写在子类化的UITextField中是没有效果的，一定要写在创建UITextField的过程中。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">    [TextField setValue:[<span class="built_in">UIFont</span> fontWithName:<span class="string">@"Arial"</span> size:<span class="number">12</span>]   forKeyPath:<span class="string">@"_placeholderLabel.font"</span>];</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">    [TextField setValue:[<span class="built_in">UIFont</span> fontWithName:<span class="string">@"Arial"</span> size:<span class="number">12</span>]   forKeyPath:<span class="string">@"_placeholderLabel.font"</span>];</span><br></pre></td></tr></table></figure>
 <h3 id="UITextField中一些常用的属性以及枚举变量"><a href="#UITextField中一些常用的属性以及枚举变量" class="headerlink" title="UITextField中一些常用的属性以及枚举变量"></a>UITextField中一些常用的属性以及枚举变量</h3><p>####UITextFieldBorder 边框设置</p>
 <p> 设置TextField的边框效果，一定要设置了才有效果，类型如下</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">UITextBorderStyle</span>) &#123;</div><div class="line">    <span class="built_in">UITextBorderStyleNone</span>,</div><div class="line">    <span class="built_in">UITextBorderStyleLine</span>,</div><div class="line">    <span class="built_in">UITextBorderStyleBezel</span>,</div><div class="line">    <span class="built_in">UITextBorderStyleRoundedRect</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">UITextBorderStyle</span>) &#123;</span><br><span class="line">    <span class="built_in">UITextBorderStyleNone</span>,</span><br><span class="line">    <span class="built_in">UITextBorderStyleLine</span>,</span><br><span class="line">    <span class="built_in">UITextBorderStyleBezel</span>,</span><br><span class="line">    <span class="built_in">UITextBorderStyleRoundedRect</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>####UITextFieldViewMode</p>
 <p>此属性用来定义我们之前讲的leftView和rightView的存在时机</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">UITextFieldViewMode</span>) &#123;</div><div class="line">    <span class="built_in">UITextFieldViewModeNever</span>,</div><div class="line">    <span class="built_in">UITextFieldViewModeWhileEditing</span>,</div><div class="line">    <span class="built_in">UITextFieldViewModeUnlessEditing</span>,</div><div class="line">    <span class="built_in">UITextFieldViewModeAlways</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">UITextFieldViewMode</span>) &#123;</span><br><span class="line">    <span class="built_in">UITextFieldViewModeNever</span>,</span><br><span class="line">    <span class="built_in">UITextFieldViewModeWhileEditing</span>,</span><br><span class="line">    <span class="built_in">UITextFieldViewModeUnlessEditing</span>,</span><br><span class="line">    <span class="built_in">UITextFieldViewModeAlways</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h4 id="UIReturnKeyType返回按钮类型"><a href="#UIReturnKeyType返回按钮类型" class="headerlink" title="UIReturnKeyType返回按钮类型"></a>UIReturnKeyType返回按钮类型</h4><p>在键盘上的返回按键，系统也给我们提供了一些常用的类型</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">UIReturnKeyType</span>) &#123;</div><div class="line">    <span class="built_in">UIReturnKeyDefault</span>,</div><div class="line">    <span class="built_in">UIReturnKeyGo</span>,</div><div class="line">    <span class="built_in">UIReturnKeyGoogle</span>,</div><div class="line">    <span class="built_in">UIReturnKeyJoin</span>,</div><div class="line">    <span class="built_in">UIReturnKeyNext</span>,</div><div class="line">    <span class="built_in">UIReturnKeyRoute</span>,</div><div class="line">    <span class="built_in">UIReturnKeySearch</span>,</div><div class="line">    <span class="built_in">UIReturnKeySend</span>,</div><div class="line">    <span class="built_in">UIReturnKeyYahoo</span>,</div><div class="line">    <span class="built_in">UIReturnKeyDone</span>,</div><div class="line">    <span class="built_in">UIReturnKeyEmergencyCall</span>,</div><div class="line">    <span class="built_in">UIReturnKeyContinue</span> <span class="built_in">NS_ENUM_AVAILABLE_IOS</span>(<span class="number">9</span>_0),</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<h4 id="UIKeyboardType键盘类型"><a href="#UIKeyboardType键盘类型" class="headerlink" title="UIKeyboardType键盘类型"></a>UIKeyboardType键盘类型</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">UIKeyboardType</span>) &#123;</div><div class="line">    <span class="built_in">UIKeyboardTypeDefault</span>,       </div><div class="line"></div><div class="line">    <span class="built_in">UIKeyboardTypeASCIICapable</span>,      </div><div class="line"></div><div class="line">    <span class="built_in">UIKeyboardTypeNumbersAndPunctuation</span>, </div><div class="line"></div><div class="line">    <span class="built_in">UIKeyboardTypeURL</span>,    </div><div class="line"></div><div class="line">    <span class="built_in">UIKeyboardTypeNumberPad</span>,  </div><div class="line"></div><div class="line">    <span class="built_in">UIKeyboardTypePhonePad</span>,             </div><div class="line"></div><div class="line">    <span class="built_in">UIKeyboardTypeNamePhonePad</span>, </div><div class="line"></div><div class="line">    <span class="built_in">UIKeyboardTypeEmailAddress</span>,</div><div class="line">  </div><div class="line">    <span class="built_in">UIKeyboardTypeDecimalPad</span> ,</div><div class="line"></div><div class="line">    <span class="built_in">UIKeyboardTypeWebSearch</span> ,</div><div class="line"></div><div class="line">    <span class="built_in">UIKeyboardTypeAlphabet</span> = <span class="built_in">UIKeyboardTypeASCIICapable</span>, </div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//输入框中是否有个叉号，在什么时候显示，用于一次性删除输入框中的内容</span></div><div class="line">  text.clearButtonMode = <span class="built_in">UITextFieldViewModeAlways</span>;</div><div class="line"></div><div class="line"><span class="comment">//每输入一个字符就变成点 用语密码输入</span></div><div class="line">  text.secureTextEntry = <span class="literal">YES</span>;</div><div class="line"></div><div class="line"><span class="comment">//是否纠错</span></div><div class="line">  text.autocorrectionType = <span class="built_in">UITextAutocorrectionTypeNo</span>;</div><div class="line"> </div><div class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> &#123;</div><div class="line">    <span class="built_in">UITextAutocorrectionTypeDefault</span>, 默认</div><div class="line">    <span class="built_in">UITextAutocorrectionTypeNo</span>,   不自动纠错</div><div class="line">    <span class="built_in">UITextAutocorrectionTypeYes</span>,  自动纠错</div><div class="line">&#125; <span class="built_in">UITextAutocorrectionType</span>;</div><div class="line"> </div><div class="line"><span class="comment">//再次编辑就清空</span></div><div class="line">  text.clearsOnBeginEditing = <span class="literal">YES</span>; </div><div class="line"></div><div class="line"><span class="comment">//设置为YES时文本会自动缩小以适应文本窗口大小.默认是保持原来大小,而让长文本滚动  </span></div><div class="line">  textFied.adjustsFontSizeToFitWidth = <span class="literal">YES</span>;</div><div class="line"> </div><div class="line"><span class="comment">//首字母是否大写</span></div><div class="line">  text.autocapitalizationType = <span class="built_in">UITextAutocapitalizationTypeNone</span>;</div><div class="line"> </div><div class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> &#123;</div><div class="line">    <span class="built_in">UITextAutocapitalizationTypeNone</span>, 不自动大写</div><div class="line">    <span class="built_in">UITextAutocapitalizationTypeWords</span>,  单词首字母大写</div><div class="line">    <span class="built_in">UITextAutocapitalizationTypeSentences</span>,  句子的首字母大写</div><div class="line">    <span class="built_in">UITextAutocapitalizationTypeAllCharacters</span>, 所有字母都大写</div><div class="line">&#125; <span class="built_in">UITextAutocapitalizationType</span>;</div><div class="line"></div><div class="line"></div><div class="line"> <span class="comment">//键盘外观</span></div><div class="line">textView.keyboardAppearance=<span class="built_in">UIKeyboardAppearanceDefault</span>；</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> &#123;</div><div class="line"><span class="built_in">UIKeyboardAppearanceDefault</span>， 默认外观，浅灰色</div><div class="line"><span class="built_in">UIKeyboardAppearanceAlert</span>，     深灰 石墨色</div><div class="line"> </div><div class="line">&#125; <span class="built_in">UIReturnKeyType</span>;</div></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">UIReturnKeyType</span>) &#123;</span><br><span class="line">    <span class="built_in">UIReturnKeyDefault</span>,</span><br><span class="line">    <span class="built_in">UIReturnKeyGo</span>,</span><br><span class="line">    <span class="built_in">UIReturnKeyGoogle</span>,</span><br><span class="line">    <span class="built_in">UIReturnKeyJoin</span>,</span><br><span class="line">    <span class="built_in">UIReturnKeyNext</span>,</span><br><span class="line">    <span class="built_in">UIReturnKeyRoute</span>,</span><br><span class="line">    <span class="built_in">UIReturnKeySearch</span>,</span><br><span class="line">    <span class="built_in">UIReturnKeySend</span>,</span><br><span class="line">    <span class="built_in">UIReturnKeyYahoo</span>,</span><br><span class="line">    <span class="built_in">UIReturnKeyDone</span>,</span><br><span class="line">    <span class="built_in">UIReturnKeyEmergencyCall</span>,</span><br><span class="line">    <span class="built_in">UIReturnKeyContinue</span> <span class="built_in">NS_ENUM_AVAILABLE_IOS</span>(<span class="number">9</span>_0),</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="UIKeyboardType键盘类型"><a href="#UIKeyboardType键盘类型" class="headerlink" title="UIKeyboardType键盘类型"></a>UIKeyboardType键盘类型</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">UIKeyboardType</span>) &#123;</span><br><span class="line">    <span class="built_in">UIKeyboardTypeDefault</span>,       </span><br><span class="line"></span><br><span class="line">    <span class="built_in">UIKeyboardTypeASCIICapable</span>,      </span><br><span class="line"></span><br><span class="line">    <span class="built_in">UIKeyboardTypeNumbersAndPunctuation</span>, </span><br><span class="line"></span><br><span class="line">    <span class="built_in">UIKeyboardTypeURL</span>,    </span><br><span class="line"></span><br><span class="line">    <span class="built_in">UIKeyboardTypeNumberPad</span>,  </span><br><span class="line"></span><br><span class="line">    <span class="built_in">UIKeyboardTypePhonePad</span>,             </span><br><span class="line"></span><br><span class="line">    <span class="built_in">UIKeyboardTypeNamePhonePad</span>, </span><br><span class="line"></span><br><span class="line">    <span class="built_in">UIKeyboardTypeEmailAddress</span>,</span><br><span class="line">  </span><br><span class="line">    <span class="built_in">UIKeyboardTypeDecimalPad</span> ,</span><br><span class="line"></span><br><span class="line">    <span class="built_in">UIKeyboardTypeWebSearch</span> ,</span><br><span class="line"></span><br><span class="line">    <span class="built_in">UIKeyboardTypeAlphabet</span> = <span class="built_in">UIKeyboardTypeASCIICapable</span>, </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//输入框中是否有个叉号，在什么时候显示，用于一次性删除输入框中的内容</span></span><br><span class="line">  text.clearButtonMode = <span class="built_in">UITextFieldViewModeAlways</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//每输入一个字符就变成点 用语密码输入</span></span><br><span class="line">  text.secureTextEntry = <span class="literal">YES</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//是否纠错</span></span><br><span class="line">  text.autocorrectionType = <span class="built_in">UITextAutocorrectionTypeNo</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> &#123;</span><br><span class="line">    <span class="built_in">UITextAutocorrectionTypeDefault</span>, 默认</span><br><span class="line">    <span class="built_in">UITextAutocorrectionTypeNo</span>,   不自动纠错</span><br><span class="line">    <span class="built_in">UITextAutocorrectionTypeYes</span>,  自动纠错</span><br><span class="line">&#125; <span class="built_in">UITextAutocorrectionType</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//再次编辑就清空</span></span><br><span class="line">  text.clearsOnBeginEditing = <span class="literal">YES</span>; </span><br><span class="line"></span><br><span class="line"><span class="comment">//设置为YES时文本会自动缩小以适应文本窗口大小.默认是保持原来大小,而让长文本滚动  </span></span><br><span class="line">  textFied.adjustsFontSizeToFitWidth = <span class="literal">YES</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//首字母是否大写</span></span><br><span class="line">  text.autocapitalizationType = <span class="built_in">UITextAutocapitalizationTypeNone</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> &#123;</span><br><span class="line">    <span class="built_in">UITextAutocapitalizationTypeNone</span>, 不自动大写</span><br><span class="line">    <span class="built_in">UITextAutocapitalizationTypeWords</span>,  单词首字母大写</span><br><span class="line">    <span class="built_in">UITextAutocapitalizationTypeSentences</span>,  句子的首字母大写</span><br><span class="line">    <span class="built_in">UITextAutocapitalizationTypeAllCharacters</span>, 所有字母都大写</span><br><span class="line">&#125; <span class="built_in">UITextAutocapitalizationType</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> <span class="comment">//键盘外观</span></span><br><span class="line">textView.keyboardAppearance=<span class="built_in">UIKeyboardAppearanceDefault</span>；</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> &#123;</span><br><span class="line"><span class="built_in">UIKeyboardAppearanceDefault</span>， 默认外观，浅灰色</span><br><span class="line"><span class="built_in">UIKeyboardAppearanceAlert</span>，     深灰 石墨色</span><br><span class="line"> </span><br><span class="line">&#125; <span class="built_in">UIReturnKeyType</span>;</span><br></pre></td></tr></table></figure>
 <p>大体属性已经罗列完毕，以后想到再来补充</p>
-</div></article></div></section><footer><div class="paginator"><a href="/2016/04/05/UINavigationBar使用总结/" class="prev"><button class="ui button teal">PREV</button></a><a href="/2016/03/30/iOS开发——制作圆形头像/" class="next"><button class="ui button teal">NEXT</button></a></div><div data-thread-key="2016/04/02/iOS开发——定制UITextField/" data-title="iOS开发——定制UITextField" data-url="http://yoursite.com/2016/04/02/iOS开发——定制UITextField/" class="ds-share"><div class="ds-share-inline"><ul class="ds-share-icons-16"><li data-toggle="ds-share-icons-more"><span class="ds-more">分享到：</span></li><li><a href="javascript:void(0);" data-service="weibo" class="ds-weibo">微博</a></li><li><a href="javascript:void(0);" data-service="qqt" class="ds-qqt">腾讯微博</a></li><li><a href="javascript:void(0);" data-service="wechat" class="ds-wechat">微信</a></li></ul></div></div><div data-thread-key="2016/04/02/iOS开发——定制UITextField/" data-title="iOS开发——定制UITextField" data-url="http://yoursite.com/2016/04/02/iOS开发——定制UITextField/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"originalee"};
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-   || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
 
-</script><div class="copyright"><p>© 2015 - 2017 <a href="http://yoursite.com">Originalee</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and theme by <a href="https://github.com/littlewin-wang/hexo-theme-casual" target="_blank">casual</a></p></div></footer></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script><script src="/js/jquery.goup.min.js"></script><script src="/js/semantic.min.js"></script><script src="/js/casual.js"></script><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>$(document).ready(function(){$.goup({trigger:100,bottomOffset:100,locationOffset:5,title:'',titleAsText:true});});</script><script>(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-_st('install','TvAnFS4AVxjiJUvrZJRB','2.0.0');</script></div></body></html>
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

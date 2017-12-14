@@ -1,4 +1,228 @@
-<!DOCTYPE html><html lang=""><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 30DaysOfSwift - Day1 计时器 | Originalee的博客</title><meta name="description" content="30DaysOfSwift - Day1 计时器 - Originalee"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.ico"><link rel="stylesheet" href="/css/casual.css"><link rel="stylesheet" href="/css/semantic.min.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="Originalee的博客"></head><body><div class="sidebar"><div class="ui vertical inverted menu"><div class="h100"></div><h3 class="ui inverted aligned icon header"><div class="content"><a href="/" class="title-link">ORIGINALEE的博客</a></div></h3><div class="h50"></div><div class="side-nav"><a href="/" target="_self" class="item">HOME<i class="icon home"></i></a><a href="/archives" target="_self" class="item">ARCHIVE<i class="icon archive"></i></a><a href="/about" target="_self" class="item">INFO<i class="icon info"></i></a><a href="/atom.xml" target="_self" class="item">RSS<i class="icon rss"></i></a></div><div class="item"><div class="ui inverted transparent icon input"><input type="text" placeholder="Search..." class="st-default-search-input"><i class="search icon"></i></div></div><div class="h50"></div></div><div class="h50 mq"><a class="ui teal big label"><i class="content icon"></i></a></div><div class="author-info"><a href="/" class="img-link"><img src="/avatar.png" class="author-photo ui tiny circular image"></a><h4 class="ui aligned icon header"><div class="content">Originalee</div></h4><p class="author-desc">爱打篮球的程序员|目前移动端爬坑中</p><div class="social-outer"><div class="social-inner"><a href="https://github.com/originalix" target="_blank" class="social-link"><i class="icon github"></i></a><a href="mailto:xiao.liunit@gmail.com" target="_self" class="social-link"><i class="icon mail"></i></a></div></div></div></div><div class="main"><div class="wrap"><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">30DaysOfSwift - Day1 计时器</h1><div class="post-info"><div class="post-date"><h6 class="ui header"><i class="calendar icon"></i><div class="content">Aug 1, 2016</div></h6></div></div><div class="post-content"><p>前几天逛Github，偶然看到一个<strong>Swift</strong>的项目 —— <strong>30DaysOfSwift</strong>,作者一共用30个小项目，来熟悉<strong>Swift</strong>语言，而我正好也学习了一段时间的<strong>Swift</strong>语言，准备仿照这样的模式，来更加深入的了解UI部分</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      30DaysOfSwift - Day1 计时器 | Originalee的博客 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="李晓">
+    
+    
+
+    <meta name="description" content="前几天逛Github，偶然看到一个Swift的项目 —— 30DaysOfSwift,作者一共用30个小项目，来熟悉Swift语言，而我正好也学习了一段时间的Swift语言，准备仿照这样的模式，来更加深入的了解UI部分 今天做的是一个计时器项目，大概效果如下 :">
+<meta name="keywords" content="iOS开发,30DaysOfSwift">
+<meta property="og:type" content="article">
+<meta property="og:title" content="30DaysOfSwift - Day1 计时器 | Originalee的博客">
+<meta property="og:url" content="http://yoursite.com/2016/08/01/30DaysOfSwift-Day1-计时器/index.html">
+<meta property="og:site_name" content="Originalee的博客">
+<meta property="og:description" content="前几天逛Github，偶然看到一个Swift的项目 —— 30DaysOfSwift,作者一共用30个小项目，来熟悉Swift语言，而我正好也学习了一段时间的Swift语言，准备仿照这样的模式，来更加深入的了解UI部分 今天做的是一个计时器项目，大概效果如下 :">
+<meta property="og:image" content="https://raw.githubusercontent.com/originalix/Lix30DaysOfSwift/master/Project-01/Simple%20Stop%20Watch.gif">
+<meta property="og:updated_time" content="2016-08-05T03:17:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="30DaysOfSwift - Day1 计时器 | Originalee的博客">
+<meta name="twitter:description" content="前几天逛Github，偶然看到一个Swift的项目 —— 30DaysOfSwift,作者一共用30个小项目，来熟悉Swift语言，而我正好也学习了一段时间的Swift语言，准备仿照这样的模式，来更加深入的了解UI部分 今天做的是一个计时器项目，大概效果如下 :">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/originalix/Lix30DaysOfSwift/master/Project-01/Simple%20Stop%20Watch.gif">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Originalee的博客</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          Web Developer
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/originalix" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">30DaysOfSwift - Day1 计时器</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-08-01" class="post-meta__date date">2016-08-01</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/30DaysOfSwift/">30DaysOfSwift</a>, <a class="tags-link" href="/tags/iOS开发/">iOS开发</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>前几天逛Github，偶然看到一个<strong>Swift</strong>的项目 —— <strong>30DaysOfSwift</strong>,作者一共用30个小项目，来熟悉<strong>Swift</strong>语言，而我正好也学习了一段时间的<strong>Swift</strong>语言，准备仿照这样的模式，来更加深入的了解UI部分</p>
 <p>今天做的是一个计时器项目，大概效果如下 :</p>
 <p><img src="https://raw.githubusercontent.com/originalix/Lix30DaysOfSwift/master/Project-01/Simple%20Stop%20Watch.gif" alt=""></p>
 <a id="more"></a>
@@ -6,17 +230,66 @@
 <p>而我一直都是喜欢用纯代码布局，UI的搭建也是使用代码完成。所以我在写这个小Demo之前在我的项目里集成了<strong>SnapKit</strong>，使用类似<strong>Objective-C</strong>中常用的<strong>masonry</strong>框架来完成自动布局。</p>
 <p>这里我还发现一个<strong>Swift</strong>中的小问题，使用<strong>cocoadPods</strong>集成第三方库，引用不到头文件的解决方法和<strong>Objective-C</strong>不一样。</p>
 <p>这是第一个<strong>Swift</strong>小Demo，很简单，也很好的帮助熟悉UI.</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"><span class="keyword">import</span> SnapKit</div><div class="line"></div><div class="line"><span class="keyword">let</span> <span class="type">SCREEN_WIDTH</span> = <span class="type">UIScreen</span>.mainScreen().bounds.size.width</div><div class="line"><span class="keyword">let</span> <span class="type">SCREEN_HEIGHT</span> = <span class="type">UIScreen</span>.mainScreen().bounds.size.height</div><div class="line"></div><div class="line"><span class="keyword">let</span> kTopViewHeight = <span class="type">SCREEN_HEIGHT</span> * <span class="number">0.4</span> <span class="comment">//倒计时试图高度</span></div><div class="line"><span class="keyword">let</span> kButtonHeight = <span class="type">SCREEN_HEIGHT</span> * <span class="number">0.6</span>  <span class="comment">//开始暂停按钮高度</span></div><div class="line"><span class="keyword">let</span> kPauseButtonWidth = <span class="type">SCREEN_WIDTH</span> * <span class="number">0.4</span> <span class="comment">//暂停按钮宽度</span></div><div class="line"><span class="keyword">let</span> kStartButtonWidth = <span class="type">SCREEN_WIDTH</span> * <span class="number">0.6</span> <span class="comment">//开始按钮高度</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> counter = <span class="number">0.0</span></div><div class="line"><span class="keyword">var</span> timer = <span class="type">NSTimer</span>()</div><div class="line"><span class="keyword">var</span> isPlaying = <span class="literal">false</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">//MARK: - 懒加载</span></div><div class="line">    </div><div class="line">    </div><div class="line">    <span class="comment">//倒计时Label</span></div><div class="line">    <span class="keyword">private</span> <span class="built_in">lazy</span> <span class="keyword">var</span> showLabel: <span class="type">UILabel</span> = &#123;</div><div class="line">        <span class="keyword">let</span> label = <span class="type">UILabel</span>(frame: <span class="type">CGRect</span>.zero)</div><div class="line">        label.text = <span class="type">String</span>(counter)</div><div class="line">        label.textColor = <span class="type">UIColor</span>.yellowColor()</div><div class="line">        label.font = <span class="type">UIFont</span>.systemFontOfSize(<span class="number">100</span>)</div><div class="line">        label.textAlignment = <span class="type">NSTextAlignment</span>.<span class="type">Center</span></div><div class="line">        <span class="keyword">return</span> label</div><div class="line">    &#125;()</div><div class="line">    </div><div class="line">    <span class="comment">//顶部背景试图</span></div><div class="line">    <span class="keyword">private</span> <span class="built_in">lazy</span> <span class="keyword">var</span> topBackgroundView: <span class="type">UIView</span> = &#123;</div><div class="line">        <span class="keyword">let</span> view = <span class="type">UIView</span>(frame: <span class="type">CGRect</span>(x: <span class="number">0</span>, y: <span class="number">0</span>, width: <span class="type">SCREEN_WIDTH</span>, height: kTopViewHeight))</div><div class="line">        view.backgroundColor = <span class="type">UIColor</span>.blackColor()</div><div class="line">        <span class="keyword">return</span> view</div><div class="line">    &#125;()</div><div class="line">    </div><div class="line">    <span class="comment">//Reset按钮</span></div><div class="line">    <span class="keyword">private</span> <span class="built_in">lazy</span> <span class="keyword">var</span> resetButton: <span class="type">UIButton</span> = &#123;</div><div class="line">        <span class="keyword">let</span> button = <span class="type">UIButton</span>(type: (<span class="type">UIButtonType</span>.<span class="type">Custom</span>))</div><div class="line">        button.frame = <span class="type">CGRectZero</span></div><div class="line">        button.setTitle(<span class="string">"Reset"</span>, forState: <span class="type">UIControlState</span>.<span class="type">Normal</span>)</div><div class="line">        button.setTitleColor(<span class="type">UIColor</span>.whiteColor(), forState: <span class="type">UIControlState</span>.<span class="type">Normal</span>)</div><div class="line">        button.setTitleColor(<span class="type">UIColor</span>.blackColor(), forState: <span class="type">UIControlState</span>.<span class="type">Highlighted</span>)</div><div class="line">        button.titleLabel?.font = <span class="type">UIFont</span>.systemFontOfSize(<span class="number">15</span>)</div><div class="line">        button.backgroundColor = <span class="type">UIColor</span>.clearColor()</div><div class="line">        button.addTarget(<span class="keyword">self</span>, action: <span class="string">"buttonDidClick:"</span>, forControlEvents: <span class="type">UIControlEvents</span>.<span class="type">TouchUpInside</span>)</div><div class="line">        button.tag = <span class="number">101</span></div><div class="line">        <span class="keyword">return</span> button</div><div class="line">    &#125;()</div><div class="line">    </div><div class="line">    <span class="comment">//暂停按钮</span></div><div class="line">    <span class="keyword">private</span> <span class="built_in">lazy</span> <span class="keyword">var</span> pauseButton: <span class="type">UIButton</span> = &#123;</div><div class="line">        <span class="keyword">let</span> button = <span class="type">UIButton</span>(type: (<span class="type">UIButtonType</span>.<span class="type">Custom</span>))</div><div class="line">        button.frame = <span class="type">CGRectZero</span></div><div class="line">        button.setImage(<span class="type">UIImage</span>(named: <span class="string">"pause"</span>), forState: <span class="type">UIControlState</span>.<span class="type">Normal</span>)</div><div class="line">        button.backgroundColor = <span class="type">UIColor</span>.greenColor()</div><div class="line">        button.addTarget(<span class="keyword">self</span>, action: <span class="string">"buttonDidClick:"</span>, forControlEvents: <span class="type">UIControlEvents</span>.<span class="type">TouchUpInside</span>)</div><div class="line">        button.tag = <span class="number">102</span></div><div class="line">        <span class="keyword">return</span> button</div><div class="line">    &#125;()</div><div class="line">    </div><div class="line">    <span class="comment">//开始按钮</span></div><div class="line">    <span class="keyword">private</span> <span class="built_in">lazy</span> <span class="keyword">var</span> startButton: <span class="type">UIButton</span> = &#123;</div><div class="line">        <span class="keyword">let</span> button = <span class="type">UIButton</span>(type: (<span class="type">UIButtonType</span>.<span class="type">Custom</span>))</div><div class="line">        button.frame = <span class="type">CGRectZero</span></div><div class="line">        button.setImage(<span class="type">UIImage</span>(named: <span class="string">"play"</span>), forState: <span class="type">UIControlState</span>.<span class="type">Normal</span>)</div><div class="line">        button.backgroundColor = <span class="type">UIColor</span>.blueColor()</div><div class="line">        button.addTarget(<span class="keyword">self</span>, action: <span class="string">"buttonDidClick:"</span>, forControlEvents: <span class="type">UIControlEvents</span>.<span class="type">TouchUpInside</span>)</div><div class="line">        button.tag = <span class="number">103</span></div><div class="line">        <span class="keyword">return</span> button</div><div class="line">    &#125;()</div><div class="line">    </div><div class="line">    <span class="comment">//MARK: - 创建UI界面</span></div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">setupUI</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="comment">//顶部的背景试图</span></div><div class="line">        <span class="keyword">self</span>.view.addSubview(<span class="keyword">self</span>.topBackgroundView)</div><div class="line">        <span class="comment">// 显示倒计时的Label</span></div><div class="line">        <span class="keyword">self</span>.topBackgroundView.addSubview(<span class="keyword">self</span>.showLabel)</div><div class="line">        <span class="keyword">self</span>.showLabel.snp_makeConstraints &#123; make <span class="keyword">in</span></div><div class="line">            make.width.equalTo(<span class="type">SCREEN_WIDTH</span>)</div><div class="line">            make.height.equalTo(<span class="number">137</span>)</div><div class="line">            make.centerX.equalTo(<span class="keyword">self</span>.topBackgroundView.snp_centerX)</div><div class="line">            make.centerY.equalTo(<span class="keyword">self</span>.topBackgroundView.snp_centerY)</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//Reset按钮</span></div><div class="line">        <span class="keyword">self</span>.topBackgroundView.addSubview(<span class="keyword">self</span>.resetButton)</div><div class="line">        <span class="keyword">self</span>.resetButton.snp_makeConstraints &#123; make <span class="keyword">in</span></div><div class="line">            make.top.equalTo(<span class="keyword">self</span>.topBackgroundView.snp_top).offset(<span class="number">20</span>)</div><div class="line">            make.<span class="keyword">right</span>.equalTo(<span class="keyword">self</span>.topBackgroundView.snp_right).offset(-<span class="number">20</span>)</div><div class="line">            make.height.equalTo(<span class="number">20</span>)</div><div class="line">            make.width.equalTo(<span class="number">60</span>)</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 暂停按钮</span></div><div class="line">        <span class="keyword">self</span>.view.addSubview(<span class="keyword">self</span>.pauseButton)</div><div class="line">        <span class="keyword">self</span>.pauseButton.snp_makeConstraints &#123; make <span class="keyword">in</span></div><div class="line">            make.top.equalTo(<span class="keyword">self</span>.topBackgroundView.snp_bottom).offset(<span class="number">0</span>)</div><div class="line">            make.<span class="keyword">left</span>.equalTo(<span class="keyword">self</span>.view).offset(<span class="number">0</span>)</div><div class="line">            make.height.equalTo(kButtonHeight)</div><div class="line">            make.width.equalTo(kPauseButtonWidth)</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="comment">//开始按钮</span></div><div class="line">        <span class="keyword">self</span>.view .addSubview(<span class="keyword">self</span>.startButton)</div><div class="line">        <span class="keyword">self</span>.startButton.snp_makeConstraints &#123; make <span class="keyword">in</span></div><div class="line">            make.top.equalTo(<span class="keyword">self</span>.topBackgroundView.snp_bottom).offset(<span class="number">0</span>)</div><div class="line">            make.<span class="keyword">left</span>.equalTo(<span class="keyword">self</span>.pauseButton.snp_right).offset(<span class="number">0</span>)</div><div class="line">            make.height.equalTo(kButtonHeight)</div><div class="line">            make.width.equalTo(kStartButtonWidth)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//MARK: - 设置状态栏</span></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">preferredStatusBarStyle</span><span class="params">()</span></span> -&gt; <span class="type">UIStatusBarStyle</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="type">UIStatusBarStyle</span>.<span class="type">LightContent</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">//MARK: - ButtonClick</span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">buttonDidClick</span><span class="params">(sender: AnyObject)</span></span> &#123;</div><div class="line">        <span class="keyword">switch</span> sender.tag &#123;</div><div class="line">            <span class="comment">//reset</span></div><div class="line">        <span class="keyword">case</span> <span class="number">101</span> :</div><div class="line">            timer.invalidate()</div><div class="line">            isPlaying = <span class="literal">false</span></div><div class="line">            counter = <span class="number">0.0</span></div><div class="line">            <span class="keyword">self</span>.showLabel.text = <span class="type">String</span>(counter)</div><div class="line">            <span class="keyword">self</span>.startButton.enabled = <span class="literal">true</span></div><div class="line">            <span class="keyword">self</span>.pauseButton.enabled = <span class="literal">false</span></div><div class="line">            </div><div class="line">            <span class="comment">//暂停</span></div><div class="line">        <span class="keyword">case</span> <span class="number">102</span> :</div><div class="line">            <span class="keyword">self</span>.startButton.enabled = <span class="literal">true</span></div><div class="line">            <span class="keyword">self</span>.pauseButton.enabled = <span class="literal">false</span></div><div class="line">            isPlaying = <span class="literal">false</span></div><div class="line">            timer.invalidate()</div><div class="line">            </div><div class="line">            <span class="comment">//开始</span></div><div class="line">        <span class="keyword">case</span> <span class="number">103</span> :</div><div class="line">            <span class="keyword">if</span> (isPlaying) &#123;</div><div class="line">                <span class="keyword">return</span></div><div class="line">            &#125;</div><div class="line">            <span class="keyword">self</span>.startButton.enabled = <span class="literal">false</span></div><div class="line">            <span class="keyword">self</span>.pauseButton.enabled = <span class="literal">true</span></div><div class="line">            timer = <span class="type">NSTimer</span>.scheduledTimerWithTimeInterval(<span class="number">0.1</span>, target: <span class="keyword">self</span>, selector: <span class="type">Selector</span>(<span class="string">"updateTimer"</span>), userInfo: <span class="literal">nil</span>, repeats: <span class="literal">true</span>)</div><div class="line">            isPlaying = <span class="literal">true</span></div><div class="line">            </div><div class="line">        <span class="keyword">default</span> :</div><div class="line">            <span class="keyword">break</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">//MARK: - 计时器方法</span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">updateTimer</span><span class="params">()</span></span> &#123;</div><div class="line">        counter = counter + <span class="number">0.1</span></div><div class="line">        <span class="keyword">self</span>.showLabel.text = <span class="type">String</span>(format: <span class="string">"%.1f"</span>, counter)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        <span class="keyword">self</span>.view.backgroundColor = <span class="type">UIColor</span>.whiteColor()</div><div class="line">        setupUI()</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    </div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">didReceiveMemoryWarning</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.didReceiveMemoryWarning()</div><div class="line">        <span class="comment">// Dispose of any resources that can be recreated.</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><a href="https://github.com/originalix/Lix30DaysOfSwift/tree/master/Project-01" target="_blank" rel="external">代码已经上传到GitHub上</a></p>
-</div></article></div></section><footer><div class="paginator"><a href="/2016/08/02/CocoaPods导入的库其头文件导入的方法以及Pch预编译文件配置/" class="prev"><button class="ui button teal">PREV</button></a><a href="/2016/08/01/Swift-宏定义与代码标记/" class="next"><button class="ui button teal">NEXT</button></a></div><div data-thread-key="2016/08/01/30DaysOfSwift-Day1-计时器/" data-title="30DaysOfSwift - Day1 计时器" data-url="http://yoursite.com/2016/08/01/30DaysOfSwift-Day1-计时器/" class="ds-share"><div class="ds-share-inline"><ul class="ds-share-icons-16"><li data-toggle="ds-share-icons-more"><span class="ds-more">分享到：</span></li><li><a href="javascript:void(0);" data-service="weibo" class="ds-weibo">微博</a></li><li><a href="javascript:void(0);" data-service="qqt" class="ds-qqt">腾讯微博</a></li><li><a href="javascript:void(0);" data-service="wechat" class="ds-wechat">微信</a></li></ul></div></div><div data-thread-key="2016/08/01/30DaysOfSwift-Day1-计时器/" data-title="30DaysOfSwift - Day1 计时器" data-url="http://yoursite.com/2016/08/01/30DaysOfSwift-Day1-计时器/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"originalee"};
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-   || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"><span class="keyword">import</span> SnapKit</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="type">SCREEN_WIDTH</span> = <span class="type">UIScreen</span>.mainScreen().bounds.size.width</span><br><span class="line"><span class="keyword">let</span> <span class="type">SCREEN_HEIGHT</span> = <span class="type">UIScreen</span>.mainScreen().bounds.size.height</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> kTopViewHeight = <span class="type">SCREEN_HEIGHT</span> * <span class="number">0.4</span> <span class="comment">//倒计时试图高度</span></span><br><span class="line"><span class="keyword">let</span> kButtonHeight = <span class="type">SCREEN_HEIGHT</span> * <span class="number">0.6</span>  <span class="comment">//开始暂停按钮高度</span></span><br><span class="line"><span class="keyword">let</span> kPauseButtonWidth = <span class="type">SCREEN_WIDTH</span> * <span class="number">0.4</span> <span class="comment">//暂停按钮宽度</span></span><br><span class="line"><span class="keyword">let</span> kStartButtonWidth = <span class="type">SCREEN_WIDTH</span> * <span class="number">0.6</span> <span class="comment">//开始按钮高度</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> counter = <span class="number">0.0</span></span><br><span class="line"><span class="keyword">var</span> timer = <span class="type">NSTimer</span>()</span><br><span class="line"><span class="keyword">var</span> isPlaying = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//MARK: - 懒加载</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//倒计时Label</span></span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">lazy</span> <span class="keyword">var</span> showLabel: <span class="type">UILabel</span> = &#123;</span><br><span class="line">        <span class="keyword">let</span> label = <span class="type">UILabel</span>(frame: <span class="type">CGRect</span>.zero)</span><br><span class="line">        label.text = <span class="type">String</span>(counter)</span><br><span class="line">        label.textColor = <span class="type">UIColor</span>.yellowColor()</span><br><span class="line">        label.font = <span class="type">UIFont</span>.systemFontOfSize(<span class="number">100</span>)</span><br><span class="line">        label.textAlignment = <span class="type">NSTextAlignment</span>.<span class="type">Center</span></span><br><span class="line">        <span class="keyword">return</span> label</span><br><span class="line">    &#125;()</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//顶部背景试图</span></span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">lazy</span> <span class="keyword">var</span> topBackgroundView: <span class="type">UIView</span> = &#123;</span><br><span class="line">        <span class="keyword">let</span> view = <span class="type">UIView</span>(frame: <span class="type">CGRect</span>(x: <span class="number">0</span>, y: <span class="number">0</span>, width: <span class="type">SCREEN_WIDTH</span>, height: kTopViewHeight))</span><br><span class="line">        view.backgroundColor = <span class="type">UIColor</span>.blackColor()</span><br><span class="line">        <span class="keyword">return</span> view</span><br><span class="line">    &#125;()</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//Reset按钮</span></span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">lazy</span> <span class="keyword">var</span> resetButton: <span class="type">UIButton</span> = &#123;</span><br><span class="line">        <span class="keyword">let</span> button = <span class="type">UIButton</span>(type: (<span class="type">UIButtonType</span>.<span class="type">Custom</span>))</span><br><span class="line">        button.frame = <span class="type">CGRectZero</span></span><br><span class="line">        button.setTitle(<span class="string">"Reset"</span>, forState: <span class="type">UIControlState</span>.<span class="type">Normal</span>)</span><br><span class="line">        button.setTitleColor(<span class="type">UIColor</span>.whiteColor(), forState: <span class="type">UIControlState</span>.<span class="type">Normal</span>)</span><br><span class="line">        button.setTitleColor(<span class="type">UIColor</span>.blackColor(), forState: <span class="type">UIControlState</span>.<span class="type">Highlighted</span>)</span><br><span class="line">        button.titleLabel?.font = <span class="type">UIFont</span>.systemFontOfSize(<span class="number">15</span>)</span><br><span class="line">        button.backgroundColor = <span class="type">UIColor</span>.clearColor()</span><br><span class="line">        button.addTarget(<span class="keyword">self</span>, action: <span class="string">"buttonDidClick:"</span>, forControlEvents: <span class="type">UIControlEvents</span>.<span class="type">TouchUpInside</span>)</span><br><span class="line">        button.tag = <span class="number">101</span></span><br><span class="line">        <span class="keyword">return</span> button</span><br><span class="line">    &#125;()</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//暂停按钮</span></span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">lazy</span> <span class="keyword">var</span> pauseButton: <span class="type">UIButton</span> = &#123;</span><br><span class="line">        <span class="keyword">let</span> button = <span class="type">UIButton</span>(type: (<span class="type">UIButtonType</span>.<span class="type">Custom</span>))</span><br><span class="line">        button.frame = <span class="type">CGRectZero</span></span><br><span class="line">        button.setImage(<span class="type">UIImage</span>(named: <span class="string">"pause"</span>), forState: <span class="type">UIControlState</span>.<span class="type">Normal</span>)</span><br><span class="line">        button.backgroundColor = <span class="type">UIColor</span>.greenColor()</span><br><span class="line">        button.addTarget(<span class="keyword">self</span>, action: <span class="string">"buttonDidClick:"</span>, forControlEvents: <span class="type">UIControlEvents</span>.<span class="type">TouchUpInside</span>)</span><br><span class="line">        button.tag = <span class="number">102</span></span><br><span class="line">        <span class="keyword">return</span> button</span><br><span class="line">    &#125;()</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//开始按钮</span></span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">lazy</span> <span class="keyword">var</span> startButton: <span class="type">UIButton</span> = &#123;</span><br><span class="line">        <span class="keyword">let</span> button = <span class="type">UIButton</span>(type: (<span class="type">UIButtonType</span>.<span class="type">Custom</span>))</span><br><span class="line">        button.frame = <span class="type">CGRectZero</span></span><br><span class="line">        button.setImage(<span class="type">UIImage</span>(named: <span class="string">"play"</span>), forState: <span class="type">UIControlState</span>.<span class="type">Normal</span>)</span><br><span class="line">        button.backgroundColor = <span class="type">UIColor</span>.blueColor()</span><br><span class="line">        button.addTarget(<span class="keyword">self</span>, action: <span class="string">"buttonDidClick:"</span>, forControlEvents: <span class="type">UIControlEvents</span>.<span class="type">TouchUpInside</span>)</span><br><span class="line">        button.tag = <span class="number">103</span></span><br><span class="line">        <span class="keyword">return</span> button</span><br><span class="line">    &#125;()</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//MARK: - 创建UI界面</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">setupUI</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">//顶部的背景试图</span></span><br><span class="line">        <span class="keyword">self</span>.view.addSubview(<span class="keyword">self</span>.topBackgroundView)</span><br><span class="line">        <span class="comment">// 显示倒计时的Label</span></span><br><span class="line">        <span class="keyword">self</span>.topBackgroundView.addSubview(<span class="keyword">self</span>.showLabel)</span><br><span class="line">        <span class="keyword">self</span>.showLabel.snp_makeConstraints &#123; make <span class="keyword">in</span></span><br><span class="line">            make.width.equalTo(<span class="type">SCREEN_WIDTH</span>)</span><br><span class="line">            make.height.equalTo(<span class="number">137</span>)</span><br><span class="line">            make.centerX.equalTo(<span class="keyword">self</span>.topBackgroundView.snp_centerX)</span><br><span class="line">            make.centerY.equalTo(<span class="keyword">self</span>.topBackgroundView.snp_centerY)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//Reset按钮</span></span><br><span class="line">        <span class="keyword">self</span>.topBackgroundView.addSubview(<span class="keyword">self</span>.resetButton)</span><br><span class="line">        <span class="keyword">self</span>.resetButton.snp_makeConstraints &#123; make <span class="keyword">in</span></span><br><span class="line">            make.top.equalTo(<span class="keyword">self</span>.topBackgroundView.snp_top).offset(<span class="number">20</span>)</span><br><span class="line">            make.<span class="keyword">right</span>.equalTo(<span class="keyword">self</span>.topBackgroundView.snp_right).offset(-<span class="number">20</span>)</span><br><span class="line">            make.height.equalTo(<span class="number">20</span>)</span><br><span class="line">            make.width.equalTo(<span class="number">60</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 暂停按钮</span></span><br><span class="line">        <span class="keyword">self</span>.view.addSubview(<span class="keyword">self</span>.pauseButton)</span><br><span class="line">        <span class="keyword">self</span>.pauseButton.snp_makeConstraints &#123; make <span class="keyword">in</span></span><br><span class="line">            make.top.equalTo(<span class="keyword">self</span>.topBackgroundView.snp_bottom).offset(<span class="number">0</span>)</span><br><span class="line">            make.<span class="keyword">left</span>.equalTo(<span class="keyword">self</span>.view).offset(<span class="number">0</span>)</span><br><span class="line">            make.height.equalTo(kButtonHeight)</span><br><span class="line">            make.width.equalTo(kPauseButtonWidth)</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//开始按钮</span></span><br><span class="line">        <span class="keyword">self</span>.view .addSubview(<span class="keyword">self</span>.startButton)</span><br><span class="line">        <span class="keyword">self</span>.startButton.snp_makeConstraints &#123; make <span class="keyword">in</span></span><br><span class="line">            make.top.equalTo(<span class="keyword">self</span>.topBackgroundView.snp_bottom).offset(<span class="number">0</span>)</span><br><span class="line">            make.<span class="keyword">left</span>.equalTo(<span class="keyword">self</span>.pauseButton.snp_right).offset(<span class="number">0</span>)</span><br><span class="line">            make.height.equalTo(kButtonHeight)</span><br><span class="line">            make.width.equalTo(kStartButtonWidth)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//MARK: - 设置状态栏</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">preferredStatusBarStyle</span><span class="params">()</span></span> -&gt; <span class="type">UIStatusBarStyle</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">UIStatusBarStyle</span>.<span class="type">LightContent</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//MARK: - ButtonClick</span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">buttonDidClick</span><span class="params">(sender: AnyObject)</span></span> &#123;</span><br><span class="line">        <span class="keyword">switch</span> sender.tag &#123;</span><br><span class="line">            <span class="comment">//reset</span></span><br><span class="line">        <span class="keyword">case</span> <span class="number">101</span> :</span><br><span class="line">            timer.invalidate()</span><br><span class="line">            isPlaying = <span class="literal">false</span></span><br><span class="line">            counter = <span class="number">0.0</span></span><br><span class="line">            <span class="keyword">self</span>.showLabel.text = <span class="type">String</span>(counter)</span><br><span class="line">            <span class="keyword">self</span>.startButton.enabled = <span class="literal">true</span></span><br><span class="line">            <span class="keyword">self</span>.pauseButton.enabled = <span class="literal">false</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment">//暂停</span></span><br><span class="line">        <span class="keyword">case</span> <span class="number">102</span> :</span><br><span class="line">            <span class="keyword">self</span>.startButton.enabled = <span class="literal">true</span></span><br><span class="line">            <span class="keyword">self</span>.pauseButton.enabled = <span class="literal">false</span></span><br><span class="line">            isPlaying = <span class="literal">false</span></span><br><span class="line">            timer.invalidate()</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//开始</span></span><br><span class="line">        <span class="keyword">case</span> <span class="number">103</span> :</span><br><span class="line">            <span class="keyword">if</span> (isPlaying) &#123;</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">self</span>.startButton.enabled = <span class="literal">false</span></span><br><span class="line">            <span class="keyword">self</span>.pauseButton.enabled = <span class="literal">true</span></span><br><span class="line">            timer = <span class="type">NSTimer</span>.scheduledTimerWithTimeInterval(<span class="number">0.1</span>, target: <span class="keyword">self</span>, selector: <span class="type">Selector</span>(<span class="string">"updateTimer"</span>), userInfo: <span class="literal">nil</span>, repeats: <span class="literal">true</span>)</span><br><span class="line">            isPlaying = <span class="literal">true</span></span><br><span class="line">            </span><br><span class="line">        <span class="keyword">default</span> :</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//MARK: - 计时器方法</span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">updateTimer</span><span class="params">()</span></span> &#123;</span><br><span class="line">        counter = counter + <span class="number">0.1</span></span><br><span class="line">        <span class="keyword">self</span>.showLabel.text = <span class="type">String</span>(format: <span class="string">"%.1f"</span>, counter)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">        <span class="keyword">self</span>.view.backgroundColor = <span class="type">UIColor</span>.whiteColor()</span><br><span class="line">        setupUI()</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">didReceiveMemoryWarning</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.didReceiveMemoryWarning()</span><br><span class="line">        <span class="comment">// Dispose of any resources that can be recreated.</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/originalix/Lix30DaysOfSwift/tree/master/Project-01" target="_blank" rel="noopener">代码已经上传到GitHub上</a></p>
 
-</script><div class="copyright"><p>© 2015 - 2017 <a href="http://yoursite.com">Originalee</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and theme by <a href="https://github.com/littlewin-wang/hexo-theme-casual" target="_blank">casual</a></p></div></footer></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script><script src="/js/jquery.goup.min.js"></script><script src="/js/semantic.min.js"></script><script src="/js/casual.js"></script><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>$(document).ready(function(){$.goup({trigger:100,bottomOffset:100,locationOffset:5,title:'',titleAsText:true});});</script><script>(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-_st('install','TvAnFS4AVxjiJUvrZJRB','2.0.0');</script></div></body></html>
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

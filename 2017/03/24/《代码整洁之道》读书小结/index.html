@@ -1,14 +1,236 @@
-<!DOCTYPE html><html lang=""><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 《代码整洁之道》读书小结 | Originalee的博客</title><meta name="description" content="《代码整洁之道》读书小结 - Originalee"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.ico"><link rel="stylesheet" href="/css/casual.css"><link rel="stylesheet" href="/css/semantic.min.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="Originalee的博客"></head><body><div class="sidebar"><div class="ui vertical inverted menu"><div class="h100"></div><h3 class="ui inverted aligned icon header"><div class="content"><a href="/" class="title-link">ORIGINALEE的博客</a></div></h3><div class="h50"></div><div class="side-nav"><a href="/" target="_self" class="item">HOME<i class="icon home"></i></a><a href="/archives" target="_self" class="item">ARCHIVE<i class="icon archive"></i></a><a href="/about" target="_self" class="item">INFO<i class="icon info"></i></a><a href="/atom.xml" target="_self" class="item">RSS<i class="icon rss"></i></a></div><div class="item"><div class="ui inverted transparent icon input"><input type="text" placeholder="Search..." class="st-default-search-input"><i class="search icon"></i></div></div><div class="h50"></div></div><div class="h50 mq"><a class="ui teal big label"><i class="content icon"></i></a></div><div class="author-info"><a href="/" class="img-link"><img src="/avatar.png" class="author-photo ui tiny circular image"></a><h4 class="ui aligned icon header"><div class="content">Originalee</div></h4><p class="author-desc">爱打篮球的程序员|目前移动端爬坑中</p><div class="social-outer"><div class="social-inner"><a href="https://github.com/originalix" target="_blank" class="social-link"><i class="icon github"></i></a><a href="mailto:xiao.liunit@gmail.com" target="_self" class="social-link"><i class="icon mail"></i></a></div></div></div></div><div class="main"><div class="wrap"><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">《代码整洁之道》读书小结</h1><div class="post-info"><div class="post-date"><h6 class="ui header"><i class="calendar icon"></i><div class="content">Mar 24, 2017</div></h6></div></div><div class="post-content"><p>最近晚间的加班暂时暂停了，大概已经整整一个月每天焦头烂额的写着业务代码，被各种逻辑搞的整个人都不大好了，好在是写的差不多了。</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      《代码整洁之道》读书小结 | Originalee的博客 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="李晓">
+    
+    
+
+    <meta name="description" content="最近晚间的加班暂时暂停了，大概已经整整一个月每天焦头烂额的写着业务代码，被各种逻辑搞的整个人都不大好了，好在是写的差不多了。 每当写了很多业务代码之后，我都会停下来反思一个问题，你的代码写的干净么，有需要重构的地方么。而这一次，因为一些临时性的需求变更，我自认为我写了一部分脏代码，这部分代码恰恰是bug的高发地段，而且也可能会带来后期维护的困难。那么如何来重构这部分代码呢？ 在我写下这部分脏代码之">
+<meta name="keywords" content="编码思考,代码风格,clean code">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《代码整洁之道》读书小结 | Originalee的博客">
+<meta property="og:url" content="http://yoursite.com/2017/03/24/《代码整洁之道》读书小结/index.html">
+<meta property="og:site_name" content="Originalee的博客">
+<meta property="og:description" content="最近晚间的加班暂时暂停了，大概已经整整一个月每天焦头烂额的写着业务代码，被各种逻辑搞的整个人都不大好了，好在是写的差不多了。 每当写了很多业务代码之后，我都会停下来反思一个问题，你的代码写的干净么，有需要重构的地方么。而这一次，因为一些临时性的需求变更，我自认为我写了一部分脏代码，这部分代码恰恰是bug的高发地段，而且也可能会带来后期维护的困难。那么如何来重构这部分代码呢？ 在我写下这部分脏代码之">
+<meta property="og:updated_time" content="2017-03-24T08:31:54.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《代码整洁之道》读书小结 | Originalee的博客">
+<meta name="twitter:description" content="最近晚间的加班暂时暂停了，大概已经整整一个月每天焦头烂额的写着业务代码，被各种逻辑搞的整个人都不大好了，好在是写的差不多了。 每当写了很多业务代码之后，我都会停下来反思一个问题，你的代码写的干净么，有需要重构的地方么。而这一次，因为一些临时性的需求变更，我自认为我写了一部分脏代码，这部分代码恰恰是bug的高发地段，而且也可能会带来后期维护的困难。那么如何来重构这部分代码呢？ 在我写下这部分脏代码之">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Originalee的博客</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          Web Developer
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/originalix" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">《代码整洁之道》读书小结</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-03-24" class="post-meta__date date">2017-03-24</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/clean-code/">clean code</a>, <a class="tags-link" href="/tags/代码风格/">代码风格</a>, <a class="tags-link" href="/tags/编码思考/">编码思考</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>最近晚间的加班暂时暂停了，大概已经整整一个月每天焦头烂额的写着业务代码，被各种逻辑搞的整个人都不大好了，好在是写的差不多了。</p>
 <p>每当写了很多业务代码之后，我都会停下来反思一个问题，你的代码写的干净么，有需要重构的地方么。而这一次，因为一些临时性的需求变更，我自认为我写了一部分脏代码，这部分代码恰恰是bug的高发地段，而且也可能会带来后期维护的困难。那么如何来重构这部分代码呢？</p>
 <p>在我写下这部分脏代码之前，我自认为也是用了一些能够用上的设计模式，但是随着临时性的需求变更不断增加，有时候贪图省事直接在原有代码的基础上修改了事，很明显这违反了开放闭合原则。</p>
 <p>回到正题上来，回顾《clean code》这本书，正是帮助自己在反思的同时做好知识的回顾梳理，并且能够在重构中把学到的知识学以致用。虽然现在我还没有全部看完，但是也是可以从已经完成阅读的部分总结一点心得。</p>
 <p>第一次看这本书是在几年前，可以说这本书对我编写代码的风格形成了很深的影响，而初读此书时也有种醍醐灌顶的感觉，哦，原来代码还可以这么写。</p>
 <a id="more"></a>
 <h1 id="从命名谈起"><a href="#从命名谈起" class="headerlink" title="从命名谈起"></a>从命名谈起</h1><p>当我们在写代码时，面临的第一个问题大概就是命名，你想创建一个类，需要命名；写函数，需要命名；甚至初始化一个变量，也需要给变量命名。但是一个好的命名和差的命名，可是有着天差地别的区别的。好的命名，让人扫一眼，就大概知道这个函数的作用是什么，甚至连大体会输出什么都知道，提升了代码的可读性。而差的命名会极大降低代码的可读性，让下一个阅读你代码的人，花费大量的时间。举个栗子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">privite func syncDataWhenConnect() &#123;</div><div class="line">    //doSomething</div><div class="line">&#125;</div><div class="line"></div><div class="line">privite func syncData() &#123;</div><div class="line">    //doSomething</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">privite func syncDataWhenConnect() &#123;</span><br><span class="line">    //doSomething</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">privite func syncData() &#123;</span><br><span class="line">    //doSomething</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>上下两个函数，很明显你看完第一个，会更明白这个函数的目的是什么，所以建议在书写函数的时候，尽量的使用动词，来准确的秒数函数的目的。</p>
 <p>而给类命名则正好相反，再举个栗子：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">AddressManager.php</div><div class="line">MacAddress.php</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">AddressManager.php</span><br><span class="line">MacAddress.php</span><br></pre></td></tr></table></figure>
 <p>上下两个类名，这里我写的有点争议，其实在不同的语境里两个似乎都可以完成可读性的使命，但是假设一个程序，有存储用户地址的类，也有外接设备mac地址的类，哪个更易懂？所以类名的命名，尽量使用名词，并且要求简单直接，是什么就是什么，尽量少用动词，动词的活，让我们所在的文件夹，让命名空间们去阐述吧。</p>
 <p>虽然我上面反复提及了名字简短，但是只有很少比例的命名能又短又明确的阐述命名意义，所以如果是为了增加可读性，长命名也不是完全不可取，虽然很多人黑<strong>Objective-C</strong>命名是又臭又长，但是这种命名带来的便利就是你扫一眼便知道函数要完成的目的，以及需要的参数。长短之别，自己把握吧。</p>
 <h1 id="从简短代码谈起"><a href="#从简短代码谈起" class="headerlink" title="从简短代码谈起"></a>从简短代码谈起</h1><p>编程界的那帮金字塔尖的大牛们一致认为，函数是越短越好，如果实在控制不住，请不要超过20行，如果不小心超过了，那么你可以考虑拆分你的函数了。</p>
@@ -16,15 +238,64 @@
 <p>这次的手环模块，因为有很多蓝牙的连接状态判断，写了很多Swich ifelse等判断，而ifelse因为业务逻辑复杂，还在初次编写的时候夹杂了很多嵌套，所以需要重构的地方还是很多的。</p>
 <p>我们写代码，开发时间算20%，那么剩下的80%就是维护时间，什么样的函数易于修改，当然是短的函数，每次改动都能做到心中有数。</p>
 <p>而提到了维护，那么测试又不能不提，很可惜，我还没有看全测试，平时的工作中因为很多是移动端的编码，view层占的比重很大，有时候疏于测试，好好理解，好好实践，再来写下一篇心得吧。</p>
-</div></article></div></section><footer><div class="paginator"><a href="/2017/04/02/《Clean-Code》-读书小节（二）/" class="prev"><button class="ui button teal">PREV</button></a><a href="/2017/03/19/在云服务器上部署Laravel/" class="next"><button class="ui button teal">NEXT</button></a></div><div data-thread-key="2017/03/24/《代码整洁之道》读书小结/" data-title="《代码整洁之道》读书小结" data-url="http://yoursite.com/2017/03/24/《代码整洁之道》读书小结/" class="ds-share"><div class="ds-share-inline"><ul class="ds-share-icons-16"><li data-toggle="ds-share-icons-more"><span class="ds-more">分享到：</span></li><li><a href="javascript:void(0);" data-service="weibo" class="ds-weibo">微博</a></li><li><a href="javascript:void(0);" data-service="qqt" class="ds-qqt">腾讯微博</a></li><li><a href="javascript:void(0);" data-service="wechat" class="ds-wechat">微信</a></li></ul></div></div><div data-thread-key="2017/03/24/《代码整洁之道》读书小结/" data-title="《代码整洁之道》读书小结" data-url="http://yoursite.com/2017/03/24/《代码整洁之道》读书小结/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"originalee"};
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-   || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
 
-</script><div class="copyright"><p>© 2015 - 2017 <a href="http://yoursite.com">Originalee</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and theme by <a href="https://github.com/littlewin-wang/hexo-theme-casual" target="_blank">casual</a></p></div></footer></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script><script src="/js/jquery.goup.min.js"></script><script src="/js/semantic.min.js"></script><script src="/js/casual.js"></script><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>$(document).ready(function(){$.goup({trigger:100,bottomOffset:100,locationOffset:5,title:'',titleAsText:true});});</script><script>(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-_st('install','TvAnFS4AVxjiJUvrZJRB','2.0.0');</script></div></body></html>
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

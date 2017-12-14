@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/about/index.html</loc>
+    
+    <lastmod>2017-12-14T05:54:50.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/archive/index.html</loc>
+    
+    <lastmod>2017-12-14T05:47:38.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2017/09/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E2%80%94%E2%80%94%E6%97%A0%E6%9D%83%E5%9B%BE%E7%9A%84%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98(C++%E5%92%8Cjava%E5%AE%9E%E7%8E%B0)/</loc>
+    
+    <lastmod>2017-12-14T05:41:34.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2017/12/13/%E4%BD%BF%E7%94%A8Vundle%E7%AE%A1%E7%90%86Vim%E6%8F%92%E4%BB%B6/</loc>
     
     <lastmod>2017-12-13T12:48:11.000Z</lastmod>
@@ -26,13 +47,6 @@
     <loc>http://yoursite.com/2017/10/09/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E2%80%94%E2%80%94%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91(C++%E5%92%8CJava%E5%AE%9E%E7%8E%B0)/</loc>
     
     <lastmod>2017-10-09T13:32:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2017/09/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E2%80%94%E2%80%94%E6%97%A0%E6%9D%83%E5%9B%BE%E7%9A%84%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98(C++%E5%92%8Cjava%E5%AE%9E%E7%8E%B0)/</loc>
-    
-    <lastmod>2017-09-11T06:21:40.000Z</lastmod>
     
   </url>
   
@@ -236,13 +250,6 @@
     <loc>http://yoursite.com/2016/10/20/iOS%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94FMDB%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
     
     <lastmod>2016-12-29T03:16:11.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/about/index.html</loc>
-    
-    <lastmod>2016-12-29T03:14:03.000Z</lastmod>
     
   </url>
   

@@ -1,27 +1,249 @@
-<!DOCTYPE html><html lang=""><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Linux的用户管理(二) | Originalee的博客</title><meta name="description" content="Linux的用户管理(二) - Originalee"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.ico"><link rel="stylesheet" href="/css/casual.css"><link rel="stylesheet" href="/css/semantic.min.css"><link rel="search" type="application/opensearchdescription+xml" href="http://yoursite.com/atom.xml" title="Originalee的博客"></head><body><div class="sidebar"><div class="ui vertical inverted menu"><div class="h100"></div><h3 class="ui inverted aligned icon header"><div class="content"><a href="/" class="title-link">ORIGINALEE的博客</a></div></h3><div class="h50"></div><div class="side-nav"><a href="/" target="_self" class="item">HOME<i class="icon home"></i></a><a href="/archives" target="_self" class="item">ARCHIVE<i class="icon archive"></i></a><a href="/about" target="_self" class="item">INFO<i class="icon info"></i></a><a href="/atom.xml" target="_self" class="item">RSS<i class="icon rss"></i></a></div><div class="item"><div class="ui inverted transparent icon input"><input type="text" placeholder="Search..." class="st-default-search-input"><i class="search icon"></i></div></div><div class="h50"></div></div><div class="h50 mq"><a class="ui teal big label"><i class="content icon"></i></a></div><div class="author-info"><a href="/" class="img-link"><img src="/avatar.png" class="author-photo ui tiny circular image"></a><h4 class="ui aligned icon header"><div class="content">Originalee</div></h4><p class="author-desc">爱打篮球的程序员|目前移动端爬坑中</p><div class="social-outer"><div class="social-inner"><a href="https://github.com/originalix" target="_blank" class="social-link"><i class="icon github"></i></a><a href="mailto:xiao.liunit@gmail.com" target="_self" class="social-link"><i class="icon mail"></i></a></div></div></div></div><div class="main"><div class="wrap"><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">Linux的用户管理(二)</h1><div class="post-info"><div class="post-date"><h6 class="ui header"><i class="calendar icon"></i><div class="content">Jun 21, 2017</div></h6></div></div><div class="post-content"><p>上次的博客我们讲了关于Linux的用户管理的内容，现在我们来讲第二部分——系统用户组的管理。</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Linux的用户管理(二) | Originalee的博客 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="李晓">
+    
+    
+
+    <meta name="description" content="上次的博客我们讲了关于Linux的用户管理的内容，现在我们来讲第二部分——系统用户组的管理。 每个用户都有一个用户组，系统可以对一个用户组中的所有用户进行集中管理。不同Linux系统对用户组的规定有所不同，如Linux下的用户属于它同名的用户组，这个用户组在创建用户的同时创建。 用户组的管理涉及用户组的添加、删除和修改。组的增加、删除和修改实际上就是对/etc/group文件的更新。 增加用户组添">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux的用户管理(二) | Originalee的博客">
+<meta property="og:url" content="http://yoursite.com/2017/06/21/Linux的用户管理(二)/index.html">
+<meta property="og:site_name" content="Originalee的博客">
+<meta property="og:description" content="上次的博客我们讲了关于Linux的用户管理的内容，现在我们来讲第二部分——系统用户组的管理。 每个用户都有一个用户组，系统可以对一个用户组中的所有用户进行集中管理。不同Linux系统对用户组的规定有所不同，如Linux下的用户属于它同名的用户组，这个用户组在创建用户的同时创建。 用户组的管理涉及用户组的添加、删除和修改。组的增加、删除和修改实际上就是对/etc/group文件的更新。 增加用户组添">
+<meta property="og:updated_time" content="2017-06-21T09:47:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux的用户管理(二) | Originalee的博客">
+<meta name="twitter:description" content="上次的博客我们讲了关于Linux的用户管理的内容，现在我们来讲第二部分——系统用户组的管理。 每个用户都有一个用户组，系统可以对一个用户组中的所有用户进行集中管理。不同Linux系统对用户组的规定有所不同，如Linux下的用户属于它同名的用户组，这个用户组在创建用户的同时创建。 用户组的管理涉及用户组的添加、删除和修改。组的增加、删除和修改实际上就是对/etc/group文件的更新。 增加用户组添">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Originalee的博客</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          Web Developer
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/originalix" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Linux的用户管理(二)</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-06-21" class="post-meta__date date">2017-06-21</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Linux/">Linux</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>上次的博客我们讲了关于Linux的用户管理的内容，现在我们来讲第二部分——系统用户组的管理。</p>
 <p>每个用户都有一个用户组，系统可以对一个用户组中的所有用户进行集中管理。不同Linux系统对用户组的规定有所不同，如Linux下的用户属于它同名的用户组，这个用户组在创建用户的同时创建。</p>
 <p>用户组的管理涉及用户组的添加、删除和修改。组的增加、删除和修改实际上就是对<code>/etc/group</code>文件的更新。</p>
 <h3 id="增加用户组"><a href="#增加用户组" class="headerlink" title="增加用户组"></a>增加用户组</h3><p>添加一个新的用户组，使用<code>groupadd</code>命令。 格式如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">groupadd [options] [group]</div><div class="line"></div><div class="line">可以使用的选项有： </div><div class="line">-g GID 指定新用户组的组标识号（GID）。</div><div class="line">-o 一般与-g选项同时使用，表示新用户组的GID可以与系统已有用户组的GID相同。</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">groupadd [options] [group]</span><br><span class="line"></span><br><span class="line">可以使用的选项有： </span><br><span class="line">-g GID 指定新用户组的组标识号（GID）。</span><br><span class="line">-o 一般与-g选项同时使用，表示新用户组的GID可以与系统已有用户组的GID相同。</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <p>举个🌰：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">groupadd group1</div><div class="line"></div><div class="line">此命令向系统中增加了一个新组group1，新组的组标识号是在当前已有的最大组标识号的基础上加1。 </div><div class="line"></div><div class="line">groupadd -g 101 group2</div><div class="line"></div><div class="line">此命令向系统中增加了一个新组group2，同时指定新组的组标识号是101。</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">groupadd group1</span><br><span class="line"></span><br><span class="line">此命令向系统中增加了一个新组group1，新组的组标识号是在当前已有的最大组标识号的基础上加1。 </span><br><span class="line"></span><br><span class="line">groupadd -g 101 group2</span><br><span class="line"></span><br><span class="line">此命令向系统中增加了一个新组group2，同时指定新组的组标识号是101。</span><br></pre></td></tr></table></figure>
 <h3 id="删除用户组"><a href="#删除用户组" class="headerlink" title="删除用户组"></a>删除用户组</h3><p>如果要删除一个存在的用户组，使用<code>groupdel</code>命令,格式如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">groupdel [用户组]</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupdel [用户组]</span><br></pre></td></tr></table></figure>
 <p>举个🌰：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># groupdel group1</div><div class="line"></div><div class="line">此命令从系统中删除组group1</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># groupdel group1</span><br><span class="line"></span><br><span class="line">此命令从系统中删除组group1</span><br></pre></td></tr></table></figure>
 <h3 id="修改用户组属性"><a href="#修改用户组属性" class="headerlink" title="修改用户组属性"></a>修改用户组属性</h3><p>修改用户组的属性使用<code>groupmod</code>命令。其语法如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">groupmod 选项 用户组</div><div class="line"></div><div class="line">常用的选项有： </div><div class="line"></div><div class="line">-g GID 为用户组指定新的组标识号。</div><div class="line"></div><div class="line">-o 与-g选项同时使用，用户组的新GID可以与系统已有用户组的GID相同。</div><div class="line"></div><div class="line">-n新用户组 将用户组的名字改为新名字</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">groupmod 选项 用户组</span><br><span class="line"></span><br><span class="line">常用的选项有： </span><br><span class="line"></span><br><span class="line">-g GID 为用户组指定新的组标识号。</span><br><span class="line"></span><br><span class="line">-o 与-g选项同时使用，用户组的新GID可以与系统已有用户组的GID相同。</span><br><span class="line"></span><br><span class="line">-n新用户组 将用户组的名字改为新名字</span><br></pre></td></tr></table></figure>
 <p>举个🌰:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"># groupmod -g 102 group2</div><div class="line"></div><div class="line">此命令将组group2的组标识号修改为102。 </div><div class="line"></div><div class="line">groupmod –g 10000 -n group3 group2</div><div class="line"></div><div class="line">此命令将组group2的标识号改为10000，组名修改为group3</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># groupmod -g 102 group2</span><br><span class="line"></span><br><span class="line">此命令将组group2的组标识号修改为102。 </span><br><span class="line"></span><br><span class="line">groupmod –g 10000 -n group3 group2</span><br><span class="line"></span><br><span class="line">此命令将组group2的标识号改为10000，组名修改为group3</span><br></pre></td></tr></table></figure>
 <h3 id="切换用户组"><a href="#切换用户组" class="headerlink" title="切换用户组"></a>切换用户组</h3><p>如果一个用户同时属于多个用户组，那么用户可以在用户组之间切换，以便具有其他用户组的权限。用户可以在登录后，使用命令<code>newgrp</code>切换到其他用户组，这个命令的参数就是目的用户组。例如： </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ newgrp root</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ newgrp root</span><br></pre></td></tr></table></figure>
 <p>这条命令将当前用户切换到root用户组，前提条件是root用户组确实是该用户的主组或附加组。类似于用户账号的管理，用户组的管理也可以通过集成的系统管理工具来完成。</p>
 <h3 id="账号相关的系统文件"><a href="#账号相关的系统文件" class="headerlink" title="账号相关的系统文件"></a>账号相关的系统文件</h3><p>完成用户管理的工作有许多种方法，但是每一种方法实际上都是对有关的系统文件进行修改。与用户和用户组相关的信息都存放在一些系统文件中，这些文件包括<code>/etc/passwd</code>, <code>/etc/shadow</code>, <code>/etc/group</code>等。下面分别介绍这些文件的内容。</p>
 <p><code>/etc/passwd</code>文件是用户管理工作涉及的最重要的一个文件。Linux系统中的每个用户都在<code>/etc/passwd</code>文件中有一个对应的记录行，它记录了这个用户的一些基本属性。这个文件对所有用户都是可读的。它的内容类似下面的例子： </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">　　＃ cat /etc/passwd</div><div class="line">　　</div><div class="line"></div><div class="line">　　root:x:0:0:Superuser:/:</div><div class="line"></div><div class="line">　　daemon:x:1:1:System daemons:/etc:</div><div class="line"></div><div class="line">　　bin:x:2:2:Owner of system commands:/bin:</div><div class="line"></div><div class="line">　　sys:x:3:3:Owner of system files:/usr/sys:</div><div class="line"></div><div class="line">　　adm:x:4:4:System accounting:/usr/adm:</div><div class="line"></div><div class="line">　　uucp:x:5:5:UUCP administrator:/usr/lib/uucp:</div><div class="line"></div><div class="line">　　auth:x:7:21:Authentication administrator:/tcb/files/auth:</div><div class="line"></div><div class="line">　　cron:x:9:16:Cron daemon:/usr/spool/cron:</div><div class="line"></div><div class="line">　　listen:x:37:4:Network daemon:/usr/net/nls:</div><div class="line"></div><div class="line">　　lp:x:71:18:Printer administrator:/usr/spool/lp:</div><div class="line"></div><div class="line">　　sam:x:200:50:Sam san:/usr/sam:/bin/sh</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">　　＃ cat /etc/passwd</span><br><span class="line">　　</span><br><span class="line"></span><br><span class="line">　　root:x:0:0:Superuser:/:</span><br><span class="line"></span><br><span class="line">　　daemon:x:1:1:System daemons:/etc:</span><br><span class="line"></span><br><span class="line">　　bin:x:2:2:Owner of system commands:/bin:</span><br><span class="line"></span><br><span class="line">　　sys:x:3:3:Owner of system files:/usr/sys:</span><br><span class="line"></span><br><span class="line">　　adm:x:4:4:System accounting:/usr/adm:</span><br><span class="line"></span><br><span class="line">　　uucp:x:5:5:UUCP administrator:/usr/lib/uucp:</span><br><span class="line"></span><br><span class="line">　　auth:x:7:21:Authentication administrator:/tcb/files/auth:</span><br><span class="line"></span><br><span class="line">　　cron:x:9:16:Cron daemon:/usr/spool/cron:</span><br><span class="line"></span><br><span class="line">　　listen:x:37:4:Network daemon:/usr/net/nls:</span><br><span class="line"></span><br><span class="line">　　lp:x:71:18:Printer administrator:/usr/spool/lp:</span><br><span class="line"></span><br><span class="line">　　sam:x:200:50:Sam san:/usr/sam:/bin/sh</span><br></pre></td></tr></table></figure>
 <p>从上面的例子我们可以看到，/etc/passwd中一行记录对应着一个用户，每行记录又被冒号(:)分隔为7个字段，其格式和具体含义如下： </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">用户名:口令:用户标识号:组标识号:注释性描述:主目录:登录Shell</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用户名:口令:用户标识号:组标识号:注释性描述:主目录:登录Shell</span><br></pre></td></tr></table></figure>
 <ul>
 <li><p>“用户名”是代表用户账号的字符串。通常长度不超过8个字符，并且由大小写字母和/或数字组成。登录名中不能有冒号(:)，因为冒号在这里是分隔符。为了兼容起见，登录名中最好不要包含点字符(.)，并且不使用连字符(-)和加号(+)打头。 </p>
 </li>
@@ -44,7 +266,7 @@
 <p>用户的登录Shell也可以指定为某个特定的程序（此程序不是一个命令解释器）。利用这一特点，我们可以限制用户只能运行指定的应用程序，在该应用程序运行结束后，用户就自动退出了系统。有些Linux 系统要求只有那些在系统中登记了的程序才能出现在这个字段中。 </p>
 <p>用户组的所有信息都存放在/etc/group文件中。 </p>
 <p>将用户分组是Linux 系统中对用户进行管理及控制访问权限的一种手段。每个用户都属于某个用户组；一个组中可以有多个用户，一个用户也可以属于不同的组。当一个用户同时是多个组中的成员时，在/etc/passwd文件中记录的是用户所属的主组，也就是登录时所属的默认组，而其他组称为附加组。用户要访问属于附加组的文件时，必须首先使用newgrp命令使自己成为所要访问的组中的成员。用户组的所有信息都存放在/etc/group文件中。此文件的格式也类似于/etc/passwd文件，由冒号(:)隔开若干个字段，这些字段有： </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">组名:口令:组标识号:组内用户列表</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">组名:口令:组标识号:组内用户列表</span><br></pre></td></tr></table></figure>
 <ul>
 <li>“组名”是用户组的名称，由字母或数字构成。与/etc/passwd中的登录名一样，组名不应重复。 </li>
 <li><p>“口令”字段存放的是用户组加密后的口令字。一般Linux 系统的用户组都没有口令，即这个字段一般为空，或者是*。 </p>
@@ -55,15 +277,64 @@
 </li>
 </ul>
 <p>举个🌰:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">　　/etc/group文件的一个例子如下： </div><div class="line"></div><div class="line">　　# cat /etc/group </div><div class="line"></div><div class="line">　　root::0:root</div><div class="line"></div><div class="line">　　bin::2:root,bin</div><div class="line"></div><div class="line">　　sys::3:root,uucp</div><div class="line"></div><div class="line">　　adm::4:root,adm</div><div class="line"></div><div class="line">　　daemon::5:root,daemon</div><div class="line"></div><div class="line">　　lp::7:root,lp</div><div class="line"></div><div class="line">　　users::20:root,sam</div></pre></td></tr></table></figure></div></article></div></section><footer><div class="paginator"><a href="/2017/06/28/iOS开发——自主设计日志系统/" class="prev"><button class="ui button teal">PREV</button></a><a href="/2017/06/12/Linux的用户管理(一)/" class="next"><button class="ui button teal">NEXT</button></a></div><div data-thread-key="2017/06/21/Linux的用户管理(二)/" data-title="Linux的用户管理(二)" data-url="http://yoursite.com/2017/06/21/Linux的用户管理(二)/" class="ds-share"><div class="ds-share-inline"><ul class="ds-share-icons-16"><li data-toggle="ds-share-icons-more"><span class="ds-more">分享到：</span></li><li><a href="javascript:void(0);" data-service="weibo" class="ds-weibo">微博</a></li><li><a href="javascript:void(0);" data-service="qqt" class="ds-qqt">腾讯微博</a></li><li><a href="javascript:void(0);" data-service="wechat" class="ds-wechat">微信</a></li></ul></div></div><div data-thread-key="2017/06/21/Linux的用户管理(二)/" data-title="Linux的用户管理(二)" data-url="http://yoursite.com/2017/06/21/Linux的用户管理(二)/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"originalee"};
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-   || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">　　/etc/group文件的一个例子如下： </span><br><span class="line"></span><br><span class="line">　　# cat /etc/group </span><br><span class="line"></span><br><span class="line">　　root::0:root</span><br><span class="line"></span><br><span class="line">　　bin::2:root,bin</span><br><span class="line"></span><br><span class="line">　　sys::3:root,uucp</span><br><span class="line"></span><br><span class="line">　　adm::4:root,adm</span><br><span class="line"></span><br><span class="line">　　daemon::5:root,daemon</span><br><span class="line"></span><br><span class="line">　　lp::7:root,lp</span><br><span class="line"></span><br><span class="line">　　users::20:root,sam</span><br></pre></td></tr></table></figure>
+  </section>
 
-</script><div class="copyright"><p>© 2015 - 2017 <a href="http://yoursite.com">Originalee</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and theme by <a href="https://github.com/littlewin-wang/hexo-theme-casual" target="_blank">casual</a></p></div></footer></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script><script src="/js/jquery.goup.min.js"></script><script src="/js/semantic.min.js"></script><script src="/js/casual.js"></script><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>$(document).ready(function(){$.goup({trigger:100,bottomOffset:100,locationOffset:5,title:'',titleAsText:true});});</script><script>(function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-_st('install','TvAnFS4AVxjiJUvrZJRB','2.0.0');</script></div></body></html>
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
