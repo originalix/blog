@@ -197,6 +197,24 @@ classes that you can use:
     <li>
 
       <h2 class="post-list__post-title post-title">
+        <a href="/2017/06/02/Liunx的文件权限/" title="link to Liunx的文件权限">Liunx的文件权限</a>
+      </h2>
+
+      <div class="post-list__meta">
+
+        <time datetime="2017-06-02" class="post-list__meta--date date">2017-06-02</time> 
+      </div>
+
+      <div class="excerpt">
+        
+      </div>
+
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
+
+      <h2 class="post-list__post-title post-title">
         <a href="/2017/05/15/使用Vagrant来搭建开发环境/" title="link to 使用Vagrant来搭建开发环境">使用Vagrant来搭建开发环境</a>
       </h2>
 
@@ -206,9 +224,6 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
-        
-          <p>在大半年前刚刚接触PHP的时候，因为那时候只想先熟悉PHP的语法，并且对配置服务器、Mysql等一干事情不想花费太多时间，于是在网上找到了XAMPP这个解决方案。当时那是惊为天人，感觉虚拟主机很是方便。但是随着后来自己的慢慢深入，并且也在云服务器上陆续的部署自己的小项目，这才感觉到一个很恶心的事情，就是本地和线上的开发环境不同意，导致自己在频繁的修改配置文件，并且主力开发机器是用mac，家里还有win10的台式机，线上是Liunx系统，各种不一样的环境让我想寻求一个解决方案，统一线上和线下的开发环境。</p>
-<p>在这种想法的指引下，很快有一个解决方案进入我的视线。通过搭建Liunx虚拟机，解决线上线下开发环境不统一的情况。这个解决方案，就是<code>VirtualBox</code> + <code>Vagrant</code>。目前他能完成我的所有需求，并且提供了很快捷的打包，来实现开发环境的迁移及统一部署，非常好用。本文就来记录如何使用Vagrant这个工具，好让我在日后部署环境的时候，能够把这些命令翻出来再看看。</p>
         
       </div>
 
@@ -228,11 +243,6 @@ classes that you can use:
 
       <div class="excerpt">
         
-          <p>最近为了练手Vue框架，写了一个博客项目，昨天刚刚把个人博客部署上线，因为前后端分离，所以使用Ajax来请求后端api接口获取数据，部署的过程中碰到了一个坑。我只有一个域名，所以想让一级域名<code>originalix.com</code>来访问博客，而使用二级域名<code>demo.originalix.com</code>来访问后端页面并且请求api。</p>
-<p>怎么做呢，在查阅了资料以后发现，首先应该在域名供应商中添加一条二级域名的记录，比如我想使用的是<strong>demo</strong>。</p>
-<p><img src="http://originalix.github.io/assets/img/nginxdomain.png" alt=""></p>
-<p>设置好域名后，在本地<strong>ping</strong>一下看看能不能<strong>ping</strong>通过 <code>demo.originalix.com</code></p>
-        
       </div>
 
       <hr class="post-list__divider" />
@@ -250,8 +260,6 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
-        
-          <p>今天的这篇博文，我不谈及具体的编程技术，只想从这段时间的学习以及写代码的过程中，分享一下自己的编程体会。</p>
         
       </div>
 
@@ -271,11 +279,6 @@ classes that you can use:
 
       <div class="excerpt">
         
-          <p>今天来讨论一个很基础的算法问题，数列的最大子列和问题。这道题我是在看浙大陈姥姥的Mooc的时候看到的，算是陈越老师作为算法与数据结构开篇讲解的第一道算法实例题。</p>
-<p>那么今天我就来记录一下分析这道题的过程。</p>
-<h2 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h2><p>首先，最大子列和这个问题有一个众所周知的办法，即为每次从数列的开头i，往结尾N累加，当加至结尾时，由i+1再次累加，直到N-N。这样的算法用三个变量三层循环来分别代表从头至尾的遍历，以及从i - N的前进继续累加，最后一层是累加的和。算法可以写成下面这样：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">MaxSubseqSum1</span><span class="params">(<span class="keyword">int</span>[] A, <span class="keyword">int</span> N)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">int</span> ThisSum, MaxSum = <span class="number">0</span>;</span><br><span class="line">       <span class="keyword">int</span> i, j, k;</span><br><span class="line">       <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">           <span class="keyword">for</span> (j = i; j &lt; N; j++) &#123;</span><br><span class="line">               ThisSum = <span class="number">0</span>;</span><br><span class="line">               <span class="keyword">for</span> (k = i; k &lt;= j; k++) &#123;</span><br><span class="line">                   ThisSum += A[k];</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">if</span> (ThisSum &gt; MaxSum) &#123;</span><br><span class="line">                   MaxSum = ThisSum;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> MaxSum;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-        
       </div>
 
       <hr class="post-list__divider" />
@@ -293,10 +296,6 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
-        
-          <p>因为不是科班出身，所以即使编程一段时间也时常感觉自身基础知识非常不扎实，于是在最近开始补习算法和计算机理论的基础知识。</p>
-<p>目前看的算法书籍是《算法》（第四版），由<strong>Robert Sedgewick</strong>以及<strong>Kevin Wayne</strong>编写的，由于不可能把所有的练习都写成博客记录下来，于是就在学习过程中，挑选一些有意思的写成笔记，以便日后参考以及与同行互相交流。</p>
-<p>今天要准备写的就是非常经典的牛顿迭代法求平方根，事实上现在的绝大部分编程语言中，标准库中都已经为我们准备好了计算平方根的函数，但是本着学习的精神，今天我们也要写出一个求平方根的函数。</p>
         
       </div>
 
@@ -316,12 +315,6 @@ classes that you can use:
 
       <div class="excerpt">
         
-          <p>之前在看了《Clean Code》这本书的前两章时，就写下了第一篇读书小节，而随着读书的深入，便决定再总结一下后面一部分的读书心得。</p>
-<h1 id="那些多余的注释"><a href="#那些多余的注释" class="headerlink" title="那些多余的注释"></a>那些多余的注释</h1><p>相信每一个程序员都经历过一个坑，那就是去阅读甚至修改没有注释的代码。如果这些代码风格糟糕，命名不遵循规则，毫无疑问这是一段你永远都不想回忆的时光，而若是这些代码命名准确，设计模式使用的恰到好处，函数拆分合理，说不定你有一种怎么读别人的代码比回顾我自己写的代码还清晰的错觉。</p>
-<p>是的，毫无疑问我一直是代码是最好的注释这个说法的拥护者之一。但是，这里有个前提，就是你必须有能力写出优秀的代码，你才有资格去不写注释。我们要一直明白一个问题，我们的代码写出来是为了给别人看的，而不是仅仅给自己看的，如果你的团队有严谨的<strong>Code Review</strong>那你好意思写出脏乱不堪的代码被投影仪放到幕布上给所有部门同事看么？对于一个新手程序员来说，请老老实实的写好每一个关键函数的注释，也请在修改函数的时候，不吝时间的修改对应的注释。若是项目的目的是为了公开API给第三方开发者使用，那么请在开放api上写好注释，这是应该完善的工作。</p>
-<p>而上述说的类型您都不是，那么我想该强调一下谈这个话题的主题了，去除那些多余的注释吧。有时候，在一些明显目的的函数上，加注释，会给阅读你代码的开发者一种错觉，你的水平很低，不足以理解代码，所以需要在简单的语句上加上注释。打个比方，你是我的面试官，有一道面试题，我在写完之后交给你，你看到的是如下格式的面试题：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$arr = $User-&gt;where($where)-&gt;find(); <span class="comment">// 读取数据</span></span><br><span class="line"></span><br><span class="line">$list = [];</span><br><span class="line"><span class="keyword">foreach</span>($arr <span class="keyword">as</span> $key =&gt; $val) &#123; <span class="comment">// 遍历数组</span></span><br><span class="line">  $list[$key] = [</span><br><span class="line">    <span class="string">'name'</span> =&gt; $val[<span class="string">'name'</span>],</span><br><span class="line">    <span class="string">'age'</span> =&gt; $val[<span class="string">'age'</span>],</span><br><span class="line">  ];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$list[<span class="string">'count'</span>] = count($arr); <span class="comment">// 其他属性</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> json_encode($list); <span class="comment">// 输出 json</span></span><br></pre></td></tr></table></figure>
-        
       </div>
 
       <hr class="post-list__divider" />
@@ -340,34 +333,6 @@ classes that you can use:
 
       <div class="excerpt">
         
-          <p>最近晚间的加班暂时暂停了，大概已经整整一个月每天焦头烂额的写着业务代码，被各种逻辑搞的整个人都不大好了，好在是写的差不多了。</p>
-<p>每当写了很多业务代码之后，我都会停下来反思一个问题，你的代码写的干净么，有需要重构的地方么。而这一次，因为一些临时性的需求变更，我自认为我写了一部分脏代码，这部分代码恰恰是bug的高发地段，而且也可能会带来后期维护的困难。那么如何来重构这部分代码呢？</p>
-<p>在我写下这部分脏代码之前，我自认为也是用了一些能够用上的设计模式，但是随着临时性的需求变更不断增加，有时候贪图省事直接在原有代码的基础上修改了事，很明显这违反了开放闭合原则。</p>
-<p>回到正题上来，回顾《clean code》这本书，正是帮助自己在反思的同时做好知识的回顾梳理，并且能够在重构中把学到的知识学以致用。虽然现在我还没有全部看完，但是也是可以从已经完成阅读的部分总结一点心得。</p>
-<p>第一次看这本书是在几年前，可以说这本书对我编写代码的风格形成了很深的影响，而初读此书时也有种醍醐灌顶的感觉，哦，原来代码还可以这么写。</p>
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2017/03/19/在云服务器上部署Laravel/" title="link to 在云服务器上部署Laravel">在云服务器上部署Laravel</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2017-03-19" class="post-list__meta--date date">2017-03-19</time> 
-      </div>
-
-      <div class="excerpt">
-        
-          <p>学习PHP和Laravel已经有一段时间了,但是所有的代码都是跑在本地的虚拟主机上的，于是去腾讯云申请了一个月的免费云主机，想把项目部署到云服务器上。</p>
-<p>不得不说这里面的坑实在是有点多，让我这个初次接触服务器的小白摸不清头脑。在配置好服务器之后，部署一个Laravel项目更是费劲心思，于是乎想记录下部署Laravel项目的过程。</p>
-<p>PS： Linux真是越用越有感觉的系统，回家在台式机上也要装个Linux敲代码用。</p>
-        
       </div>
 
       <hr class="post-list__divider" />
@@ -380,14 +345,14 @@ classes that you can use:
 <nav class="pagination" role="navigation">
     
     	
-          <a class="newer-posts pagination__newer btn btn-small btn-tertiary" href="/page/2/">&larr; Prev </a>
+          <a class="newer-posts pagination__newer btn btn-small btn-tertiary" href="/page/2/">&larr; 上一页 </a>
         
     
 
     <span class="pagination__page-number"> 3 / 11</span>
     
     
-        <a class="older-posts pagination__older btn btn-small btn-tertiary" href="/page/4/">Next &rarr;</a>
+        <a class="older-posts pagination__older btn btn-small btn-tertiary" href="/page/4/">下一页 &rarr;</a>
     
 </nav>
 
