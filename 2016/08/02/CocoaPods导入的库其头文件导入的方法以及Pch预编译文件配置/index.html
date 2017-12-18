@@ -16,20 +16,20 @@
     
     
 
-    <meta name="description" content="CocoaPods 导入头文件 尽管CocoaPods使用十分方便,但其导入的第三方框架还是要经过几步操作,才能供项目使用 &amp;lt;!--more--&amp;gt;  第一步:导入库  这里要讲的配置CocoaPods以及安装第三方库，之前的文章已经讲过，这里就不再赘述。  第二步: 添加文件路径   选择工程的 Target -&amp;gt; Build Settings 菜单-&amp;gt;搜索header,找">
+    <meta name="description" content="CocoaPods 导入头文件尽管CocoaPods使用十分方便,但其导入的第三方框架还是要经过几步操作,才能供项目使用">
 <meta name="keywords" content="iOS开发,CocoaPods,Pch预编译文件">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CocoaPods导入的库其头文件导入的方法以及Pch预编译文件配置 | Leon的博客">
 <meta property="og:url" content="http://yoursite.com/2016/08/02/CocoaPods导入的库其头文件导入的方法以及Pch预编译文件配置/index.html">
 <meta property="og:site_name" content="Leon的博客">
-<meta property="og:description" content="CocoaPods 导入头文件 尽管CocoaPods使用十分方便,但其导入的第三方框架还是要经过几步操作,才能供项目使用 &amp;lt;!--more--&amp;gt;  第一步:导入库  这里要讲的配置CocoaPods以及安装第三方库，之前的文章已经讲过，这里就不再赘述。  第二步: 添加文件路径   选择工程的 Target -&amp;gt; Build Settings 菜单-&amp;gt;搜索header,找">
+<meta property="og:description" content="CocoaPods 导入头文件尽管CocoaPods使用十分方便,但其导入的第三方框架还是要经过几步操作,才能供项目使用">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/105827-cc5c5d4a7c590039.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/105827-ecb9f73eb55e5f32.png?imageMogr2/auto-orient/strip">
 <meta property="og:image" content="http://img.blog.csdn.net/20150428202907251?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvQ3JhenlaaGFuZzE5OTA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
 <meta property="og:updated_time" content="2016-08-02T02:10:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CocoaPods导入的库其头文件导入的方法以及Pch预编译文件配置 | Leon的博客">
-<meta name="twitter:description" content="CocoaPods 导入头文件 尽管CocoaPods使用十分方便,但其导入的第三方框架还是要经过几步操作,才能供项目使用 &amp;lt;!--more--&amp;gt;  第一步:导入库  这里要讲的配置CocoaPods以及安装第三方库，之前的文章已经讲过，这里就不再赘述。  第二步: 添加文件路径   选择工程的 Target -&amp;gt; Build Settings 菜单-&amp;gt;搜索header,找">
+<meta name="twitter:description" content="CocoaPods 导入头文件尽管CocoaPods使用十分方便,但其导入的第三方框架还是要经过几步操作,才能供项目使用">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/105827-cc5c5d4a7c590039.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
     
     
@@ -224,9 +224,8 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <h1>CocoaPods 导入头文件</h1>
-<p>尽管CocoaPods使用十分方便,但其导入的第三方框架还是要经过几步操作,才能供项目使用</p>
-<p>&lt;!--more--&gt;</p>
+    <h1 id="CocoaPods-导入头文件"><a href="#CocoaPods-导入头文件" class="headerlink" title="CocoaPods 导入头文件"></a>CocoaPods 导入头文件</h1><p>尽管CocoaPods使用十分方便,但其导入的第三方框架还是要经过几步操作,才能供项目使用</p>
+<a id="more"></a>
 <blockquote>
 <p>第一步:导入库</p>
 </blockquote>
@@ -235,15 +234,14 @@ classes that you can use:
 <p>第二步: 添加文件路径</p>
 </blockquote>
 <ul>
-<li>选择工程的 Target -&gt; Build Settings 菜单-&gt;搜索header,找到&quot;User Header Search Paths&quot;;</li>
+<li>选择工程的 Target -&gt; Build Settings 菜单-&gt;搜索header,找到”User Header Search Paths”;</li>
 </ul>
 <p><img src="http://upload-images.jianshu.io/upload_images/105827-cc5c5d4a7c590039.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <ul>
-<li>新增一个值&quot;$(PODS_ROOT)&quot;,并且选择”recursive”，这样Xcode就会在项目目录中递归搜索文件且会自动找到Pods文件,头文件自动补齐功能马上就好使了.</li>
+<li>新增一个值”$(PODS_ROOT)”,并且选择”recursive”，这样Xcode就会在项目目录中递归搜索文件且会自动找到Pods文件,头文件自动补齐功能马上就好使了.</li>
 </ul>
 <p><img src="http://upload-images.jianshu.io/upload_images/105827-ecb9f73eb55e5f32.png?imageMogr2/auto-orient/strip" alt=""></p>
-<h1>Pch预编译文件配置</h1>
-<p>[该步骤相当于在项目自动&quot;import&quot;头文件,是不是很方便.(该步骤可不用,但使用相当方便,建议使用)].</p>
+<h1 id="Pch预编译文件配置"><a href="#Pch预编译文件配置" class="headerlink" title="Pch预编译文件配置"></a>Pch预编译文件配置</h1><p>[该步骤相当于在项目自动”import”头文件,是不是很方便.(该步骤可不用,但使用相当方便,建议使用)].</p>
 <p>首先说一下pch的作用：</p>
 <p>1.存放一些全局的宏(整个项目中都用得上的宏)</p>
 <p>2.用来包含一些全部的头文件(整个项目中都用得上的头文件)</p>

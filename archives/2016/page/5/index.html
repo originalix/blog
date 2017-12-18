@@ -7,7 +7,7 @@
     
 
     <title>
-      page 5 | 归档: 2016 | Leon的博客 
+      page 5 | Archives: 2016 | Leon的博客 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -18,11 +18,11 @@
 
     <meta name="keywords" content="移动端,iOS,Android,javascript,html5,开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,用户体验">
 <meta property="og:type" content="website">
-<meta property="og:title" content="page 5 | 归档: 2016 | Leon的博客">
+<meta property="og:title" content="page 5 | Archives: 2016 | Leon的博客">
 <meta property="og:url" content="http://yoursite.com/archives/2016/page/5/index.html">
 <meta property="og:site_name" content="Leon的博客">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="page 5 | 归档: 2016 | Leon的博客">
+<meta name="twitter:title" content="page 5 | Archives: 2016 | Leon的博客">
     
     
     
@@ -187,7 +187,7 @@ classes that you can use:
             
 
 
-  <h1 class="archive-title">归档: 2016</h1>
+  <h1 class="archive-title">Archives: 2016</h1>
   <hr class="post-list__divider" />
 
 
@@ -208,6 +208,8 @@ classes that you can use:
 
       <div class="excerpt">
         
+          <p>在调用SDK包的时候，很多时候我们自己开发的第三方应用想要取得数据的时候得获得登陆令牌以及其他很多信息，比如accessToken等登陆令牌信息，而第三方SDK包往往会要求我们完成签名算法，我今天在项目中集成海康威视的网络摄像头时，就要求我必须完成签名算法才能获得信息，而签名算法的要求是这样子的。</p>
+        
       </div>
 
       <hr class="post-list__divider" />
@@ -225,6 +227,8 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
+        
+          <p>对于现在的App应用来说，扫描二维码这个功能是再正常不过的一个功能了，在早期开发这些功能的时候，大家或多或少的都接触过ZXing和ZBar这类的第三方库，但从iOS7以后，苹果就给我们提供了系统原生的API来支持我们扫描获取二维码，ZXing和ZBar在使用中或多或少有不尽如人意的地方，再之停止更新很久了，所以今天我们就来聊聊如何用系统原生的方法扫描获取二维码。</p>
         
       </div>
 
@@ -244,6 +248,8 @@ classes that you can use:
 
       <div class="excerpt">
         
+          <p>以前我们在项目中使用搜索框的时候，如果用系统自带的控件则是使用UISearchDisplayController，而自从iOS8之后，系统重新给我们提供了一个搜索控件：UISearchController。在UISearchController中我们无需再自己初始化UISearchBar，只需要提供searchResult展示的视图。然而在开发中，我们往往需要根据项目的风格来改变UISearchBar的外观，通过继承的方式，我们可以完全定制符合项目风格的外观，然而有些情况下我们很难短时间内完成全部的外观定制工作，譬如我们项目用的好几个旧框架，代码中充斥着各种写好的UISearchBar的展示，而改动底层框架并不是一个较好地实践。于是我开始搜索并总结出了几个不通过继承的方式来更改UISearchBar外观的方法。</p>
+        
       </div>
 
       <hr class="post-list__divider" />
@@ -261,6 +267,12 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
+        
+          <h1 id="CocoaPods使用"><a href="#CocoaPods使用" class="headerlink" title="CocoaPods使用"></a>CocoaPods使用</h1><p><a href="#a1">CocoaPods简介</a></p>
+<p><a href="#a2">CocoaPods 的安装和使用介绍</a></p>
+<div id="a1"></div>
+
+<h2 id="CocoaPods简介"><a href="#CocoaPods简介" class="headerlink" title="CocoaPods简介"></a>CocoaPods简介</h2><p>当你开发iOS应用时，会经常使用到很多第三方开源类库，比如JSONKit，AFNetWorking等等。可能某个类库又用到其他类库，所以要使用它，必须得另外下载其他类库，而其他类库又用到其他类库，“子子孙孙无穷尽也”，这也许是比较特殊的情况。另外一种常见情况是，你项目中用到的类库有更新，你必须得重新下载新版本，重新加入到项目中，十分麻烦。如果能有什么工具能解决这些恼人的问题，那将“善莫大焉”。所以，你需要 CocoaPods。 CocoaPods应该是iOS最常用最有名的类库管理工具了，上述两个烦人的问题，通过cocoaPods，只需要一行命令就可以完全解决，当然前提是你必须正确设置它。重要的是，绝大部分有名的开源类库，都支持CocoaPods。所以，作为iOS程序员的我们，掌握CocoaPods的使用是必不可少的基本技能了。</p>
         
       </div>
 
@@ -280,6 +292,11 @@ classes that you can use:
 
       <div class="excerpt">
         
+          <h1 id="HTTP-API-设计指南"><a href="#HTTP-API-设计指南" class="headerlink" title="HTTP API 设计指南"></a>HTTP API 设计指南</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这篇指南介绍描述了 HTTP+JSON API 的一种设计模式，最初摘录整理自 Heroku 平台的 API 设计指引 <a href="https://devcenter.heroku.com/articles/platform-api-reference" target="_blank" rel="noopener">Heroku 平台 API 指引</a>。</p>
+<p>这篇指南除了详细介绍现有的 API 外，Heroku 将来新加入的内部 API 也会符合这种设计模式，我们希望非 Heroku 员工的API设计者也能感兴趣。</p>
+<p>我们的目标是保持一致性，专注业务逻辑同时避免过度设计。我们一直试图找出一种良好的、一致的、显而易见的 API 设计方法，而并不是所谓的”最终/理想模式”。</p>
+<p>我们假设你熟悉基本的 HTTP+JSON API 设计方法，所以本篇指南并不包含所有的 API 设计基础。</p>
+        
       </div>
 
       <hr class="post-list__divider" />
@@ -297,6 +314,8 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
+        
+          <p>现在的iOS开发中，因为iPhone的尺寸越来越多，有时候自动布局也很难适配出很精美的UI界面，难免有时候想根据机型来适配界面，所以在这里教大家一种很简单的来判断机型的方法。就是根据屏幕尺寸来判断。</p>
         
       </div>
 
@@ -316,6 +335,8 @@ classes that you can use:
 
       <div class="excerpt">
         
+          <p>UINavigationBar是一个我们在开发中必定会碰到的控件，用好它能帮助我们自定义导航栏的样式，所以今天讲解一下UINavigationBar的用法。</p>
+        
       </div>
 
       <hr class="post-list__divider" />
@@ -334,6 +355,8 @@ classes that you can use:
 
       <div class="excerpt">
         
+          <p>在iOS中UITextField这个控件作为文本输入控件一定是使用率最高的几个控件之一，而iOS提供的默认的原始TextField的造型肯定在开发时很难满足我们的要求，原因很简单，不够美观，实在太单调。所以今天我们从一些简单的复写UITextField方法开始，来讲一讲如何定制一个属于自己的UITextField。</p>
+        
       </div>
 
       <hr class="post-list__divider" />
@@ -346,14 +369,14 @@ classes that you can use:
 <nav class="pagination" role="navigation">
     
     	
-          <a class="newer-posts pagination__newer btn btn-small btn-tertiary" href="/archives/2016/page/4/">&larr; 上一页 </a>
+          <a class="newer-posts pagination__newer btn btn-small btn-tertiary" href="/archives/2016/page/4/">&larr; Prev </a>
         
     
 
     <span class="pagination__page-number"> 5 / 7</span>
     
     
-        <a class="older-posts pagination__older btn btn-small btn-tertiary" href="/archives/2016/page/6/">下一页 &rarr;</a>
+        <a class="older-posts pagination__older btn btn-small btn-tertiary" href="/archives/2016/page/6/">Next &rarr;</a>
     
 </nav>
 

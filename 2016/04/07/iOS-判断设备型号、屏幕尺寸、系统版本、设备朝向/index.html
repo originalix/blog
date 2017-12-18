@@ -16,17 +16,17 @@
     
     
 
-    <meta name="description" content="现在的iOS开发中，因为iPhone的尺寸越来越多，有时候自动布局也很难适配出很精美的UI界面，难免有时候想根据机型来适配界面，所以在这里教大家一种很简单的来判断机型的方法。就是根据屏幕尺寸来判断。 &amp;lt;!--more--&amp;gt; 123456789//判断设备型号#define UI_IS_LANDSCAPE         ([UIDevice currentDevice].orienta">
+    <meta name="description" content="现在的iOS开发中，因为iPhone的尺寸越来越多，有时候自动布局也很难适配出很精美的UI界面，难免有时候想根据机型来适配界面，所以在这里教大家一种很简单的来判断机型的方法。就是根据屏幕尺寸来判断。">
 <meta name="keywords" content="iOS开发,iOS判断设备型号">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS 判断设备型号、屏幕尺寸、系统版本、设备朝向 | Leon的博客">
 <meta property="og:url" content="http://yoursite.com/2016/04/07/iOS-判断设备型号、屏幕尺寸、系统版本、设备朝向/index.html">
 <meta property="og:site_name" content="Leon的博客">
-<meta property="og:description" content="现在的iOS开发中，因为iPhone的尺寸越来越多，有时候自动布局也很难适配出很精美的UI界面，难免有时候想根据机型来适配界面，所以在这里教大家一种很简单的来判断机型的方法。就是根据屏幕尺寸来判断。 &amp;lt;!--more--&amp;gt; 123456789//判断设备型号#define UI_IS_LANDSCAPE         ([UIDevice currentDevice].orienta">
+<meta property="og:description" content="现在的iOS开发中，因为iPhone的尺寸越来越多，有时候自动布局也很难适配出很精美的UI界面，难免有时候想根据机型来适配界面，所以在这里教大家一种很简单的来判断机型的方法。就是根据屏幕尺寸来判断。">
 <meta property="og:updated_time" content="2016-08-05T06:40:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS 判断设备型号、屏幕尺寸、系统版本、设备朝向 | Leon的博客">
-<meta name="twitter:description" content="现在的iOS开发中，因为iPhone的尺寸越来越多，有时候自动布局也很难适配出很精美的UI界面，难免有时候想根据机型来适配界面，所以在这里教大家一种很简单的来判断机型的方法。就是根据屏幕尺寸来判断。 &amp;lt;!--more--&amp;gt; 123456789//判断设备型号#define UI_IS_LANDSCAPE         ([UIDevice currentDevice].orienta">
+<meta name="twitter:description" content="现在的iOS开发中，因为iPhone的尺寸越来越多，有时候自动布局也很难适配出很精美的UI界面，难免有时候想根据机型来适配界面，所以在这里教大家一种很简单的来判断机型的方法。就是根据屏幕尺寸来判断。">
     
     
     
@@ -221,8 +221,8 @@ classes that you can use:
 
   <section id="post-content" class="article-content post">
     <p>现在的iOS开发中，因为iPhone的尺寸越来越多，有时候自动布局也很难适配出很精美的UI界面，难免有时候想根据机型来适配界面，所以在这里教大家一种很简单的来判断机型的方法。就是根据屏幕尺寸来判断。</p>
-<p>&lt;!--more--&gt;</p>
-<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//判断设备型号</span></span><br><span class="line"><span class="meta">#define UI_IS_LANDSCAPE         ([UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeLeft || [UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeRight)</span></span><br><span class="line"><span class="meta">#define UI_IS_IPAD              ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)</span></span><br><span class="line"><span class="meta">#define UI_IS_IPHONE            ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)</span></span><br><span class="line"><span class="meta">#define UI_IS_IPHONE4           (UI_IS_IPHONE &amp;&amp; [[UIScreen mainScreen] bounds].size.height <span class="meta-string">&lt; 568.0)</span></span></span><br><span class="line"><span class="meta"><span class="meta-string">#define UI_IS_IPHONE5           (UI_IS_IPHONE &amp;&amp; [[UIScreen mainScreen] bounds].size.height == 568.0)</span></span></span><br><span class="line"><span class="meta"><span class="meta-string">#define UI_IS_IPHONE6           (UI_IS_IPHONE &amp;&amp; [[UIScreen mainScreen] bounds].size.height == 667.0)</span></span></span><br><span class="line"><span class="meta"><span class="meta-string">#define UI_IS_IPHONE6PLUS       (UI_IS_IPHONE &amp;&amp; [[UIScreen mainScreen] bounds].size.height == 736.0 || [[UIScreen mainScreen] bounds].size.width == 736.0) // Both orientations</span></span></span><br><span class="line"><span class="meta"><span class="meta-string">#define UI_IS_IOS8_AND_HIGHER   ([[UIDevice currentDevice].systemVersion floatValue] &gt;</span>= 8.0)</span></span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//判断设备型号</span></span><br><span class="line"><span class="meta">#define UI_IS_LANDSCAPE         ([UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeLeft || [UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeRight)</span></span><br><span class="line"><span class="meta">#define UI_IS_IPAD              ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)</span></span><br><span class="line"><span class="meta">#define UI_IS_IPHONE            ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)</span></span><br><span class="line"><span class="meta">#define UI_IS_IPHONE4           (UI_IS_IPHONE &amp;&amp; [[UIScreen mainScreen] bounds].size.height <span class="meta-string">&lt; 568.0)</span></span></span><br><span class="line"><span class="meta"><span class="meta-string">#define UI_IS_IPHONE5           (UI_IS_IPHONE &amp;&amp; [[UIScreen mainScreen] bounds].size.height == 568.0)</span></span></span><br><span class="line"><span class="meta"><span class="meta-string">#define UI_IS_IPHONE6           (UI_IS_IPHONE &amp;&amp; [[UIScreen mainScreen] bounds].size.height == 667.0)</span></span></span><br><span class="line"><span class="meta"><span class="meta-string">#define UI_IS_IPHONE6PLUS       (UI_IS_IPHONE &amp;&amp; [[UIScreen mainScreen] bounds].size.height == 736.0 || [[UIScreen mainScreen] bounds].size.width == 736.0) // Both orientations</span></span></span><br><span class="line"><span class="meta"><span class="meta-string">#define UI_IS_IOS8_AND_HIGHER   ([[UIDevice currentDevice].systemVersion floatValue] &gt;</span>= 8.0)</span></span><br></pre></td></tr></table></figure>
 <p>使用方法：</p>
 <p>1、在你喜欢的头文件或地方中加入 上面的预定义。</p>
 <p>2、举个栗子，在代码中使用if(UI_IS_IPHONE4)</p>

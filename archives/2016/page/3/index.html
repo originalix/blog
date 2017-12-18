@@ -7,7 +7,7 @@
     
 
     <title>
-      page 3 | 归档: 2016 | Leon的博客 
+      page 3 | Archives: 2016 | Leon的博客 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -18,11 +18,11 @@
 
     <meta name="keywords" content="移动端,iOS,Android,javascript,html5,开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,用户体验">
 <meta property="og:type" content="website">
-<meta property="og:title" content="page 3 | 归档: 2016 | Leon的博客">
+<meta property="og:title" content="page 3 | Archives: 2016 | Leon的博客">
 <meta property="og:url" content="http://yoursite.com/archives/2016/page/3/index.html">
 <meta property="og:site_name" content="Leon的博客">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="page 3 | 归档: 2016 | Leon的博客">
+<meta name="twitter:title" content="page 3 | Archives: 2016 | Leon的博客">
     
     
     
@@ -187,7 +187,7 @@ classes that you can use:
             
 
 
-  <h1 class="archive-title">归档: 2016</h1>
+  <h1 class="archive-title">Archives: 2016</h1>
   <hr class="post-list__divider" />
 
 
@@ -208,6 +208,9 @@ classes that you can use:
 
       <div class="excerpt">
         
+          <h1 id="Swift中的”宏”"><a href="#Swift中的”宏”" class="headerlink" title="Swift中的”宏”"></a>Swift中的”宏”</h1><p>写<strong>Objective-C</strong>的时候常常会用到各种宏定义,但是<strong>Swift</strong>中貌似没有宏的这种定义,更多的是通过全局常量或者全局函数来实现这一效果.我们只需要建立一个文件(假设为Const.swift),把想用的定义在里面,无须导入头文件什么的,就可以在全局用啦.</p>
+<p><strong>举几个简单的例子：</strong></p>
+        
       </div>
 
       <hr class="post-list__divider" />
@@ -225,6 +228,9 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
+        
+          <h1 id="Runtime"><a href="#Runtime" class="headerlink" title="Runtime"></a>Runtime</h1><p>因为Objc是一门动态语言，所以它总是想办法把一些决定工作从编译连接推迟到运行时。也就是说只有编译器是不够的，还需要一个运行时系统 (runtime system) 来执行编译后的代码。这就是 Objective-C Runtime 系统存在的意义，它是整个Objc运行框架的一块基石。</p>
+<p>Runtime基本是用C和汇编写的，可见苹果为了动态系统的高效而作出的努力。你可以在这里下到苹果维护的开源代码。苹果和GNU各自维护一个开源的runtime版本，这两个版本之间都在努力的保持一致。</p>
         
       </div>
 
@@ -244,6 +250,9 @@ classes that you can use:
 
       <div class="excerpt">
         
+          <p>今天来讲一讲iOS实际开发中，对于头像的应用。</p>
+<p>现在的APP中，对于头像的设置，我们大多采用圆形头像，并且需要支持从照相机获取或者从相册中选择用户需要的头像，并且保存在本地或者服务器中。</p>
+        
       </div>
 
       <hr class="post-list__divider" />
@@ -261,6 +270,8 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
+        
+          <p>有时我们的APP并没有适配横屏的需求，但是在个别视频播放界面，我们需要在播放视频的时候横屏，退出全屏的时候不能横屏，但是有时候并没有原生API并没有给出解决方案。</p>
         
       </div>
 
@@ -280,6 +291,8 @@ classes that you can use:
 
       <div class="excerpt">
         
+          <p>分享一些项目中常用的方法，可以保存起来，作为自己的工具集哦。</p>
+        
       </div>
 
       <hr class="post-list__divider" />
@@ -297,6 +310,8 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
+        
+          <p>总结一些开发中的常用方法，大量节省开发时间</p>
         
       </div>
 
@@ -316,6 +331,12 @@ classes that you can use:
 
       <div class="excerpt">
         
+          <p>###函数和闭包</p>
+<ul>
+<li>使用<code>func</code>来声明一个函数，使用名字和参数来调用函数。使用<code>-&gt;</code>来指定函数返回值的类型。</li>
+</ul>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">greet</span><span class="params">(name: String, food: String)</span></span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Hello <span class="subst">\(name)</span>, let's eat some <span class="subst">\(food)</span>"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">greet(<span class="string">"Lin"</span>, food: <span class="string">"fruit"</span>)</span><br></pre></td></tr></table></figure>
+        
       </div>
 
       <hr class="post-list__divider" />
@@ -334,6 +355,21 @@ classes that you can use:
 
       <div class="excerpt">
         
+          <p>简单记录学习Swift的笔记</p>
+<p>###简单值</p>
+<ul>
+<li><p>使用<code>let</code>来声明常量，使用<code>var</code>来声明变量。</p>
+</li>
+<li><p>常量或者变量的类型，必须和你赋给它们的值一样。然而，不用明确地声明类型，声明的同时赋值的话，编译器会自动推断类型。</p>
+</li>
+<li><p>如果初始值没有提供足够的信息（或者没有初始值），那你需要在变量后面声明类型，用冒号分割。</p>
+</li>
+<li><p>值永远不会被隐式转换为其他类型。如果你需要把一个值转换成其他类型，请显式转换。</p>
+</li>
+</ul>
+<p>例如 </p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> label = <span class="string">"The width is"</span></span><br><span class="line"><span class="keyword">let</span> width = <span class="number">94</span></span><br><span class="line"><span class="keyword">let</span> widthLabel = label + <span class="type">String</span>(width)</span><br></pre></td></tr></table></figure>
+        
       </div>
 
       <hr class="post-list__divider" />
@@ -346,14 +382,14 @@ classes that you can use:
 <nav class="pagination" role="navigation">
     
     	
-          <a class="newer-posts pagination__newer btn btn-small btn-tertiary" href="/archives/2016/page/2/">&larr; 上一页 </a>
+          <a class="newer-posts pagination__newer btn btn-small btn-tertiary" href="/archives/2016/page/2/">&larr; Prev </a>
         
     
 
     <span class="pagination__page-number"> 3 / 7</span>
     
     
-        <a class="older-posts pagination__older btn btn-small btn-tertiary" href="/archives/2016/page/4/">下一页 &rarr;</a>
+        <a class="older-posts pagination__older btn btn-small btn-tertiary" href="/archives/2016/page/4/">Next &rarr;</a>
     
 </nav>
 
