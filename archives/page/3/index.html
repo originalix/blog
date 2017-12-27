@@ -197,6 +197,27 @@ classes that you can use:
     <li>
 
       <h2 class="post-list__post-title post-title">
+        <a href="/2017/06/12/Linux的用户管理(一)/" title="link to Linux的用户管理(一)">Linux的用户管理(一)</a>
+      </h2>
+
+      <div class="post-list__meta">
+
+        <time datetime="2017-06-12" class="post-list__meta--date date">2017-06-12</time> 
+      </div>
+
+      <div class="excerpt">
+        
+          <p>在看《鸟哥的Linux私房菜》的第四章之前，我操作Linux系统时，习惯性的使用<code>root</code>账号，为什么呢？无非图一个方便，没有那么多权限设置，对当时我这个<code>Linux</code>小白来说，再好不过了。但是看完了鸟哥的书，我才意识到当时的操作是有多大的问题，所以在此书写一下以便日后回顾。</p>
+<p><code>Linux</code>系统是一个多用户多任务的分时操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账号，然后以这个账号的身份进入系统。用户的账号一方面可以帮助系统管理员对使用系统的用户进行跟踪，并控制他们对系统资源的访问；另一方面也可以帮助用户组织文件，并为用户提供安全性保护。每个用户账号都拥有一个惟一的用户名和各自的口令。用户在登录时键入正确的用户名和口令后，就能够进入系统和自己的主目录。</p>
+        
+      </div>
+
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
+
+      <h2 class="post-list__post-title post-title">
         <a href="/2017/06/02/Liunx的文件权限/" title="link to Liunx的文件权限">Liunx的文件权限</a>
       </h2>
 
@@ -343,30 +364,6 @@ classes that you can use:
 <p>是的，毫无疑问我一直是代码是最好的注释这个说法的拥护者之一。但是，这里有个前提，就是你必须有能力写出优秀的代码，你才有资格去不写注释。我们要一直明白一个问题，我们的代码写出来是为了给别人看的，而不是仅仅给自己看的，如果你的团队有严谨的<strong>Code Review</strong>那你好意思写出脏乱不堪的代码被投影仪放到幕布上给所有部门同事看么？对于一个新手程序员来说，请老老实实的写好每一个关键函数的注释，也请在修改函数的时候，不吝时间的修改对应的注释。若是项目的目的是为了公开API给第三方开发者使用，那么请在开放api上写好注释，这是应该完善的工作。</p>
 <p>而上述说的类型您都不是，那么我想该强调一下谈这个话题的主题了，去除那些多余的注释吧。有时候，在一些明显目的的函数上，加注释，会给阅读你代码的开发者一种错觉，你的水平很低，不足以理解代码，所以需要在简单的语句上加上注释。打个比方，你是我的面试官，有一道面试题，我在写完之后交给你，你看到的是如下格式的面试题：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$arr = $User-&gt;where($where)-&gt;find(); <span class="comment">// 读取数据</span></span><br><span class="line"></span><br><span class="line">$list = [];</span><br><span class="line"><span class="keyword">foreach</span>($arr <span class="keyword">as</span> $key =&gt; $val) &#123; <span class="comment">// 遍历数组</span></span><br><span class="line">  $list[$key] = [</span><br><span class="line">    <span class="string">'name'</span> =&gt; $val[<span class="string">'name'</span>],</span><br><span class="line">    <span class="string">'age'</span> =&gt; $val[<span class="string">'age'</span>],</span><br><span class="line">  ];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$list[<span class="string">'count'</span>] = count($arr); <span class="comment">// 其他属性</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> json_encode($list); <span class="comment">// 输出 json</span></span><br></pre></td></tr></table></figure>
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2017/03/24/《代码整洁之道》读书小结/" title="link to 《代码整洁之道》读书小结">《代码整洁之道》读书小结</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2017-03-24" class="post-list__meta--date date">2017-03-24</time> 
-      </div>
-
-      <div class="excerpt">
-        
-          <p>最近晚间的加班暂时暂停了，大概已经整整一个月每天焦头烂额的写着业务代码，被各种逻辑搞的整个人都不大好了，好在是写的差不多了。</p>
-<p>每当写了很多业务代码之后，我都会停下来反思一个问题，你的代码写的干净么，有需要重构的地方么。而这一次，因为一些临时性的需求变更，我自认为我写了一部分脏代码，这部分代码恰恰是bug的高发地段，而且也可能会带来后期维护的困难。那么如何来重构这部分代码呢？</p>
-<p>在我写下这部分脏代码之前，我自认为也是用了一些能够用上的设计模式，但是随着临时性的需求变更不断增加，有时候贪图省事直接在原有代码的基础上修改了事，很明显这违反了开放闭合原则。</p>
-<p>回到正题上来，回顾《clean code》这本书，正是帮助自己在反思的同时做好知识的回顾梳理，并且能够在重构中把学到的知识学以致用。虽然现在我还没有全部看完，但是也是可以从已经完成阅读的部分总结一点心得。</p>
-<p>第一次看这本书是在几年前，可以说这本书对我编写代码的风格形成了很深的影响，而初读此书时也有种醍醐灌顶的感觉，哦，原来代码还可以这么写。</p>
         
       </div>
 

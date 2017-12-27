@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      从Yii2的源码来分析框架的QueryParamAuth的鉴权过程 | Leon的博客 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="李晓">
+    
+    
+
+    <meta name="description" content="Yii是基于PHP语言打造的一款框架，了解PHP的同学对这款框架肯定也不会陌生。而我在最近使用yii2写App接口的时，查看官方了的RESTful Web服务文档，文档中对于授权验证的过程有这样一个介绍:">
+<meta name="keywords" content="PHP,Yii2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从Yii2的源码来分析框架的QueryParamAuth的鉴权过程 | Leon的博客">
+<meta property="og:url" content="http://yoursite.com/2017/12/27/从Yii2的源码来分析框架的QueryParamAuth的鉴权过程/index.html">
+<meta property="og:site_name" content="Leon的博客">
+<meta property="og:description" content="Yii是基于PHP语言打造的一款框架，了解PHP的同学对这款框架肯定也不会陌生。而我在最近使用yii2写App接口的时，查看官方了的RESTful Web服务文档，文档中对于授权验证的过程有这样一个介绍:">
+<meta property="og:updated_time" content="2017-12-27T11:29:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从Yii2的源码来分析框架的QueryParamAuth的鉴权过程 | Leon的博客">
+<meta name="twitter:description" content="Yii是基于PHP语言打造的一款框架，了解PHP的同学对这款框架肯定也不会陌生。而我在最近使用yii2写App接口的时，查看官方了的RESTful Web服务文档，文档中对于授权验证的过程有这样一个介绍:">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Leon的博客</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          Web Developer
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/originalix" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">从Yii2的源码来分析框架的QueryParamAuth的鉴权过程</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-12-27" class="post-meta__date date">2017-12-27</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/PHP/">PHP</a>, <a class="tags-link" href="/tags/Yii2/">Yii2</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>Yii是基于PHP语言打造的一款框架，了解PHP的同学对这款框架肯定也不会陌生。而我在最近使用yii2写App接口的时，查看官方了的RESTful Web服务文档，文档中对于授权验证的过程有这样一个介绍:</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">如果你系那个支持以上3个认证方式，可以使用CompositeAuth，如下所示：</span><br><span class="line"></span><br><span class="line">use yii\filters\auth\CompositeAuth;</span><br><span class="line">use yii\filters\auth\HttpBasicAuth;</span><br><span class="line">use yii\filters\auth\HttpBearerAuth;</span><br><span class="line">use yii\filters\auth\QueryParamAuth;</span><br><span class="line"></span><br><span class="line">public function behaviors()</span><br><span class="line">&#123;</span><br><span class="line">    $behaviors = parent::behaviors();</span><br><span class="line">    $behaviors[&apos;authenticator&apos;] = [</span><br><span class="line">        &apos;class&apos; =&gt; CompositeAuth::className(),</span><br><span class="line">        &apos;authMethods&apos; =&gt; [</span><br><span class="line">            HttpBasicAuth::className(),</span><br><span class="line">            HttpBearerAuth::className(),</span><br><span class="line">            QueryParamAuth::className(),</span><br><span class="line">        ],</span><br><span class="line">    ];</span><br><span class="line">    return $behaviors;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">authMethods 中每个单元应为一个认证方法名或配置数组。</span><br><span class="line"></span><br><span class="line">findIdentityByAccessToken()方法的实现是系统定义的， 例如，一个简单的场景，当每个用户只有一个access token, 可存储access token 到user表的access_token列中， 方法可在User类中简单实现，如下所示：</span><br><span class="line"></span><br><span class="line">use yii\db\ActiveRecord;</span><br><span class="line">use yii\web\IdentityInterface;</span><br><span class="line"></span><br><span class="line">class User extends ActiveRecord implements IdentityInterface</span><br><span class="line">&#123;</span><br><span class="line">    public static function findIdentityByAccessToken($token, $type = null)</span><br><span class="line">    &#123;</span><br><span class="line">        return static::findOne([&apos;access_token&apos; =&gt; $token]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上是官方文档的原文，而我当时结合我的API接口，感觉最适合我使用的是第三种<code>QueryParamAuth</code>类型的验证，就是在请求的url中拼接上<code>AccessToken</code>。这也是常见的一种鉴权方式，而实现这些验证，框架又需要我们完成<code>findIdentityByAccessToken()</code>函数，所以为了不稀里糊涂的跟着文档弄完了，我决定从源码里探究一下实现鉴权的过程中究竟发生了什么。</p>
+<p>至于如何实现这个过程，以及完成认证，我之前在网上已经看到有大量博客写这个了，所以在此我也不再赘述。</p>
+<p>首先我们进入<code>QueryParamAuth</code>类里,里面有一个<code>authenticate($user, $request, $response)</code>函数,这个函数的代码是这样的:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">authenticate</span><span class="params">($user, $request, $response)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 获取get参数里的access-token, $this-&gt;tokenParam的具体名称，可以在类中指定</span></span><br><span class="line">    $accessToken = $request-&gt;get(<span class="keyword">$this</span>-&gt;tokenParam);</span><br><span class="line">    <span class="keyword">if</span> (is_string($accessToken)) &#123;</span><br><span class="line">        <span class="comment">//存在登录令牌的情况下，执行yii\web\user类里的loginByAccessToken方法</span></span><br><span class="line">        $identity = $user-&gt;loginByAccessToken($accessToken, get_class(<span class="keyword">$this</span>));</span><br><span class="line">        <span class="keyword">if</span> ($identity !== <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> $identity;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//没有accessToken直接报错</span></span><br><span class="line">    <span class="keyword">if</span> ($accessToken !== <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;handleFailure($response);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我把这段源码的注释直接附在代码中，在这里我们能大致知道这个函数做了哪些事情，但是其中<code>$user, $request, $response</code>这三个参数又是如何获取传递进来的呢。我们再进入<code>QueryParamAuth</code>的父类<code>AuthMethod</code>里一探究竟。</p>
+<p>打开这个父类，我们能看到<code>$user, $request, $response</code>这三个参数是父类中定义的三个公开属性。而在父类中的<code>beforeAction()</code>中，获取到这三个方法，</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">beforeAction</span><span class="params">($action)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $response = <span class="keyword">$this</span>-&gt;response ?: Yii::$app-&gt;getResponse();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 这里是重点，父类获取三个参数，传入我们之前的authenticate()函数中。</span></span><br><span class="line">        $identity = <span class="keyword">$this</span>-&gt;authenticate(</span><br><span class="line">            <span class="keyword">$this</span>-&gt;user ?: Yii::$app-&gt;getUser(),</span><br><span class="line">            <span class="keyword">$this</span>-&gt;request ?: Yii::$app-&gt;getRequest(),</span><br><span class="line">            $response</span><br><span class="line">        );</span><br><span class="line">    &#125; <span class="keyword">catch</span> (UnauthorizedHttpException $e) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">$this</span>-&gt;isOptional($action)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">throw</span> $e;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ($identity !== <span class="keyword">null</span> || <span class="keyword">$this</span>-&gt;isOptional($action)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">$this</span>-&gt;challenge($response);</span><br><span class="line">    <span class="keyword">$this</span>-&gt;handleFailure($response);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以看到，在<code>beforeAction()</code>函数中获取了参数，并且调用了<code>authenticate</code>函数,开始执行认证过程。现在我们知道了参数的由来，那么我们接着回到<code>QueryParamAuth</code>类里的<code>authenticate()</code>函数中，探究鉴权过程。</p>
+<p>在<code>authenticate()</code>函数中我们看到有这样一行代码:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$identity = $user-&gt;loginByAccessToken($accessToken, get_class(<span class="keyword">$this</span>));</span><br></pre></td></tr></table></figure>
+<p>在这里我提醒大家，这个<code>$user</code>指的是<code>yii\web\user</code>这个类，而我之前看到很多网上教程让大家去实现<code>loginByAccessToken()</code>这个函数，很多人在实现了这个函数之后问，为什么不调用这个函数，其实这个函数是没有必要实现的，如果你一定要实现这个函数，那么你就得把这里使用的<code>$user</code>替换成你自己的User类，因为在这个时候，还不会调用你在config里配置的user类，很多同学有了问题，还是要先看看源码，而不是发现这篇博客不行，就换另一个博客试试。。。</p>
+<p>我们来一起看看<code>loginByAccessToken()</code>函数的代码:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">loginByAccessToken</span><span class="params">($token, $type = null)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">/* <span class="doctag">@var</span> $class IdentityInterface */</span></span><br><span class="line">    <span class="comment">// 这里的identityClass才是我们在config中配置的那个User类</span></span><br><span class="line">    $class = <span class="keyword">$this</span>-&gt;identityClass;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//这里开始执行我们在User类中实现的findIdentityByAccessToken()函数</span></span><br><span class="line">    $identity = $class::findIdentityByAccessToken($token, $type);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//这里的条件，在鉴权之前，我们得是登录状态</span></span><br><span class="line">    <span class="keyword">if</span> ($identity &amp;&amp; <span class="keyword">$this</span>-&gt;login($identity)) &#123;</span><br><span class="line">        <span class="keyword">return</span> $identity;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 否则 就算有这个用户，但是不是登录状态 一样不能通过验证</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我已经把整个函数的分析写在注释里了，在这个函数里会调用我们在config里配置的User类，并且去执行文档中让我们配置的<code>findIdentityByAccessToken()</code>函数，所以我们写的函数在此时才会派上用场，同时我们还得是登录状态才能通过鉴权，登录的话这里先不展开讲了，可以先用yii框架默认页面的登录就能通过。</p>
+<p>至此，我们的登录鉴权就已经通过了，如果不通过的小伙伴，可以再消化一下上面的源码分析，相信你一定能查到问题究竟出现在哪一步的。</p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
