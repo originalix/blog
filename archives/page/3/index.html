@@ -197,6 +197,30 @@ classes that you can use:
     <li>
 
       <h2 class="post-list__post-title post-title">
+        <a href="/2017/06/21/Linux的用户管理(二)/" title="link to Linux的用户管理(二)">Linux的用户管理(二)</a>
+      </h2>
+
+      <div class="post-list__meta">
+
+        <time datetime="2017-06-21" class="post-list__meta--date date">2017-06-21</time> 
+      </div>
+
+      <div class="excerpt">
+        
+          <p>上次的博客我们讲了关于Linux的用户管理的内容，现在我们来讲第二部分——系统用户组的管理。</p>
+<p>每个用户都有一个用户组，系统可以对一个用户组中的所有用户进行集中管理。不同Linux系统对用户组的规定有所不同，如Linux下的用户属于它同名的用户组，这个用户组在创建用户的同时创建。</p>
+<p>用户组的管理涉及用户组的添加、删除和修改。组的增加、删除和修改实际上就是对<code>/etc/group</code>文件的更新。</p>
+<h3 id="增加用户组"><a href="#增加用户组" class="headerlink" title="增加用户组"></a>增加用户组</h3><p>添加一个新的用户组，使用<code>groupadd</code>命令。 格式如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">groupadd [options] [group]</span><br><span class="line"></span><br><span class="line">可以使用的选项有： </span><br><span class="line">-g GID 指定新用户组的组标识号（GID）。</span><br><span class="line">-o 一般与-g选项同时使用，表示新用户组的GID可以与系统已有用户组的GID相同。</span><br></pre></td></tr></table></figure>
+        
+      </div>
+
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
+
+      <h2 class="post-list__post-title post-title">
         <a href="/2017/06/12/Linux的用户管理(一)/" title="link to Linux的用户管理(一)">Linux的用户管理(一)</a>
       </h2>
 
@@ -340,30 +364,6 @@ classes that you can use:
           <p>因为不是科班出身，所以即使编程一段时间也时常感觉自身基础知识非常不扎实，于是在最近开始补习算法和计算机理论的基础知识。</p>
 <p>目前看的算法书籍是《算法》（第四版），由<strong>Robert Sedgewick</strong>以及<strong>Kevin Wayne</strong>编写的，由于不可能把所有的练习都写成博客记录下来，于是就在学习过程中，挑选一些有意思的写成笔记，以便日后参考以及与同行互相交流。</p>
 <p>今天要准备写的就是非常经典的牛顿迭代法求平方根，事实上现在的绝大部分编程语言中，标准库中都已经为我们准备好了计算平方根的函数，但是本着学习的精神，今天我们也要写出一个求平方根的函数。</p>
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2017/04/02/《Clean-Code》-读书小节（二）/" title="link to 《Clean Code》 读书小节（二）">《Clean Code》 读书小节（二）</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2017-04-02" class="post-list__meta--date date">2017-04-02</time> 
-      </div>
-
-      <div class="excerpt">
-        
-          <p>之前在看了《Clean Code》这本书的前两章时，就写下了第一篇读书小节，而随着读书的深入，便决定再总结一下后面一部分的读书心得。</p>
-<h1 id="那些多余的注释"><a href="#那些多余的注释" class="headerlink" title="那些多余的注释"></a>那些多余的注释</h1><p>相信每一个程序员都经历过一个坑，那就是去阅读甚至修改没有注释的代码。如果这些代码风格糟糕，命名不遵循规则，毫无疑问这是一段你永远都不想回忆的时光，而若是这些代码命名准确，设计模式使用的恰到好处，函数拆分合理，说不定你有一种怎么读别人的代码比回顾我自己写的代码还清晰的错觉。</p>
-<p>是的，毫无疑问我一直是代码是最好的注释这个说法的拥护者之一。但是，这里有个前提，就是你必须有能力写出优秀的代码，你才有资格去不写注释。我们要一直明白一个问题，我们的代码写出来是为了给别人看的，而不是仅仅给自己看的，如果你的团队有严谨的<strong>Code Review</strong>那你好意思写出脏乱不堪的代码被投影仪放到幕布上给所有部门同事看么？对于一个新手程序员来说，请老老实实的写好每一个关键函数的注释，也请在修改函数的时候，不吝时间的修改对应的注释。若是项目的目的是为了公开API给第三方开发者使用，那么请在开放api上写好注释，这是应该完善的工作。</p>
-<p>而上述说的类型您都不是，那么我想该强调一下谈这个话题的主题了，去除那些多余的注释吧。有时候，在一些明显目的的函数上，加注释，会给阅读你代码的开发者一种错觉，你的水平很低，不足以理解代码，所以需要在简单的语句上加上注释。打个比方，你是我的面试官，有一道面试题，我在写完之后交给你，你看到的是如下格式的面试题：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$arr = $User-&gt;where($where)-&gt;find(); <span class="comment">// 读取数据</span></span><br><span class="line"></span><br><span class="line">$list = [];</span><br><span class="line"><span class="keyword">foreach</span>($arr <span class="keyword">as</span> $key =&gt; $val) &#123; <span class="comment">// 遍历数组</span></span><br><span class="line">  $list[$key] = [</span><br><span class="line">    <span class="string">'name'</span> =&gt; $val[<span class="string">'name'</span>],</span><br><span class="line">    <span class="string">'age'</span> =&gt; $val[<span class="string">'age'</span>],</span><br><span class="line">  ];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$list[<span class="string">'count'</span>] = count($arr); <span class="comment">// 其他属性</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> json_encode($list); <span class="comment">// 输出 json</span></span><br></pre></td></tr></table></figure>
         
       </div>
 

@@ -197,6 +197,26 @@ classes that you can use:
     <li>
 
       <h2 class="post-list__post-title post-title">
+        <a href="/2016/07/08/iOS开发——实用性技巧/" title="link to iOS开发——实用性技巧">iOS开发——实用性技巧</a>
+      </h2>
+
+      <div class="post-list__meta">
+
+        <time datetime="2016-07-08" class="post-list__meta--date date">2016-07-08</time> 
+      </div>
+
+      <div class="excerpt">
+        
+          <p>分享一些项目中常用的方法，可以保存起来，作为自己的工具集哦。</p>
+        
+      </div>
+
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
+
+      <h2 class="post-list__post-title post-title">
         <a href="/2016/06/30/iOS开发——大大节省代码量的小技巧/" title="link to iOS开发——大大节省代码量的小技巧">iOS开发——大大节省代码量的小技巧</a>
       </h2>
 
@@ -356,30 +376,6 @@ classes that you can use:
       <div class="excerpt">
         
           <p>在iOS开发中，我们会在实际过程中大量使用Block，其中Block有个很基础的功能，就是完成两个页面间的传值。而今天，我就用实际的项目中的页面，来展示如何完成两个页面间的传值。</p>
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2016/05/11/iOS开发——UITableView勾选效果/" title="link to iOS开发——UITableView勾选效果">iOS开发——UITableView勾选效果</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2016-05-11" class="post-list__meta--date date">2016-05-11</time> 
-      </div>
-
-      <div class="excerpt">
-        
-          <p>今天整理了一下项目中常用的一些控件功能，整理一些UI效果来总结一下。</p>
-<p>如今的APP开发中，<code>UITableView</code>是最常用的控件之一，而<code>UITableView</code>中有个很常见的效果就是勾选效果，这个效果是由<code>UITableViewCell</code>中的<code>accessoryType</code>属性来决定的。</p>
-<p><code>accessoryType</code>中的变量是一个枚举值<code>UITableViewCellAccessoryType</code>，让我们来看一下其中包含的东西。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">UITableViewCellAccessoryType</span>) &#123;</span><br><span class="line">    <span class="built_in">UITableViewCellAccessoryNone</span>,                                                      <span class="comment">// 不显示任何效果</span></span><br><span class="line">    <span class="built_in">UITableViewCellAccessoryDisclosureIndicator</span>,                                       <span class="comment">// 常用的V形引导图标</span></span><br><span class="line">    <span class="built_in">UITableViewCellAccessoryDetailDisclosureButton</span> <span class="comment">//信息提示+V形引导图标</span></span><br><span class="line">    <span class="built_in">UITableViewCellAccessoryCheckmark</span>,                                                 <span class="comment">// 勾选效果</span></span><br><span class="line">    <span class="built_in">UITableViewCellAccessoryDetailButton</span> <span class="comment">//信息图标</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>这几个效果我已经罗列在上面了，今天我们要探讨的，就是<code>UITableViewCellAccessoryCheckmark</code>勾选效果。我们要实现的，就是单选一个列表中的信息。</p>
         
       </div>
 
