@@ -59,7 +59,7 @@
 
         
         <p class="panel-cover__description">
-          Web Developer
+          每多学一点知识，就少写一行代码
         </p>
         <hr class="panel-cover__divider panel-cover__divider--secondary" />
         
@@ -208,9 +208,6 @@ classes that you can use:
 
       <div class="excerpt">
         
-          <p>现在的iOS在跟服务器进行交互式，采取的常用数据格式是XML和JSON，而今天就探讨一个JSON解析框架 —— MJExtension。</p>
-<p>MJExtension是李明杰老师写的一个开源框架，是一个转换速度快，使用简单方便的字典转模型框架。</p>
-        
       </div>
 
       <hr class="post-list__divider" />
@@ -228,10 +225,6 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
-        
-          <p>在实际的项目开发中，数据持久化是我们必须要考虑的一个事情，如何把我们需要的数据进行持久化处理。</p>
-<p>在此之前，一些轻量级的数据类型我一般比较喜欢用NSUserDefaults来存储，因为首先这是一个单例，而且使用简便，数据之间传递自由，所以很适合用来保存简单的数据。</p>
-<p>而昨天我在实际工作中，有一个数组NSMutableArray需要存储，但是使用时，报了一个错误 <code>reason: &#39;*** -[NSUserDefaults setObject:forKey:]: attempt to insert non-property list object</code>，这个报错提示我试图加入一个不支持的数据类型。可是明明NSUserDefaults支持的数据类型有：NSNumber（NSInteger、float、double），NSString，NSDate，NSArray，NSDictionary，BOOL，为什么我的NSArray不能加入呢。后来发现我的数组中的对象，是Model类的对象。</p>
         
       </div>
 
@@ -251,8 +244,6 @@ classes that you can use:
 
       <div class="excerpt">
         
-          <p>在iOS开发中，我们会在实际过程中大量使用Block，其中Block有个很基础的功能，就是完成两个页面间的传值。而今天，我就用实际的项目中的页面，来展示如何完成两个页面间的传值。</p>
-        
       </div>
 
       <hr class="post-list__divider" />
@@ -270,12 +261,6 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
-        
-          <p>今天整理了一下项目中常用的一些控件功能，整理一些UI效果来总结一下。</p>
-<p>如今的APP开发中，<code>UITableView</code>是最常用的控件之一，而<code>UITableView</code>中有个很常见的效果就是勾选效果，这个效果是由<code>UITableViewCell</code>中的<code>accessoryType</code>属性来决定的。</p>
-<p><code>accessoryType</code>中的变量是一个枚举值<code>UITableViewCellAccessoryType</code>，让我们来看一下其中包含的东西。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">UITableViewCellAccessoryType</span>) &#123;</span><br><span class="line">    <span class="built_in">UITableViewCellAccessoryNone</span>,                                                      <span class="comment">// 不显示任何效果</span></span><br><span class="line">    <span class="built_in">UITableViewCellAccessoryDisclosureIndicator</span>,                                       <span class="comment">// 常用的V形引导图标</span></span><br><span class="line">    <span class="built_in">UITableViewCellAccessoryDetailDisclosureButton</span> <span class="comment">//信息提示+V形引导图标</span></span><br><span class="line">    <span class="built_in">UITableViewCellAccessoryCheckmark</span>,                                                 <span class="comment">// 勾选效果</span></span><br><span class="line">    <span class="built_in">UITableViewCellAccessoryDetailButton</span> <span class="comment">//信息图标</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>这几个效果我已经罗列在上面了，今天我们要探讨的，就是<code>UITableViewCellAccessoryCheckmark</code>勾选效果。我们要实现的，就是单选一个列表中的信息。</p>
         
       </div>
 
@@ -295,9 +280,6 @@ classes that you can use:
 
       <div class="excerpt">
         
-          <p>现在的APP应用中，用手机获取短信验证码是非常常见的一个功能，而往往要求的效果就是在按下获取验证码之后，验证码的按钮开始倒计时，例如30秒后重新获取。而我们如何来完成这个效果呢，其实很简单，用一个定时器来计时，设置定时器的时间为UIButton的Title，而这个步骤我们一般用多线程的定时器dispatch source来定时产生事件。</p>
-<p>在网上看了别人写的代码，复用性比较差，没有对这个方法进行良好的封装，我在这里贴一段修改后的代码，基本上大家黏贴过去就能复用。而后面我会解释这个代码的多线程方面的一些问题。</p>
-        
       </div>
 
       <hr class="post-list__divider" />
@@ -315,10 +297,6 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
-        
-          <p>App的实际应用中，用户登陆功能基本是每个App都有需求的一个功能。而当前我们很常规的做法，就是让用户把手机号作为自己的用户名，而在注册获取短信验证码的过程中，我们首先要完成的一个步骤，就是校验用户的手机号是否是符合规则的手机号，而这种问题，一般称之为字符串匹配问题。</p>
-<p>当遇到字符串匹配问题时，有一种常用的解决方法就是正则表达式。通过iOS中的NSRegularExpression这个类就可以帮助我们实现这个。</p>
-<p><strong>下面先来介绍一下正则表达式的基本语法。</strong></p>
         
       </div>
 

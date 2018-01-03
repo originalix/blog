@@ -59,7 +59,7 @@
 
         
         <p class="panel-cover__description">
-          Web Developer
+          每多学一点知识，就少写一行代码
         </p>
         <hr class="panel-cover__divider panel-cover__divider--secondary" />
         
@@ -207,8 +207,6 @@ classes that you can use:
 
       <div class="excerpt">
         
-          <p>分享一些项目中常用的方法，可以保存起来，作为自己的工具集哦。</p>
-        
       </div>
 
       <hr class="post-list__divider" />
@@ -226,8 +224,6 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
-        
-          <p>总结一些开发中的常用方法，大量节省开发时间</p>
         
       </div>
 
@@ -247,12 +243,6 @@ classes that you can use:
 
       <div class="excerpt">
         
-          <p>###函数和闭包</p>
-<ul>
-<li>使用<code>func</code>来声明一个函数，使用名字和参数来调用函数。使用<code>-&gt;</code>来指定函数返回值的类型。</li>
-</ul>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">greet</span><span class="params">(name: String, food: String)</span></span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Hello <span class="subst">\(name)</span>, let's eat some <span class="subst">\(food)</span>"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">greet(<span class="string">"Lin"</span>, food: <span class="string">"fruit"</span>)</span><br></pre></td></tr></table></figure>
-        
       </div>
 
       <hr class="post-list__divider" />
@@ -270,21 +260,6 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
-        
-          <p>简单记录学习Swift的笔记</p>
-<p>###简单值</p>
-<ul>
-<li><p>使用<code>let</code>来声明常量，使用<code>var</code>来声明变量。</p>
-</li>
-<li><p>常量或者变量的类型，必须和你赋给它们的值一样。然而，不用明确地声明类型，声明的同时赋值的话，编译器会自动推断类型。</p>
-</li>
-<li><p>如果初始值没有提供足够的信息（或者没有初始值），那你需要在变量后面声明类型，用冒号分割。</p>
-</li>
-<li><p>值永远不会被隐式转换为其他类型。如果你需要把一个值转换成其他类型，请显式转换。</p>
-</li>
-</ul>
-<p>例如 </p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> label = <span class="string">"The width is"</span></span><br><span class="line"><span class="keyword">let</span> width = <span class="number">94</span></span><br><span class="line"><span class="keyword">let</span> widthLabel = label + <span class="type">String</span>(width)</span><br></pre></td></tr></table></figure>
         
       </div>
 
@@ -304,16 +279,6 @@ classes that you can use:
 
       <div class="excerpt">
         
-          <p>我们在搭建UI界面时，有很多时候，我们会用到iOS自带的绘图功能来完成一些界面的效果，很常用也很方便。今天我们在这里就一起讨论一下iOS的绘图功能。</p>
-<ul>
-<li><p>CoreGraphics也称为Quartz 2D 是UIKit下的主要绘图系统，频繁的用于绘制自定义视图。Core Graphics是高度集成于UIView和其他UIKit部分的。Core Graphics数据结构和函数可以通过前缀CG来识别。</p>
-</li>
-<li><p>视图可以通过子视图、图层或实现drawRect：方法来表现内容，如果说实现了drawRect：方法，那么最好就不要混用其他方法了，如图层和子视图。自定义绘图大部分是由UIKit或者Core Graphics来实现的。</p>
-</li>
-<li><p>由于像素是依赖于目标的，所以2D绘图并不能操作单独的像素，我们可以从上下文（Context）读取它。<br>绘图就好比在画布上拿着画笔机械的进行画画，通过制定不同的参数来进行不同的绘制。</p>
-</li>
-</ul>
-        
       </div>
 
       <hr class="post-list__divider" />
@@ -331,9 +296,6 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
-        
-          <p>现在的iOS在跟服务器进行交互式，采取的常用数据格式是XML和JSON，而今天就探讨一个JSON解析框架 —— MJExtension。</p>
-<p>MJExtension是李明杰老师写的一个开源框架，是一个转换速度快，使用简单方便的字典转模型框架。</p>
         
       </div>
 
@@ -353,10 +315,6 @@ classes that you can use:
 
       <div class="excerpt">
         
-          <p>在实际的项目开发中，数据持久化是我们必须要考虑的一个事情，如何把我们需要的数据进行持久化处理。</p>
-<p>在此之前，一些轻量级的数据类型我一般比较喜欢用NSUserDefaults来存储，因为首先这是一个单例，而且使用简便，数据之间传递自由，所以很适合用来保存简单的数据。</p>
-<p>而昨天我在实际工作中，有一个数组NSMutableArray需要存储，但是使用时，报了一个错误 <code>reason: &#39;*** -[NSUserDefaults setObject:forKey:]: attempt to insert non-property list object</code>，这个报错提示我试图加入一个不支持的数据类型。可是明明NSUserDefaults支持的数据类型有：NSNumber（NSInteger、float、double），NSString，NSDate，NSArray，NSDictionary，BOOL，为什么我的NSArray不能加入呢。后来发现我的数组中的对象，是Model类的对象。</p>
-        
       </div>
 
       <hr class="post-list__divider" />
@@ -374,8 +332,6 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
-        
-          <p>在iOS开发中，我们会在实际过程中大量使用Block，其中Block有个很基础的功能，就是完成两个页面间的传值。而今天，我就用实际的项目中的页面，来展示如何完成两个页面间的传值。</p>
         
       </div>
 

@@ -59,7 +59,7 @@
 
         
         <p class="panel-cover__description">
-          Web Developer
+          每多学一点知识，就少写一行代码
         </p>
         <hr class="panel-cover__divider panel-cover__divider--secondary" />
         
@@ -207,12 +207,6 @@ classes that you can use:
 
       <div class="excerpt">
         
-          <p>之前在看了《Clean Code》这本书的前两章时，就写下了第一篇读书小节，而随着读书的深入，便决定再总结一下后面一部分的读书心得。</p>
-<h1 id="那些多余的注释"><a href="#那些多余的注释" class="headerlink" title="那些多余的注释"></a>那些多余的注释</h1><p>相信每一个程序员都经历过一个坑，那就是去阅读甚至修改没有注释的代码。如果这些代码风格糟糕，命名不遵循规则，毫无疑问这是一段你永远都不想回忆的时光，而若是这些代码命名准确，设计模式使用的恰到好处，函数拆分合理，说不定你有一种怎么读别人的代码比回顾我自己写的代码还清晰的错觉。</p>
-<p>是的，毫无疑问我一直是代码是最好的注释这个说法的拥护者之一。但是，这里有个前提，就是你必须有能力写出优秀的代码，你才有资格去不写注释。我们要一直明白一个问题，我们的代码写出来是为了给别人看的，而不是仅仅给自己看的，如果你的团队有严谨的<strong>Code Review</strong>那你好意思写出脏乱不堪的代码被投影仪放到幕布上给所有部门同事看么？对于一个新手程序员来说，请老老实实的写好每一个关键函数的注释，也请在修改函数的时候，不吝时间的修改对应的注释。若是项目的目的是为了公开API给第三方开发者使用，那么请在开放api上写好注释，这是应该完善的工作。</p>
-<p>而上述说的类型您都不是，那么我想该强调一下谈这个话题的主题了，去除那些多余的注释吧。有时候，在一些明显目的的函数上，加注释，会给阅读你代码的开发者一种错觉，你的水平很低，不足以理解代码，所以需要在简单的语句上加上注释。打个比方，你是我的面试官，有一道面试题，我在写完之后交给你，你看到的是如下格式的面试题：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$arr = $User-&gt;where($where)-&gt;find(); <span class="comment">// 读取数据</span></span><br><span class="line"></span><br><span class="line">$list = [];</span><br><span class="line"><span class="keyword">foreach</span>($arr <span class="keyword">as</span> $key =&gt; $val) &#123; <span class="comment">// 遍历数组</span></span><br><span class="line">  $list[$key] = [</span><br><span class="line">    <span class="string">'name'</span> =&gt; $val[<span class="string">'name'</span>],</span><br><span class="line">    <span class="string">'age'</span> =&gt; $val[<span class="string">'age'</span>],</span><br><span class="line">  ];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$list[<span class="string">'count'</span>] = count($arr); <span class="comment">// 其他属性</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> json_encode($list); <span class="comment">// 输出 json</span></span><br></pre></td></tr></table></figure>
-        
       </div>
 
       <hr class="post-list__divider" />
@@ -230,12 +224,6 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
-        
-          <p>最近晚间的加班暂时暂停了，大概已经整整一个月每天焦头烂额的写着业务代码，被各种逻辑搞的整个人都不大好了，好在是写的差不多了。</p>
-<p>每当写了很多业务代码之后，我都会停下来反思一个问题，你的代码写的干净么，有需要重构的地方么。而这一次，因为一些临时性的需求变更，我自认为我写了一部分脏代码，这部分代码恰恰是bug的高发地段，而且也可能会带来后期维护的困难。那么如何来重构这部分代码呢？</p>
-<p>在我写下这部分脏代码之前，我自认为也是用了一些能够用上的设计模式，但是随着临时性的需求变更不断增加，有时候贪图省事直接在原有代码的基础上修改了事，很明显这违反了开放闭合原则。</p>
-<p>回到正题上来，回顾《clean code》这本书，正是帮助自己在反思的同时做好知识的回顾梳理，并且能够在重构中把学到的知识学以致用。虽然现在我还没有全部看完，但是也是可以从已经完成阅读的部分总结一点心得。</p>
-<p>第一次看这本书是在几年前，可以说这本书对我编写代码的风格形成了很深的影响，而初读此书时也有种醍醐灌顶的感觉，哦，原来代码还可以这么写。</p>
         
       </div>
 
@@ -255,10 +243,6 @@ classes that you can use:
 
       <div class="excerpt">
         
-          <p>学习PHP和Laravel已经有一段时间了,但是所有的代码都是跑在本地的虚拟主机上的，于是去腾讯云申请了一个月的免费云主机，想把项目部署到云服务器上。</p>
-<p>不得不说这里面的坑实在是有点多，让我这个初次接触服务器的小白摸不清头脑。在配置好服务器之后，部署一个Laravel项目更是费劲心思，于是乎想记录下部署Laravel项目的过程。</p>
-<p>PS： Linux真是越用越有感觉的系统，回家在台式机上也要装个Linux敲代码用。</p>
-        
       </div>
 
       <hr class="post-list__divider" />
@@ -276,9 +260,6 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
-        
-          <p>最近的工作非常忙，公司从项目紧张起来之后，一直在实施996加班制度，工作强度虽然如此，但是任然要利用有限的空余时间来学习。之前都有在前端方面的学习，所以一直想学习PHP，好把前后端的知识能贯穿起来做。现在有个很小的目标就是完成自己的第一个前后端串联的作品。</p>
-<p>在一周之前开始系统学习PHP，在把语法过完之后，就开始找寻自己想首先研习的框架，方案有很多，最后我还是在众多方案中选择了<code>Laravel</code>，理由很简单 —— 优雅编程。</p>
         
       </div>
 
@@ -298,10 +279,6 @@ classes that you can use:
 
       <div class="excerpt">
         
-          <p>大半个月没有更新自己的博客了，最近在忙一个新项目时间非常紧张，所以最近的博客更新进度就要稍微放缓一点了。</p>
-<p>这个项目是纯粹的Swift项目，所以最近的博客会结合自己在使用Swift这门语言的过程中，对Swift的总结和感悟。今天就来介绍一下能让你在Swift中如虎添翼的警卫队成员 —— <code>guard</code>。</p>
-<p>我们在编写业务代码中，经常会遇到的一种情况就是一大串的<strong>if else*，一层又一层的甚至还有嵌套，看的眼花缭乱，有时候根本不知道跑到了哪一层了，代码的可读性非常差。而在Swift里有比</strong>if else**更优雅的写法，那就是<code>guard</code>。</p>
-        
       </div>
 
       <hr class="post-list__divider" />
@@ -319,9 +296,6 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
-        
-          <p>我想各位攻城狮们肯定听过一句话：“过早的优化是万恶之源”。若是你有着丰富的项目经验，一定会对这句话有着自己的体会，而若是编程新手，那么，请牢记这句话。在一个项目开发到后期，优化就会成为一个不可避免的话题，而这时，优化以及性能问题又显得尤为重要。</p>
-<p>本文讨论的是iOS的图形性能问题。</p>
         
       </div>
 
@@ -341,10 +315,6 @@ classes that you can use:
 
       <div class="excerpt">
         
-          <p>今天来写一个老生常谈的话题，也是一个面试的高频问题，我也在面试时不止一次被问到过这个问题——如何高性能的设置圆角。就用他作为2017年春节上班之后的第一篇文章。</p>
-<h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>在谈及圆角这个话题之前，我们必须先知道系统的<code>API</code>是怎样去简单方便的设置圆角的。以一个<code>imageView</code>控件来举例。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">imageView.layer.cornerRadius = <span class="built_in">CGFloat</span>(<span class="number">10</span>);</span><br></pre></td></tr></table></figure>
-        
       </div>
 
       <hr class="post-list__divider" />
@@ -362,10 +332,6 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
-        
-          <p>眨眼2016年就这么走到了结尾，再过两天新年就要开始了。回顾从2016年开始养成的写博客的习惯，一直能延续下来，保持了一整年，还是比较欣慰的一件事情。希望2017年自己的技术能够继续稳步的提升。</p>
-<p>今天在这2016年的最后一篇博客里，咱来聊聊推送通知的跳转。</p>
-<p>当推送通知到达时，点击推送通知跳转到指定界面，是很多应用都会碰到的一个需求，而要实现这个功能，解决的方法也很多，若是去谷歌搜索，有一个万能跳转的文章可能会进入您的眼帘，但是我实际的去看了这个项目的源码之后，感觉这个库有一定的局限性，用<strong>runtime</strong>实现跳转这不假，但是在请求字段里加上了<code>ViewController</code>的类名，这其实就是局限的地方了，毕竟除了服务咱们<strong>iOS</strong>端，你也得考虑考虑安卓端的攻城狮不是，然而如果你换一个约定的字段再来解析，那倒不如用<code>URL</code>来作为判断依据更为方便。</p>
         
       </div>
 

@@ -16,19 +16,19 @@
     
     
 
-    <meta name="description" content="单向链表的反转是一个非常常见的链表类面试题，我在刷leetcode的过程中，发现了有许多链表题目的解法，都是以反转链表为基础进行的。所以我觉得有必要记录一下。 首先先用一张图来理解单链表的反转。   单链表的反转，就如上图一样，而单链表的反转也有几种方式，今天我主要是想记录我用得最频繁的迭代的方式。">
+    <meta name="description" content="单向链表的反转是一个非常常见的链表类面试题，我在刷leetcode的过程中，发现了有许多链表题目的解法，都是以反转链表为基础进行的。所以我觉得有必要记录一下。 首先先用一张图来理解单链表的反转。   单链表的反转，就如上图一样，而单链表的反转也有几种方式，今天我主要是想记录我用得最频繁的迭代的方式。 &amp;lt;!-- more --&amp;gt; 先来看一下链表节点的定义: 12345public cla">
 <meta name="keywords" content="链表,数据结构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="反转单向链表 | Leon的博客">
 <meta property="og:url" content="http://yoursite.com/2017/11/24/反转单向链表/index.html">
 <meta property="og:site_name" content="Leon的博客">
-<meta property="og:description" content="单向链表的反转是一个非常常见的链表类面试题，我在刷leetcode的过程中，发现了有许多链表题目的解法，都是以反转链表为基础进行的。所以我觉得有必要记录一下。 首先先用一张图来理解单链表的反转。   单链表的反转，就如上图一样，而单链表的反转也有几种方式，今天我主要是想记录我用得最频繁的迭代的方式。">
+<meta property="og:description" content="单向链表的反转是一个非常常见的链表类面试题，我在刷leetcode的过程中，发现了有许多链表题目的解法，都是以反转链表为基础进行的。所以我觉得有必要记录一下。 首先先用一张图来理解单链表的反转。   单链表的反转，就如上图一样，而单链表的反转也有几种方式，今天我主要是想记录我用得最频繁的迭代的方式。 &amp;lt;!-- more --&amp;gt; 先来看一下链表节点的定义: 12345public cla">
 <meta property="og:image" content="https://originalix.github.io/assets/img/1.png">
 <meta property="og:image" content="https://originalix.github.io/assets/img/2.png">
 <meta property="og:updated_time" content="2017-11-24T11:12:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="反转单向链表 | Leon的博客">
-<meta name="twitter:description" content="单向链表的反转是一个非常常见的链表类面试题，我在刷leetcode的过程中，发现了有许多链表题目的解法，都是以反转链表为基础进行的。所以我觉得有必要记录一下。 首先先用一张图来理解单链表的反转。   单链表的反转，就如上图一样，而单链表的反转也有几种方式，今天我主要是想记录我用得最频繁的迭代的方式。">
+<meta name="twitter:description" content="单向链表的反转是一个非常常见的链表类面试题，我在刷leetcode的过程中，发现了有许多链表题目的解法，都是以反转链表为基础进行的。所以我觉得有必要记录一下。 首先先用一张图来理解单链表的反转。   单链表的反转，就如上图一样，而单链表的反转也有几种方式，今天我主要是想记录我用得最频繁的迭代的方式。 &amp;lt;!-- more --&amp;gt; 先来看一下链表节点的定义: 12345public cla">
 <meta name="twitter:image" content="https://originalix.github.io/assets/img/1.png">
     
     
@@ -66,7 +66,7 @@
 
         
         <p class="panel-cover__description">
-          Web Developer
+          每多学一点知识，就少写一行代码
         </p>
         <hr class="panel-cover__divider panel-cover__divider--secondary" />
         
@@ -228,17 +228,21 @@ classes that you can use:
 <p><img src="https://originalix.github.io/assets/img/1.png" alt=""></p>
 <p><img src="https://originalix.github.io/assets/img/2.png" alt=""></p>
 <p>单链表的反转，就如上图一样，而单链表的反转也有几种方式，今天我主要是想记录我用得最频繁的迭代的方式。</p>
-<a id="more"></a>
+<p>&lt;!-- more --&gt;</p>
 <p>先来看一下链表节点的定义:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    ListNode next;</span><br><span class="line">    ListNode(<span class="keyword">int</span> x) &#123; val = x; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    ListNode next;</span><br><span class="line">    ListNode(<span class="keyword">int</span> x) &#123; val = x; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>这就是最基础的一个链表节点，而反转链表的代码，其实非常的短，关键点就在于理解这几行代码究竟让链表产生了什么变化。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseList</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">    ListNode next = <span class="keyword">null</span>;</span><br><span class="line">    ListNode pre = <span class="keyword">null</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (head != <span class="keyword">null</span>) &#123;</span><br><span class="line">        next = head.next;</span><br><span class="line">        head.next = pre;</span><br><span class="line">        pre = head;</span><br><span class="line">        head = next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> pre;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseList</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">    ListNode next = <span class="keyword">null</span>;</span><br><span class="line">    ListNode pre = <span class="keyword">null</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (head != <span class="keyword">null</span>) &#123;</span><br><span class="line">        next = head.next;</span><br><span class="line">        head.next = pre;</span><br><span class="line">        pre = head;</span><br><span class="line">        head = next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> pre;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>我们可以看到四行代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">next = head.next; <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line">head.next = pre;  <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line">pre = head;       <span class="comment">// 3</span></span><br><span class="line"></span><br><span class="line">head = next;      <span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
-<p>第一行代码：<code>next = head.next;</code><br>将head.next赋值给next变量，也就是说next指向了节点2，先将节点2保存起来。</p>
-<p>第二行代码： <code>head.next = pre;</code><br>将pre变量赋值给了head.next，即节点1指向了null。</p>
-<p>第三行代码: <code>pre = head;</code><br>将head赋值给了pre，即pre指向节点1，将节点1设为“上一个节点”。</p>
-<p>第四行代码：<code>head = next;</code><br>将next赋值给head，即head指向了节点2。将节点2设置为“头结点”。</p>
+<p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">next = head.next; <span class="comment">// 1</span></span><br><span class="line"></span><br><span class="line">head.next = pre;  <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line">pre = head;       <span class="comment">// 3</span></span><br><span class="line"></span><br><span class="line">head = next;      <span class="comment">// 4</span></span><br></pre></td></tr></table></figure></p>
+<p>第一行代码：<code>next = head.next;</code>
+将head.next赋值给next变量，也就是说next指向了节点2，先将节点2保存起来。</p>
+<p>第二行代码： <code>head.next = pre;</code>
+将pre变量赋值给了head.next，即节点1指向了null。</p>
+<p>第三行代码: <code>pre = head;</code>
+将head赋值给了pre，即pre指向节点1，将节点1设为“上一个节点”。</p>
+<p>第四行代码：<code>head = next;</code>
+将next赋值给head，即head指向了节点2。将节点2设置为“头结点”。</p>
 <p>一次循环的具体过程就是这样。</p>
 <p>所以总结一下单链表的反转：</p>
 <ul>

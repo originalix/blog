@@ -59,7 +59,7 @@
 
         
         <p class="panel-cover__description">
-          Web Developer
+          每多学一点知识，就少写一行代码
         </p>
         <hr class="panel-cover__divider panel-cover__divider--secondary" />
         
@@ -208,19 +208,6 @@ classes that you can use:
 
       <div class="excerpt">
         
-          <p>二叉查找树，也称作二叉搜索树，有序二叉树，排序二叉树，而当一棵空树或者具有下列性质的二叉树，就可以被定义为二叉查找树：</p>
-<ul>
-<li><p>若任意节点的左子树不空，则左子树上所有节点的值均小于它的根节点的值。</p>
-</li>
-<li><p>若任意节点的右子树不空，则右子树上所有节点的值均大于它的根节点的值。</p>
-</li>
-<li><p>任意节点的左、右子树也分别为二叉查找树。</p>
-</li>
-<li><p>没有键值相等的节点。</p>
-</li>
-</ul>
-<p>二叉查找树相比于其他数据结构的优势在查找、插入的时间复杂度较低，为O(log n)。二叉查找树是基础性数据结构，用于构建更为抽象的数据结构,如集合、multiset、关联数组等。对于大量的输入数据，链表的线性访问时间太慢，不宜使用。</p>
-        
       </div>
 
       <hr class="post-list__divider" />
@@ -238,16 +225,6 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
-        
-          <p>上一篇博文我们用指针实现了链表，但是诸如BASIC和FORTRAN等许多语言都不支持指针。如果需要链表而又不能使用指针，这时我们可以使用游标（cursor）实现法来实现链表。</p>
-<p>在链表的实现中有两个重要的特点：</p>
-<ul>
-<li><p>数据存储在一组结构体中。每一个结构体包含有数据以及指向下一个结构体的指针。</p>
-</li>
-<li><p>一个新的结构体可以通过调用malloc而从系统全局内存（global memory）得到，并可以通过free而被释放。</p>
-</li>
-</ul>
-<p>游标法必须能够模仿实现这两条特性 。 下面给出实现代码:</p>
         
       </div>
 
@@ -267,10 +244,6 @@ classes that you can use:
 
       <div class="excerpt">
         
-          <p>提起链表，我们每个人都不会陌生，不管对数据结构的掌握如何，都或多或少的听过与用过链表这样的常见的数据结构。链表是线性表的一种，最基础的线性表，在插入与删除数据时，我们需要对表的整体或部分做移动，为了允许表可以不按照线性的顺序存储数据结构，于是链表就应运而生。链表最大的特点就是在每个节点里存储了到下一个节点的指针。由于不必按照顺序存储，链表在插入的时候可以达到O(1)的复杂度，比我们学习的最基本的线性表要快得多。但是在查找一个节点，或者访问特定编号的结点则需要O(N)的时间。</p>
-<p>使用链表结构可以克服数组链表需要预先知道数据大小的缺点，链表结构可以充分利用计算机内存空间，实现灵活的内存动态管理。但是链表失去了数组随机读取的有点，同时由于增加了指针域，空间开销较大。不过这在算法与数据结构领域是很常见的，用空间换时间，毕竟鱼和熊掌不可兼得。</p>
-<p>我的链表数据结构是使用C语言来实现的，那么下面来看一下链表的头文件定义了哪些操作。</p>
-        
       </div>
 
       <hr class="post-list__divider" />
@@ -288,9 +261,6 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
-        
-          <p>最近在完成一个需求时，遇到了<code>NSData</code>类型转换为十六进制的字符串这个需求的函数，在<code>stackoverflow</code>中翻找的时候，给出的答案基本上是如下的:</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span>* newStr = [[<span class="built_in">NSString</span> alloc] initWithData:theData encoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// If the data is null-terminated, you should instead use -stringWithUTF8String: to avoid the extra \0 at the end.</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">NSString</span>* newStr = [<span class="built_in">NSString</span> stringWithUTF8String:[theData bytes]];</span><br><span class="line"></span><br><span class="line"><span class="comment">// (Note that if the input is not properly UTF-8-encoded, you will get nil.)</span></span><br></pre></td></tr></table></figure>
         
       </div>
 

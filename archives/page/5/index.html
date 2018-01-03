@@ -59,7 +59,7 @@
 
         
         <p class="panel-cover__description">
-          Web Developer
+          每多学一点知识，就少写一行代码
         </p>
         <hr class="panel-cover__divider panel-cover__divider--secondary" />
         
@@ -207,11 +207,6 @@ classes that you can use:
 
       <div class="excerpt">
         
-          <blockquote>
-<p>在进行日常的 iOS 开发的时候，我们肯定会用到各种第三方库，每次使用一个库的时候，各种依赖配置总是让人很头痛。幸好我们有了 CocoaPods，CocoaPods 为我们节省了大量集成第三方库的时间。在我们便捷地使用他人制作的 Pod 的时候，一定也希望能够将自己的代码制作成 Pod 供别人使用，来为开源社区做一点贡献。接下来，我们就来尝试制作一个属于自己的 Pod 库，并发布供他人使用。</p>
-</blockquote>
-<p>备注：假设你已经拥有了一个完善的用于制作 Pod 的 iOS 工程。</p>
-        
       </div>
 
       <hr class="post-list__divider" />
@@ -229,9 +224,6 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
-        
-          <p>又一次的版本更新上架，心情容不得片刻舒缓，新的迭代任务又明白的摆在桌面上。今年上半年自己琢磨完<code>ReactiveCocoa</code>之后，对手上了项目做了<code>MVVM</code>架构的尝试，当时自我感觉效果还不错，代码之间的关系确实变得清楚了，并且有更加多的机会去进行单元测试，但是在新的一年，回头再去思考自己当时的架构，依旧会发现很多的问题，例如虽然逻辑清晰，但是并没有完全解耦，一些界面任务的处理，依旧通过<code>RAC</code>返回到<code>View</code>层去处理。只是<code>Controller</code>更干净了，心里自己觉得舒服罢了。</p>
-<p>之后又经手了现在这个项目，在最近不断的工作不断的熟悉业务代码的同时，近日来对于架构方面的思考也不少。这个项目模块之间功能清晰，业务A和业务B之间耦合较少，但是在未来的日子里，公司又有可能新启动项目，不出意外会使用到跟当前项目相同的模块，而如何能节约时间，亦或是在当前项目上调优架构，是我最近思考的主题。</p>
         
       </div>
 
@@ -251,11 +243,6 @@ classes that you can use:
 
       <div class="excerpt">
         
-          <p>最近一直在思考并持续的扩充着自己的技术栈，比如每天坚持着学习前端知识，并且时常想着在移动端这条路上，自己的技术盲区。诚然，想要在一个领域达到一定的技术高度是挺困难的一件事情，操之过急万万不可，最主要的还是保持对技术的热情，慢慢沉淀。</p>
-<p>以前的公司并不需要高强度的加班，所以时长有时间去发掘一些新鲜玩意儿，圈内有了技术热潮，也能及时跟进观望或者学习，但是最近在一波高强度加班过后，这种业务代码与自身学习之间的冲突也让我产生了一些自己的看法。一个程序员，不论何时，不能抛掉持续学习的习惯。</p>
-<p>最近的大面积写业务代码，当碰到两个类之间的传值问题，我习惯性的解决方案是使用<code>delegate</code>，我觉得<code>delegate</code>本身当命名得当并且功能单一时，可阅读性会比较好。在习惯了这种思维后，开发中也养成了自己的习惯。</p>
-<p>但是在最近封装代码的时候，我发觉<code>delegate</code>对于我自己定义并编写代码来说，可读性和使用性很好，但是当他人来使用我封装的代码的时候，也许<code>Block</code>更容易被理解一点。举个简单的例子，就比如</p>
-        
       </div>
 
       <hr class="post-list__divider" />
@@ -273,9 +260,6 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
-        
-          <p>iOS开发——解析崩溃日志</p>
-<p>在实际的开发过程中，作为开发者的我们常常会碰到一种场景，那就是真机调试时崩溃了，而有时又不能在Xcode中打印出崩溃信息，那么这时候我们就必须要获取到崩溃原因，从而解决问题。</p>
         
       </div>
 
@@ -295,11 +279,6 @@ classes that you can use:
 
       <div class="excerpt">
         
-          <p>上篇博客我跟大家分享了如何在iOS系统中使用原生框架获取步数，又是大半个月过去了，运动模块的全部功能也总算完成了，也打算有始有终的把如何做一个跑步类App跟大家分享了。</p>
-<p>运动类应用中，有一个很重要的模块就是计时器，当然，这个计时器不算复杂，只要有简单的开始、暂停以及复位功能即可。那么今天我们从<strong>Model</strong>层来看看这个计时器的逻辑实现。</p>
-<p>我们先自己创建一个时间的<strong>Model</strong></p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RunningTimer</span>: <span class="title">NSObject</span> </span>&#123;</span><br><span class="line"><span class="comment">//MARK: var property</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> timeLabel: <span class="type">UILabel</span>!</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> timer: <span class="type">NSTimer</span>?</span><br><span class="line">    <span class="comment">//开始和结束时间列表</span></span><br><span class="line">    <span class="built_in">lazy</span> <span class="keyword">private</span> <span class="keyword">var</span> startTimes = [<span class="type">NSDate</span>]()</span><br><span class="line">    <span class="built_in">lazy</span> <span class="keyword">private</span> <span class="keyword">var</span> endTimes = [<span class="type">NSDate</span>]()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">internal</span> <span class="keyword">var</span> timeNumber = <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">didSet</span> &#123;</span><br><span class="line">            timeString = getTimeStringFromSecond(timeNumber)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">internal</span> <span class="keyword">private</span>(<span class="keyword">set</span>) <span class="keyword">var</span> timeString = <span class="string">"00:00:00"</span> &#123;</span><br><span class="line">        <span class="keyword">didSet</span> &#123;</span><br><span class="line">            timeLabel.text = timeString</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-        
       </div>
 
       <hr class="post-list__divider" />
@@ -317,9 +296,6 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
-        
-          <p>最近半个月的开发工作，重点一直是类似于悦跑圈、咕咚这样的运动产品的功能，所以在处理iOS设备在运动中的表现也是积累了一些经验。</p>
-<p>打算之后的文章，开始把整体的运动功能，分成简单的模块，来介绍一下。那么今天我们就来围绕iOS设备的计步功能，稍微简单的聊一聊。</p>
         
       </div>
 
@@ -339,12 +315,6 @@ classes that you can use:
 
       <div class="excerpt">
         
-          <p>已经有二十多天没有更新自己的博客了，这段时间经历了很多事情，离开了生活了六七年的杭州，从离职再入职，忙的是一塌糊涂。</p>
-<p>现在这个公司的项目使用了Swift开发，我一直想在自己的项目中也运用Swift，但是一直也没有机会，所以这次能够使用Swift正儿八经的开发，我也是超级兴奋的。</p>
-<p>所以从以后开始，我的iOS系列的文章会逐渐的与Swift语言越来越相关。不得不说只有实际开发才能发现Swift中等着我要去踩的坑还有很多。没辙了，爱他就拼命的去填坑吧。</p>
-<p>刚入职的第一周写了个简单的页面来熟悉公司项目代码，并且了解下业务。做了一个电商方面相关的收货地址的选择。</p>
-<p>今天就来讲讲Swift版本的地址选择器的构建。</p>
-        
       </div>
 
       <hr class="post-list__divider" />
@@ -362,9 +332,6 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
-        
-          <p>Xcode8正式发布后，Swift3也随即发布，为了跟上苹果这艘大船的脚步，赶紧逼着自己看文档哦。在看文档的过程中，发现GCD的变化跟OC相比简直都要不认识了，赶紧写个文章总结下，顺手复习下GCD中死锁的概念，死锁的总结发布在另一篇文章里了。</p>
-<h1 id="取消过去的接口"><a href="#取消过去的接口" class="headerlink" title="取消过去的接口"></a>取消过去的接口</h1><p>说起 GCD， 大家肯定回想起类似 <code>dispatch_async</code> 这样的语法。 GCD 的这个语法模式无论是和 Objc 还是 Swift 的整体风格都不太搭调。 所以 Swift 3 中对它的语法进行了彻底的改写。</p>
         
       </div>
 
