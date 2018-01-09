@@ -16,17 +16,17 @@
     
     
 
-    <meta name="description" content="很多程序员，做了很长时间的编程工作却始终都弄不明白算法的时间复杂度的估算，这是很可悲的一件事情。因为弄不清楚，所以也就从不深究自己写的代码是否效率底下，是不是可以通过优化，让计算机更加快速高效。所以在我最近自学看完算法的时间复杂度这个章节之后，我决定写一篇文章回顾，加深记忆，帮助理解。    &amp;lt;!--More--&amp;gt; 算法设计的要求 一个好的算法的设计要求，必须符合以下的几个特性：正确性">
+    <meta name="description" content="很多程序员，做了很长时间的编程工作却始终都弄不明白算法的时间复杂度的估算，这是很可悲的一件事情。因为弄不清楚，所以也就从不深究自己写的代码是否效率底下，是不是可以通过优化，让计算机更加快速高效。所以在我最近自学看完算法的时间复杂度这个章节之后，我决定写一篇文章回顾，加深记忆，帮助理解。">
 <meta name="keywords" content="算法时间复杂度,推导大O阶">
 <meta property="og:type" content="article">
 <meta property="og:title" content="算法时间复杂度 | Leon的博客">
 <meta property="og:url" content="http://yoursite.com/2016/03/17/算法时间复杂度/index.html">
 <meta property="og:site_name" content="Leon的博客">
-<meta property="og:description" content="很多程序员，做了很长时间的编程工作却始终都弄不明白算法的时间复杂度的估算，这是很可悲的一件事情。因为弄不清楚，所以也就从不深究自己写的代码是否效率底下，是不是可以通过优化，让计算机更加快速高效。所以在我最近自学看完算法的时间复杂度这个章节之后，我决定写一篇文章回顾，加深记忆，帮助理解。    &amp;lt;!--More--&amp;gt; 算法设计的要求 一个好的算法的设计要求，必须符合以下的几个特性：正确性">
+<meta property="og:description" content="很多程序员，做了很长时间的编程工作却始终都弄不明白算法的时间复杂度的估算，这是很可悲的一件事情。因为弄不清楚，所以也就从不深究自己写的代码是否效率底下，是不是可以通过优化，让计算机更加快速高效。所以在我最近自学看完算法的时间复杂度这个章节之后，我决定写一篇文章回顾，加深记忆，帮助理解。">
 <meta property="og:updated_time" content="2016-08-05T06:39:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法时间复杂度 | Leon的博客">
-<meta name="twitter:description" content="很多程序员，做了很长时间的编程工作却始终都弄不明白算法的时间复杂度的估算，这是很可悲的一件事情。因为弄不清楚，所以也就从不深究自己写的代码是否效率底下，是不是可以通过优化，让计算机更加快速高效。所以在我最近自学看完算法的时间复杂度这个章节之后，我决定写一篇文章回顾，加深记忆，帮助理解。    &amp;lt;!--More--&amp;gt; 算法设计的要求 一个好的算法的设计要求，必须符合以下的几个特性：正确性">
+<meta name="twitter:description" content="很多程序员，做了很长时间的编程工作却始终都弄不明白算法的时间复杂度的估算，这是很可悲的一件事情。因为弄不清楚，所以也就从不深究自己写的代码是否效率底下，是不是可以通过优化，让计算机更加快速高效。所以在我最近自学看完算法的时间复杂度这个章节之后，我决定写一篇文章回顾，加深记忆，帮助理解。">
     
     
     
@@ -220,15 +220,11 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <p>很多程序员，做了很长时间的编程工作却始终都弄不明白算法的时间复杂度的估算，这是很可悲的一件事情。因为弄不清楚，所以也就从不深究自己写的代码是否效率底下，是不是可以通过优化，让计算机更加快速高效。所以在我最近自学看完算法的时间复杂度这个章节之后，我决定写一篇文章回顾，加深记忆，帮助理解。
-  
-&lt;!--More--&gt;</p>
-<h3>算法设计的要求</h3>
-<p>一个好的算法的设计要求，必须符合以下的几个特性：正确性，可读性，健壮性，时间效率高和存储量低这四个特性。其中算法的前三个特性毕竟容易理解，今天就着重的关于算法的时间效率这个性质来梳理一下。</p>
-<p>时间效率高是指在对于同一个问题，有多个算法能够解决，执行时间短的算法效率更高，执行时间长的效率低。在生活中，人们都希望花最少的钱，最短的时间，办最大的事，算法也是一样的思想。例如求一个班级的物理平均分和求全省学生的中考物理平均分，用同样一套算法的确能够解决问题，但是在占用的时间和内存上的差距是非常大的，所以非常有必要去追求一套高效率，低存储空间的算法来解决问题。</p>
-<h3>算法效率的度量方法</h3>
-<p>一般我们分析一套算法的效率，有事后统计法和事前分析法，但是事后统计法显然是有很大缺陷的，首先它必须要我们先编写好一套程序，这通常需要花费很大的时间和精力。所以一般我们对一套算法的分析，需要事前分析。</p>
-<p>于是我们能发现，一个用高级程序语言编写的程序，在计算机上运行时所消耗的时间取决于下列因素：</p>
+    <p>  很多程序员，做了很长时间的编程工作却始终都弄不明白算法的时间复杂度的估算，这是很可悲的一件事情。因为弄不清楚，所以也就从不深究自己写的代码是否效率底下，是不是可以通过优化，让计算机更加快速高效。所以在我最近自学看完算法的时间复杂度这个章节之后，我决定写一篇文章回顾，加深记忆，帮助理解。<br>  <br><a id="more"></a></p>
+<h3 id="算法设计的要求"><a href="#算法设计的要求" class="headerlink" title="算法设计的要求"></a>算法设计的要求</h3><p>  一个好的算法的设计要求，必须符合以下的几个特性：正确性，可读性，健壮性，时间效率高和存储量低这四个特性。其中算法的前三个特性毕竟容易理解，今天就着重的关于算法的时间效率这个性质来梳理一下。</p>
+<p>  时间效率高是指在对于同一个问题，有多个算法能够解决，执行时间短的算法效率更高，执行时间长的效率低。在生活中，人们都希望花最少的钱，最短的时间，办最大的事，算法也是一样的思想。例如求一个班级的物理平均分和求全省学生的中考物理平均分，用同样一套算法的确能够解决问题，但是在占用的时间和内存上的差距是非常大的，所以非常有必要去追求一套高效率，低存储空间的算法来解决问题。</p>
+<h3 id="算法效率的度量方法"><a href="#算法效率的度量方法" class="headerlink" title="算法效率的度量方法"></a>算法效率的度量方法</h3><p>  一般我们分析一套算法的效率，有事后统计法和事前分析法，但是事后统计法显然是有很大缺陷的，首先它必须要我们先编写好一套程序，这通常需要花费很大的时间和精力。所以一般我们对一套算法的分析，需要事前分析。</p>
+<p>  于是我们能发现，一个用高级程序语言编写的程序，在计算机上运行时所消耗的时间取决于下列因素：</p>
 <ul>
 <li>算法采用的策略、方法</li>
 <li>编译产生的代码质量</li>
@@ -237,20 +233,16 @@ classes that you can use:
 </ul>
 <p>第1条当然是决定一个算法好坏的根本，而第2条由软件决定，第4条主要看硬件性能，也就是说，抛开与计算机软件、硬件有关的因素，一个程序的运行时间，依赖于算法的好坏和问题的输入规模。所谓的输入规模，就是指输入量的多少。</p>
 <p>所以我们在分析算法问题时，最重要的就是把程序看成是独立于程序设计语言的算法或一系列的步骤。</p>
-<h3>函数的渐近增长</h3>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">函数的渐近增长：给定两个函数f(n)和g(n),</span><br><span class="line">如果存在一个整数N，使得对于所有的n&gt;N，f(n)总是比g(n)大,</span><br><span class="line">那么我们就说f(n)的增长渐近快于g(n)。</span><br></pre></td></tr></table></figure></p>
+<h3 id="函数的渐近增长"><a href="#函数的渐近增长" class="headerlink" title="函数的渐近增长"></a>函数的渐近增长</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">函数的渐近增长：给定两个函数f(n)和g(n),</span><br><span class="line">如果存在一个整数N，使得对于所有的n&gt;N，f(n)总是比g(n)大,</span><br><span class="line">那么我们就说f(n)的增长渐近快于g(n)。</span><br></pre></td></tr></table></figure>
 <p>判断一个算法的效率时，函数中的常数和其他次要项常常可以忽略，而更应该关注的是主项（最高阶项）的阶数。</p>
 <p>判断一个算法好不好，通过少量的数据是不能得出结论的。如果我们对比几个函数在关键执行次数的函数的渐近增长性，基本就可以分析出：某个算法，随着n的增大，它会越来越优于另一算法，或者原来越差于另一算法。这其实就是事前估算方法的理论依据，通过算法时间复杂度来估算算法时间效率。</p>
-<h3>算法时间复杂度</h3>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">在进行算法分析时，语句总的执行次数T(n)是关于问题规模n的函数，</span><br><span class="line">进而分析T(n)随着n的变化情况并确定T(n)的数量级。</span><br><span class="line">算法的时间复杂度，也就是算法的时间度量，记作：T(n)=O(f(n))。</span><br><span class="line">它表示随问题规模n的增大，算法执行时间的增长率和f(n)的增长率相同，</span><br><span class="line">称作算法的时间复杂度，简称为时间复杂度。</span><br><span class="line">其中f(n)是问题规模n的某个函数。</span><br></pre></td></tr></table></figure></p>
+<h3 id="算法时间复杂度"><a href="#算法时间复杂度" class="headerlink" title="算法时间复杂度"></a>算法时间复杂度</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">在进行算法分析时，语句总的执行次数T(n)是关于问题规模n的函数，</span><br><span class="line">进而分析T(n)随着n的变化情况并确定T(n)的数量级。</span><br><span class="line">算法的时间复杂度，也就是算法的时间度量，记作：T(n)=O(f(n))。</span><br><span class="line">它表示随问题规模n的增大，算法执行时间的增长率和f(n)的增长率相同，</span><br><span class="line">称作算法的时间复杂度，简称为时间复杂度。</span><br><span class="line">其中f(n)是问题规模n的某个函数。</span><br></pre></td></tr></table></figure>
 <p>这样用写大O()来体现的时间复杂度的记法，我们称之为大O记法。</p>
 <p>显然由时间复杂度的定义可知，算法的时间复杂度分别为O(1),O(n),O(n²)，用非官方的名称来叫它们，O(1)常数阶，O(n)线性阶，O(n²)平方阶，当然还有一些其他的阶。</p>
-<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//例如O(1)常数阶</span></span><br><span class="line">sum = (<span class="number">1</span> + n) / <span class="number">2</span> ;</span><br><span class="line"></span><br><span class="line"><span class="comment">//例如O(n)线性阶</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        x++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//例如O(n²)平方阶</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">                       x++;</span><br><span class="line">        &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
-<h3>推导大O阶的方法</h3>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">推导大O阶：</span><br><span class="line"></span><br><span class="line">1、用常数1取代运行时间中所有的加法常数。</span><br><span class="line">2、在修改后的运行次数函数中，只保留最高阶项。</span><br><span class="line">3、如果最高阶项存在且不是1，则去除与这个项相乘的常熟。</span><br><span class="line">得到的结果就是大O阶。</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//例如O(1)常数阶</span></span><br><span class="line">sum = (<span class="number">1</span> + n) / <span class="number">2</span> ;</span><br><span class="line"></span><br><span class="line"><span class="comment">//例如O(n)线性阶</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        x++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//例如O(n²)平方阶</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">                       x++;</span><br><span class="line">        &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="推导大O阶的方法"><a href="#推导大O阶的方法" class="headerlink" title="推导大O阶的方法"></a>推导大O阶的方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">推导大O阶：</span><br><span class="line"></span><br><span class="line">1、用常数1取代运行时间中所有的加法常数。</span><br><span class="line">2、在修改后的运行次数函数中，只保留最高阶项。</span><br><span class="line">3、如果最高阶项存在且不是1，则去除与这个项相乘的常熟。</span><br><span class="line">得到的结果就是大O阶。</span><br></pre></td></tr></table></figure>
 <p>其实理解大O阶推导并不难，难得是对数列的一些相关运算，这里更多的考察的是数学知识和能力，特别是数列方面的知识和解题能力。</p>
-<h3>常见的时间复杂度</h3>
-<table>
+<h3 id="常见的时间复杂度"><a href="#常见的时间复杂度" class="headerlink" title="常见的时间复杂度"></a>常见的时间复杂度</h3><table>
 <thead>
 <tr>
 <th>执行次数函数</th>
@@ -296,8 +288,7 @@ classes that you can use:
 </tr>
 </tbody>
 </table>
-<p>常用的时间复杂度所耗费的时间从小到大依次是：
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O(1)&lt;O(logn)&lt;O(n)&lt;O(nlogn)&lt;O(n²)&lt;O(n³)&lt;O(2^n)&lt;O(n!)&lt;O(n^n)</span><br></pre></td></tr></table></figure></p>
+<p>常用的时间复杂度所耗费的时间从小到大依次是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O(1)&lt;O(logn)&lt;O(n)&lt;O(nlogn)&lt;O(n²)&lt;O(n³)&lt;O(2^n)&lt;O(n!)&lt;O(n^n)</span><br></pre></td></tr></table></figure></p>
 <p>一般在没有特殊说明的情况下，我们分析的都是算法的在最坏状况下的时间复杂度。</p>
 <p>通过分析算法的效率，能深刻感受到愚公的精神固然可敬，但是推土机和炸药可能是更加实在和聪明。</p>
 <p>简单的算法时间复杂度的概念就先到这里结束了，以后看到新的知识再继续分享。</p>

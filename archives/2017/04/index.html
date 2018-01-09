@@ -208,6 +208,8 @@ classes that you can use:
 
       <div class="excerpt">
         
+          <p>今天的这篇博文，我不谈及具体的编程技术，只想从这段时间的学习以及写代码的过程中，分享一下自己的编程体会。</p>
+        
       </div>
 
       <hr class="post-list__divider" />
@@ -225,6 +227,11 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
+        
+          <p>今天来讨论一个很基础的算法问题，数列的最大子列和问题。这道题我是在看浙大陈姥姥的Mooc的时候看到的，算是陈越老师作为算法与数据结构开篇讲解的第一道算法实例题。</p>
+<p>那么今天我就来记录一下分析这道题的过程。</p>
+<h2 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h2><p>首先，最大子列和这个问题有一个众所周知的办法，即为每次从数列的开头i，往结尾N累加，当加至结尾时，由i+1再次累加，直到N-N。这样的算法用三个变量三层循环来分别代表从头至尾的遍历，以及从i - N的前进继续累加，最后一层是累加的和。算法可以写成下面这样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">MaxSubseqSum1</span><span class="params">(<span class="keyword">int</span>[] A, <span class="keyword">int</span> N)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">int</span> ThisSum, MaxSum = <span class="number">0</span>;</span><br><span class="line">       <span class="keyword">int</span> i, j, k;</span><br><span class="line">       <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">           <span class="keyword">for</span> (j = i; j &lt; N; j++) &#123;</span><br><span class="line">               ThisSum = <span class="number">0</span>;</span><br><span class="line">               <span class="keyword">for</span> (k = i; k &lt;= j; k++) &#123;</span><br><span class="line">                   ThisSum += A[k];</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">if</span> (ThisSum &gt; MaxSum) &#123;</span><br><span class="line">                   MaxSum = ThisSum;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> MaxSum;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
         
       </div>
 
@@ -244,6 +251,10 @@ classes that you can use:
 
       <div class="excerpt">
         
+          <p>因为不是科班出身，所以即使编程一段时间也时常感觉自身基础知识非常不扎实，于是在最近开始补习算法和计算机理论的基础知识。</p>
+<p>目前看的算法书籍是《算法》（第四版），由<strong>Robert Sedgewick</strong>以及<strong>Kevin Wayne</strong>编写的，由于不可能把所有的练习都写成博客记录下来，于是就在学习过程中，挑选一些有意思的写成笔记，以便日后参考以及与同行互相交流。</p>
+<p>今天要准备写的就是非常经典的牛顿迭代法求平方根，事实上现在的绝大部分编程语言中，标准库中都已经为我们准备好了计算平方根的函数，但是本着学习的精神，今天我们也要写出一个求平方根的函数。</p>
+        
       </div>
 
       <hr class="post-list__divider" />
@@ -261,6 +272,12 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
+        
+          <p>之前在看了《Clean Code》这本书的前两章时，就写下了第一篇读书小节，而随着读书的深入，便决定再总结一下后面一部分的读书心得。</p>
+<h1 id="那些多余的注释"><a href="#那些多余的注释" class="headerlink" title="那些多余的注释"></a>那些多余的注释</h1><p>相信每一个程序员都经历过一个坑，那就是去阅读甚至修改没有注释的代码。如果这些代码风格糟糕，命名不遵循规则，毫无疑问这是一段你永远都不想回忆的时光，而若是这些代码命名准确，设计模式使用的恰到好处，函数拆分合理，说不定你有一种怎么读别人的代码比回顾我自己写的代码还清晰的错觉。</p>
+<p>是的，毫无疑问我一直是代码是最好的注释这个说法的拥护者之一。但是，这里有个前提，就是你必须有能力写出优秀的代码，你才有资格去不写注释。我们要一直明白一个问题，我们的代码写出来是为了给别人看的，而不是仅仅给自己看的，如果你的团队有严谨的<strong>Code Review</strong>那你好意思写出脏乱不堪的代码被投影仪放到幕布上给所有部门同事看么？对于一个新手程序员来说，请老老实实的写好每一个关键函数的注释，也请在修改函数的时候，不吝时间的修改对应的注释。若是项目的目的是为了公开API给第三方开发者使用，那么请在开放api上写好注释，这是应该完善的工作。</p>
+<p>而上述说的类型您都不是，那么我想该强调一下谈这个话题的主题了，去除那些多余的注释吧。有时候，在一些明显目的的函数上，加注释，会给阅读你代码的开发者一种错觉，你的水平很低，不足以理解代码，所以需要在简单的语句上加上注释。打个比方，你是我的面试官，有一道面试题，我在写完之后交给你，你看到的是如下格式的面试题：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$arr = $User-&gt;where($where)-&gt;find(); <span class="comment">// 读取数据</span></span><br><span class="line"></span><br><span class="line">$list = [];</span><br><span class="line"><span class="keyword">foreach</span>($arr <span class="keyword">as</span> $key =&gt; $val) &#123; <span class="comment">// 遍历数组</span></span><br><span class="line">  $list[$key] = [</span><br><span class="line">    <span class="string">'name'</span> =&gt; $val[<span class="string">'name'</span>],</span><br><span class="line">    <span class="string">'age'</span> =&gt; $val[<span class="string">'age'</span>],</span><br><span class="line">  ];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$list[<span class="string">'count'</span>] = count($arr); <span class="comment">// 其他属性</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> json_encode($list); <span class="comment">// 输出 json</span></span><br></pre></td></tr></table></figure>
         
       </div>
 

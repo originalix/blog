@@ -208,6 +208,10 @@ classes that you can use:
 
       <div class="excerpt">
         
+          <p>在实际的项目开发中，数据持久化是我们必须要考虑的一个事情，如何把我们需要的数据进行持久化处理。</p>
+<p>在此之前，一些轻量级的数据类型我一般比较喜欢用NSUserDefaults来存储，因为首先这是一个单例，而且使用简便，数据之间传递自由，所以很适合用来保存简单的数据。</p>
+<p>而昨天我在实际工作中，有一个数组NSMutableArray需要存储，但是使用时，报了一个错误 <code>reason: &#39;*** -[NSUserDefaults setObject:forKey:]: attempt to insert non-property list object</code>，这个报错提示我试图加入一个不支持的数据类型。可是明明NSUserDefaults支持的数据类型有：NSNumber（NSInteger、float、double），NSString，NSDate，NSArray，NSDictionary，BOOL，为什么我的NSArray不能加入呢。后来发现我的数组中的对象，是Model类的对象。</p>
+        
       </div>
 
       <hr class="post-list__divider" />

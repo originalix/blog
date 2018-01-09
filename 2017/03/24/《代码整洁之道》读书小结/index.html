@@ -225,17 +225,15 @@ classes that you can use:
 <p>在我写下这部分脏代码之前，我自认为也是用了一些能够用上的设计模式，但是随着临时性的需求变更不断增加，有时候贪图省事直接在原有代码的基础上修改了事，很明显这违反了开放闭合原则。</p>
 <p>回到正题上来，回顾《clean code》这本书，正是帮助自己在反思的同时做好知识的回顾梳理，并且能够在重构中把学到的知识学以致用。虽然现在我还没有全部看完，但是也是可以从已经完成阅读的部分总结一点心得。</p>
 <p>第一次看这本书是在几年前，可以说这本书对我编写代码的风格形成了很深的影响，而初读此书时也有种醍醐灌顶的感觉，哦，原来代码还可以这么写。</p>
-<p>&lt;!--more--&gt;</p>
-<h1>从命名谈起</h1>
-<p>当我们在写代码时，面临的第一个问题大概就是命名，你想创建一个类，需要命名；写函数，需要命名；甚至初始化一个变量，也需要给变量命名。但是一个好的命名和差的命名，可是有着天差地别的区别的。好的命名，让人扫一眼，就大概知道这个函数的作用是什么，甚至连大体会输出什么都知道，提升了代码的可读性。而差的命名会极大降低代码的可读性，让下一个阅读你代码的人，花费大量的时间。举个栗子：</p>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">privite func syncDataWhenConnect() &#123;</span><br><span class="line">    //doSomething</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">privite func syncData() &#123;</span><br><span class="line">    //doSomething</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h1 id="从命名谈起"><a href="#从命名谈起" class="headerlink" title="从命名谈起"></a>从命名谈起</h1><p>当我们在写代码时，面临的第一个问题大概就是命名，你想创建一个类，需要命名；写函数，需要命名；甚至初始化一个变量，也需要给变量命名。但是一个好的命名和差的命名，可是有着天差地别的区别的。好的命名，让人扫一眼，就大概知道这个函数的作用是什么，甚至连大体会输出什么都知道，提升了代码的可读性。而差的命名会极大降低代码的可读性，让下一个阅读你代码的人，花费大量的时间。举个栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">privite func syncDataWhenConnect() &#123;</span><br><span class="line">    //doSomething</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">privite func syncData() &#123;</span><br><span class="line">    //doSomething</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>上下两个函数，很明显你看完第一个，会更明白这个函数的目的是什么，所以建议在书写函数的时候，尽量的使用动词，来准确的秒数函数的目的。</p>
 <p>而给类命名则正好相反，再举个栗子：</p>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">AddressManager.php</span><br><span class="line">MacAddress.php</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">AddressManager.php</span><br><span class="line">MacAddress.php</span><br></pre></td></tr></table></figure>
 <p>上下两个类名，这里我写的有点争议，其实在不同的语境里两个似乎都可以完成可读性的使命，但是假设一个程序，有存储用户地址的类，也有外接设备mac地址的类，哪个更易懂？所以类名的命名，尽量使用名词，并且要求简单直接，是什么就是什么，尽量少用动词，动词的活，让我们所在的文件夹，让命名空间们去阐述吧。</p>
 <p>虽然我上面反复提及了名字简短，但是只有很少比例的命名能又短又明确的阐述命名意义，所以如果是为了增加可读性，长命名也不是完全不可取，虽然很多人黑<strong>Objective-C</strong>命名是又臭又长，但是这种命名带来的便利就是你扫一眼便知道函数要完成的目的，以及需要的参数。长短之别，自己把握吧。</p>
-<h1>从简短代码谈起</h1>
-<p>编程界的那帮金字塔尖的大牛们一致认为，函数是越短越好，如果实在控制不住，请不要超过20行，如果不小心超过了，那么你可以考虑拆分你的函数了。</p>
+<h1 id="从简短代码谈起"><a href="#从简短代码谈起" class="headerlink" title="从简短代码谈起"></a>从简短代码谈起</h1><p>编程界的那帮金字塔尖的大牛们一致认为，函数是越短越好，如果实在控制不住，请不要超过20行，如果不小心超过了，那么你可以考虑拆分你的函数了。</p>
 <p>其实每次我去反思这点的时候，我觉得可有意思了，讲道理的说，我有可能做不到，为什么呢，因为水平不够，对语言的理解不够透彻，有很多更深层的语言特性，还不能熟练应用。所以只能在能够考虑到的范围内，尽量缩短自己的函数长度，向大牛们看齐。</p>
 <p>这次的手环模块，因为有很多蓝牙的连接状态判断，写了很多Swich ifelse等判断，而ifelse因为业务逻辑复杂，还在初次编写的时候夹杂了很多嵌套，所以需要重构的地方还是很多的。</p>
 <p>我们写代码，开发时间算20%，那么剩下的80%就是维护时间，什么样的函数易于修改，当然是短的函数，每次改动都能做到心中有数。</p>

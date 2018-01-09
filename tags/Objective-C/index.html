@@ -208,6 +208,9 @@ classes that you can use:
 
       <div class="excerpt">
         
+          <p>最近在完成一个需求时，遇到了<code>NSData</code>类型转换为十六进制的字符串这个需求的函数，在<code>stackoverflow</code>中翻找的时候，给出的答案基本上是如下的:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span>* newStr = [[<span class="built_in">NSString</span> alloc] initWithData:theData encoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// If the data is null-terminated, you should instead use -stringWithUTF8String: to avoid the extra \0 at the end.</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">NSString</span>* newStr = [<span class="built_in">NSString</span> stringWithUTF8String:[theData bytes]];</span><br><span class="line"></span><br><span class="line"><span class="comment">// (Note that if the input is not properly UTF-8-encoded, you will get nil.)</span></span><br></pre></td></tr></table></figure>
+        
       </div>
 
       <hr class="post-list__divider" />

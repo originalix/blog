@@ -16,18 +16,18 @@
     
     
 
-    <meta name="description" content="iOS开发——解析崩溃日志 在实际的开发过程中，作为开发者的我们常常会碰到一种场景，那就是真机调试时崩溃了，而有时又不能在Xcode中打印出崩溃信息，那么这时候我们就必须要获取到崩溃原因，从而解决问题。 &amp;lt;!--more--&amp;gt; 而在万能的Xcode中，你可以找到自己测试机里的崩溃日志。Window -&amp;gt; Devices -&amp;gt; 选中自己的测试机 View Device Log">
+    <meta name="description" content="iOS开发——解析崩溃日志 在实际的开发过程中，作为开发者的我们常常会碰到一种场景，那就是真机调试时崩溃了，而有时又不能在Xcode中打印出崩溃信息，那么这时候我们就必须要获取到崩溃原因，从而解决问题。">
 <meta name="keywords" content="iOS开发,Crash,symbolicatecrash">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS开发——解析崩溃日志 | Leon的博客">
 <meta property="og:url" content="http://yoursite.com/2017/01/04/iOS开发——解析崩溃日志/index.html">
 <meta property="og:site_name" content="Leon的博客">
-<meta property="og:description" content="iOS开发——解析崩溃日志 在实际的开发过程中，作为开发者的我们常常会碰到一种场景，那就是真机调试时崩溃了，而有时又不能在Xcode中打印出崩溃信息，那么这时候我们就必须要获取到崩溃原因，从而解决问题。 &amp;lt;!--more--&amp;gt; 而在万能的Xcode中，你可以找到自己测试机里的崩溃日志。Window -&amp;gt; Devices -&amp;gt; 选中自己的测试机 View Device Log">
+<meta property="og:description" content="iOS开发——解析崩溃日志 在实际的开发过程中，作为开发者的我们常常会碰到一种场景，那就是真机调试时崩溃了，而有时又不能在Xcode中打印出崩溃信息，那么这时候我们就必须要获取到崩溃原因，从而解决问题。">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/134882-3eb075f8e82c2413.png?imageMogr2/auto-orient/strip%7CimageView2/2/format/jpg">
 <meta property="og:updated_time" content="2017-01-04T09:28:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS开发——解析崩溃日志 | Leon的博客">
-<meta name="twitter:description" content="iOS开发——解析崩溃日志 在实际的开发过程中，作为开发者的我们常常会碰到一种场景，那就是真机调试时崩溃了，而有时又不能在Xcode中打印出崩溃信息，那么这时候我们就必须要获取到崩溃原因，从而解决问题。 &amp;lt;!--more--&amp;gt; 而在万能的Xcode中，你可以找到自己测试机里的崩溃日志。Window -&amp;gt; Devices -&amp;gt; 选中自己的测试机 View Device Log">
+<meta name="twitter:description" content="iOS开发——解析崩溃日志 在实际的开发过程中，作为开发者的我们常常会碰到一种场景，那就是真机调试时崩溃了，而有时又不能在Xcode中打印出崩溃信息，那么这时候我们就必须要获取到崩溃原因，从而解决问题。">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/134882-3eb075f8e82c2413.png?imageMogr2/auto-orient/strip%7CimageView2/2/format/jpg">
     
     
@@ -224,42 +224,32 @@ classes that you can use:
   <section id="post-content" class="article-content post">
     <p>iOS开发——解析崩溃日志</p>
 <p>在实际的开发过程中，作为开发者的我们常常会碰到一种场景，那就是真机调试时崩溃了，而有时又不能在Xcode中打印出崩溃信息，那么这时候我们就必须要获取到崩溃原因，从而解决问题。</p>
-<p>&lt;!--more--&gt;</p>
+<a id="more"></a>
 <p>而在万能的<strong>Xcode</strong>中，你可以找到自己测试机里的崩溃日志。<code>Window</code> -&gt; <code>Devices</code> -&gt; 选中自己的测试机 <code>View Device Logs</code> ，类似下图</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/134882-3eb075f8e82c2413.png?imageMogr2/auto-orient/strip%7CimageView2/2/format/jpg" alt=""></p>
 <p>而此时你可以选择导出自己的崩溃日志，并且这里的我们看到的崩溃日志，都是Xcode已经帮我们符号化的，很清晰的就可以看到崩溃原因，以及崩溃的位置。</p>
 <p>如果是其他用户，下载了我们的App之后出现了崩溃，我们可以从<code>iTunes Connect</code>中获取到其他用户的崩溃日志，但是这时如果你去看他人的崩溃日志，不出意外您是懵逼的。这是崩溃日志么？ 天书还差不多。而如何把他人的崩溃日志符号化呢？ 这就是我们接下来要讲的内容了。</p>
 <p>依旧是万能的<strong>Xcode</strong>给我们提供了一个工具 —— <strong>symbolicatecrash</strong>，这是一个<strong>Xcode</strong>自带的分析工具，可以通过机器上的崩溃日志和应用的<code>.dSYM</code>文件定位发生崩溃的位置，把<code>Crash</code>日志中的一堆地址替换成代码相应的位置。</p>
-<h1>如何使用symbolicatecrash分析崩溃日志</h1>
-<ol>
-<li>
-<p>在你的桌面创建一个新文件夹，并且命名为&quot;CrashReport&quot;</p>
+<h1 id="如何使用symbolicatecrash分析崩溃日志"><a href="#如何使用symbolicatecrash分析崩溃日志" class="headerlink" title="如何使用symbolicatecrash分析崩溃日志"></a>如何使用symbolicatecrash分析崩溃日志</h1><ol>
+<li><p>在你的桌面创建一个新文件夹，并且命名为”CrashReport”</p>
 </li>
-<li>
-<p>打开终端输入 <code>find /Applications/Xcode.app -name symbolicatecrash -type f</code>，然后终端会返回这个文件的路径,只要找到<code>symbolicatecrash</code>文件, 复制然后粘贴到刚才创建的 &quot;CrashReport&quot; 文件夹里面.</p>
+<li><p>打开终端输入 <code>find /Applications/Xcode.app -name symbolicatecrash -type f</code>，然后终端会返回这个文件的路径,只要找到<code>symbolicatecrash</code>文件, 复制然后粘贴到刚才创建的 “CrashReport” 文件夹里面.</p>
 </li>
-<li>
-<p>从<strong>Xcode Archive</strong>的二进制文件中找到**.dSYM<strong>文件和</strong>.app**文件拷贝到刚才创建的 <code>CrashReport</code> 文件夹里面.</p>
+<li><p>从<strong>Xcode Archive</strong>的二进制文件中找到<strong>.dSYM</strong>文件和<strong>.app</strong>文件拷贝到刚才创建的 <code>CrashReport</code> 文件夹里面.</p>
 </li>
-<li>
-<p>打开终端进入<strong>CrashReport</strong>文件夹，依次输入以下命令行:</p>
+<li><p>打开终端进入<strong>CrashReport</strong>文件夹，依次输入以下命令行:</p>
 </li>
 </ol>
 <p>记得替换自己的<strong>Username</strong></p>
 <ul>
-<li>
-<p><code>cd /Users/username/Desktop/CrashReport</code></p>
+<li><p><code>cd /Users/username/Desktop/CrashReport</code></p>
 </li>
-<li>
-<p><code>export DEVELOPER_DIR=/Applications/XCode.app/Contents/Developer</code></p>
+<li><p><code>export DEVELOPER_DIR=/Applications/XCode.app/Contents/Developer</code></p>
 </li>
-<li>
-<p><code>./symbolicatecrash ./*.crash ./*.app.dSYM &gt; symbol.crash</code></p>
+<li><p><code>./symbolicatecrash ./*.crash ./*.app.dSYM &gt; symbol.crash</code></p>
 </li>
 </ul>
-<p>这时候终端将会进行处理......
-处理结果是生成一个新的文件symbol.crash。然后打开这个文件。
-你就会看到日志跟我们调试APP的控制台输出的内容一样了！</p>
+<p>这时候终端将会进行处理……<br>处理结果是生成一个新的文件symbol.crash。然后打开这个文件。<br>你就会看到日志跟我们调试APP的控制台输出的内容一样了！</p>
 <p>天书变成了可以看懂的崩溃记录，攻城狮们，赶紧改Bug吧。</p>
 <p>不知不觉博客更新了一年了，2017的第一篇日志，希望大家新年无Bug。</p>
 

@@ -208,6 +208,13 @@ classes that you can use:
 
       <div class="excerpt">
         
+          <p>好像很久没有写有关iOS的文章了，其实iOS的开发一直都是在进行的，但是最近有需求拓宽知识的宽度，所以一直在接触别的知识，当然啦，移动端开发并不能丢下。</p>
+<p>我平时开发的项目监测bug和崩溃的模块都是集成了鹅厂的<code>Bugly</code>系统，毕竟是谁用谁说好的第三方系统。而<code>Bugly</code>主要还是返回的还是崩溃之后的日志，所以如果想在平时的运行中，就能拿到客户手机中的日志怎么办呢。在这个需求的驱使下，便开始着手设计一个日志系统。</p>
+<p>需求还是不难的，记录手机操作的内容，如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">时间|日志级别|类名_函数名_行数|分类|Log内容</span><br></pre></td></tr></table></figure>
+<p>这样的一种日志形式。</p>
+<p>因为不希望频繁的读写，所以希望每十条Log生成之后，读写一次。而未写入硬盘的Log保存在内存中。按照天数，每天都有一份日志，并且在客户的手机异常之后，可以将所有日志压缩上传到服务器。需求介绍完了，并不难对不对。</p>
+        
       </div>
 
       <hr class="post-list__divider" />
@@ -225,6 +232,12 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
+        
+          <p>上次的博客我们讲了关于Linux的用户管理的内容，现在我们来讲第二部分——系统用户组的管理。</p>
+<p>每个用户都有一个用户组，系统可以对一个用户组中的所有用户进行集中管理。不同Linux系统对用户组的规定有所不同，如Linux下的用户属于它同名的用户组，这个用户组在创建用户的同时创建。</p>
+<p>用户组的管理涉及用户组的添加、删除和修改。组的增加、删除和修改实际上就是对<code>/etc/group</code>文件的更新。</p>
+<h3 id="增加用户组"><a href="#增加用户组" class="headerlink" title="增加用户组"></a>增加用户组</h3><p>添加一个新的用户组，使用<code>groupadd</code>命令。 格式如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">groupadd [options] [group]</span><br><span class="line"></span><br><span class="line">可以使用的选项有： </span><br><span class="line">-g GID 指定新用户组的组标识号（GID）。</span><br><span class="line">-o 一般与-g选项同时使用，表示新用户组的GID可以与系统已有用户组的GID相同。</span><br></pre></td></tr></table></figure>
         
       </div>
 
@@ -244,6 +257,9 @@ classes that you can use:
 
       <div class="excerpt">
         
+          <p>在看《鸟哥的Linux私房菜》的第四章之前，我操作Linux系统时，习惯性的使用<code>root</code>账号，为什么呢？无非图一个方便，没有那么多权限设置，对当时我这个<code>Linux</code>小白来说，再好不过了。但是看完了鸟哥的书，我才意识到当时的操作是有多大的问题，所以在此书写一下以便日后回顾。</p>
+<p><code>Linux</code>系统是一个多用户多任务的分时操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账号，然后以这个账号的身份进入系统。用户的账号一方面可以帮助系统管理员对使用系统的用户进行跟踪，并控制他们对系统资源的访问；另一方面也可以帮助用户组织文件，并为用户提供安全性保护。每个用户账号都拥有一个惟一的用户名和各自的口令。用户在登录时键入正确的用户名和口令后，就能够进入系统和自己的主目录。</p>
+        
       </div>
 
       <hr class="post-list__divider" />
@@ -261,6 +277,10 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
+        
+          <p>之前讲过为了统一开发环境生产环境以及更换开发机器的情况，我把环境统一由<code>Vagrant</code>部署在<code>Linux</code>的虚拟机中，但是由于我对<code>Linux</code>系统没有系统的学习过，对于环境的部署也仅仅通过谷歌等刚刚入门，所以在具体的开发中我还是经常在<code>Linux</code>中遇到问题，经常求教老大。看着老大熟练的把玩<code>Linux</code>，我也下定决心要把<code>Linux</code>掌握好。</p>
+<p>经自己了解，《鸟哥的Linux私房菜》一书备受推崇，于是于半个月前购入，开始拜读学习。在日常的工作时间之外，断断续续的学习着，确实受益匪浅，厚厚的一本书现在才看了四分之一左右，决定还是抽出时间记录一下自己曾经对于<code>Linux</code>感到困惑的一些事情。</p>
+<p>今天就来说说<code>Linux</code>中文件权限的一些门门道道。</p>
         
       </div>
 

@@ -207,6 +207,10 @@ classes that you can use:
 
       <div class="excerpt">
         
+          <p>在早期，iPhone尺寸比较固定，都是4英寸屏幕的时候，在计算App的尺寸时，只要稍微根据Window的size稍微计算一下就可以了，但是前年iPhone6以及iPhone6Plus的推出，作为开发者就会警觉为了多机型的适配，使用AutoLayout是势在必行的一件事情了，但是说实话，我在用了AutoLayout之后真的觉得挺不方便的。</p>
+<p>一直以来可能是一个coder的矫情情怀，我喜欢用纯代码来搭建界面，因为那样思路清晰，而且日后维护的时候也能很清楚的知道问题究竟出在哪里。于是，一个第三方框架Masonry就自然而然的进入了视线，Masonry是一个轻量级的布局框架，拥有自己的描述语法，采用更优雅的链式语法来封装自动布局，简洁明了，具有高的可读性。</p>
+<p>于是我今天就从Masonry最简单的demo入手，来学习Masonry的使用。
+        
       </div>
 
       <hr class="post-list__divider" />
@@ -224,6 +228,8 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
+        
+          <p>在一个月之前，蔺老师给我出了一道题目，据说是可以吹一年的题目，所以我当时压根就没觉得我这么蠢的人能答得出来蔺老师给我出的题目，也就一直没回答，拖了将近一个月，才终于被老师想起来。先把题目放出来，具体的题目是这样的：</p>
         
       </div>
 
@@ -243,6 +249,12 @@ classes that you can use:
 
       <div class="excerpt">
         
+          <h3 id="顺序存储定义"><a href="#顺序存储定义" class="headerlink" title="顺序存储定义"></a>顺序存储定义</h3><p>今天来总结一下线性表的顺序存储结构。首先来看下顺序存储结构的定义。</p>
+<blockquote>
+<p>线性表的顺序存储结构，指的是用一段地址连续的存储单元依次存储线性表的数据元素。</p>
+</blockquote>
+<p>举个简单的例子，蔺老师在给九班学生安排座位之前，会让学生们从矮到高按照身高的高矮升序排列，假如蔺老师的班上只有十个学生，而全班共有50个座位，那蔺老师会把这10个学生，连续的安排在教室的前两排之内，每个人都有自己的同桌，连续的10个座位，那么这10个学生所占用的就是一片连续的座位。相当于内存中有50个数据元素的空间，而10个学生只占用了中间的连续十个大小的空间。</p>
+        
       </div>
 
       <hr class="post-list__divider" />
@@ -260,6 +272,9 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
+        
+          <p>最近在看关于设计模式的书籍，开始觉得在设计程序架构之时，能够灵活运用这些设计模式，代码将变得非常具有美感。一个好的设计模式使得程序更加的灵活，容易修改，易于使用。</p>
+<p>从最简单的简单工厂模式开始学起，举一个实现计算器的例子，来完成简单工厂模式。</p>
         
       </div>
 
@@ -279,6 +294,8 @@ classes that you can use:
 
       <div class="excerpt">
         
+          <p>  很多程序员，做了很长时间的编程工作却始终都弄不明白算法的时间复杂度的估算，这是很可悲的一件事情。因为弄不清楚，所以也就从不深究自己写的代码是否效率底下，是不是可以通过优化，让计算机更加快速高效。所以在我最近自学看完算法的时间复杂度这个章节之后，我决定写一篇文章回顾，加深记忆，帮助理解。<br>  <br>
+        
       </div>
 
       <hr class="post-list__divider" />
@@ -297,6 +314,9 @@ classes that you can use:
 
       <div class="excerpt">
         
+          <p> 单例设计模式从字面意思上来说，就是一个类在系统运行时，只创建一个实例。可以用于需要被多次调用的或者多次使用的资源中。比如我们常见的网络请求类、工具类等等。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//iOS中大量的使用了单例方法，常见的有：</span></span><br><span class="line">[<span class="built_in">NSUserDefaults</span> standardUserDefaults]  轻量级的本地数据存储，存储自定义的对象，比如保存登陆界面的数据、用户名、密码等。</span><br><span class="line"></span><br><span class="line">[<span class="built_in">UIApplication</span> sharedApplication] 处理用户事件，main函数入口</span><br><span class="line"></span><br><span class="line">[<span class="built_in">UIScreen</span> mainScreen] 获取全屏幕尺寸</span><br></pre></td></tr></table></figure>
+        
       </div>
 
       <hr class="post-list__divider" />
@@ -314,6 +334,8 @@ classes that you can use:
       </div>
 
       <div class="excerpt">
+        
+          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
         
       </div>
 
