@@ -197,6 +197,28 @@ classes that you can use:
     <li>
 
       <h2 class="post-list__post-title post-title">
+        <a href="/2017/04/11/牛顿迭代法与二分法计算平方根/" title="link to 牛顿迭代法与二分法计算平方根">牛顿迭代法与二分法计算平方根</a>
+      </h2>
+
+      <div class="post-list__meta">
+
+        <time datetime="2017-04-11" class="post-list__meta--date date">2017-04-11</time> 
+      </div>
+
+      <div class="excerpt">
+        
+          <p>因为不是科班出身，所以即使编程一段时间也时常感觉自身基础知识非常不扎实，于是在最近开始补习算法和计算机理论的基础知识。</p>
+<p>目前看的算法书籍是《算法》（第四版），由<strong>Robert Sedgewick</strong>以及<strong>Kevin Wayne</strong>编写的，由于不可能把所有的练习都写成博客记录下来，于是就在学习过程中，挑选一些有意思的写成笔记，以便日后参考以及与同行互相交流。</p>
+<p>今天要准备写的就是非常经典的牛顿迭代法求平方根，事实上现在的绝大部分编程语言中，标准库中都已经为我们准备好了计算平方根的函数，但是本着学习的精神，今天我们也要写出一个求平方根的函数。</p>
+        
+      </div>
+
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
+
+      <h2 class="post-list__post-title post-title">
         <a href="/2017/04/02/《Clean-Code》-读书小节（二）/" title="link to 《Clean Code》 读书小节（二）">《Clean Code》 读书小节（二）</a>
       </h2>
 
@@ -344,28 +366,6 @@ classes that you can use:
           <p>今天来写一个老生常谈的话题，也是一个面试的高频问题，我也在面试时不止一次被问到过这个问题——如何高性能的设置圆角。就用他作为2017年春节上班之后的第一篇文章。</p>
 <h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>在谈及圆角这个话题之前，我们必须先知道系统的<code>API</code>是怎样去简单方便的设置圆角的。以一个<code>imageView</code>控件来举例。</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">imageView.layer.cornerRadius = <span class="built_in">CGFloat</span>(<span class="number">10</span>);</span><br></pre></td></tr></table></figure>
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2017/01/24/iOS开发——推送跳转到指定页面/" title="link to iOS开发——推送跳转到指定页面">iOS开发——推送跳转到指定页面</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2017-01-24" class="post-list__meta--date date">2017-01-24</time> 
-      </div>
-
-      <div class="excerpt">
-        
-          <p>眨眼2016年就这么走到了结尾，再过两天新年就要开始了。回顾从2016年开始养成的写博客的习惯，一直能延续下来，保持了一整年，还是比较欣慰的一件事情。希望2017年自己的技术能够继续稳步的提升。</p>
-<p>今天在这2016年的最后一篇博客里，咱来聊聊推送通知的跳转。</p>
-<p>当推送通知到达时，点击推送通知跳转到指定界面，是很多应用都会碰到的一个需求，而要实现这个功能，解决的方法也很多，若是去谷歌搜索，有一个万能跳转的文章可能会进入您的眼帘，但是我实际的去看了这个项目的源码之后，感觉这个库有一定的局限性，用<strong>runtime</strong>实现跳转这不假，但是在请求字段里加上了<code>ViewController</code>的类名，这其实就是局限的地方了，毕竟除了服务咱们<strong>iOS</strong>端，你也得考虑考虑安卓端的攻城狮不是，然而如果你换一个约定的字段再来解析，那倒不如用<code>URL</code>来作为判断依据更为方便。</p>
         
       </div>
 
