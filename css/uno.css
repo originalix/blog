@@ -1140,6 +1140,10 @@ hr {
 .post-meta__date {
   margin-right: .5em; }
 
+.post-meta_statistic {
+  margin-left: .5em;
+}
+
 .post-meta__tags {
   margin-left: .4em; }
 
@@ -1677,7 +1681,7 @@ table {
   border-collapse: collapse;
   width: 100%;
   margin: 0 0 10px;
-  border-spacing: 0; 
+  border-spacing: 0;
   border: 1px solid #aaa;
 }
 
@@ -1699,5 +1703,5 @@ th, td {
   border: none;
 }
 pre {
-  font-family: 
+  font-family:
 }
