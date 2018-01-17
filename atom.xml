@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-01-09T13:17:06.000Z</updated>
+  <updated>2018-01-17T12:32:21.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Python——搞定烦人的字符串编码</title>
+    <link href="http://yoursite.com/2018/01/17/Python%E2%80%94%E2%80%94%E6%90%9E%E5%AE%9A%E7%83%A6%E4%BA%BA%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%BC%96%E7%A0%81/"/>
+    <id>http://yoursite.com/2018/01/17/Python——搞定烦人的字符串编码/</id>
+    <published>2018-01-17T12:31:36.000Z</published>
+    <updated>2018-01-17T12:32:21.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>注意：以下讨论为Python2.x版本</p><p>在学习Python之前，就听说过Python的版本圣战，最可怕的是有的写Py3的程序员觉得Py2是另一种语言….所以在刚开始学习的时候，我索性把Python3和Python2的文档都看了一遍。</p><p>在之后写爬虫的过程中，我还是选择使用了Python2.x来写，原因嘛，emmmmm，可能就是因为一些好用的库或者框架的示例代码也是用旧一点的版本，所以为了效率，先用旧版本上手得了。在学习Python2之前，我还特意去比较了2和3的区别，其中着重被提及的就是字符串编码的问题，于是乎我在看旧版本文档的时候很仔细的去阅读了Python2的字符串部分。</p><a id="more"></a><p>然而结局证明，仔细阅读之后还是too young too simple，在读取文件，处理参数，以及处理http链接的过程中，经常一运行，发生两个对于Python的开发者熟悉的不能再熟悉的报错了。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UnicodeDecodeError: <span class="string">'ascii'</span> codec can<span class="string">'t decode byte 0xe6 in position 0: ordinal not in range(128)</span></span><br></pre></td></tr></table></figure><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UnicodeEncodeError: <span class="string">'ascii'</span> codec can<span class="string">'t encode characters in position 0-1: ordinal not in range(128)</span></span><br></pre></td></tr></table></figure><p>怎么样，是不是非常眼熟上面的两句话，好吧，我承认我这个小白一开始发现有这种编码问题的时候，就是调用encode/decode各种调试，期望这两个函数中有一个能够生效，救救我苟延残喘的程序，而在最初的时候，好像这样做还挺有效果的。</p><p>但是好运不长，在编写爬虫的过程中，随着处理字符串的量越来越大，http请求参数越来越多，往往一个参数是由好几个参数拼接而成的，而有时候你并不知道是哪个地方出了问题，盲目的替换和使用encode/decode方法效率非常低下。而造成这个问题的原因，就是没有明确的思考为什么会出现编码错误，授人以鱼不如授人以渔，所以我们今天要来从根上探究一下这个问题。</p><h1 id="编码的简介"><a href="#编码的简介" class="headerlink" title="编码的简介"></a>编码的简介</h1><p>首先，作为一名程序员，我想ASCII、Unicode、UTF-8三种字符编码大家肯定是听到过的，而这三种编码到底有什么区别呢？</p><p>ASCII是美国信息交换标准代码，是基于拉丁字母的一套电脑编码系统。它主要用于显示现代英语，而其扩展版本EASCII则可以部分支持其他西欧语言，并等同于国际标准ISO/IEC 646。</p><p>Unicode是电脑科学领域里的一项业界标准，它对世界上大部分的文字系统进行了整理、编码，使得电脑可以用以更为简单的方式来呈现和处理文字。</p><p>UTF-8是一种正对Unicode的可变长度字元编码，也是一种前缀码。它可以用来表示Unicode标准中的任何字元，且其编码中的第一个位元组仍与ASCII相容，这使得原来处理的ASCII的软体无须或只须少部分修改，即可以继续使用，因此，它逐渐成为了电子邮件、网页以及其他存储或传送文字的应用中，优先采用的编码。</p><h1 id="判断编码类型"><a href="#判断编码类型" class="headerlink" title="判断编码类型"></a>判断编码类型</h1><p>在简单的介绍了三种编码之后，我们首先在处理字符编码问题的时候，搞清楚我们到底处理的是什么类型的编码。因为在Python中str和unicode都是<code>basestring</code>的子类，所以我们可以用下面的方法判断我们处理的类型是否为字符串：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool = isinstance(s, basestring)</span><br></pre></td></tr></table></figure><p>而str和unicode的转换也非常简单，总结一下就是如下的样子:</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">str  -&gt; decode('coding') -&gt; unicode</span><br><span class="line">unicode -&gt; encode('coding') -&gt; str</span><br></pre></td></tr></table></figure><p>可以看出，str这个字符串，是由unicode经过编码后的字节形成的。而在字符串前面加u，就是unicode类型了。<br>例如：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">'富强民主文明和谐'</span></span><br><span class="line">s = <span class="string">u'富强民主文明和谐'</span>.encode(<span class="string">'uft-8'</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(<span class="string">'富强民主文明和谐'</span>)</span><br><span class="line">&lt;type <span class="string">'str'</span>&gt;</span><br></pre></td></tr></table></figure><p>而分析str字符串长度的时候，可以看到返回的字节数:</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">u'中文'</span>.encode(<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="string">'\xe4\xb8\xad\xe6\x96\x87'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(<span class="string">u'中文'</span>.encode(<span class="string">'utf-8'</span>))</span><br><span class="line"><span class="number">6</span></span><br></pre></td></tr></table></figure><p>每个中文在UTF-8编码中，通常占用三个字节，这个结果是正确的。值得注意的是，unicode的字符编码和utf-8的存储编码表示是不同的。</p><p>上面的代码是分析了utf-8字符串的编码，而接下来，我们要分析真正的unicode字符编码，</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">u'富强民主文明和谐'</span></span><br><span class="line">s = <span class="string">'富强民主文明和谐'</span>.decode(<span class="string">'utf-8'</span>)</span><br><span class="line">s = unicode(<span class="string">'富强民主文明和谐'</span>, <span class="string">'utf-8'</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(<span class="string">u'富强民主文明和谐'</span>)</span><br><span class="line">&lt;type <span class="string">'unicode'</span>&gt;</span><br></pre></td></tr></table></figure><p>从长度来观察unicode字符串:</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">u'中文'</span></span><br><span class="line"><span class="string">u'\u4e2d\u6587'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(<span class="string">u'中文'</span>)</span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure><p>上面的结果是unicode的字符分析结果。</p><p>所以我们在处理字符串的时候，要搞清楚我们处理的str还是unicode，使用正确的处理方法来处理。</p><p>教给大家一个简便的记忆方法，不要对str使用encode，而对于unicode也不要使用decode。其实是有特殊情况的，但是为了少出错，建议新手先这么处理呢。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;注意：以下讨论为Python2.x版本&lt;/p&gt;
+&lt;p&gt;在学习Python之前，就听说过Python的版本圣战，最可怕的是有的写Py3的程序员觉得Py2是另一种语言….所以在刚开始学习的时候，我索性把Python3和Python2的文档都看了一遍。&lt;/p&gt;
+&lt;p&gt;在之后写爬虫的过程中，我还是选择使用了Python2.x来写，原因嘛，emmmmm，可能就是因为一些好用的库或者框架的示例代码也是用旧一点的版本，所以为了效率，先用旧版本上手得了。在学习Python2之前，我还特意去比较了2和3的区别，其中着重被提及的就是字符串编码的问题，于是乎我在看旧版本文档的时候很仔细的去阅读了Python2的字符串部分。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
+    
+      <category term="编码" scheme="http://yoursite.com/tags/%E7%BC%96%E7%A0%81/"/>
+    
+  </entry>
   
   <entry>
     <title>Rem布局的原理探究</title>
@@ -172,9 +196,9 @@
     
       <category term="算法" scheme="http://yoursite.com/tags/%E7%AE%97%E6%B3%95/"/>
     
-      <category term="Dijkstra" scheme="http://yoursite.com/tags/Dijkstra/"/>
-    
       <category term="最小生成树" scheme="http://yoursite.com/tags/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/"/>
+    
+      <category term="Dijkstra" scheme="http://yoursite.com/tags/Dijkstra/"/>
     
   </entry>
   
@@ -479,28 +503,6 @@
     
       &lt;p&gt;在看《鸟哥的Linux私房菜》的第四章之前，我操作Linux系统时，习惯性的使用&lt;code&gt;root&lt;/code&gt;账号，为什么呢？无非图一个方便，没有那么多权限设置，对当时我这个&lt;code&gt;Linux&lt;/code&gt;小白来说，再好不过了。但是看完了鸟哥的书，我才意识到当时的操作是有多大的问题，所以在此书写一下以便日后回顾。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;Linux&lt;/code&gt;系统是一个多用户多任务的分时操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账号，然后以这个账号的身份进入系统。用户的账号一方面可以帮助系统管理员对使用系统的用户进行跟踪，并控制他们对系统资源的访问；另一方面也可以帮助用户组织文件，并为用户提供安全性保护。每个用户账号都拥有一个惟一的用户名和各自的口令。用户在登录时键入正确的用户名和口令后，就能够进入系统和自己的主目录。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Liunx的文件权限</title>
-    <link href="http://yoursite.com/2017/06/02/Liunx%E7%9A%84%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90/"/>
-    <id>http://yoursite.com/2017/06/02/Liunx的文件权限/</id>
-    <published>2017-06-02T02:37:39.000Z</published>
-    <updated>2017-06-02T02:39:37.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>之前讲过为了统一开发环境生产环境以及更换开发机器的情况，我把环境统一由<code>Vagrant</code>部署在<code>Linux</code>的虚拟机中，但是由于我对<code>Linux</code>系统没有系统的学习过，对于环境的部署也仅仅通过谷歌等刚刚入门，所以在具体的开发中我还是经常在<code>Linux</code>中遇到问题，经常求教老大。看着老大熟练的把玩<code>Linux</code>，我也下定决心要把<code>Linux</code>掌握好。</p><p>经自己了解，《鸟哥的Linux私房菜》一书备受推崇，于是于半个月前购入，开始拜读学习。在日常的工作时间之外，断断续续的学习着，确实受益匪浅，厚厚的一本书现在才看了四分之一左右，决定还是抽出时间记录一下自己曾经对于<code>Linux</code>感到困惑的一些事情。</p><p>今天就来说说<code>Linux</code>中文件权限的一些门门道道。</p><a id="more"></a><p>当初我在部署第一个<code>Laravel</code>项目到阿里云的时候，在部署完成后，看到教程中要给<code>storage</code>文件设置权限，当时这个777 775等这种数字简直把我弄迷糊了。只能对照着命令乖乖的敲进去，神奇的是敲进去之后，果然问题解决了，站点能访问了。感觉甚是困惑。看完书中的文件权限一章之后，才发觉<code>Linux</code>中文件权限的神奇。</p><p>查看文件权限的语句：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在终端输入:</span></span><br><span class="line">ls -l xxx.xxx （xxx.xxx是文件名）</span><br><span class="line"><span class="comment"># 那么就会出现相类似的信息，主要都是这些：</span></span><br><span class="line">-rw-rw-r--</span><br></pre></td></tr></table></figure><p>一共有10位数</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">其中： 最前面那个 - 代表的是类型</span><br><span class="line">中间那三个 rw- 代表的是所有者（user）</span><br><span class="line">然后那三个 rw- 代表的是组群（group）</span><br><span class="line">最后那三个 r-- 代表的是其他人（other）</span><br><span class="line">然后我再解释一下后面那9位数：</span><br><span class="line">r 表示文件可以被读（<span class="built_in">read</span>）</span><br><span class="line">w 表示文件可以被写（write）</span><br><span class="line">x 表示文件可以被执行（如果它是程序的话）</span><br><span class="line">- 表示相应的权限还没有被授予</span><br><span class="line"></span><br><span class="line">现在该说说修改文件权限了</span><br><span class="line">在终端输入：</span><br><span class="line">chmod o w xxx.xxx</span><br><span class="line">表示给其他人授予写xxx.xxx这个文件的权限</span><br><span class="line">chmod go-rw xxx.xxx</span><br><span class="line">表示删除xxx.xxx中组群和其他人的读和写的权限</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">其中：</span><br><span class="line">　　u 代表所有者（user）</span><br><span class="line">　　g 代表所有者所在的组群（group）</span><br><span class="line">　　o 代表其他人，但不是u和g （other）</span><br><span class="line">　　a 代表全部的人，也就是包括u，g和o</span><br><span class="line">　　r 表示文件可以被读（<span class="built_in">read</span>）</span><br><span class="line">　　w 表示文件可以被写（write）</span><br><span class="line">　　x 表示文件可以被执行（如果它是程序的话）</span><br><span class="line">　　其中：rwx也可以用数字来代替</span><br><span class="line">　　r ------------4</span><br><span class="line">　　w -----------2</span><br><span class="line">　　x ------------1</span><br><span class="line">　　- ------------0</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">行动：</span><br><span class="line">　　 表示添加权限</span><br><span class="line">　　- 表示删除权限</span><br><span class="line">　　= 表示使之成为唯一的权限</span><br><span class="line">　　当大家都明白了上面的东西之后，那么我们常见的以下的一些权限就很容易都明白了：</span><br><span class="line">　　-rw------- (600) 只有所有者才有读和写的权限</span><br><span class="line">　　-rw-r--r-- (644) 只有所有者才有读和写的权限，组群和其他人只有读的权限</span><br><span class="line">　　-rwx------ (700) 只有所有者才有读，写，执行的权限</span><br><span class="line">　　-rwxr-xr-x (755) 只有所有者才有读，写，执行的权限，组群和其他人只有读和执行的权限</span><br><span class="line">　　-rwx--x--x (711) 只有所有者才有读，写，执行的权限，组群和其他人只有执行的权限</span><br><span class="line">　　-rw-rw-rw- (666) 每个人都有读写的权限</span><br><span class="line">　　-rwxrwxrwx (777) 每个人都有读写和执行的权限</span><br></pre></td></tr></table></figure><p>常用的权限修改命令:</p><ul><li>chgrp ：改变文件所属群组</li><li>chown ：改变文件拥有者</li><li>chmod ：改变文件的权限, SUID, SGID, SBIT等等的特性</li></ul><p>改变权限, chmod</p><p>文件权限的改变使用的是chmod这个指令，但是，权限的设定方法有两种， 分别可以使用数字或者是符号来进行权限的变更。我们就来谈一谈：</p><p>数字类型改变文件权限</p><p>各权限的分数对照表如下：<br>r:4<br>w:2<br>x:1<br>每种身份(owner/group/others)各自的三个权限(r/w/x)分数是需要累加的，例如当权限为： [-rwxrwx—] 分数则是：<br>owner = rwx = 4+2+1 = 7<br>group = rwx = 4+2+1 = 7<br>others= — = 0+0+0 = 0</p><p>在讲解清楚了这种权限分值的累加之后，再去体会自己当初敲入命令行中的数字，是不是恍然大悟了呢。不知道你们是不是，反正我是这样的。今天小小的知识点就记录到这里，下次有时间再更新咯。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;之前讲过为了统一开发环境生产环境以及更换开发机器的情况，我把环境统一由&lt;code&gt;Vagrant&lt;/code&gt;部署在&lt;code&gt;Linux&lt;/code&gt;的虚拟机中，但是由于我对&lt;code&gt;Linux&lt;/code&gt;系统没有系统的学习过，对于环境的部署也仅仅通过谷歌等刚刚入门，所以在具体的开发中我还是经常在&lt;code&gt;Linux&lt;/code&gt;中遇到问题，经常求教老大。看着老大熟练的把玩&lt;code&gt;Linux&lt;/code&gt;，我也下定决心要把&lt;code&gt;Linux&lt;/code&gt;掌握好。&lt;/p&gt;
-&lt;p&gt;经自己了解，《鸟哥的Linux私房菜》一书备受推崇，于是于半个月前购入，开始拜读学习。在日常的工作时间之外，断断续续的学习着，确实受益匪浅，厚厚的一本书现在才看了四分之一左右，决定还是抽出时间记录一下自己曾经对于&lt;code&gt;Linux&lt;/code&gt;感到困惑的一些事情。&lt;/p&gt;
-&lt;p&gt;今天就来说说&lt;code&gt;Linux&lt;/code&gt;中文件权限的一些门门道道。&lt;/p&gt;
     
     </summary>
     

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Python——搞定烦人的字符串编码 | Leon的博客 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="李晓">
+    
+    
+
+    <meta name="description" content="注意：以下讨论为Python2.x版本 在学习Python之前，就听说过Python的版本圣战，最可怕的是有的写Py3的程序员觉得Py2是另一种语言….所以在刚开始学习的时候，我索性把Python3和Python2的文档都看了一遍。 在之后写爬虫的过程中，我还是选择使用了Python2.x来写，原因嘛，emmmmm，可能就是因为一些好用的库或者框架的示例代码也是用旧一点的版本，所以为了效率，先用旧">
+<meta name="keywords" content="Python,编码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python——搞定烦人的字符串编码 | Leon的博客">
+<meta property="og:url" content="http://yoursite.com/2018/01/17/Python——搞定烦人的字符串编码/index.html">
+<meta property="og:site_name" content="Leon的博客">
+<meta property="og:description" content="注意：以下讨论为Python2.x版本 在学习Python之前，就听说过Python的版本圣战，最可怕的是有的写Py3的程序员觉得Py2是另一种语言….所以在刚开始学习的时候，我索性把Python3和Python2的文档都看了一遍。 在之后写爬虫的过程中，我还是选择使用了Python2.x来写，原因嘛，emmmmm，可能就是因为一些好用的库或者框架的示例代码也是用旧一点的版本，所以为了效率，先用旧">
+<meta property="og:updated_time" content="2018-01-17T12:32:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python——搞定烦人的字符串编码 | Leon的博客">
+<meta name="twitter:description" content="注意：以下讨论为Python2.x版本 在学习Python之前，就听说过Python的版本圣战，最可怕的是有的写Py3的程序员觉得Py2是另一种语言….所以在刚开始学习的时候，我索性把Python3和Python2的文档都看了一遍。 在之后写爬虫的过程中，我还是选择使用了Python2.x来写，原因嘛，emmmmm，可能就是因为一些好用的库或者框架的示例代码也是用旧一点的版本，所以为了效率，先用旧">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Leon的博客</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          每多学一点知识，就少写一行代码
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/originalix" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+
+    <h1 class="post-title">Python——搞定烦人的字符串编码</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-01-17" class="post-meta__date date">2018-01-17</time>
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Python/">Python</a>, <a class="tags-link" href="/tags/编码/">编码</a>
+            </font>
+          
+
+      </span>
+
+
+      <span class="post-meta_statistic date" id="busuanzi_container_page_pv">
+        本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+      </span>
+
+    </div>
+
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>注意：以下讨论为Python2.x版本</p>
+<p>在学习Python之前，就听说过Python的版本圣战，最可怕的是有的写Py3的程序员觉得Py2是另一种语言….所以在刚开始学习的时候，我索性把Python3和Python2的文档都看了一遍。</p>
+<p>在之后写爬虫的过程中，我还是选择使用了Python2.x来写，原因嘛，emmmmm，可能就是因为一些好用的库或者框架的示例代码也是用旧一点的版本，所以为了效率，先用旧版本上手得了。在学习Python2之前，我还特意去比较了2和3的区别，其中着重被提及的就是字符串编码的问题，于是乎我在看旧版本文档的时候很仔细的去阅读了Python2的字符串部分。</p>
+<a id="more"></a>
+<p>然而结局证明，仔细阅读之后还是too young too simple，在读取文件，处理参数，以及处理http链接的过程中，经常一运行，发生两个对于Python的开发者熟悉的不能再熟悉的报错了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UnicodeDecodeError: <span class="string">'ascii'</span> codec can<span class="string">'t decode byte 0xe6 in position 0: ordinal not in range(128)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UnicodeEncodeError: <span class="string">'ascii'</span> codec can<span class="string">'t encode characters in position 0-1: ordinal not in range(128)</span></span><br></pre></td></tr></table></figure>
+<p>怎么样，是不是非常眼熟上面的两句话，好吧，我承认我这个小白一开始发现有这种编码问题的时候，就是调用encode/decode各种调试，期望这两个函数中有一个能够生效，救救我苟延残喘的程序，而在最初的时候，好像这样做还挺有效果的。</p>
+<p>但是好运不长，在编写爬虫的过程中，随着处理字符串的量越来越大，http请求参数越来越多，往往一个参数是由好几个参数拼接而成的，而有时候你并不知道是哪个地方出了问题，盲目的替换和使用encode/decode方法效率非常低下。而造成这个问题的原因，就是没有明确的思考为什么会出现编码错误，授人以鱼不如授人以渔，所以我们今天要来从根上探究一下这个问题。</p>
+<h1 id="编码的简介"><a href="#编码的简介" class="headerlink" title="编码的简介"></a>编码的简介</h1><p>首先，作为一名程序员，我想ASCII、Unicode、UTF-8三种字符编码大家肯定是听到过的，而这三种编码到底有什么区别呢？</p>
+<p>ASCII是美国信息交换标准代码，是基于拉丁字母的一套电脑编码系统。它主要用于显示现代英语，而其扩展版本EASCII则可以部分支持其他西欧语言，并等同于国际标准ISO/IEC 646。</p>
+<p>Unicode是电脑科学领域里的一项业界标准，它对世界上大部分的文字系统进行了整理、编码，使得电脑可以用以更为简单的方式来呈现和处理文字。</p>
+<p>UTF-8是一种正对Unicode的可变长度字元编码，也是一种前缀码。它可以用来表示Unicode标准中的任何字元，且其编码中的第一个位元组仍与ASCII相容，这使得原来处理的ASCII的软体无须或只须少部分修改，即可以继续使用，因此，它逐渐成为了电子邮件、网页以及其他存储或传送文字的应用中，优先采用的编码。</p>
+<h1 id="判断编码类型"><a href="#判断编码类型" class="headerlink" title="判断编码类型"></a>判断编码类型</h1><p>在简单的介绍了三种编码之后，我们首先在处理字符编码问题的时候，搞清楚我们到底处理的是什么类型的编码。因为在Python中str和unicode都是<code>basestring</code>的子类，所以我们可以用下面的方法判断我们处理的类型是否为字符串：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool = isinstance(s, basestring)</span><br></pre></td></tr></table></figure>
+<p>而str和unicode的转换也非常简单，总结一下就是如下的样子:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">str  -&gt; decode('coding') -&gt; unicode</span><br><span class="line">unicode -&gt; encode('coding') -&gt; str</span><br></pre></td></tr></table></figure>
+<p>可以看出，str这个字符串，是由unicode经过编码后的字节形成的。而在字符串前面加u，就是unicode类型了。<br>例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">'富强民主文明和谐'</span></span><br><span class="line">s = <span class="string">u'富强民主文明和谐'</span>.encode(<span class="string">'uft-8'</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(<span class="string">'富强民主文明和谐'</span>)</span><br><span class="line">&lt;type <span class="string">'str'</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>而分析str字符串长度的时候，可以看到返回的字节数:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">u'中文'</span>.encode(<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="string">'\xe4\xb8\xad\xe6\x96\x87'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(<span class="string">u'中文'</span>.encode(<span class="string">'utf-8'</span>))</span><br><span class="line"><span class="number">6</span></span><br></pre></td></tr></table></figure>
+<p>每个中文在UTF-8编码中，通常占用三个字节，这个结果是正确的。值得注意的是，unicode的字符编码和utf-8的存储编码表示是不同的。</p>
+<p>上面的代码是分析了utf-8字符串的编码，而接下来，我们要分析真正的unicode字符编码，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">s = <span class="string">u'富强民主文明和谐'</span></span><br><span class="line">s = <span class="string">'富强民主文明和谐'</span>.decode(<span class="string">'utf-8'</span>)</span><br><span class="line">s = unicode(<span class="string">'富强民主文明和谐'</span>, <span class="string">'utf-8'</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(<span class="string">u'富强民主文明和谐'</span>)</span><br><span class="line">&lt;type <span class="string">'unicode'</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>从长度来观察unicode字符串:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">u'中文'</span></span><br><span class="line"><span class="string">u'\u4e2d\u6587'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(<span class="string">u'中文'</span>)</span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>上面的结果是unicode的字符分析结果。</p>
+<p>所以我们在处理字符串的时候，要搞清楚我们处理的str还是unicode，使用正确的处理方法来处理。</p>
+<p>教给大家一个简便的记忆方法，不要对str使用encode，而对于unicode也不要使用decode。其实是有特殊情况的，但是为了少出错，建议新手先这么处理呢。</p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span class="footer__copyright">
+        &copy; 2014-2018. | 由<a href="https://hexo.io/">Hexo</a>强力驱动
+    </span>
+    <span id="busuanzi_container_site_pv">
+        本站访客数<span id="busuanzi_value_site_pv"></span>人次
+    </span>
+
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
