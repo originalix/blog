@@ -7,7 +7,7 @@
     
 
     <title>
-      page 3 | Archives | Leon的博客 
+      page 3 | 归档 | Leon的博客 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -18,11 +18,11 @@
 
     <meta name="keywords" content="移动端,iOS,Android,javascript,html5,开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,用户体验">
 <meta property="og:type" content="website">
-<meta property="og:title" content="page 3 | Archives | Leon的博客">
+<meta property="og:title" content="page 3 | 归档 | Leon的博客">
 <meta property="og:url" content="http://yoursite.com/archives/page/3/index.html">
 <meta property="og:site_name" content="Leon的博客">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="page 3 | Archives | Leon的博客">
+<meta name="twitter:title" content="page 3 | 归档 | Leon的博客">
     
     
     
@@ -197,6 +197,34 @@ classes that you can use:
     <li>
 
       <h2 class="post-list__post-title post-title">
+        <a href="/2017/07/20/数据结构——链表的游标实现-C语言/" title="link to 数据结构——链表的游标实现(C语言)">数据结构——链表的游标实现(C语言)</a>
+      </h2>
+
+      <div class="post-list__meta">
+
+        <time datetime="2017-07-20" class="post-list__meta--date date">2017-07-20</time>
+      </div>
+
+      <div class="excerpt">
+        
+          <p>上一篇博文我们用指针实现了链表，但是诸如BASIC和FORTRAN等许多语言都不支持指针。如果需要链表而又不能使用指针，这时我们可以使用游标（cursor）实现法来实现链表。</p>
+<p>在链表的实现中有两个重要的特点：</p>
+<ul>
+<li><p>数据存储在一组结构体中。每一个结构体包含有数据以及指向下一个结构体的指针。</p>
+</li>
+<li><p>一个新的结构体可以通过调用malloc而从系统全局内存（global memory）得到，并可以通过free而被释放。</p>
+</li>
+</ul>
+<p>游标法必须能够模仿实现这两条特性 。 下面给出实现代码:</p>
+        
+      </div>
+
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
+
+      <h2 class="post-list__post-title post-title">
         <a href="/2017/07/16/数据结构——链表(C语言实现)/" title="link to 数据结构——链表(C语言实现)">数据结构——链表(C语言实现)</a>
       </h2>
 
@@ -350,29 +378,6 @@ classes that you can use:
       <hr class="post-list__divider" />
     </li>
     
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2017/05/05/nginx配置二级域名/" title="link to nginx配置二级域名">nginx配置二级域名</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2017-05-05" class="post-list__meta--date date">2017-05-05</time>
-      </div>
-
-      <div class="excerpt">
-        
-          <p>最近为了练手Vue框架，写了一个博客项目，昨天刚刚把个人博客部署上线，因为前后端分离，所以使用Ajax来请求后端api接口获取数据，部署的过程中碰到了一个坑。我只有一个域名，所以想让一级域名<code>originalix.com</code>来访问博客，而使用二级域名<code>demo.originalix.com</code>来访问后端页面并且请求api。</p>
-<p>怎么做呢，在查阅了资料以后发现，首先应该在域名供应商中添加一条二级域名的记录，比如我想使用的是<strong>demo</strong>。</p>
-<p><img src="http://originalix.github.io/assets/img/nginxdomain.png" alt=""></p>
-<p>设置好域名后，在本地<strong>ping</strong>一下看看能不能<strong>ping</strong>通过 <code>demo.originalix.com</code></p>
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
   </ol>
 
   <hr class="post-list__divider " />
@@ -380,14 +385,14 @@ classes that you can use:
 <nav class="pagination" role="navigation">
     
     	
-          <a class="newer-posts pagination__newer btn btn-small btn-tertiary" href="/archives/page/2/">&larr; Prev </a>
+          <a class="newer-posts pagination__newer btn btn-small btn-tertiary" href="/archives/page/2/">&larr; 上一页 </a>
         
     
 
     <span class="pagination__page-number"> 3 / 12</span>
     
     
-        <a class="older-posts pagination__older btn btn-small btn-tertiary" href="/archives/page/4/">Next &rarr;</a>
+        <a class="older-posts pagination__older btn btn-small btn-tertiary" href="/archives/page/4/">下一页 &rarr;</a>
     
 </nav>
 

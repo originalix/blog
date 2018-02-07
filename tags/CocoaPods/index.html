@@ -7,7 +7,7 @@
     
 
     <title>
-      Tag: CocoaPods 
+      标签: Cocoapods 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -18,11 +18,11 @@
 
     <meta name="keywords" content="移动端,iOS,Android,javascript,html5,开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,用户体验">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Tag: CocoaPods">
-<meta property="og:url" content="http://yoursite.com/tags/CocoaPods/index.html">
+<meta property="og:title" content="标签: Cocoapods">
+<meta property="og:url" content="http://yoursite.com/tags/Cocoapods/index.html">
 <meta property="og:site_name" content="Leon的博客">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Tag: CocoaPods">
+<meta name="twitter:title" content="标签: Cocoapods">
     
     
     
@@ -187,7 +187,7 @@ classes that you can use:
             
 
 
-  <h1 class="archive-title">Tag: CocoaPods</h1>
+  <h1 class="archive-title">标签: Cocoapods</h1>
   <hr class="post-list__divider" />
 
 
@@ -198,40 +198,21 @@ classes that you can use:
     <li>
 
       <h2 class="post-list__post-title post-title">
-        <a href="/2017/01/17/iOS开发——在CocoaPods发布个人第三方库/" title="link to iOS开发——在CocoaPods发布个人第三方库">iOS开发——在CocoaPods发布个人第三方库</a>
+        <a href="/2016/04/10/Cocoapods使用详解/" title="link to Cocoapods使用详解">Cocoapods使用详解</a>
       </h2>
 
       <div class="post-list__meta">
 
-        <time datetime="2017-01-17" class="post-list__meta--date date">2017-01-17</time>
+        <time datetime="2016-04-10" class="post-list__meta--date date">2016-04-10</time>
       </div>
 
       <div class="excerpt">
         
-          <blockquote>
-<p>在进行日常的 iOS 开发的时候，我们肯定会用到各种第三方库，每次使用一个库的时候，各种依赖配置总是让人很头痛。幸好我们有了 CocoaPods，CocoaPods 为我们节省了大量集成第三方库的时间。在我们便捷地使用他人制作的 Pod 的时候，一定也希望能够将自己的代码制作成 Pod 供别人使用，来为开源社区做一点贡献。接下来，我们就来尝试制作一个属于自己的 Pod 库，并发布供他人使用。</p>
-</blockquote>
-<p>备注：假设你已经拥有了一个完善的用于制作 Pod 的 iOS 工程。</p>
-        
-      </div>
+          <h1 id="CocoaPods使用"><a href="#CocoaPods使用" class="headerlink" title="CocoaPods使用"></a>CocoaPods使用</h1><p><a href="#a1">CocoaPods简介</a></p>
+<p><a href="#a2">CocoaPods 的安装和使用介绍</a></p>
+<div id="a1"></div>
 
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2016/08/02/CocoaPods导入的库其头文件导入的方法以及Pch预编译文件配置/" title="link to CocoaPods导入的库其头文件导入的方法以及Pch预编译文件配置">CocoaPods导入的库其头文件导入的方法以及Pch预编译文件配置</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2016-08-02" class="post-list__meta--date date">2016-08-02</time>
-      </div>
-
-      <div class="excerpt">
-        
-          <h1 id="CocoaPods-导入头文件"><a href="#CocoaPods-导入头文件" class="headerlink" title="CocoaPods 导入头文件"></a>CocoaPods 导入头文件</h1><p>尽管CocoaPods使用十分方便,但其导入的第三方框架还是要经过几步操作,才能供项目使用</p>
+<h2 id="CocoaPods简介"><a href="#CocoaPods简介" class="headerlink" title="CocoaPods简介"></a>CocoaPods简介</h2><p>当你开发iOS应用时，会经常使用到很多第三方开源类库，比如JSONKit，AFNetWorking等等。可能某个类库又用到其他类库，所以要使用它，必须得另外下载其他类库，而其他类库又用到其他类库，“子子孙孙无穷尽也”，这也许是比较特殊的情况。另外一种常见情况是，你项目中用到的类库有更新，你必须得重新下载新版本，重新加入到项目中，十分麻烦。如果能有什么工具能解决这些恼人的问题，那将“善莫大焉”。所以，你需要 CocoaPods。 CocoaPods应该是iOS最常用最有名的类库管理工具了，上述两个烦人的问题，通过cocoaPods，只需要一行命令就可以完全解决，当然前提是你必须正确设置它。重要的是，绝大部分有名的开源类库，都支持CocoaPods。所以，作为iOS程序员的我们，掌握CocoaPods的使用是必不可少的基本技能了。</p>
         
       </div>
 
@@ -278,6 +259,23 @@ classes that you can use:
     <script type="text/javascript"> 
         $(document).ready(function(){
             MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
+         MathJax.Hub.Config({ 
                 tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
             });
         });

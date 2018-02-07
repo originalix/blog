@@ -197,6 +197,34 @@ classes that you can use:
     <li>
 
       <h2 class="post-list__post-title post-title">
+        <a href="/2016/06/04/iOS开发——Core-Graphics绘图/" title="link to iOS开发——Core Graphics绘图">iOS开发——Core Graphics绘图</a>
+      </h2>
+
+      <div class="post-list__meta">
+
+        <time datetime="2016-06-04" class="post-list__meta--date date">2016-06-04</time>
+      </div>
+
+      <div class="excerpt">
+        
+          <p>我们在搭建UI界面时，有很多时候，我们会用到iOS自带的绘图功能来完成一些界面的效果，很常用也很方便。今天我们在这里就一起讨论一下iOS的绘图功能。</p>
+<ul>
+<li><p>CoreGraphics也称为Quartz 2D 是UIKit下的主要绘图系统，频繁的用于绘制自定义视图。Core Graphics是高度集成于UIView和其他UIKit部分的。Core Graphics数据结构和函数可以通过前缀CG来识别。</p>
+</li>
+<li><p>视图可以通过子视图、图层或实现drawRect：方法来表现内容，如果说实现了drawRect：方法，那么最好就不要混用其他方法了，如图层和子视图。自定义绘图大部分是由UIKit或者Core Graphics来实现的。</p>
+</li>
+<li><p>由于像素是依赖于目标的，所以2D绘图并不能操作单独的像素，我们可以从上下文（Context）读取它。<br>绘图就好比在画布上拿着画笔机械的进行画画，通过制定不同的参数来进行不同的绘制。</p>
+</li>
+</ul>
+        
+      </div>
+
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
+
+      <h2 class="post-list__post-title post-title">
         <a href="/2016/05/25/iOS开发——MJExtension的实际使用，JSON格式解析/" title="link to iOS开发——MJExtension的实际使用，JSON格式解析">iOS开发——MJExtension的实际使用，JSON格式解析</a>
       </h2>
 
@@ -344,26 +372,6 @@ classes that you can use:
       <hr class="post-list__divider" />
     </li>
     
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2016/04/22/iOS开发——字典的升序排列以及字符串拼接/" title="link to iOS开发——字典的升序排列以及字符串拼接">iOS开发——字典的升序排列以及字符串拼接</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2016-04-22" class="post-list__meta--date date">2016-04-22</time>
-      </div>
-
-      <div class="excerpt">
-        
-          <p>在调用SDK包的时候，很多时候我们自己开发的第三方应用想要取得数据的时候得获得登陆令牌以及其他很多信息，比如accessToken等登陆令牌信息，而第三方SDK包往往会要求我们完成签名算法，我今天在项目中集成海康威视的网络摄像头时，就要求我必须完成签名算法才能获得信息，而签名算法的要求是这样子的。</p>
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
   </ol>
 
   <hr class="post-list__divider " />
@@ -371,14 +379,14 @@ classes that you can use:
 <nav class="pagination" role="navigation">
     
     	
-          <a class="newer-posts pagination__newer btn btn-small btn-tertiary" href="/page/8/">&larr; Prev </a>
+          <a class="newer-posts pagination__newer btn btn-small btn-tertiary" href="/page/8/">&larr; 上一页 </a>
         
     
 
     <span class="pagination__page-number"> 9 / 12</span>
     
     
-        <a class="older-posts pagination__older btn btn-small btn-tertiary" href="/page/10/">Next &rarr;</a>
+        <a class="older-posts pagination__older btn btn-small btn-tertiary" href="/page/10/">下一页 &rarr;</a>
     
 </nav>
 

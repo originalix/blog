@@ -7,7 +7,7 @@
     
 
     <title>
-      page 6 | Archives | Leon的博客 
+      page 6 | 归档 | Leon的博客 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -18,11 +18,11 @@
 
     <meta name="keywords" content="移动端,iOS,Android,javascript,html5,开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,用户体验">
 <meta property="og:type" content="website">
-<meta property="og:title" content="page 6 | Archives | Leon的博客">
+<meta property="og:title" content="page 6 | 归档 | Leon的博客">
 <meta property="og:url" content="http://yoursite.com/archives/page/6/index.html">
 <meta property="og:site_name" content="Leon的博客">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="page 6 | Archives | Leon的博客">
+<meta name="twitter:title" content="page 6 | 归档 | Leon的博客">
     
     
     
@@ -197,6 +197,29 @@ classes that you can use:
     <li>
 
       <h2 class="post-list__post-title post-title">
+        <a href="/2016/12/23/iOS开发——带有暂停功能的计时器/" title="link to iOS开发——带有暂停功能的计时器">iOS开发——带有暂停功能的计时器</a>
+      </h2>
+
+      <div class="post-list__meta">
+
+        <time datetime="2016-12-23" class="post-list__meta--date date">2016-12-23</time>
+      </div>
+
+      <div class="excerpt">
+        
+          <p>上篇博客我跟大家分享了如何在iOS系统中使用原生框架获取步数，又是大半个月过去了，运动模块的全部功能也总算完成了，也打算有始有终的把如何做一个跑步类App跟大家分享了。</p>
+<p>运动类应用中，有一个很重要的模块就是计时器，当然，这个计时器不算复杂，只要有简单的开始、暂停以及复位功能即可。那么今天我们从<strong>Model</strong>层来看看这个计时器的逻辑实现。</p>
+<p>我们先自己创建一个时间的<strong>Model</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RunningTimer</span>: <span class="title">NSObject</span> </span>&#123;</span><br><span class="line"><span class="comment">//MARK: var property</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> timeLabel: <span class="type">UILabel</span>!</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> timer: <span class="type">NSTimer</span>?</span><br><span class="line">    <span class="comment">//开始和结束时间列表</span></span><br><span class="line">    <span class="built_in">lazy</span> <span class="keyword">private</span> <span class="keyword">var</span> startTimes = [<span class="type">NSDate</span>]()</span><br><span class="line">    <span class="built_in">lazy</span> <span class="keyword">private</span> <span class="keyword">var</span> endTimes = [<span class="type">NSDate</span>]()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">internal</span> <span class="keyword">var</span> timeNumber = <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">didSet</span> &#123;</span><br><span class="line">            timeString = getTimeStringFromSecond(timeNumber)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">internal</span> <span class="keyword">private</span>(<span class="keyword">set</span>) <span class="keyword">var</span> timeString = <span class="string">"00:00:00"</span> &#123;</span><br><span class="line">        <span class="keyword">didSet</span> &#123;</span><br><span class="line">            timeLabel.text = timeString</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+      </div>
+
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
+
+      <h2 class="post-list__post-title post-title">
         <a href="/2016/12/09/iOS开发——步数获取/" title="link to iOS开发——步数获取">iOS开发——步数获取</a>
       </h2>
 
@@ -348,26 +371,6 @@ classes that you can use:
       <hr class="post-list__divider" />
     </li>
     
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2016/10/13/iOS开发——Debug-CUICatalog-Invalid-asset-name-supplied-null/" title="link to iOS开发——Debug CUICatalog: Invalid asset name supplied: (null)">iOS开发——Debug CUICatalog: Invalid asset name supplied: (null)</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2016-10-13" class="post-list__meta--date date">2016-10-13</time>
-      </div>
-
-      <div class="excerpt">
-        
-          <p>今天看到了一个Xcode log出了一个错误 <code>CUICatalog:Invalid asset name supplied: (null)</code>, Google了一下在StackOverflow上各位大神说应该是<code>[UIImage imageNamed:]</code>调用的时候, name为nil. 虽然在运行的时候界面一切正常, 但是看到这个log还是想干掉它，或许每个程序猿都是一个重度强迫症患者。</p>
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
   </ol>
 
   <hr class="post-list__divider " />
@@ -375,14 +378,14 @@ classes that you can use:
 <nav class="pagination" role="navigation">
     
     	
-          <a class="newer-posts pagination__newer btn btn-small btn-tertiary" href="/archives/page/5/">&larr; Prev </a>
+          <a class="newer-posts pagination__newer btn btn-small btn-tertiary" href="/archives/page/5/">&larr; 上一页 </a>
         
     
 
     <span class="pagination__page-number"> 6 / 12</span>
     
     
-        <a class="older-posts pagination__older btn btn-small btn-tertiary" href="/archives/page/7/">Next &rarr;</a>
+        <a class="older-posts pagination__older btn btn-small btn-tertiary" href="/archives/page/7/">下一页 &rarr;</a>
     
 </nav>
 
