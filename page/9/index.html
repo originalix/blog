@@ -197,6 +197,39 @@ classes that you can use:
     <li>
 
       <h2 class="post-list__post-title post-title">
+        <a href="/2016/06/24/Swift学习笔记（一）/" title="link to Swift学习笔记（一）">Swift学习笔记（一）</a>
+      </h2>
+
+      <div class="post-list__meta">
+
+        <time datetime="2016-06-24" class="post-list__meta--date date">2016-06-24</time>
+      </div>
+
+      <div class="excerpt">
+        
+          <p>简单记录学习Swift的笔记</p>
+<p>###简单值</p>
+<ul>
+<li><p>使用<code>let</code>来声明常量，使用<code>var</code>来声明变量。</p>
+</li>
+<li><p>常量或者变量的类型，必须和你赋给它们的值一样。然而，不用明确地声明类型，声明的同时赋值的话，编译器会自动推断类型。</p>
+</li>
+<li><p>如果初始值没有提供足够的信息（或者没有初始值），那你需要在变量后面声明类型，用冒号分割。</p>
+</li>
+<li><p>值永远不会被隐式转换为其他类型。如果你需要把一个值转换成其他类型，请显式转换。</p>
+</li>
+</ul>
+<p>例如 </p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> label = <span class="string">"The width is"</span></span><br><span class="line"><span class="keyword">let</span> width = <span class="number">94</span></span><br><span class="line"><span class="keyword">let</span> widthLabel = label + <span class="type">String</span>(width)</span><br></pre></td></tr></table></figure>
+        
+      </div>
+
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
+
+      <h2 class="post-list__post-title post-title">
         <a href="/2016/06/04/iOS开发——Core-Graphics绘图/" title="link to iOS开发——Core Graphics绘图">iOS开发——Core Graphics绘图</a>
       </h2>
 
@@ -352,26 +385,6 @@ classes that you can use:
       <hr class="post-list__divider" />
     </li>
     
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2016/04/24/iOS开发——32位MD5加密/" title="link to iOS开发——32位MD5加密">iOS开发——32位MD5加密</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2016-04-24" class="post-list__meta--date date">2016-04-24</time>
-      </div>
-
-      <div class="excerpt">
-        
-          <p>在IOS开发过程中，为了保证数据的安全，我们通常要采取一些加密方法，常见的加密有Base64加密和MD5加密。Base64加密是可逆的，MD5加密目前来说一般是不可逆的。我们在开发一款App过程中，对于发的请求，其中有个“sign”的字段，这个key对应的value是MD5加密的字段，旁边的安卓同事问php后台，说MD5加密是32位的还是16位的，由于以前未曾注意过，所以就搜索了下，现在稍微总结下：</p>
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
   </ol>
 
   <hr class="post-list__divider " />
@@ -379,14 +392,14 @@ classes that you can use:
 <nav class="pagination" role="navigation">
     
     	
-          <a class="newer-posts pagination__newer btn btn-small btn-tertiary" href="/page/8/">&larr; 上一页 </a>
+          <a class="newer-posts pagination__newer btn btn-small btn-tertiary" href="/page/8/">&larr; Prev </a>
         
     
 
     <span class="pagination__page-number"> 9 / 12</span>
     
     
-        <a class="older-posts pagination__older btn btn-small btn-tertiary" href="/page/10/">下一页 &rarr;</a>
+        <a class="older-posts pagination__older btn btn-small btn-tertiary" href="/page/10/">Next &rarr;</a>
     
 </nav>
 
