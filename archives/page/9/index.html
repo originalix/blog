@@ -197,6 +197,30 @@ classes that you can use:
     <li>
 
       <h2 class="post-list__post-title post-title">
+        <a href="/2016/06/26/Swift学习笔记（二）/" title="link to Swift学习笔记（二）">Swift学习笔记（二）</a>
+      </h2>
+
+      <div class="post-list__meta">
+
+        <time datetime="2016-06-26" class="post-list__meta--date date">2016-06-26</time>
+      </div>
+
+      <div class="excerpt">
+        
+          <p>###函数和闭包</p>
+<ul>
+<li>使用<code>func</code>来声明一个函数，使用名字和参数来调用函数。使用<code>-&gt;</code>来指定函数返回值的类型。</li>
+</ul>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">greet</span><span class="params">(name: String, food: String)</span></span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Hello <span class="subst">\(name)</span>, let's eat some <span class="subst">\(food)</span>"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">greet(<span class="string">"Lin"</span>, food: <span class="string">"fruit"</span>)</span><br></pre></td></tr></table></figure>
+        
+      </div>
+
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
+
+      <h2 class="post-list__post-title post-title">
         <a href="/2016/06/24/Swift学习笔记（一）/" title="link to Swift学习笔记（一）">Swift学习笔记（一）</a>
       </h2>
 
@@ -357,28 +381,6 @@ classes that you can use:
         
           <p>现在的APP应用中，用手机获取短信验证码是非常常见的一个功能，而往往要求的效果就是在按下获取验证码之后，验证码的按钮开始倒计时，例如30秒后重新获取。而我们如何来完成这个效果呢，其实很简单，用一个定时器来计时，设置定时器的时间为UIButton的Title，而这个步骤我们一般用多线程的定时器dispatch source来定时产生事件。</p>
 <p>在网上看了别人写的代码，复用性比较差，没有对这个方法进行良好的封装，我在这里贴一段修改后的代码，基本上大家黏贴过去就能复用。而后面我会解释这个代码的多线程方面的一些问题。</p>
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2016/05/03/iOS开发——正则表达式验证密码、手机号/" title="link to iOS开发——正则表达式验证密码、手机号">iOS开发——正则表达式验证密码、手机号</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2016-05-03" class="post-list__meta--date date">2016-05-03</time>
-      </div>
-
-      <div class="excerpt">
-        
-          <p>App的实际应用中，用户登陆功能基本是每个App都有需求的一个功能。而当前我们很常规的做法，就是让用户把手机号作为自己的用户名，而在注册获取短信验证码的过程中，我们首先要完成的一个步骤，就是校验用户的手机号是否是符合规则的手机号，而这种问题，一般称之为字符串匹配问题。</p>
-<p>当遇到字符串匹配问题时，有一种常用的解决方法就是正则表达式。通过iOS中的NSRegularExpression这个类就可以帮助我们实现这个。</p>
-<p><strong>下面先来介绍一下正则表达式的基本语法。</strong></p>
         
       </div>
 

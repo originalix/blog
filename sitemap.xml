@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/02/27/Python%E2%80%94%E2%80%94%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8XPath%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
+    
+    <lastmod>2018-02-27T12:31:54.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/02/22/Python%E2%80%94%E2%80%94%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8Selenium%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</loc>
     
-    <lastmod>2018-02-21T23:35:24.000Z</lastmod>
+    <lastmod>2018-02-21T23:37:19.000Z</lastmod>
     
   </url>
   
