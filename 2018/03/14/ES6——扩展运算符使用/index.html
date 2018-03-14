@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      ES6——扩展运算符使用 | Leon的博客 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="李晓">
+    
+    
+
+    <meta name="description" content="最近又开始把大量的时间花费在了夯实前端基础上了，看了很多的前端规范，书籍，并且敲了大量的前端代码。系统的在补习自己的前端基础，于是乎可能是日久生情，我对javascript这门语言的感情也在慢慢加深。系统的学习ES6标准一定是学习前端必要的一件事。ES6中增加了不少新特性新语法，一边学习，一边记录。 初看ES6的代码，或许有许多同学不了解那三个点的用法，扩展运算符(spread)是三个点(...)">
+<meta name="keywords" content="前端,ES6,Javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6——扩展运算符使用 | Leon的博客">
+<meta property="og:url" content="http://yoursite.com/2018/03/14/ES6——扩展运算符使用/index.html">
+<meta property="og:site_name" content="Leon的博客">
+<meta property="og:description" content="最近又开始把大量的时间花费在了夯实前端基础上了，看了很多的前端规范，书籍，并且敲了大量的前端代码。系统的在补习自己的前端基础，于是乎可能是日久生情，我对javascript这门语言的感情也在慢慢加深。系统的学习ES6标准一定是学习前端必要的一件事。ES6中增加了不少新特性新语法，一边学习，一边记录。 初看ES6的代码，或许有许多同学不了解那三个点的用法，扩展运算符(spread)是三个点(...)">
+<meta property="og:updated_time" content="2018-03-14T12:47:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES6——扩展运算符使用 | Leon的博客">
+<meta name="twitter:description" content="最近又开始把大量的时间花费在了夯实前端基础上了，看了很多的前端规范，书籍，并且敲了大量的前端代码。系统的在补习自己的前端基础，于是乎可能是日久生情，我对javascript这门语言的感情也在慢慢加深。系统的学习ES6标准一定是学习前端必要的一件事。ES6中增加了不少新特性新语法，一边学习，一边记录。 初看ES6的代码，或许有许多同学不了解那三个点的用法，扩展运算符(spread)是三个点(...)">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Leon的博客</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          每多学一点知识，就少写一行代码
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/originalix" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+
+    <h1 class="post-title">ES6——扩展运算符使用</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-03-14" class="post-meta__date date">2018-03-14</time>
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/ES6/">ES6</a>, <a class="tags-link" href="/tags/Javascript/">Javascript</a>, <a class="tags-link" href="/tags/前端/">前端</a>
+            </font>
+          
+
+      </span>
+
+
+      <span class="post-meta_statistic date" id="busuanzi_container_page_pv">
+        本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+      </span>
+
+    </div>
+
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>最近又开始把大量的时间花费在了夯实前端基础上了，看了很多的前端规范，书籍，并且敲了大量的前端代码。系统的在补习自己的前端基础，于是乎可能是日久生情，我对javascript这门语言的感情也在慢慢加深。系统的学习ES6标准一定是学习前端必要的一件事。ES6中增加了不少新特性新语法，一边学习，一边记录。</p>
+<p>初看ES6的代码，或许有许多同学不了解那三个点的用法，扩展运算符(spread)是三个点(<code>...</code>)。它好比rest的逆运算，将一个数组转化为用逗号分隔的参数序列。扩展运算符允许一个表达式在期望多个参数（用于函数调用）或多个元素（用于数组字面量）或多个变量（用于解构赋值）的位置扩展。</p>
+<a id="more"></a>
+<p>来看一个用于函数调用的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myFunction(...iterableObj);</span><br></pre></td></tr></table></figure>
+<p>用于数组字面量的例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span>[...iterableObj] = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>];</span><br><span class="line"></span><br><span class="line">[...iterableObj, <span class="number">0</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>];</span><br><span class="line"><span class="comment">// [1, 3, 5, 7, 9, 0, 2, 4, 6, 8]</span></span><br><span class="line"></span><br><span class="line">[<span class="number">0</span>, <span class="number">2</span>, ...iterableObj, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>]</span><br><span class="line"><span class="comment">// [0, 2, 1, 3, 5, 7, 9, 4, 6, 8]</span></span><br></pre></td></tr></table></figure>
+<p>用于对象字面量：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> objClone = &#123; ...obj&#125;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里要注意，<strong>…rest</strong>必须是参数列表的最后一个参数！</p>
+<p>但是 <strong>…spread</strong>无限制</p>
+</blockquote>
+<h2 id="扩展运算符的使用示例"><a href="#扩展运算符的使用示例" class="headerlink" title="扩展运算符的使用示例"></a>扩展运算符的使用示例</h2><h3 id="替换apply方法"><a href="#替换apply方法" class="headerlink" title="替换apply方法"></a>替换apply方法</h3><p>在需要使用数组作为函数参数的情况下，通常使用<code>apply</code>方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myFunction</span>(<span class="params">x, y, z</span>) </span>&#123; &#125;</span><br><span class="line"><span class="keyword">var</span> args = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line">myFunction.apply(<span class="literal">null</span>, args);</span><br></pre></td></tr></table></figure>
+<p>如果使用了扩展运算符，我们可以这么来表示：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myFunction</span>(<span class="params">x, y, z</span>) </span>&#123; &#125;</span><br><span class="line"><span class="keyword">var</span> args = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>];</span><br><span class="line">myFunction(...args);</span><br></pre></td></tr></table></figure>
+<p>还可以同时展开多个数组:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myFunction</span>(<span class="params">v, w, x, y, z</span>) </span>&#123; &#125;</span><br><span class="line"><span class="keyword">var</span> args = [<span class="number">0</span>, <span class="number">1</span>];</span><br><span class="line">myFunction(<span class="number">-1</span>, ...args, <span class="number">2</span>, ...[<span class="number">3</span>]);</span><br></pre></td></tr></table></figure>
+<h3 id="更方便的数组字面量"><a href="#更方便的数组字面量" class="headerlink" title="更方便的数组字面量"></a>更方便的数组字面量</h3><p>如果已经有一个数组，此时还需要再新建一个数组，要求新数组包含已有数组的数组项的话，就要用push，splice，concat等数组方法，但是有了扩展运算符之后，这些麻烦似乎都不存在了。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> parts = [<span class="string">'shoulder'</span>, <span class="string">'knees'</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> Tshirts = [<span class="string">'Lee'</span>, <span class="string">'Nike'</span>];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> lyrics = [<span class="string">'head'</span>, ...parts, <span class="string">'and'</span>, <span class="string">'toes'</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// ["head", "shoulder", "knees", "and", "toes"]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> lyrics = [<span class="string">'head'</span>, ...parts, <span class="string">'and'</span>, <span class="string">'toes'</span>, ...Tshirts];</span><br><span class="line"></span><br><span class="line"><span class="comment">// ["head", "shoulder", "knees", "and", "toes", "Lee", "Nike"]</span></span><br></pre></td></tr></table></figure>
+<p>就像扩展参数列表一样， <code>...</code>可以在数组字面量中的任何地方使用，可以多次使用。</p>
+<h3 id="复制数组"><a href="#复制数组" class="headerlink" title="复制数组"></a>复制数组</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"><span class="keyword">let</span> arr2 = [...arr]; <span class="comment">// 就像是 arr.slice()</span></span><br><span class="line"></span><br><span class="line">arr2.push(<span class="number">4</span>); </span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(arr2) <span class="comment">// [1, 2, 3, 4]</span></span><br><span class="line"><span class="comment">// arr 不受影响</span></span><br></pre></td></tr></table></figure>
+<h3 id="配合new运算符"><a href="#配合new运算符" class="headerlink" title="配合new运算符"></a>配合new运算符</h3><p>在ES5中，我们无法使用同时使用new运算符和apply方法（apply方法调用[[call]]而不是[[Construct]]）。在ES6中，我们可以使用扩展运算符，就和普通的函数调用一样。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> dateFields = [<span class="number">1970</span>, <span class="number">0</span>, <span class="number">1</span>];  </span><br><span class="line"><span class="comment">// 1 Jan 1970</span></span><br><span class="line"><span class="keyword">let</span> d = <span class="keyword">new</span> <span class="built_in">Date</span>(...dateFields);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> dateFields = readDateFields(database);</span><br><span class="line"><span class="keyword">let</span> d = <span class="keyword">new</span> <span class="built_in">Date</span>(...dateFields);</span><br></pre></td></tr></table></figure>
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span class="footer__copyright">
+        &copy; 2014-2018. | 由<a href="https://hexo.io/">Hexo</a>强力驱动
+    </span>
+    <span id="busuanzi_container_site_pv">
+        本站访客数<span id="busuanzi_value_site_pv"></span>人次
+    </span>
+
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
