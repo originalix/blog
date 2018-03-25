@@ -198,6 +198,31 @@ classes that you can use:
     <li>
 
       <h2 class="post-list__post-title post-title">
+        <a href="/2018/03/25/ES6——箭头函数/" title="link to ES6——箭头函数">ES6——箭头函数</a>
+      </h2>
+
+      <div class="post-list__meta">
+
+        <time datetime="2018-03-25" class="post-list__meta--date date">2018-03-25</time>
+      </div>
+
+      <div class="excerpt">
+        
+          <p>ES6之后，允许使用箭头<code>=&gt;</code>来定义函数。首先我们来总结一下箭头函数存在的意义，之后再来细细的看它的使用方法。</p>
+<p>箭头函数表达式的语法比函数表达式更短，并且不绑定自己的this,arguments,super或者new.target。这些函数表达式最适合用于非方法函数，并且它们不能用作构造函数。</p>
+<p>讲完了箭头函数的意义，那么我们总最基础的示例开始看，先看一个常规语法定义的函数:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">funcName</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> params + <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">funcName(<span class="number">2</span>);		<span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
+<p>如果这个函数用箭头函数改写的话，仅仅需要一行代码就够了:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> funcName = <span class="function">(<span class="params">params</span>) =&gt;</span> params + <span class="number">2</span>;</span><br><span class="line">funcName(<span class="number">2</span>); 	<span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
+        
+      </div>
+
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
+
+      <h2 class="post-list__post-title post-title">
         <a href="/2018/03/14/ES6——扩展运算符使用/" title="link to ES6——扩展运算符使用">ES6——扩展运算符使用</a>
       </h2>
 
