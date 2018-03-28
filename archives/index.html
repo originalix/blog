@@ -197,6 +197,31 @@ classes that you can use:
     <li>
 
       <h2 class="post-list__post-title post-title">
+        <a href="/2018/03/28/在Yii2框架中使用Redis/" title="link to 在Yii2框架中使用Redis">在Yii2框架中使用Redis</a>
+      </h2>
+
+      <div class="post-list__meta">
+
+        <time datetime="2018-03-28" class="post-list__meta--date date">2018-03-28</time>
+      </div>
+
+      <div class="excerpt">
+        
+          <p>想要在Yii2这个PHP框架中很好的使用redis键值存储，那么首先就要推荐<a href="https://github.com/yiisoft/yii2-redis" target="_blank" rel="noopener">yii2-redis</a>这个官方的<a href="https://github.com/originalix" target="_blank" rel="noopener">Github</a>库。这个库能够很好的帮助我们在Yii2框架中使用redis，它提供缓存，Session以及ActiveRecord模式的支持。</p>
+<h2 id="安装yii2-redis库"><a href="#安装yii2-redis库" class="headerlink" title="安装yii2-redis库"></a>安装yii2-redis库</h2><p>推荐使用composer安装yii2-redis库，在你的项目根目录执行</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php composer.phar <span class="keyword">require</span> --prefer-dist yiisoft/yii2-redis:<span class="string">"~2.0.0"</span></span><br></pre></td></tr></table></figure>
+<p>或者将</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"yiisoft/yii2-redis": "~2.0.0"</span><br></pre></td></tr></table></figure>
+<p>加入你的<code>composer.json</code>文件里，之后运行<code>composer update</code>，墙内真的很慢，耐心等待即可。</p>
+        
+      </div>
+
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
+
+      <h2 class="post-list__post-title post-title">
         <a href="/2018/03/25/ES6——箭头函数/" title="link to ES6——箭头函数">ES6——箭头函数</a>
       </h2>
 
@@ -355,28 +380,6 @@ classes that you can use:
       <hr class="post-list__divider" />
     </li>
     
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2018/01/17/Python——搞定烦人的字符串编码/" title="link to Python——搞定烦人的字符串编码">Python——搞定烦人的字符串编码</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2018-01-17" class="post-list__meta--date date">2018-01-17</time>
-      </div>
-
-      <div class="excerpt">
-        
-          <p>注意：以下讨论为Python2.x版本</p>
-<p>在学习Python之前，就听说过Python的版本圣战，最可怕的是有的写Py3的程序员觉得Py2是另一种语言….所以在刚开始学习的时候，我索性把Python3和Python2的文档都看了一遍。</p>
-<p>在之后写爬虫的过程中，我还是选择使用了Python2.x来写，原因嘛，emmmmm，可能就是因为一些好用的库或者框架的示例代码也是用旧一点的版本，所以为了效率，先用旧版本上手得了。在学习Python2之前，我还特意去比较了2和3的区别，其中着重被提及的就是字符串编码的问题，于是乎我在看旧版本文档的时候很仔细的去阅读了Python2的字符串部分。</p>
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
   </ol>
 
   <hr class="post-list__divider " />
@@ -384,7 +387,7 @@ classes that you can use:
 <nav class="pagination" role="navigation">
     
 
-    <span class="pagination__page-number"> 1 / 12</span>
+    <span class="pagination__page-number"> 1 / 13</span>
     
     
         <a class="older-posts pagination__older btn btn-small btn-tertiary" href="/archives/page/2/">Next &rarr;</a>

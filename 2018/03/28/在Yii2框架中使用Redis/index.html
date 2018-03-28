@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      在Yii2框架中使用Redis | Leon的博客 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="李晓">
+    
+    
+
+    <meta name="description" content="想要在Yii2这个PHP框架中很好的使用redis键值存储，那么首先就要推荐yii2-redis这个官方的Github库。这个库能够很好的帮助我们在Yii2框架中使用redis，它提供缓存，Session以及ActiveRecord模式的支持。 安装yii2-redis库推荐使用composer安装yii2-redis库，在你的项目根目录执行 1php composer.phar require">
+<meta name="keywords" content="PHP,Yii2,Redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在Yii2框架中使用Redis | Leon的博客">
+<meta property="og:url" content="http://yoursite.com/2018/03/28/在Yii2框架中使用Redis/index.html">
+<meta property="og:site_name" content="Leon的博客">
+<meta property="og:description" content="想要在Yii2这个PHP框架中很好的使用redis键值存储，那么首先就要推荐yii2-redis这个官方的Github库。这个库能够很好的帮助我们在Yii2框架中使用redis，它提供缓存，Session以及ActiveRecord模式的支持。 安装yii2-redis库推荐使用composer安装yii2-redis库，在你的项目根目录执行 1php composer.phar require">
+<meta property="og:updated_time" content="2018-03-28T12:57:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在Yii2框架中使用Redis | Leon的博客">
+<meta name="twitter:description" content="想要在Yii2这个PHP框架中很好的使用redis键值存储，那么首先就要推荐yii2-redis这个官方的Github库。这个库能够很好的帮助我们在Yii2框架中使用redis，它提供缓存，Session以及ActiveRecord模式的支持。 安装yii2-redis库推荐使用composer安装yii2-redis库，在你的项目根目录执行 1php composer.phar require">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Leon的博客</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          每多学一点知识，就少写一行代码
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/originalix" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+
+    <h1 class="post-title">在Yii2框架中使用Redis</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-03-28" class="post-meta__date date">2018-03-28</time>
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/PHP/">PHP</a>, <a class="tags-link" href="/tags/Redis/">Redis</a>, <a class="tags-link" href="/tags/Yii2/">Yii2</a>
+            </font>
+          
+
+      </span>
+
+
+      <span class="post-meta_statistic date" id="busuanzi_container_page_pv">
+        本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+      </span>
+
+    </div>
+
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>想要在Yii2这个PHP框架中很好的使用redis键值存储，那么首先就要推荐<a href="https://github.com/yiisoft/yii2-redis" target="_blank" rel="noopener">yii2-redis</a>这个官方的<a href="https://github.com/originalix" target="_blank" rel="noopener">Github</a>库。这个库能够很好的帮助我们在Yii2框架中使用redis，它提供缓存，Session以及ActiveRecord模式的支持。</p>
+<h2 id="安装yii2-redis库"><a href="#安装yii2-redis库" class="headerlink" title="安装yii2-redis库"></a>安装yii2-redis库</h2><p>推荐使用composer安装yii2-redis库，在你的项目根目录执行</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php composer.phar <span class="keyword">require</span> --prefer-dist yiisoft/yii2-redis:<span class="string">"~2.0.0"</span></span><br></pre></td></tr></table></figure>
+<p>或者将</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"yiisoft/yii2-redis": "~2.0.0"</span><br></pre></td></tr></table></figure>
+<p>加入你的<code>composer.json</code>文件里，之后运行<code>composer update</code>，墙内真的很慢，耐心等待即可。</p>
+<a id="more"></a>
+<h2 id="配置redis"><a href="#配置redis" class="headerlink" title="配置redis"></a>配置redis</h2><p>要正确的使用这个扩展，你必须在你的应用程序的配置文件内，配置<code>Connection</code>类，一般来说，配置文件是<code>config\web.php</code>。</p>
+<p>在你的组件里加入<code>redis</code>项目，如下:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> [</span><br><span class="line">    <span class="comment">//....</span></span><br><span class="line">    <span class="string">'components'</span> =&gt; [</span><br><span class="line">        <span class="string">'redis'</span> =&gt; [</span><br><span class="line">            <span class="string">'class'</span> =&gt; <span class="string">'yii\redis\Connection'</span>,</span><br><span class="line">            <span class="string">'hostname'</span> =&gt; <span class="string">'localhost'</span>,</span><br><span class="line">            <span class="string">'port'</span> =&gt; <span class="number">6379</span>,</span><br><span class="line">            <span class="string">'database'</span> =&gt; <span class="number">0</span>,</span><br><span class="line">        ],</span><br><span class="line">    ]</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+<p>如此之后，你便能正常的在yii2框架中使用redis。</p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><h3 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h3><p>我们先来看一段最简单的使用redis的代码:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$redis = Yii::$app-&gt;redis;</span><br><span class="line">$key = <span class="string">'username'</span>;</span><br><span class="line"><span class="keyword">if</span> ($val = $redis-&gt;get($key)) &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="string">'redis'</span> =&gt; $val];</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    $redis-&gt;set($key, <span class="string">'Leon'</span>);</span><br><span class="line">    $redis-&gt;expire($key, <span class="number">5</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> [<span class="string">'redis'</span> =&gt; <span class="string">'no data'</span>];</span><br></pre></td></tr></table></figure>
+<p>没有一行注释，但是就是一目了然是不是。</p>
+<p>寻找<code>username</code>这个key，如果找不到，设置键值存储，并且过期时间是5秒钟。</p>
+<p>这就是一个完整的使用redis的例子。</p>
+<h3 id="Cache"><a href="#Cache" class="headerlink" title="Cache"></a>Cache</h3><p>那么接下来，我们来看看怎么样将redis用在缓存上。</p>
+<p>同样的，作为缓存使用，我们需要去配置文件里修改缓存项:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'components'</span> =&gt; [</span><br><span class="line">    <span class="string">'cache'</span> =&gt; [</span><br><span class="line">        <span class="comment">// 'class' =&gt; 'yii\caching\FileCache',</span></span><br><span class="line">        <span class="string">'class'</span> =&gt; <span class="string">'yii\redis\Cache'</span>,</span><br><span class="line">    ],</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+<p>如果你没有配置过redis组件，那么还需要在cache下配置redis:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'components'</span> =&gt; [</span><br><span class="line">    <span class="string">'cache'</span> =&gt; [</span><br><span class="line">        <span class="comment">// 'class' =&gt; 'yii\caching\FileCache',</span></span><br><span class="line">        <span class="string">'class'</span> =&gt; <span class="string">'yii\redis\Cache'</span>,</span><br><span class="line">        <span class="string">'redis'</span> =&gt; [</span><br><span class="line">            <span class="string">'hostname'</span> =&gt; <span class="string">'localhost'</span>,</span><br><span class="line">            <span class="string">'port'</span> =&gt; <span class="number">6379</span>,</span><br><span class="line">            <span class="string">'database'</span> =&gt; <span class="number">0</span>,</span><br><span class="line">        ],</span><br><span class="line">    ],</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+<p>示例代码如下，通俗易懂也就不过多解释了:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$cache = Yii::$app-&gt;cache;</span><br><span class="line">$key = <span class="string">'username'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ($cache-&gt;exists($key)) &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="string">'cache'</span> =&gt; $cache-&gt;get($key)];</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    $cache-&gt;set($key, <span class="string">'Leon'</span>, <span class="number">5</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> [<span class="string">'cache'</span> =&gt; <span class="string">'no cache'</span>];</span><br></pre></td></tr></table></figure>
+<h3 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h3><p>最后是redis用作session。也是要在组件中配置:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'components'</span> =&gt; [</span><br><span class="line">    <span class="string">'session'</span> =&gt; [</span><br><span class="line">        <span class="string">'name'</span> =&gt; <span class="string">'advanced-frontend'</span>,</span><br><span class="line">        <span class="string">'class'</span> =&gt; <span class="string">'yii\redis\Session'</span></span><br><span class="line">    ],</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+<p>如果没有配置过redis，同样需要配置:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'components'</span> =&gt; [</span><br><span class="line">    <span class="string">'session'</span> =&gt; [</span><br><span class="line">        <span class="string">'name'</span> =&gt; <span class="string">'advanced-frontend'</span>,</span><br><span class="line">        <span class="string">'class'</span> =&gt; <span class="string">'yii\redis\Session'</span>,</span><br><span class="line">        <span class="string">'redis'</span> =&gt; [</span><br><span class="line">            <span class="string">'hostname'</span> =&gt; <span class="string">'localhost'</span>,</span><br><span class="line">            <span class="string">'port'</span> =&gt; <span class="number">6379</span>,</span><br><span class="line">            <span class="string">'database'</span> =&gt; <span class="number">0</span>,</span><br><span class="line">        ],</span><br><span class="line">    ],</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+<p>示例代码如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$session = Yii::$app-&gt;session;</span><br><span class="line">$key = <span class="string">'username'</span>;</span><br><span class="line"><span class="keyword">if</span> ($session-&gt;has($key)) &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="string">'session'</span> =&gt; $session-&gt;get($key)];</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    $session-&gt;set($key, <span class="string">'Leon'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> [<span class="string">'session'</span> =&gt; <span class="string">'no session'</span>];</span><br></pre></td></tr></table></figure>
+<p>在简单的示范下，如何将redis这个高效的工具用好，则是考验大家的能力了。加油吧！</p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span class="footer__copyright">
+        &copy; 2014-2018. | 由<a href="https://hexo.io/">Hexo</a>强力驱动
+    </span>
+    <span id="busuanzi_container_site_pv">
+        本站访客数<span id="busuanzi_value_site_pv"></span>人次
+    </span>
+
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

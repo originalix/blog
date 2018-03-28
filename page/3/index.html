@@ -197,6 +197,28 @@ classes that you can use:
     <li>
 
       <h2 class="post-list__post-title post-title">
+        <a href="/2017/10/09/数据结构——最小生成树(C++和Java实现)/" title="link to 数据结构——最小生成树(C++和Java实现)">数据结构——最小生成树(C++和Java实现)</a>
+      </h2>
+
+      <div class="post-list__meta">
+
+        <time datetime="2017-10-09" class="post-list__meta--date date">2017-10-09</time>
+      </div>
+
+      <div class="excerpt">
+        
+          <p>快要一整个月没有更新博客了，之前的几周每周都想着要写，但是最后时间还是排不开，最近的状态是一直在写代码，一直在怼工作的需求，顺便刷刷算法题，国庆则是没心没肺的玩了七八天，时间这么一分摊，写博客的时间总是挤不出来，罪过罪过。</p>
+<p>其实数据结构的系列一直也没有写到头，之后还打算写一个<code>Leetcode</code>刷题系列，最近刷的题越多，越是感叹某些题目的解法精妙。</p>
+<p>今天就接着上个月的来讲讲最小生成树的算法吧。</p>
+        
+      </div>
+
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
+
+      <h2 class="post-list__post-title post-title">
         <a href="/2017/09/11/数据结构——无权图的路径问题(C++和java实现)/" title="link to 数据结构——无权图的路径问题(C++和java实现)">数据结构——无权图的路径问题(C++和java实现)</a>
       </h2>
 
@@ -364,27 +386,6 @@ classes that you can use:
       <hr class="post-list__divider" />
     </li>
     
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2017/07/07/iOS开发——十六进制字符串与NSData的转化/" title="link to iOS开发——十六进制字符串与NSData的转化">iOS开发——十六进制字符串与NSData的转化</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2017-07-07" class="post-list__meta--date date">2017-07-07</time>
-      </div>
-
-      <div class="excerpt">
-        
-          <p>最近在完成一个需求时，遇到了<code>NSData</code>类型转换为十六进制的字符串这个需求的函数，在<code>stackoverflow</code>中翻找的时候，给出的答案基本上是如下的:</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span>* newStr = [[<span class="built_in">NSString</span> alloc] initWithData:theData encoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// If the data is null-terminated, you should instead use -stringWithUTF8String: to avoid the extra \0 at the end.</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">NSString</span>* newStr = [<span class="built_in">NSString</span> stringWithUTF8String:[theData bytes]];</span><br><span class="line"></span><br><span class="line"><span class="comment">// (Note that if the input is not properly UTF-8-encoded, you will get nil.)</span></span><br></pre></td></tr></table></figure>
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
   </ol>
 
   <hr class="post-list__divider " />
@@ -396,7 +397,7 @@ classes that you can use:
         
     
 
-    <span class="pagination__page-number"> 3 / 12</span>
+    <span class="pagination__page-number"> 3 / 13</span>
     
     
         <a class="older-posts pagination__older btn btn-small btn-tertiary" href="/page/4/">Next &rarr;</a>

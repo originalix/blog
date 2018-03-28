@@ -197,6 +197,28 @@ classes that you can use:
     <li>
 
       <h2 class="post-list__post-title post-title">
+        <a href="/2016/05/19/iOS开发——数据持久化之归档/" title="link to iOS开发——数据持久化之归档">iOS开发——数据持久化之归档</a>
+      </h2>
+
+      <div class="post-list__meta">
+
+        <time datetime="2016-05-19" class="post-list__meta--date date">2016-05-19</time>
+      </div>
+
+      <div class="excerpt">
+        
+          <p>在实际的项目开发中，数据持久化是我们必须要考虑的一个事情，如何把我们需要的数据进行持久化处理。</p>
+<p>在此之前，一些轻量级的数据类型我一般比较喜欢用NSUserDefaults来存储，因为首先这是一个单例，而且使用简便，数据之间传递自由，所以很适合用来保存简单的数据。</p>
+<p>而昨天我在实际工作中，有一个数组NSMutableArray需要存储，但是使用时，报了一个错误 <code>reason: &#39;*** -[NSUserDefaults setObject:forKey:]: attempt to insert non-property list object</code>，这个报错提示我试图加入一个不支持的数据类型。可是明明NSUserDefaults支持的数据类型有：NSNumber（NSInteger、float、double），NSString，NSDate，NSArray，NSDictionary，BOOL，为什么我的NSArray不能加入呢。后来发现我的数组中的对象，是Model类的对象。</p>
+        
+      </div>
+
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
+
+      <h2 class="post-list__post-title post-title">
         <a href="/2016/05/12/iOS开发——Block在实际项目中的传值/" title="link to iOS开发——Block在实际项目中的传值">iOS开发——Block在实际项目中的传值</a>
       </h2>
 
@@ -341,26 +363,6 @@ classes that you can use:
       <hr class="post-list__divider" />
     </li>
     
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2016/04/16/使用KVC来自定义UISearchBar的外观/" title="link to 使用KVC来自定义UISearchBar的外观">使用KVC来自定义UISearchBar的外观</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2016-04-16" class="post-list__meta--date date">2016-04-16</time>
-      </div>
-
-      <div class="excerpt">
-        
-          <p>以前我们在项目中使用搜索框的时候，如果用系统自带的控件则是使用UISearchDisplayController，而自从iOS8之后，系统重新给我们提供了一个搜索控件：UISearchController。在UISearchController中我们无需再自己初始化UISearchBar，只需要提供searchResult展示的视图。然而在开发中，我们往往需要根据项目的风格来改变UISearchBar的外观，通过继承的方式，我们可以完全定制符合项目风格的外观，然而有些情况下我们很难短时间内完成全部的外观定制工作，譬如我们项目用的好几个旧框架，代码中充斥着各种写好的UISearchBar的展示，而改动底层框架并不是一个较好地实践。于是我开始搜索并总结出了几个不通过继承的方式来更改UISearchBar外观的方法。</p>
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
   </ol>
 
   <hr class="post-list__divider " />
@@ -372,7 +374,7 @@ classes that you can use:
         
     
 
-    <span class="pagination__page-number"> 10 / 12</span>
+    <span class="pagination__page-number"> 10 / 13</span>
     
     
         <a class="older-posts pagination__older btn btn-small btn-tertiary" href="/archives/page/11/">Next &rarr;</a>
