@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/04/04/%E5%9C%A8create-react-app%E4%B8%AD%E4%BD%BF%E7%94%A8sass/</loc>
+    
+    <lastmod>2018-04-04T14:01:16.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/03/28/%E5%9C%A8Yii2%E6%A1%86%E6%9E%B6%E4%B8%AD%E4%BD%BF%E7%94%A8Redis/</loc>
     
     <lastmod>2018-03-28T12:57:08.000Z</lastmod>
