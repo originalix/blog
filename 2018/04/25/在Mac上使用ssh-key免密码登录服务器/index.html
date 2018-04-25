@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      在Mac上使用ssh-key免密码登录服务器 | Leon的博客 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="李晓">
+    
+    
+
+    <meta name="description" content="从很早之前开始，在搭建测试服务器的时候，就不停的谷歌怎么免密登录服务器，每次配置好免密登录后，到搭建新的服务器时，又忘记了具体的命令，所以决定把这个方法记下来，方便之后日后查找。 通常的来说，我们会使用 ssh user@host -p port这个命令，之后输入密码来登录服务器，才能ssh登录到服务器进行操作。如果一天需要登录很多遍服务器，就会输入很多次密码，偷懒的我当然不愿意这么干。而今天我们">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在Mac上使用ssh-key免密码登录服务器 | Leon的博客">
+<meta property="og:url" content="http://yoursite.com/2018/04/25/在Mac上使用ssh-key免密码登录服务器/index.html">
+<meta property="og:site_name" content="Leon的博客">
+<meta property="og:description" content="从很早之前开始，在搭建测试服务器的时候，就不停的谷歌怎么免密登录服务器，每次配置好免密登录后，到搭建新的服务器时，又忘记了具体的命令，所以决定把这个方法记下来，方便之后日后查找。 通常的来说，我们会使用 ssh user@host -p port这个命令，之后输入密码来登录服务器，才能ssh登录到服务器进行操作。如果一天需要登录很多遍服务器，就会输入很多次密码，偷懒的我当然不愿意这么干。而今天我们">
+<meta property="og:updated_time" content="2018-04-25T12:43:27.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在Mac上使用ssh-key免密码登录服务器 | Leon的博客">
+<meta name="twitter:description" content="从很早之前开始，在搭建测试服务器的时候，就不停的谷歌怎么免密登录服务器，每次配置好免密登录后，到搭建新的服务器时，又忘记了具体的命令，所以决定把这个方法记下来，方便之后日后查找。 通常的来说，我们会使用 ssh user@host -p port这个命令，之后输入密码来登录服务器，才能ssh登录到服务器进行操作。如果一天需要登录很多遍服务器，就会输入很多次密码，偷懒的我当然不愿意这么干。而今天我们">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Leon的博客</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          每多学一点知识，就少写一行代码
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/originalix" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+
+    <h1 class="post-title">在Mac上使用ssh-key免密码登录服务器</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-04-25" class="post-meta__date date">2018-04-25</time>
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Linux/">Linux</a>
+            </font>
+          
+
+      </span>
+
+
+      <span class="post-meta_statistic date" id="busuanzi_container_page_pv">
+        本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+      </span>
+
+    </div>
+
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>从很早之前开始，在搭建测试服务器的时候，就不停的谷歌怎么免密登录服务器，每次配置好免密登录后，到搭建新的服务器时，又忘记了具体的命令，所以决定把这个方法记下来，方便之后日后查找。</p>
+<p>通常的来说，我们会使用 <code>ssh user@host -p port</code>这个命令，之后输入密码来登录服务器，才能ssh登录到服务器进行操作。如果一天需要登录很多遍服务器，就会输入很多次密码，偷懒的我当然不愿意这么干。而今天我们就要偷懒的进行免密码登录服务器的操作。</p>
+<a id="more"></a>
+<p>Unix系的操作系统提供了各种ssh支持，我们可以通过这些来实现ssh登录。</p>
+<p>首先我们要在我们的mac上电脑上生成公钥和私钥，在终端中输入以下命令:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/.ssh</span><br></pre></td></tr></table></figure>
+<p>首先进入<code>~/.ssh</code>目录，之后:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
+<p>之后就可以一路回车，一般都不设置密码，即可在~/.ssh目录中生成私钥文件(id_rsa)和公钥文件（id_rsa.pub）。如果熟悉git ssh-key配置的朋友，可能已经很熟悉这个步骤了，所以我们只要把公钥上传到我们的服务器的~/.ssh目录就好了。</p>
+<p>所以我们可以用接下来的命令上传我们的公钥文件:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp ~/.ssh/id_rsa.pub ssh foo@8.8.8.8 -p 2222:~/.ssh/</span><br></pre></td></tr></table></figure>
+<p>接下来我们登录到服务器中，将~/.ssh目录下的id_rsa.pub文件改名为authorized_keys:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv id_rsa.pub authorized_keys</span><br></pre></td></tr></table></figure>
+<p>接着修改文件权限</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod 700 ~/.ssh/</span><br><span class="line">chmod 600 ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+<p>现在，我们就可以正常的在mac 终端中使用ssh来登录服务器了，无需输入密码。</p>
+<p>我们可以在<code>bash_profile</code>中设置一个<code>alias</code>，更能方便登录服务器的操作。</p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span class="footer__copyright">
+        &copy; 2014-2018. | 由<a href="https://hexo.io/">Hexo</a>强力驱动
+    </span>
+    <span id="busuanzi_container_site_pv">
+        本站访客数<span id="busuanzi_value_site_pv"></span>人次
+    </span>
+
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
