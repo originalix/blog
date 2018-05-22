@@ -197,6 +197,29 @@ classes that you can use:
     <li>
 
       <h2 class="post-list__post-title post-title">
+        <a href="/2017/01/17/iOS开发——在CocoaPods发布个人第三方库/" title="link to iOS开发——在CocoaPods发布个人第三方库">iOS开发——在CocoaPods发布个人第三方库</a>
+      </h2>
+
+      <div class="post-list__meta">
+
+        <time datetime="2017-01-17" class="post-list__meta--date date">2017-01-17</time>
+      </div>
+
+      <div class="excerpt">
+        
+          <blockquote>
+<p>在进行日常的 iOS 开发的时候，我们肯定会用到各种第三方库，每次使用一个库的时候，各种依赖配置总是让人很头痛。幸好我们有了 CocoaPods，CocoaPods 为我们节省了大量集成第三方库的时间。在我们便捷地使用他人制作的 Pod 的时候，一定也希望能够将自己的代码制作成 Pod 供别人使用，来为开源社区做一点贡献。接下来，我们就来尝试制作一个属于自己的 Pod 库，并发布供他人使用。</p>
+</blockquote>
+<p>备注：假设你已经拥有了一个完善的用于制作 Pod 的 iOS 工程。</p>
+        
+      </div>
+
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
+
+      <h2 class="post-list__post-title post-title">
         <a href="/2017/01/11/iOS漫谈——对于项目架构的思考/" title="link to iOS漫谈——对于项目架构的思考">iOS漫谈——对于项目架构的思考</a>
       </h2>
 
@@ -342,28 +365,6 @@ classes that you can use:
         
           <p>Xcode8正式发布后，Swift3也随即发布，为了跟上苹果这艘大船的脚步，赶紧逼着自己看文档哦。在看文档的过程中，发现GCD的变化跟OC相比简直都要不认识了，赶紧写个文章总结下，顺手复习下GCD中死锁的概念，死锁的总结发布在另一篇文章里了。</p>
 <h1 id="取消过去的接口"><a href="#取消过去的接口" class="headerlink" title="取消过去的接口"></a>取消过去的接口</h1><p>说起 GCD， 大家肯定回想起类似 <code>dispatch_async</code> 这样的语法。 GCD 的这个语法模式无论是和 Objc 还是 Swift 的整体风格都不太搭调。 所以 Swift 3 中对它的语法进行了彻底的改写。</p>
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2016/11/01/iOS——GCD的死锁案例/" title="link to iOS——GCD的死锁案例">iOS——GCD的死锁案例</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2016-11-01" class="post-list__meta--date date">2016-11-01</time>
-      </div>
-
-      <div class="excerpt">
-        
-          <p>在项目中，用GCD的时候非常多，但是我最近脑子里一直在问自己一个问题，死锁是什么。惭愧的是这个当初清晰的概念现在愈加模糊，考虑到自己并没有专门整理过死锁的文章，所以写一篇技术文章来帮助自己梳理概念。</p>
-<p>GCD提供了功能强大的任务和队列控制功能，相比于NSOperationQueue更加底层，因此如果不注意也会导致死锁。</p>
-<p>所谓死锁，通常指有两个线程A和B都卡住了，并等待对方完成某些操作。A不能完成是因为它在等待B完成。但B也不能完成，因为它在等待A完成。于是大家都完不成，就导致了死锁（DeadLock）。</p>
         
       </div>
 

@@ -197,6 +197,28 @@ classes that you can use:
     <li>
 
       <h2 class="post-list__post-title post-title">
+        <a href="/2018/05/22/腾讯云上免费部署HTTPS/" title="link to 腾讯云上免费部署HTTPS">腾讯云上免费部署HTTPS</a>
+      </h2>
+
+      <div class="post-list__meta">
+
+        <time datetime="2018-05-22" class="post-list__meta--date date">2018-05-22</time>
+      </div>
+
+      <div class="excerpt">
+        
+          <p>最近在写微信小程序的时候，微信小程序需要所有的请求接口都部署在https协议上，于是就研究了一下怎么在腾讯云上部署https环境，发现还是比较简单的，首先我的服务器环境是Ubuntu 16.04, LAMP的环境。</p>
+<h2 id="获取SSL证书"><a href="#获取SSL证书" class="headerlink" title="获取SSL证书"></a>获取SSL证书</h2><p>腾讯云的SSL证书服务中，域名型的（DV）SSL证书是免费的，那么我们这次主要是申请这个证书，如需其他类型证书，也请付费申请。</p>
+<p>进入SSL证书管理控制台，点击申请证书</p>
+        
+      </div>
+
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
+
+      <h2 class="post-list__post-title post-title">
         <a href="/2018/05/14/CSS——实现元素的垂直居中/" title="link to CSS——实现元素的垂直居中">CSS——实现元素的垂直居中</a>
       </h2>
 
@@ -343,27 +365,6 @@ classes that you can use:
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">funcName</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> params + <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">funcName(<span class="number">2</span>);		<span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
 <p>如果这个函数用箭头函数改写的话，仅仅需要一行代码就够了:</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> funcName = <span class="function">(<span class="params">params</span>) =&gt;</span> params + <span class="number">2</span>;</span><br><span class="line">funcName(<span class="number">2</span>); 	<span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2018/03/14/ES6——扩展运算符使用/" title="link to ES6——扩展运算符使用">ES6——扩展运算符使用</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2018-03-14" class="post-list__meta--date date">2018-03-14</time>
-      </div>
-
-      <div class="excerpt">
-        
-          <p>最近又开始把大量的时间花费在了夯实前端基础上了，看了很多的前端规范，书籍，并且敲了大量的前端代码。系统的在补习自己的前端基础，于是乎可能是日久生情，我对javascript这门语言的感情也在慢慢加深。系统的学习ES6标准一定是学习前端必要的一件事。ES6中增加了不少新特性新语法，一边学习，一边记录。</p>
-<p>初看ES6的代码，或许有许多同学不了解那三个点的用法，扩展运算符(spread)是三个点(<code>...</code>)。它好比rest的逆运算，将一个数组转化为用逗号分隔的参数序列。扩展运算符允许一个表达式在期望多个参数（用于函数调用）或多个元素（用于数组字面量）或多个变量（用于解构赋值）的位置扩展。</p>
         
       </div>
 

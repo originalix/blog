@@ -197,6 +197,28 @@ classes that you can use:
     <li>
 
       <h2 class="post-list__post-title post-title">
+        <a href="/2016/11/01/iOS——GCD的死锁案例/" title="link to iOS——GCD的死锁案例">iOS——GCD的死锁案例</a>
+      </h2>
+
+      <div class="post-list__meta">
+
+        <time datetime="2016-11-01" class="post-list__meta--date date">2016-11-01</time>
+      </div>
+
+      <div class="excerpt">
+        
+          <p>在项目中，用GCD的时候非常多，但是我最近脑子里一直在问自己一个问题，死锁是什么。惭愧的是这个当初清晰的概念现在愈加模糊，考虑到自己并没有专门整理过死锁的文章，所以写一篇技术文章来帮助自己梳理概念。</p>
+<p>GCD提供了功能强大的任务和队列控制功能，相比于NSOperationQueue更加底层，因此如果不注意也会导致死锁。</p>
+<p>所谓死锁，通常指有两个线程A和B都卡住了，并等待对方完成某些操作。A不能完成是因为它在等待B完成。但B也不能完成，因为它在等待A完成。于是大家都完不成，就导致了死锁（DeadLock）。</p>
+        
+      </div>
+
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
+
+      <h2 class="post-list__post-title post-title">
         <a href="/2016/10/26/iOS开发——TDD、BDD方法以及Kiwi单元测试框架/" title="link to iOS开发——TDD、BDD方法以及Kiwi单元测试框架">iOS开发——TDD、BDD方法以及Kiwi单元测试框架</a>
       </h2>
 
@@ -340,27 +362,6 @@ classes that you can use:
 <blockquote>
 <p>高级加密标准（英语：Advanced Encryption Standard，缩写：AES），在密码学中又称Rijndael加密法，是美国联邦政府采用的一种区块加密标准。这个标准用来替代原先的DES，已经被多方分析且广为全世界所使用。经过五年的甄选流程，高级加密标准由美国国家标准与技术研究院（NIST）于2001年11月26日发布于FIPS PUB 197，并在2002年5月26日成为有效的标准。2006年，高级加密标准已然成为对称密钥加密中最流行的算法之一。</p>
 </blockquote>
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2016/09/11/iOS开发-——-ReactiveCocoa详解/" title="link to iOS开发 —— ReactiveCocoa详解">iOS开发 —— ReactiveCocoa详解</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2016-09-11" class="post-list__meta--date date">2016-09-11</time>
-      </div>
-
-      <div class="excerpt">
-        
-          <p>最近一直在研究<strong>ReactiveCocoa</strong>，现在也来讲讲<strong>ReactiveCocoa</strong>中一些基础类的作用。</p>
-<h1 id="ReactiveCocoa作用"><a href="#ReactiveCocoa作用" class="headerlink" title="ReactiveCocoa作用"></a>ReactiveCocoa作用</h1><p>在我们iOS开发过程中，当某些事件响应的时候，需要处理某些业务逻辑,这些事件都用不同的方式来处理。比如按钮的点击使用<code>action</code>，<code>ScrollView</code>滚动使用<code>delegate</code>，属性值改变使用<strong>KVO</strong>等系统提供的方式。其实这些事件，都可以通过<strong>RAC</strong>处理。</p>
         
       </div>
 

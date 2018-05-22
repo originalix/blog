@@ -197,6 +197,30 @@ classes that you can use:
     <li>
 
       <h2 class="post-list__post-title post-title">
+        <a href="/2017/04/02/《Clean-Code》-读书小节（二）/" title="link to 《Clean Code》 读书小节（二）">《Clean Code》 读书小节（二）</a>
+      </h2>
+
+      <div class="post-list__meta">
+
+        <time datetime="2017-04-02" class="post-list__meta--date date">2017-04-02</time>
+      </div>
+
+      <div class="excerpt">
+        
+          <p>之前在看了《Clean Code》这本书的前两章时，就写下了第一篇读书小节，而随着读书的深入，便决定再总结一下后面一部分的读书心得。</p>
+<h1 id="那些多余的注释"><a href="#那些多余的注释" class="headerlink" title="那些多余的注释"></a>那些多余的注释</h1><p>相信每一个程序员都经历过一个坑，那就是去阅读甚至修改没有注释的代码。如果这些代码风格糟糕，命名不遵循规则，毫无疑问这是一段你永远都不想回忆的时光，而若是这些代码命名准确，设计模式使用的恰到好处，函数拆分合理，说不定你有一种怎么读别人的代码比回顾我自己写的代码还清晰的错觉。</p>
+<p>是的，毫无疑问我一直是代码是最好的注释这个说法的拥护者之一。但是，这里有个前提，就是你必须有能力写出优秀的代码，你才有资格去不写注释。我们要一直明白一个问题，我们的代码写出来是为了给别人看的，而不是仅仅给自己看的，如果你的团队有严谨的<strong>Code Review</strong>那你好意思写出脏乱不堪的代码被投影仪放到幕布上给所有部门同事看么？对于一个新手程序员来说，请老老实实的写好每一个关键函数的注释，也请在修改函数的时候，不吝时间的修改对应的注释。若是项目的目的是为了公开API给第三方开发者使用，那么请在开放api上写好注释，这是应该完善的工作。</p>
+<p>而上述说的类型您都不是，那么我想该强调一下谈这个话题的主题了，去除那些多余的注释吧。有时候，在一些明显目的的函数上，加注释，会给阅读你代码的开发者一种错觉，你的水平很低，不足以理解代码，所以需要在简单的语句上加上注释。打个比方，你是我的面试官，有一道面试题，我在写完之后交给你，你看到的是如下格式的面试题：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$arr = $User-&gt;where($where)-&gt;find(); <span class="comment">// 读取数据</span></span><br><span class="line"></span><br><span class="line">$list = [];</span><br><span class="line"><span class="keyword">foreach</span>($arr <span class="keyword">as</span> $key =&gt; $val) &#123; <span class="comment">// 遍历数组</span></span><br><span class="line">  $list[$key] = [</span><br><span class="line">    <span class="string">'name'</span> =&gt; $val[<span class="string">'name'</span>],</span><br><span class="line">    <span class="string">'age'</span> =&gt; $val[<span class="string">'age'</span>],</span><br><span class="line">  ];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$list[<span class="string">'count'</span>] = count($arr); <span class="comment">// 其他属性</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> json_encode($list); <span class="comment">// 输出 json</span></span><br></pre></td></tr></table></figure>
+        
+      </div>
+
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
+
+      <h2 class="post-list__post-title post-title">
         <a href="/2017/03/24/《代码整洁之道》读书小结/" title="link to 《代码整洁之道》读书小结">《代码整洁之道》读书小结</a>
       </h2>
 
@@ -342,29 +366,6 @@ classes that you can use:
           <p>眨眼2016年就这么走到了结尾，再过两天新年就要开始了。回顾从2016年开始养成的写博客的习惯，一直能延续下来，保持了一整年，还是比较欣慰的一件事情。希望2017年自己的技术能够继续稳步的提升。</p>
 <p>今天在这2016年的最后一篇博客里，咱来聊聊推送通知的跳转。</p>
 <p>当推送通知到达时，点击推送通知跳转到指定界面，是很多应用都会碰到的一个需求，而要实现这个功能，解决的方法也很多，若是去谷歌搜索，有一个万能跳转的文章可能会进入您的眼帘，但是我实际的去看了这个项目的源码之后，感觉这个库有一定的局限性，用<strong>runtime</strong>实现跳转这不假，但是在请求字段里加上了<code>ViewController</code>的类名，这其实就是局限的地方了，毕竟除了服务咱们<strong>iOS</strong>端，你也得考虑考虑安卓端的攻城狮不是，然而如果你换一个约定的字段再来解析，那倒不如用<code>URL</code>来作为判断依据更为方便。</p>
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2017/01/17/iOS开发——在CocoaPods发布个人第三方库/" title="link to iOS开发——在CocoaPods发布个人第三方库">iOS开发——在CocoaPods发布个人第三方库</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2017-01-17" class="post-list__meta--date date">2017-01-17</time>
-      </div>
-
-      <div class="excerpt">
-        
-          <blockquote>
-<p>在进行日常的 iOS 开发的时候，我们肯定会用到各种第三方库，每次使用一个库的时候，各种依赖配置总是让人很头痛。幸好我们有了 CocoaPods，CocoaPods 为我们节省了大量集成第三方库的时间。在我们便捷地使用他人制作的 Pod 的时候，一定也希望能够将自己的代码制作成 Pod 供别人使用，来为开源社区做一点贡献。接下来，我们就来尝试制作一个属于自己的 Pod 库，并发布供他人使用。</p>
-</blockquote>
-<p>备注：假设你已经拥有了一个完善的用于制作 Pod 的 iOS 工程。</p>
         
       </div>
 
