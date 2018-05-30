@@ -197,6 +197,26 @@ classes that you can use:
     <li>
 
       <h2 class="post-list__post-title post-title">
+        <a href="/2016/07/14/iOS-全局禁止横屏，但视频播放界面选择性横屏的解决办法/" title="link to iOS 全局禁止横屏，但视频播放界面选择性横屏的解决办法">iOS 全局禁止横屏，但视频播放界面选择性横屏的解决办法</a>
+      </h2>
+
+      <div class="post-list__meta">
+
+        <time datetime="2016-07-14" class="post-list__meta--date date">2016-07-14</time>
+      </div>
+
+      <div class="excerpt">
+        
+          <p>有时我们的APP并没有适配横屏的需求，但是在个别视频播放界面，我们需要在播放视频的时候横屏，退出全屏的时候不能横屏，但是有时候并没有原生API并没有给出解决方案。</p>
+        
+      </div>
+
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
+
+      <h2 class="post-list__post-title post-title">
         <a href="/2016/07/08/iOS开发——实用性技巧/" title="link to iOS开发——实用性技巧">iOS开发——实用性技巧</a>
       </h2>
 
@@ -251,7 +271,7 @@ classes that you can use:
 <ul>
 <li>使用<code>func</code>来声明一个函数，使用名字和参数来调用函数。使用<code>-&gt;</code>来指定函数返回值的类型。</li>
 </ul>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">greet</span><span class="params">(name: String, food: String)</span></span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Hello <span class="subst">\(name)</span>, let's eat some <span class="subst">\(food)</span>"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">greet(<span class="string">"Lin"</span>, food: <span class="string">"fruit"</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">greet</span><span class="params">(name: String, food: String)</span></span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Hello \(name), let's eat some \(food)"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">greet(<span class="string">"Lin"</span>, food: <span class="string">"fruit"</span>)</span><br></pre></td></tr></table></figure>
         
       </div>
 
@@ -356,26 +376,6 @@ classes that you can use:
           <p>在实际的项目开发中，数据持久化是我们必须要考虑的一个事情，如何把我们需要的数据进行持久化处理。</p>
 <p>在此之前，一些轻量级的数据类型我一般比较喜欢用NSUserDefaults来存储，因为首先这是一个单例，而且使用简便，数据之间传递自由，所以很适合用来保存简单的数据。</p>
 <p>而昨天我在实际工作中，有一个数组NSMutableArray需要存储，但是使用时，报了一个错误 <code>reason: &#39;*** -[NSUserDefaults setObject:forKey:]: attempt to insert non-property list object</code>，这个报错提示我试图加入一个不支持的数据类型。可是明明NSUserDefaults支持的数据类型有：NSNumber（NSInteger、float、double），NSString，NSDate，NSArray，NSDictionary，BOOL，为什么我的NSArray不能加入呢。后来发现我的数组中的对象，是Model类的对象。</p>
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2016/05/12/iOS开发——Block在实际项目中的传值/" title="link to iOS开发——Block在实际项目中的传值">iOS开发——Block在实际项目中的传值</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2016-05-12" class="post-list__meta--date date">2016-05-12</time>
-      </div>
-
-      <div class="excerpt">
-        
-          <p>在iOS开发中，我们会在实际过程中大量使用Block，其中Block有个很基础的功能，就是完成两个页面间的传值。而今天，我就用实际的项目中的页面，来展示如何完成两个页面间的传值。</p>
         
       </div>
 

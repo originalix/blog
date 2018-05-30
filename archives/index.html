@@ -197,6 +197,28 @@ classes that you can use:
     <li>
 
       <h2 class="post-list__post-title post-title">
+        <a href="/2018/05/30/微信小程序——使用setData修改数组中的单个对象/" title="link to 微信小程序——使用setData修改数组中的单个对象">微信小程序——使用setData修改数组中的单个对象</a>
+      </h2>
+
+      <div class="post-list__meta">
+
+        <time datetime="2018-05-30" class="post-list__meta--date date">2018-05-30</time>
+      </div>
+
+      <div class="excerpt">
+        
+          <p>微信小程序已经出来挺久的时间了，之前只是在文档上粗略的看了一下，最近稍得空闲，便利用微信小程序平台写一个练手的项目，顺便学习一下小程序开发，感觉大体跟前端开发基本类似，但是因为是在微信的平台上运行，具体还是要根据小程序的规则来编写代码的，其中还是有部分的内容跟前端中常见的有所不同，于是接下来的博客里，也会顺手记录微信小程序开发过程中的一些坑，帮助后来的小程序开发者少踩一些坑，当然我踩的坑大部分都是以前的开发者踩过的，我所做的也仅仅是记录，分享。</p>
+<p>习惯使用Vue或者React这类框架的开发者们，肯定不会对修改data内中数组的单个对象而烦恼，因为这些框架已经帮我们很好的处理了这个问题，并且在文档上也写的非常清楚。</p>
+<p>比如要求是有一个数组存放了购物车的商品信息，而你在购物车内修改了单个商品的期望购买数量后，我们就要动态的更新这个单个对象的购买数量值，如果在小程序里我们会怎么做呢？</p>
+        
+      </div>
+
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
+
+      <h2 class="post-list__post-title post-title">
         <a href="/2018/05/22/腾讯云上免费部署HTTPS/" title="link to 腾讯云上免费部署HTTPS">腾讯云上免费部署HTTPS</a>
       </h2>
 
@@ -340,31 +362,6 @@ classes that you can use:
 <p>或者将</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"yiisoft/yii2-redis": "~2.0.0"</span><br></pre></td></tr></table></figure>
 <p>加入你的<code>composer.json</code>文件里，之后运行<code>composer update</code>，墙内真的很慢，耐心等待即可。</p>
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2018/03/25/ES6——箭头函数/" title="link to ES6——箭头函数">ES6——箭头函数</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2018-03-25" class="post-list__meta--date date">2018-03-25</time>
-      </div>
-
-      <div class="excerpt">
-        
-          <p>ES6之后，允许使用箭头<code>=&gt;</code>来定义函数。首先我们来总结一下箭头函数存在的意义，之后再来细细的看它的使用方法。</p>
-<p>箭头函数表达式的语法比函数表达式更短，并且不绑定自己的this,arguments,super或者new.target。这些函数表达式最适合用于非方法函数，并且它们不能用作构造函数。</p>
-<p>讲完了箭头函数的意义，那么我们总最基础的示例开始看，先看一个常规语法定义的函数:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">funcName</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> params + <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">funcName(<span class="number">2</span>);		<span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
-<p>如果这个函数用箭头函数改写的话，仅仅需要一行代码就够了:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> funcName = <span class="function">(<span class="params">params</span>) =&gt;</span> params + <span class="number">2</span>;</span><br><span class="line">funcName(<span class="number">2</span>); 	<span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
         
       </div>
 

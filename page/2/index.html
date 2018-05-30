@@ -197,6 +197,31 @@ classes that you can use:
     <li>
 
       <h2 class="post-list__post-title post-title">
+        <a href="/2018/03/25/ES6——箭头函数/" title="link to ES6——箭头函数">ES6——箭头函数</a>
+      </h2>
+
+      <div class="post-list__meta">
+
+        <time datetime="2018-03-25" class="post-list__meta--date date">2018-03-25</time>
+      </div>
+
+      <div class="excerpt">
+        
+          <p>ES6之后，允许使用箭头<code>=&gt;</code>来定义函数。首先我们来总结一下箭头函数存在的意义，之后再来细细的看它的使用方法。</p>
+<p>箭头函数表达式的语法比函数表达式更短，并且不绑定自己的this,arguments,super或者new.target。这些函数表达式最适合用于非方法函数，并且它们不能用作构造函数。</p>
+<p>讲完了箭头函数的意义，那么我们总最基础的示例开始看，先看一个常规语法定义的函数:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">funcName</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> params + <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">funcName(<span class="number">2</span>);		<span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
+<p>如果这个函数用箭头函数改写的话，仅仅需要一行代码就够了:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> funcName = <span class="function">(<span class="params">params</span>) =&gt;</span> params + <span class="number">2</span>;</span><br><span class="line">funcName(<span class="number">2</span>); 	<span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
+        
+      </div>
+
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
+
+      <h2 class="post-list__post-title post-title">
         <a href="/2018/03/14/ES6——扩展运算符使用/" title="link to ES6——扩展运算符使用">ES6——扩展运算符使用</a>
       </h2>
 
@@ -346,26 +371,6 @@ classes that you can use:
           <p>注意：以下讨论为Python2.x版本</p>
 <p>在学习Python之前，就听说过Python的版本圣战，最可怕的是有的写Py3的程序员觉得Py2是另一种语言….所以在刚开始学习的时候，我索性把Python3和Python2的文档都看了一遍。</p>
 <p>在之后写爬虫的过程中，我还是选择使用了Python2.x来写，原因嘛，emmmmm，可能就是因为一些好用的库或者框架的示例代码也是用旧一点的版本，所以为了效率，先用旧版本上手得了。在学习Python2之前，我还特意去比较了2和3的区别，其中着重被提及的就是字符串编码的问题，于是乎我在看旧版本文档的时候很仔细的去阅读了Python2的字符串部分。</p>
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2018/01/09/Rem布局的原理探究/" title="link to Rem布局的原理探究">Rem布局的原理探究</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2018-01-09" class="post-list__meta--date date">2018-01-09</time>
-      </div>
-
-      <div class="excerpt">
-        
-          <p>在用前端给移动端页面写布局时，我接触到了Rem布局，但是老实说我也看了几篇手淘适配的文章，并且主要的目的是拿到代码写出demo，所以对于Rem我还是停留在只会使用的阶段，但是理解的并不透彻，所以要抽出时间，把rem布局的原理搞清楚。</p>
         
       </div>
 

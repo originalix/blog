@@ -7,7 +7,7 @@
     
 
     <title>
-      Tag: Swift学习 
+      Tag: 微信小程序 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -18,11 +18,11 @@
 
     <meta name="keywords" content="移动端,iOS,Android,javascript,html5,开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,用户体验">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Tag: Swift学习">
-<meta property="og:url" content="http://yoursite.com/tags/Swift学习/index.html">
+<meta property="og:title" content="Tag: 微信小程序">
+<meta property="og:url" content="http://yoursite.com/tags/微信小程序/index.html">
 <meta property="og:site_name" content="Leon的博客">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Tag: Swift学习">
+<meta name="twitter:title" content="Tag: 微信小程序">
     
     
     
@@ -187,7 +187,7 @@ classes that you can use:
             
 
 
-  <h1 class="archive-title">Tag: Swift学习</h1>
+  <h1 class="archive-title">Tag: 微信小程序</h1>
   <hr class="post-list__divider" />
 
 
@@ -198,54 +198,19 @@ classes that you can use:
     <li>
 
       <h2 class="post-list__post-title post-title">
-        <a href="/2016/06/26/Swift学习笔记（二）/" title="link to Swift学习笔记（二）">Swift学习笔记（二）</a>
+        <a href="/2018/05/30/微信小程序——使用setData修改数组中的单个对象/" title="link to 微信小程序——使用setData修改数组中的单个对象">微信小程序——使用setData修改数组中的单个对象</a>
       </h2>
 
       <div class="post-list__meta">
 
-        <time datetime="2016-06-26" class="post-list__meta--date date">2016-06-26</time>
+        <time datetime="2018-05-30" class="post-list__meta--date date">2018-05-30</time>
       </div>
 
       <div class="excerpt">
         
-          <p>###函数和闭包</p>
-<ul>
-<li>使用<code>func</code>来声明一个函数，使用名字和参数来调用函数。使用<code>-&gt;</code>来指定函数返回值的类型。</li>
-</ul>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">greet</span><span class="params">(name: String, food: String)</span></span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Hello \(name), let's eat some \(food)"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">greet(<span class="string">"Lin"</span>, food: <span class="string">"fruit"</span>)</span><br></pre></td></tr></table></figure>
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2016/06/24/Swift学习笔记（一）/" title="link to Swift学习笔记（一）">Swift学习笔记（一）</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2016-06-24" class="post-list__meta--date date">2016-06-24</time>
-      </div>
-
-      <div class="excerpt">
-        
-          <p>简单记录学习Swift的笔记</p>
-<p>###简单值</p>
-<ul>
-<li><p>使用<code>let</code>来声明常量，使用<code>var</code>来声明变量。</p>
-</li>
-<li><p>常量或者变量的类型，必须和你赋给它们的值一样。然而，不用明确地声明类型，声明的同时赋值的话，编译器会自动推断类型。</p>
-</li>
-<li><p>如果初始值没有提供足够的信息（或者没有初始值），那你需要在变量后面声明类型，用冒号分割。</p>
-</li>
-<li><p>值永远不会被隐式转换为其他类型。如果你需要把一个值转换成其他类型，请显式转换。</p>
-</li>
-</ul>
-<p>例如 </p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> label = <span class="string">"The width is"</span></span><br><span class="line"><span class="keyword">let</span> width = <span class="number">94</span></span><br><span class="line"><span class="keyword">let</span> widthLabel = label + <span class="type">String</span>(width)</span><br></pre></td></tr></table></figure>
+          <p>微信小程序已经出来挺久的时间了，之前只是在文档上粗略的看了一下，最近稍得空闲，便利用微信小程序平台写一个练手的项目，顺便学习一下小程序开发，感觉大体跟前端开发基本类似，但是因为是在微信的平台上运行，具体还是要根据小程序的规则来编写代码的，其中还是有部分的内容跟前端中常见的有所不同，于是接下来的博客里，也会顺手记录微信小程序开发过程中的一些坑，帮助后来的小程序开发者少踩一些坑，当然我踩的坑大部分都是以前的开发者踩过的，我所做的也仅仅是记录，分享。</p>
+<p>习惯使用Vue或者React这类框架的开发者们，肯定不会对修改data内中数组的单个对象而烦恼，因为这些框架已经帮我们很好的处理了这个问题，并且在文档上也写的非常清楚。</p>
+<p>比如要求是有一个数组存放了购物车的商品信息，而你在购物车内修改了单个商品的期望购买数量后，我们就要动态的更新这个单个对象的购买数量值，如果在小程序里我们会怎么做呢？</p>
         
       </div>
 
