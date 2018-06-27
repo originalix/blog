@@ -197,26 +197,6 @@ classes that you can use:
     <li>
 
       <h2 class="post-list__post-title post-title">
-        <a href="/2016/07/14/iOS-全局禁止横屏，但视频播放界面选择性横屏的解决办法/" title="link to iOS 全局禁止横屏，但视频播放界面选择性横屏的解决办法">iOS 全局禁止横屏，但视频播放界面选择性横屏的解决办法</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2016-07-14" class="post-list__meta--date date">2016-07-14</time>
-      </div>
-
-      <div class="excerpt">
-        
-          <p>有时我们的APP并没有适配横屏的需求，但是在个别视频播放界面，我们需要在播放视频的时候横屏，退出全屏的时候不能横屏，但是有时候并没有原生API并没有给出解决方案。</p>
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
         <a href="/2016/07/08/iOS开发——实用性技巧/" title="link to iOS开发——实用性技巧">iOS开发——实用性技巧</a>
       </h2>
 
@@ -271,7 +251,7 @@ classes that you can use:
 <ul>
 <li>使用<code>func</code>来声明一个函数，使用名字和参数来调用函数。使用<code>-&gt;</code>来指定函数返回值的类型。</li>
 </ul>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">greet</span><span class="params">(name: String, food: String)</span></span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Hello \(name), let's eat some \(food)"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">greet(<span class="string">"Lin"</span>, food: <span class="string">"fruit"</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">greet</span><span class="params">(name: String, food: String)</span></span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Hello <span class="subst">\(name)</span>, let's eat some <span class="subst">\(food)</span>"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">greet(<span class="string">"Lin"</span>, food: <span class="string">"fruit"</span>)</span><br></pre></td></tr></table></figure>
         
       </div>
 
@@ -382,6 +362,26 @@ classes that you can use:
       <hr class="post-list__divider" />
     </li>
     
+    <li>
+
+      <h2 class="post-list__post-title post-title">
+        <a href="/2016/05/12/iOS开发——Block在实际项目中的传值/" title="link to iOS开发——Block在实际项目中的传值">iOS开发——Block在实际项目中的传值</a>
+      </h2>
+
+      <div class="post-list__meta">
+
+        <time datetime="2016-05-12" class="post-list__meta--date date">2016-05-12</time>
+      </div>
+
+      <div class="excerpt">
+        
+          <p>在iOS开发中，我们会在实际过程中大量使用Block，其中Block有个很基础的功能，就是完成两个页面间的传值。而今天，我就用实际的项目中的页面，来展示如何完成两个页面间的传值。</p>
+        
+      </div>
+
+      <hr class="post-list__divider" />
+    </li>
+    
   </ol>
 
   <hr class="post-list__divider " />
@@ -389,14 +389,14 @@ classes that you can use:
 <nav class="pagination" role="navigation">
     
     	
-          <a class="newer-posts pagination__newer btn btn-small btn-tertiary" href="/page/9/">&larr; Prev </a>
+          <a class="newer-posts pagination__newer btn btn-small btn-tertiary" href="/page/9/">&larr; 上一页 </a>
         
     
 
     <span class="pagination__page-number"> 10 / 13</span>
     
     
-        <a class="older-posts pagination__older btn btn-small btn-tertiary" href="/page/11/">Next &rarr;</a>
+        <a class="older-posts pagination__older btn btn-small btn-tertiary" href="/page/11/">下一页 &rarr;</a>
     
 </nav>
 
