@@ -7,7 +7,7 @@
     
 
     <title>
-      page 7 | 归档 | Leon的博客 
+      page 7 | Archives | Leon的博客 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -18,11 +18,11 @@
 
     <meta name="keywords" content="移动端,iOS,Android,javascript,html5,开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,用户体验">
 <meta property="og:type" content="website">
-<meta property="og:title" content="page 7 | 归档 | Leon的博客">
+<meta property="og:title" content="page 7 | Archives | Leon的博客">
 <meta property="og:url" content="http://yoursite.com/archives/page/7/index.html">
 <meta property="og:site_name" content="Leon的博客">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="page 7 | 归档 | Leon的博客">
+<meta name="twitter:title" content="page 7 | Archives | Leon的博客">
     
     
     
@@ -197,6 +197,28 @@ classes that you can use:
     <li>
 
       <h2 class="post-list__post-title post-title">
+        <a href="/2017/01/24/iOS开发——推送跳转到指定页面/" title="link to iOS开发——推送跳转到指定页面">iOS开发——推送跳转到指定页面</a>
+      </h2>
+
+      <div class="post-list__meta">
+
+        <time datetime="2017-01-24" class="post-list__meta--date date">2017-01-24</time>
+      </div>
+
+      <div class="excerpt">
+        
+          <p>眨眼2016年就这么走到了结尾，再过两天新年就要开始了。回顾从2016年开始养成的写博客的习惯，一直能延续下来，保持了一整年，还是比较欣慰的一件事情。希望2017年自己的技术能够继续稳步的提升。</p>
+<p>今天在这2016年的最后一篇博客里，咱来聊聊推送通知的跳转。</p>
+<p>当推送通知到达时，点击推送通知跳转到指定界面，是很多应用都会碰到的一个需求，而要实现这个功能，解决的方法也很多，若是去谷歌搜索，有一个万能跳转的文章可能会进入您的眼帘，但是我实际的去看了这个项目的源码之后，感觉这个库有一定的局限性，用<strong>runtime</strong>实现跳转这不假，但是在请求字段里加上了<code>ViewController</code>的类名，这其实就是局限的地方了，毕竟除了服务咱们<strong>iOS</strong>端，你也得考虑考虑安卓端的攻城狮不是，然而如果你换一个约定的字段再来解析，那倒不如用<code>URL</code>来作为判断依据更为方便。</p>
+        
+      </div>
+
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
+
+      <h2 class="post-list__post-title post-title">
         <a href="/2017/01/17/iOS开发——在CocoaPods发布个人第三方库/" title="link to iOS开发——在CocoaPods发布个人第三方库">iOS开发——在CocoaPods发布个人第三方库</a>
       </h2>
 
@@ -350,27 +372,6 @@ classes that you can use:
       <hr class="post-list__divider" />
     </li>
     
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2016/11/02/iOS开发——GCD在Swift中的变脸/" title="link to iOS开发——GCD在Swift中的变脸">iOS开发——GCD在Swift中的变脸</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2016-11-02" class="post-list__meta--date date">2016-11-02</time>
-      </div>
-
-      <div class="excerpt">
-        
-          <p>Xcode8正式发布后，Swift3也随即发布，为了跟上苹果这艘大船的脚步，赶紧逼着自己看文档哦。在看文档的过程中，发现GCD的变化跟OC相比简直都要不认识了，赶紧写个文章总结下，顺手复习下GCD中死锁的概念，死锁的总结发布在另一篇文章里了。</p>
-<h1 id="取消过去的接口"><a href="#取消过去的接口" class="headerlink" title="取消过去的接口"></a>取消过去的接口</h1><p>说起 GCD， 大家肯定回想起类似 <code>dispatch_async</code> 这样的语法。 GCD 的这个语法模式无论是和 Objc 还是 Swift 的整体风格都不太搭调。 所以 Swift 3 中对它的语法进行了彻底的改写。</p>
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
   </ol>
 
   <hr class="post-list__divider " />
@@ -378,14 +379,14 @@ classes that you can use:
 <nav class="pagination" role="navigation">
     
     	
-          <a class="newer-posts pagination__newer btn btn-small btn-tertiary" href="/archives/page/6/">&larr; 上一页 </a>
+          <a class="newer-posts pagination__newer btn btn-small btn-tertiary" href="/archives/page/6/">&larr; Prev </a>
         
     
 
     <span class="pagination__page-number"> 7 / 13</span>
     
     
-        <a class="older-posts pagination__older btn btn-small btn-tertiary" href="/archives/page/8/">下一页 &rarr;</a>
+        <a class="older-posts pagination__older btn btn-small btn-tertiary" href="/archives/page/8/">Next &rarr;</a>
     
 </nav>
 
