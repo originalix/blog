@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      从element-ui源码来看BEM实现 | Leon的博客 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="李晓">
+    
+    
+
+    <meta name="description" content="以前看过一些CSS的编码规范，也照着规范编写代码，但是还是觉得自己的CSS编码风格不是很好，在平时开发中使用各个知名的组件库的时候，发现现在挺多组件库都是BEM的命名风格了，于是找了比较知名的element饿了么前端的组件库的源码，想从看饿了么组件库的代码入手，学习学习大厂的的CSS BEM规范代码的书写风格。">
+<meta name="keywords" content="css,前端开发,源码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从element-ui源码来看BEM实现 | Leon的博客">
+<meta property="og:url" content="http://yoursite.com/2018/07/23/从element-ui源码来看BEM实现/index.html">
+<meta property="og:site_name" content="Leon的博客">
+<meta property="og:description" content="以前看过一些CSS的编码规范，也照着规范编写代码，但是还是觉得自己的CSS编码风格不是很好，在平时开发中使用各个知名的组件库的时候，发现现在挺多组件库都是BEM的命名风格了，于是找了比较知名的element饿了么前端的组件库的源码，想从看饿了么组件库的代码入手，学习学习大厂的的CSS BEM规范代码的书写风格。">
+<meta property="og:updated_time" content="2018-07-23T11:52:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从element-ui源码来看BEM实现 | Leon的博客">
+<meta name="twitter:description" content="以前看过一些CSS的编码规范，也照着规范编写代码，但是还是觉得自己的CSS编码风格不是很好，在平时开发中使用各个知名的组件库的时候，发现现在挺多组件库都是BEM的命名风格了，于是找了比较知名的element饿了么前端的组件库的源码，想从看饿了么组件库的代码入手，学习学习大厂的的CSS BEM规范代码的书写风格。">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Leon的博客</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          每多学一点知识，就少写一行代码
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/originalix" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+
+    <h1 class="post-title">从element-ui源码来看BEM实现</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-07-23" class="post-meta__date date">2018-07-23</time>
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/css/">css</a>, <a class="tags-link" href="/tags/前端开发/">前端开发</a>, <a class="tags-link" href="/tags/源码/">源码</a>
+            </font>
+          
+
+      </span>
+
+
+      <span class="post-meta_statistic date" id="busuanzi_container_page_pv">
+        本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+      </span>
+
+    </div>
+
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>以前看过一些CSS的编码规范，也照着规范编写代码，但是还是觉得自己的CSS编码风格不是很好，在平时开发中使用各个知名的组件库的时候，发现现在挺多组件库都是BEM的命名风格了，于是找了比较知名的element饿了么前端的组件库的源码，想从看饿了么组件库的代码入手，学习学习大厂的的CSS BEM规范代码的书写风格。</p>
+<a id="more"></a>
+<p>BEM代表“块（block），元素（element），修饰符（modifier）”，开发组件的过程中经常使用这三个实体，而在选择器中，这三个实体由以下符号来表示扩展关系：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-  中划线：仅作为连字符使用，表示某个块或者某个子元素的多单词之间的连接记号。</span><br><span class="line">__ 双下划线：双下划线用来连接块和块的子元素。</span><br><span class="line">_  单下划线：单下划线用来描述一个块或者块的子元素的一种状态。</span><br><span class="line"></span><br><span class="line">type-block__element_modifier</span><br></pre></td></tr></table></figure>
+<p>以上的描述是从腾讯的前端规范库中找到的，简单的来说理解了块、元素、修饰符三个分类之后，就能大致理解BEM代码是什么样的结构了，可是了解结构是一方面，如何写好代码又是另一方面。我在element组件库中的<code>mixins.scss</code>文件中找到了想要的答案。</p>
+<p>接下来我要讲的就是如何利用sass，编写具有可读性和可维护性的BEM规则的css代码。</p>
+<p>首先来看sass代码中对于block的定义:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$namespace: 'el';</span><br><span class="line">$element-separator: '__';</span><br><span class="line">$modifier-separator: '--';</span><br><span class="line">$state-prefix: 'is-';</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@<span class="keyword">mixin</span> b($block) &#123;</span><br><span class="line">  $B: $namespace+'-'+$block !global;</span><br><span class="line"></span><br><span class="line">  .#&#123;$B&#125; &#123;</span><br><span class="line">    @<span class="keyword">content</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了方便大家理解代码，我现在开头贴上配置文件中定义的变量，而这时就能很清楚的看到block的生成就是基于BEM规范中，块是设计或布局的一部分，具有唯一地意义，利用命名空间<code>el</code>加上中划线，以及传入的block的名字，构建出block的样式，例如<code>alert</code>组件，在渲染完成后是<code>el-alert</code>，体现出它的唯一性。而在块的内部，再来编写跟这个块关联的其他样式代码。</p>
+<p>块的构建非常的简单，接下来来看稍微有点复杂的元素的定义:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">mixin</span> e($element) &#123;</span><br><span class="line">  $E: $element !global;</span><br><span class="line">  $selector: &amp;;</span><br><span class="line">  $currentSelector: "";</span><br><span class="line">  @<span class="keyword">each</span> $unit in $element &#123;</span><br><span class="line">    $currentSelector: #&#123;$currentSelector + "." + $B + $element-separator + $unit + ","&#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @<span class="keyword">if</span> hitAllSpecialNestRule($selector) &#123;</span><br><span class="line">    @<span class="keyword">at</span>-<span class="keyword">root</span> &#123;</span><br><span class="line">      #&#123;$selector&#125; &#123;</span><br><span class="line">        #&#123;$currentSelector&#125; &#123;</span><br><span class="line">          @<span class="keyword">content</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; @<span class="keyword">else</span> &#123;</span><br><span class="line">    @<span class="keyword">at</span>-<span class="keyword">root</span> &#123;</span><br><span class="line">      #&#123;$currentSelector&#125; &#123;</span><br><span class="line">        @<span class="keyword">content</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>元素选择器的实现中，我们应该把关注点放在if和eles分支上，为什么会出现<code>hitAllSpecialNestRule</code>函数判断的分支，原因是在修饰符或者其他mixin中嵌套一个元素element，会出现修饰符在前，而元素在后的编译结果，所以我们用<code>hitAllSpecialNestRule</code>函数来判断是否存在特殊的嵌套，如果存在的话，将我们的元素字符串写在前面，而修饰符放在后面，如果不存在，则原样输出。</p>
+<p>而<code>hitAllSpecialNestRule</code>的实现则在下面的代码中：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">function</span> selectorToString($selector) &#123;</span><br><span class="line">  $selector: inspect($selector);</span><br><span class="line">  $selector: str-slice($selector, 2, -2);</span><br><span class="line">  @<span class="keyword">return</span> $selector;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">function</span> containsModifier($selector) &#123;</span><br><span class="line">  $selector: selectorToString($selector);</span><br><span class="line"></span><br><span class="line">  @<span class="keyword">if</span> str-index($selector, $modifier-separator) &#123;</span><br><span class="line">    @<span class="keyword">return</span> true;</span><br><span class="line">  &#125; @<span class="keyword">else</span> &#123;</span><br><span class="line">    @<span class="keyword">return</span> false;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">function</span> containWhenFlag($selector) &#123;</span><br><span class="line">  $selector: selectorToString($selector);</span><br><span class="line"></span><br><span class="line">  @<span class="keyword">if</span> str-index($selector, <span class="string">'.'</span> + $state-prefix) &#123;</span><br><span class="line">    @<span class="keyword">return</span> true</span><br><span class="line">  &#125; @else &#123;</span><br><span class="line">    @<span class="keyword">return</span> false</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@function containPseudoClass($selector) &#123;</span><br><span class="line">  $selector: selectorToString($selector);</span><br><span class="line"></span><br><span class="line">  @<span class="keyword">if</span> str-index($selector, <span class="string">':'</span>) &#123;</span><br><span class="line">    @<span class="keyword">return</span> true</span><br><span class="line">  &#125; @else &#123;</span><br><span class="line">    @<span class="keyword">return</span> false</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@function hitAllSpecialNestRule($selector) &#123;</span><br><span class="line"></span><br><span class="line">  @<span class="keyword">return</span> containsModifier($selector) or containWhenFlag($selector) or containPseudoClass($selector);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第一个函数<code>selectorToString</code>，就是将我们的选择器转换成一个字符串，而接下来的三个函数，分别判断了是否存在修饰符、flag例如（.isCenter）、伪类的情况。最后综合在一起返回结果，避免嵌套。</p>
+<p>最后则是<code>modifier</code>修饰符的实现了，代码如下:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">mixin</span> m($modifier) &#123;</span><br><span class="line">  $selector: &amp;;</span><br><span class="line">  $currentSelector: "";</span><br><span class="line">  @<span class="keyword">each</span> $unit in $modifier &#123;</span><br><span class="line">    $currentSelector: #&#123;$currentSelector + &amp; + $modifier-separator + $unit + ","&#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @<span class="keyword">at</span>-<span class="keyword">root</span> &#123;</span><br><span class="line">    #&#123;$currentSelector&#125; &#123;</span><br><span class="line">      @<span class="keyword">content</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在看懂的元素的实现之后，修饰符的实现就是一目了然的了。利用刚刚介绍的函数，以及块、元素、修饰符的实现代码，在sass中已经能非常高效率并且优雅的基于BEM规范的代码了。</p>
+<p>贴一段示例代码，如何利用上面的代码编写BEM规范的css代码：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">import</span> <span class="string">"mixins/mixins"</span>;</span><br><span class="line">@<span class="keyword">import</span> <span class="string">"common/var"</span>;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">include</span> b(test) &#123;</span><br><span class="line">    <span class="selector-tag">width</span>: 100%;</span><br><span class="line">    background-color: $--color-white;</span><br><span class="line"></span><br><span class="line">    @<span class="keyword">include</span> when(center) &#123;</span><br><span class="line">        <span class="selector-tag">justify-content</span>: <span class="selector-tag">center</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @<span class="keyword">include</span> m(success) &#123;</span><br><span class="line">        background-color: $--color-black;</span><br><span class="line">        <span class="selector-tag">font-size</span>: 12<span class="selector-tag">px</span>;</span><br><span class="line"></span><br><span class="line">        <span class="selector-class">.lix-test__description</span> &#123;</span><br><span class="line">            <span class="attribute">color</span>: $--color-white;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @<span class="keyword">include</span> m(warning) &#123;</span><br><span class="line">        background-color: $--color-black;</span><br><span class="line">        <span class="selector-tag">font-size</span>: 12<span class="selector-tag">px</span>;</span><br><span class="line"></span><br><span class="line">        <span class="selector-class">.lix-test__description</span> &#123;</span><br><span class="line">            <span class="attribute">color</span>: $--color-white;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @<span class="keyword">include</span> e(content) &#123;</span><br><span class="line">        <span class="selector-tag">display</span>: <span class="selector-tag">table-cell</span>;</span><br><span class="line">        <span class="selector-tag">padding</span>: 0 8<span class="selector-tag">px</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @<span class="keyword">include</span> e(title) &#123;</span><br><span class="line">        <span class="selector-tag">font-size</span>: 8<span class="selector-tag">px</span>;</span><br><span class="line">        <span class="selector-tag">line-height</span>: 10<span class="selector-tag">px</span>;</span><br><span class="line">        </span><br><span class="line">        @<span class="keyword">include</span> when(bold) &#123;</span><br><span class="line">            <span class="selector-tag">font-weight</span>: <span class="selector-tag">bold</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.lix-test-fade-enter</span>,</span><br><span class="line"><span class="selector-class">.lix-test-fade-leave-active</span> &#123;</span><br><span class="line">    <span class="attribute">opacity</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译之后的样子：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.lix-test</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#fff</span>; &#125;</span><br><span class="line">  <span class="selector-class">.lix-test</span><span class="selector-class">.is-center</span> &#123;</span><br><span class="line">    <span class="attribute">justify-content</span>: center; &#125;</span><br><span class="line">  <span class="selector-class">.lix-test--success</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#000</span>;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">12px</span>; &#125;</span><br><span class="line">    <span class="selector-class">.lix-test--success</span> <span class="selector-class">.lix-test__description</span> &#123;</span><br><span class="line">      <span class="attribute">color</span>: <span class="number">#fff</span>; &#125;</span><br><span class="line">  <span class="selector-class">.lix-test--warning</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#000</span>;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">12px</span>; &#125;</span><br><span class="line">    <span class="selector-class">.lix-test--warning</span> <span class="selector-class">.lix-test__description</span> &#123;</span><br><span class="line">      <span class="attribute">color</span>: <span class="number">#fff</span>; &#125;</span><br><span class="line">  <span class="selector-class">.lix-test__content</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: table-cell;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">8px</span>; &#125;</span><br><span class="line">  <span class="selector-class">.lix-test__title</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">8px</span>;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">10px</span>; &#125;</span><br><span class="line">    <span class="selector-class">.lix-test__title</span><span class="selector-class">.is-bold</span> &#123;</span><br><span class="line">      <span class="attribute">font-weight</span>: bold; &#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.lix-test-fade-enter</span>,</span><br><span class="line"><span class="selector-class">.lix-test-fade-leave-active</span> &#123;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0</span>; &#125;</span><br></pre></td></tr></table></figure>
+<p>瞧见了么，合理的利用b、m、e的mixin就可以风格良好的css代码了。上面的所有代码都在<a href="https://github.com/originalix/Original/tree/master/sass/BEM" target="_blank" rel="noopener">这里</a>哦，有需要的可以直接看完整代码学习。</p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span class="footer__copyright">
+        &copy; 2014-2018. | 由<a href="https://hexo.io/">Hexo</a>强力驱动
+    </span>
+    <span id="busuanzi_container_site_pv">
+        本站访客数<span id="busuanzi_value_site_pv"></span>人次
+    </span>
+
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
