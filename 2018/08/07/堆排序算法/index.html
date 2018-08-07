@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      堆排序算法 | Leon的博客 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="李晓">
+    
+    
+
+    <meta name="description" content="啊噢，又开始写算法学习的笔记了。最近在准备面试的过程中又把这些常见的排序算法拿出来复习复习，既然这篇写到了堆排序，那么就代表堆排序算法的概念被我忘的差不多了，写篇博客加深记忆吧。">
+<meta name="keywords" content="算法,堆排序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="堆排序算法 | Leon的博客">
+<meta property="og:url" content="http://yoursite.com/2018/08/07/堆排序算法/index.html">
+<meta property="og:site_name" content="Leon的博客">
+<meta property="og:description" content="啊噢，又开始写算法学习的笔记了。最近在准备面试的过程中又把这些常见的排序算法拿出来复习复习，既然这篇写到了堆排序，那么就代表堆排序算法的概念被我忘的差不多了，写篇博客加深记忆吧。">
+<meta property="og:image" content="https://camo.githubusercontent.com/207aa201f944b13e8a79842effcacf3f7ee3721e/68747470733a2f2f75706c6f61642e77696b696d656469612e6f72672f77696b6970656469612f636f6d6d6f6e732f312f31622f536f7274696e675f68656170736f72745f616e696d2e676966">
+<meta property="og:updated_time" content="2018-08-07T12:03:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="堆排序算法 | Leon的博客">
+<meta name="twitter:description" content="啊噢，又开始写算法学习的笔记了。最近在准备面试的过程中又把这些常见的排序算法拿出来复习复习，既然这篇写到了堆排序，那么就代表堆排序算法的概念被我忘的差不多了，写篇博客加深记忆吧。">
+<meta name="twitter:image" content="https://camo.githubusercontent.com/207aa201f944b13e8a79842effcacf3f7ee3721e/68747470733a2f2f75706c6f61642e77696b696d656469612e6f72672f77696b6970656469612f636f6d6d6f6e732f312f31622f536f7274696e675f68656170736f72745f616e696d2e676966">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Leon的博客</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          每多学一点知识，就少写一行代码
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/originalix" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+
+    <h1 class="post-title">堆排序算法</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-08-07" class="post-meta__date date">2018-08-07</time>
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/堆排序/">堆排序</a>, <a class="tags-link" href="/tags/算法/">算法</a>
+            </font>
+          
+
+      </span>
+
+
+      <span class="post-meta_statistic date" id="busuanzi_container_page_pv">
+        本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+      </span>
+
+    </div>
+
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>啊噢，又开始写算法学习的笔记了。最近在准备面试的过程中又把这些常见的排序算法拿出来复习复习，既然这篇写到了堆排序，那么就代表堆排序算法的概念被我忘的差不多了，写篇博客加深记忆吧。</p>
+<a id="more"></a>
+<p>在维基百科上看堆排序，上面有这么一张图，</p>
+<p><img src="https://camo.githubusercontent.com/207aa201f944b13e8a79842effcacf3f7ee3721e/68747470733a2f2f75706c6f61642e77696b696d656469612e6f72672f77696b6970656469612f636f6d6d6f6e732f312f31622f536f7274696e675f68656170736f72745f616e696d2e676966" alt=""></p>
+<p>可是原谅我概念真的忘的差不多了，所以理解不了这张图，于是我又找到另一个可视化的过程，一目了然，是别人放在github page上的一个<a href="https://bajdcc.github.io/html/heap.html" target="_blank" rel="noopener">页面</a>，地址就在<a href="https://bajdcc.github.io/html/heap.html" target="_blank" rel="noopener">这里</a>。所以本篇文章的堆排序的可视化动画，就参考这个吧。</p>
+<p>堆排序（Heapsort)是指利用堆这种数据结构所设计的一种排序算法。堆积是一个近似完全二叉树的结构，并同时满足堆积的性质：即子节点的键值或索引总是小于（或者大于）它的父节点。</p>
+<p>通常堆是通过一维数组来实现的，在数组起始位置为0的情形中来看看堆节点的一些定义。</p>
+<ul>
+<li>父节点i的左子节点在位置(2i + 1);</li>
+<li>父节点i的右子节点在位置(2i + 2);</li>
+<li>子节点i的父节点在floor((i - 1) / 2);</li>
+</ul>
+<p>关于堆中节点的位置，有如上三个定义。</p>
+<p>在堆的数据结构中，堆中的最大值总是位于根节点上。而堆中的一个很重要的操作就是最大堆调整(Max_Heapify)，即为将堆的末端子节点作调整，使得子节点永远小于父节点。</p>
+<p>接下来看看这个关键的Max_Heapify最大堆调整的实现是怎样的：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">maxHeapify(start, end) &#123;</span><br><span class="line">  <span class="comment">// 建立父节点指标和子节点指标</span></span><br><span class="line">  <span class="keyword">let</span> dad = start;</span><br><span class="line">  <span class="keyword">let</span> son = dad * <span class="number">2</span> + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 若子节点指标超过范围，则直接跳出函数</span></span><br><span class="line">  <span class="keyword">if</span> (son &gt;= end)</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  <span class="comment">// 先比较两个子节点的大小 选择最大的</span></span><br><span class="line">  <span class="keyword">if</span> (son + <span class="number">1</span> &lt; end &amp;&amp; <span class="keyword">this</span>.array[son] &lt; <span class="keyword">this</span>.array[son + <span class="number">1</span>])</span><br><span class="line">    son++;</span><br><span class="line">  <span class="comment">// 如果父节点小于子节点，交换父子节点的内容再继续子节点与孙节点的比较</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">this</span>.array[dad] &lt; <span class="keyword">this</span>.array[son]) &#123;</span><br><span class="line">    <span class="keyword">this</span>.swap(dad, son);</span><br><span class="line">    <span class="keyword">this</span>.maxHeapify(son, end);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在进行最大堆调整的操作时，我们传入初始和终止的两个索引，并且根据我们刚提到的堆节点的定义，建立父节点和子节点指标。接下来如果子节点的指标超过的终止索引的范围，则直接跳出函数。否则的话我们比较两个子节点的大小，选择大的节点进行接下来的操作。</p>
+<p>在两个节点中选取完较大节点后，我们比较父节点与子节点，如果父节点小于子节点，那么交换父子节点的内容，再递归的比较子节点与孙节点，直到调整完成。</p>
+<p>完整的堆排序算法（javascript实现）如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  堆排序算法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HeapSort</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(originalArray) &#123;</span><br><span class="line">    <span class="comment">// 拷贝数组，不修改原数组</span></span><br><span class="line">    <span class="keyword">this</span>.array = [...originalArray];</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  swap(i, j) &#123;</span><br><span class="line">    <span class="keyword">const</span> temp = <span class="keyword">this</span>.array[i];</span><br><span class="line">    <span class="keyword">this</span>.array[i] = <span class="keyword">this</span>.array[j];</span><br><span class="line">    <span class="keyword">this</span>.array[j] = temp;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  maxHeapify(start, end) &#123;</span><br><span class="line">    <span class="comment">// 建立父节点指标和子节点指标</span></span><br><span class="line">    <span class="keyword">let</span> dad = start;</span><br><span class="line">    <span class="keyword">let</span> son = dad * <span class="number">2</span> + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 若子节点指标超过范围，则直接跳出函数</span></span><br><span class="line">    <span class="keyword">if</span> (son &gt;= end)</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    <span class="comment">// 先比较两个子节点的大小 选择最大的</span></span><br><span class="line">    <span class="keyword">if</span> (son + <span class="number">1</span> &lt; end &amp;&amp; <span class="keyword">this</span>.array[son] &lt; <span class="keyword">this</span>.array[son + <span class="number">1</span>])</span><br><span class="line">      son++;</span><br><span class="line">    <span class="comment">// 如果父节点小于子节点，交换父子节点的内容再继续子节点与孙节点的比较</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.array[dad] &lt; <span class="keyword">this</span>.array[son]) &#123;</span><br><span class="line">      <span class="keyword">this</span>.swap(dad, son);</span><br><span class="line">      <span class="keyword">this</span>.maxHeapify(son, end);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  sort() &#123;</span><br><span class="line">    <span class="keyword">const</span> len = <span class="keyword">this</span>.array.length;</span><br><span class="line">    <span class="comment">// 初始化 i从最后一个父节点开始调整</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="built_in">Math</span>.floor((len - <span class="number">1</span>) / <span class="number">2</span>); i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">      <span class="keyword">this</span>.maxHeapify(i, len);</span><br><span class="line">    <span class="comment">// 先将第一个元素和已排好的前一位做交换，再重新调整，直到排序完成</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = len - <span class="number">1</span>; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">      <span class="keyword">this</span>.swap(<span class="number">0</span>, i);</span><br><span class="line">      <span class="keyword">this</span>.maxHeapify(<span class="number">0</span>, i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.array;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> array = [<span class="number">0</span>, <span class="number">9</span>, <span class="number">1</span>, <span class="number">8</span>, <span class="number">2</span>, <span class="number">7</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">5</span>, <span class="number">4</span>];</span><br><span class="line"><span class="keyword">let</span> heap = <span class="keyword">new</span> HeapSort(array);</span><br><span class="line"><span class="keyword">let</span> res = heap.sort();</span><br><span class="line"><span class="built_in">console</span>.log(res);</span><br></pre></td></tr></table></figure>
+<p>sort函数里的两个for循环也要解释一下，第一个for循环，是堆的初始化，从最后一个父节点开始，调整整个数组的排序。而第二个for循环，是把第一个已经确定大小的元素和已经排好位的前一个元素做交换，再重新调整排序，直到整个排序完成。待for循环完成之后，整个数组也就呈从小到大的顺序了排好了。</p>
+<p>理解完代码之后，再看看堆排序的时间复杂度，堆排序的平均时间复杂度，以及最优、最坏的时间复杂度都是O(nlog n)，而空间复杂度是O(1)，并且堆排序是一种不稳定排序。</p>
+<p>文章中的源码在这里<a href="https://github.com/originalix/algorithm/blob/4cd004c0c96e39a35daa3e97171ad0bbea5e2f49/JavaScript/algorithms/sorting/heap-sort/HeapSort.js" target="_blank" rel="noopener">堆排序算法源码</a></p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span class="footer__copyright">
+        &copy; 2014-2018. | 由<a href="https://hexo.io/">Hexo</a>强力驱动
+    </span>
+    <span id="busuanzi_container_site_pv">
+        本站访客数<span id="busuanzi_value_site_pv"></span>人次
+    </span>
+
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
