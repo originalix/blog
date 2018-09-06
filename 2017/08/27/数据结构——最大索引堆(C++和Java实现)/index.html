@@ -1,232 +1,102 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-
-    
-
-    <title>
-      数据结构——最大索引堆(C++和Java实现) | Leon的博客 
-    </title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    
-      <meta name="author" content="李晓">
-    
-    
-
-    <meta name="description" content="在上一篇博客中，记录了优先队列——堆这个数据结构的实现，并且关于堆的性质我也在上文中介绍过，堆能用来进行排序，堆排序具有快速(复杂度O(NlogN))，稳定的特点，尤其是非常稳定，因此适用于某些需要排序稳定性的场合。 但是呢，普通的二叉堆有两个缺陷：  在对的元素体积非常大的情况下，经常性的移动元素是低效的。 如果在堆的使用过程中，堆中的元素的值要改变，则普通堆对此无能为力，简单的说，如果一个元素">
+  <meta charset="utf-8">
+  
+  <title>数据结构——最大索引堆(C++和Java实现) | Leon的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在上一篇博客中，记录了优先队列——堆这个数据结构的实现，并且关于堆的性质我也在上文中介绍过，堆能用来进行排序，堆排序具有快速(复杂度O(NlogN))，稳定的特点，尤其是非常稳定，因此适用于某些需要排序稳定性的场合。 但是呢，普通的二叉堆有两个缺陷：  在对的元素体积非常大的情况下，经常性的移动元素是低效的。 如果在堆的使用过程中，堆中的元素的值要改变，则普通堆对此无能为力，简单的说，如果一个元素">
 <meta name="keywords" content="数据结构,索引堆">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据结构——最大索引堆(C++和Java实现) | Leon的博客">
+<meta property="og:title" content="数据结构——最大索引堆(C++和Java实现)">
 <meta property="og:url" content="http://yoursite.com/2017/08/27/数据结构——最大索引堆(C++和Java实现)/index.html">
 <meta property="og:site_name" content="Leon的博客">
 <meta property="og:description" content="在上一篇博客中，记录了优先队列——堆这个数据结构的实现，并且关于堆的性质我也在上文中介绍过，堆能用来进行排序，堆排序具有快速(复杂度O(NlogN))，稳定的特点，尤其是非常稳定，因此适用于某些需要排序稳定性的场合。 但是呢，普通的二叉堆有两个缺陷：  在对的元素体积非常大的情况下，经常性的移动元素是低效的。 如果在堆的使用过程中，堆中的元素的值要改变，则普通堆对此无能为力，简单的说，如果一个元素">
 <meta property="og:updated_time" content="2017-08-27T13:19:07.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据结构——最大索引堆(C++和Java实现) | Leon的博客">
+<meta name="twitter:title" content="数据结构——最大索引堆(C++和Java实现)">
 <meta name="twitter:description" content="在上一篇博客中，记录了优先队列——堆这个数据结构的实现，并且关于堆的性质我也在上文中介绍过，堆能用来进行排序，堆排序具有快速(复杂度O(NlogN))，稳定的特点，尤其是非常稳定，因此适用于某些需要排序稳定性的场合。 但是呢，普通的二叉堆有两个缺陷：  在对的元素体积非常大的情况下，经常性的移动元素是低效的。 如果在堆的使用过程中，堆中的元素的值要改变，则普通堆对此无能为力，简单的说，如果一个元素">
+  
+    <link rel="alternate" href="/atom.xml" title="Leon的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
     
-    
-    
-      <link rel="icon" type="image/x-icon" href="/favicon.png">
-    
-    <link rel="stylesheet" href="/css/uno.css">
-    <link rel="stylesheet" href="/css/highlight.css">
-    <link rel="stylesheet" href="/css/archive.css">
-    <link rel="stylesheet" href="/css/china-social-icon.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
 
 </head>
+
 <body>
-
-    <span class="mobile btn-mobile-menu">
-        <i class="icon icon-list btn-mobile-menu__icon"></i>
-        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
-    </span>
-
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
     
-
-<header class="panel-cover panel-cover--collapsed">
-
-
-  <div class="panel-main">
-
-  
-    <div class="panel-main__inner panel-inverted">
-    <div class="panel-main__content">
-
+    <div id="header-inner" class="inner">
+      <nav id="sub-nav">
         
-
-        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Leon的博客</a></h1>
-        <hr class="panel-cover__divider" />
-
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <p class="panel-cover__description">
-          每多学一点知识，就少写一行代码
-        </p>
-        <hr class="panel-cover__divider panel-cover__divider--secondary" />
-        
-
-        <div class="navigation-wrapper">
-
-          <nav class="cover-navigation cover-navigation--primary">
-            <ul class="navigation">
-
-              
-                
-                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
-              
-                
-                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
-              
-                
-                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
-              
-
-            </ul>
-          </nav>
-
-          <!-- ----------------------------
-To add a new social icon simply duplicate one of the list items from below
-and change the class in the <i> tag to match the desired social network
-and then add your link to the <a>. Here is a full list of social network
-classes that you can use:
-
-    icon-social-500px
-    icon-social-behance
-    icon-social-delicious
-    icon-social-designer-news
-    icon-social-deviant-art
-    icon-social-digg
-    icon-social-dribbble
-    icon-social-facebook
-    icon-social-flickr
-    icon-social-forrst
-    icon-social-foursquare
-    icon-social-github
-    icon-social-google-plus
-    icon-social-hi5
-    icon-social-instagram
-    icon-social-lastfm
-    icon-social-linkedin
-    icon-social-medium
-    icon-social-myspace
-    icon-social-path
-    icon-social-pinterest
-    icon-social-rdio
-    icon-social-reddit
-    icon-social-skype
-    icon-social-spotify
-    icon-social-stack-overflow
-    icon-social-steam
-    icon-social-stumbleupon
-    icon-social-treehouse
-    icon-social-tumblr
-    icon-social-twitter
-    icon-social-vimeo
-    icon-social-xbox
-    icon-social-yelp
-    icon-social-youtube
-    icon-social-zerply
-    icon-mail
-
--------------------------------->
-
-<!-- add social info here -->
-
-
-
-<nav class="cover-navigation navigation--social">
-  <ul class="navigation">
-
-    
-      <!-- Github -->
-      <li class="navigation__item">
-        <a href="https://github.com/originalix" title="Huno on GitHub">
-          <i class='icon icon-social-github'></i>
-          <span class="label">GitHub</span>
-        </a>
-      </li>
-    
-
-    <!-- China social icon -->
-    <!--
-    
-      <li class="navigation__item">
-        <a href="" title="">
-          <i class='icon cs-icon-douban'></i>
-          <span class="label">Douban</span>
-        </a>
-      </li>
-
-      <li class="navigation__item">
-        <a href="" title="">
-          <i class='icon cs-icon-weibo'></i>
-          <span class="label">Weibo</span>
-        </a>
-      </li>
-
-    -->
-
-
-
-  </ul>
-</nav>
-
-
-
-        </div>
-
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
       </div>
-
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      
     </div>
-
-    <div class="panel-cover--overlay"></div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Leon的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">每多学一点知识，就少写一行代码</a>
+        </h2>
+      
+    </div>
   </div>
 </header>
-
-    <div class="content-wrapper">
-        <div class="content-wrapper__inner entry">
-            
-
-<article class="post-container post-container--single">
-
-  <header class="post-header">
-
-    <h1 class="post-title">数据结构——最大索引堆(C++和Java实现)</h1>
-
+      <div class="outer">
+        <section id="main"><article id="post-数据结构——最大索引堆(C++和Java实现)" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/08/27/数据结构——最大索引堆(C++和Java实现)/" class="article-date">
+  <time datetime="2017-08-27T13:17:46.000Z" itemprop="datePublished">2017-08-27</time>
+</a>
     
-
-    <div class="post-meta">
-      <time datetime="2017-08-27" class="post-meta__date date">2017-08-27</time>
-
-      <span class="post-meta__tags tags">
-
-          
-
-          
-             &#8226; 标签:
-            <font class="tags">
-              <a class="tags-link" href="/tags/数据结构/">数据结构</a>, <a class="tags-link" href="/tags/索引堆/">索引堆</a>
-            </font>
-          
-
-      </span>
-
-
-      <span class="post-meta_statistic date" id="busuanzi_container_page_pv">
-        本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-      </span>
-
-    </div>
-
+  </div>
+  <div class="article-inner">
     
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据结构——最大索引堆(C++和Java实现)
+    </h1>
+  
 
-  </header>
-
-  <section id="post-content" class="article-content post">
-    <p>在上一篇博客中，记录了优先队列——堆这个数据结构的实现，并且关于堆的性质我也在上文中介绍过，堆能用来进行排序，堆排序具有快速(复杂度O(NlogN))，稳定的特点，尤其是非常稳定，因此适用于某些需要排序稳定性的场合。</p>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>在上一篇博客中，记录了优先队列——堆这个数据结构的实现，并且关于堆的性质我也在上文中介绍过，堆能用来进行排序，堆排序具有快速(复杂度O(NlogN))，稳定的特点，尤其是非常稳定，因此适用于某些需要排序稳定性的场合。</p>
 <p>但是呢，普通的二叉堆有两个缺陷：</p>
 <ul>
 <li>在对的元素体积非常大的情况下，经常性的移动元素是低效的。</li>
@@ -240,69 +110,250 @@ classes that you can use:
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Item&gt;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IndexMaxHeap</span> &#123;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    Item *data;</span><br><span class="line">    <span class="keyword">int</span> *indexes;</span><br><span class="line">    <span class="keyword">int</span> *reverse;</span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line">    <span class="keyword">int</span> capacity;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">shiftUp</span><span class="params">( <span class="keyword">int</span> k )</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (k &gt; <span class="number">1</span> &amp;&amp; data[ indexes[k/<span class="number">2</span>] ] &lt; data[ indexes[k] ]) &#123;</span><br><span class="line">            swap( indexes[k/<span class="number">2</span>], indexes[k] );</span><br><span class="line">            reverse[indexes[k / <span class="number">2</span>]] = k / <span class="number">2</span>;</span><br><span class="line">            reverse[indexes[k]] = k;</span><br><span class="line">            k /= <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">shiftDown</span><span class="params">( <span class="keyword">int</span> k )</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="number">2</span>*k &lt;= count) &#123;</span><br><span class="line">            <span class="keyword">int</span> j = <span class="number">2</span> * k; <span class="comment">// 在此轮循环中,data[k]和data[j]交换位置</span></span><br><span class="line">            <span class="keyword">if</span> (j + <span class="number">1</span> &lt;= count &amp;&amp; data[ indexes[j] ] &lt; data[ indexes[j+<span class="number">1</span>] ])</span><br><span class="line">                <span class="comment">// data[j] 是 data[2*k]和data[2*k+1]中的最大值</span></span><br><span class="line">                j += <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (data[ indexes[k] ] &gt; data[ indexes[j] ])</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            swap( indexes[k], indexes[j] );</span><br><span class="line">            reverse[ indexes[k] ] = k;</span><br><span class="line">            reverse[ indexes[j] ] = j;</span><br><span class="line">            k = j;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 构造函数, 构造一个空的索引堆, 可容纳capacity个元素</span></span><br><span class="line">    IndexMaxHeap(<span class="keyword">int</span> capacity) &#123;</span><br><span class="line">        data = <span class="keyword">new</span> Item[capacity + <span class="number">1</span>];</span><br><span class="line">        indexes = <span class="keyword">new</span> <span class="keyword">int</span>[capacity + <span class="number">1</span>];</span><br><span class="line">        reverse = <span class="keyword">new</span> <span class="keyword">int</span>[capacity + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= capacity; i++) &#123;</span><br><span class="line">            reverse[i] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">this</span>-&gt;capacity = capacity;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    IndexMaxHeap(Item arr[], <span class="keyword">int</span> n) &#123;</span><br><span class="line">        data = <span class="keyword">new</span> Item[n+<span class="number">1</span>];</span><br><span class="line">        capacity = n + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">            data[i+<span class="number">1</span>] = arr[i];</span><br><span class="line">        count = n;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = count / <span class="number">2</span>; i &gt;= <span class="number">1</span>; i--)</span><br><span class="line">            shiftDown(i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ~IndexMaxHeap() &#123;</span><br><span class="line">        <span class="keyword">delete</span>[] data;</span><br><span class="line">        <span class="keyword">delete</span>[] indexes;</span><br><span class="line">        <span class="keyword">delete</span>[] reverse;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 返回堆中的元素个数</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">size</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 返回一个布尔值, 表示堆中是否为空</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> count == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 向最大索引堆中插入一个新的元素, 新元素的索引为i, 元素为item</span></span><br><span class="line">    <span class="comment">// 传入的i对用户而言,是从0索引的</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> i, Item item)</span> </span>&#123;</span><br><span class="line">        assert(count + <span class="number">1</span> &lt;= capacity);</span><br><span class="line">        assert(i + <span class="number">1</span> &gt;= <span class="number">1</span> &amp;&amp; i + <span class="number">1</span> &lt;= capacity);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 再插入一个新元素前,还需要保证索引i所在的位置是没有元素的。</span></span><br><span class="line">        assert( !contain(i) );</span><br><span class="line"></span><br><span class="line">        i += <span class="number">1</span>;</span><br><span class="line">        data[i] = item;</span><br><span class="line">        indexes[count+<span class="number">1</span>] = i;</span><br><span class="line">        reverse[i] = count + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        count++;</span><br><span class="line">        shiftUp( count );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从最大堆中取出堆顶元素, 即堆中所存储的最大数据</span></span><br><span class="line">    <span class="function">Item <span class="title">extractMax</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        assert(count &gt; <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        Item ret = data[ indexes[<span class="number">1</span>] ];</span><br><span class="line"></span><br><span class="line">        swap( indexes[<span class="number">1</span>], indexes[count] );</span><br><span class="line">        reverse[ indexes[<span class="number">1</span>] ] = <span class="number">1</span>;</span><br><span class="line">        reverse[ indexes[count] ] = <span class="number">0</span>;</span><br><span class="line">        count--;</span><br><span class="line"></span><br><span class="line">        shiftDown( <span class="number">1</span> );</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">extractMaxIndex</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        assert( count &gt; <span class="number">0</span> );</span><br><span class="line">        <span class="keyword">int</span> ret = indexes[<span class="number">1</span>] - <span class="number">1</span>;</span><br><span class="line">        swap( indexes[<span class="number">1</span>], indexes[count] );</span><br><span class="line">        reverse[ indexes[<span class="number">1</span>] ] = <span class="number">1</span>;</span><br><span class="line">        reverse[ indexes[count] ] = <span class="number">0</span>;</span><br><span class="line">        count--;</span><br><span class="line">        shiftDown(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">contain</span><span class="params">( <span class="keyword">int</span> i )</span> </span>&#123;</span><br><span class="line">        assert( i + <span class="number">1</span> &gt;= <span class="number">1</span> &amp;&amp; i + <span class="number">1</span> &lt;= capacity);</span><br><span class="line">        <span class="keyword">return</span> reverse[i+<span class="number">1</span>] != <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">Item <span class="title">getItem</span><span class="params">( <span class="keyword">int</span> i )</span> </span>&#123;</span><br><span class="line">        assert(contain(i));</span><br><span class="line">        <span class="keyword">return</span> data[i + <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">change</span><span class="params">( <span class="keyword">int</span> i, Item newItem )</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        assert(contain(i));</span><br><span class="line"></span><br><span class="line">        i += <span class="number">1</span>;</span><br><span class="line">        data[i] = newItem;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 找到indexes[j] = i, j 表示 data[i]在堆中的位置</span></span><br><span class="line">        <span class="comment">// 之后shiftUp(j), 再shiftDown(j)</span></span><br><span class="line">        <span class="comment">// for ( int j = 1; j &lt;= count; j++ ) &#123;</span></span><br><span class="line">        <span class="comment">//     if (indexes[j] == i) &#123;</span></span><br><span class="line">        <span class="comment">//         shiftUp(j);</span></span><br><span class="line">        <span class="comment">//         shiftDown(j);</span></span><br><span class="line">        <span class="comment">//         return;</span></span><br><span class="line">        <span class="comment">//     &#125;</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 有了 reverse 之后,</span></span><br><span class="line">        <span class="comment">// 我们可以非常简单的通过reverse直接定位索引i在indexes中的位置</span></span><br><span class="line">        <span class="keyword">int</span> j = reverse[i];</span><br><span class="line">        shiftUp(j);</span><br><span class="line">        shiftDown(j);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取最大堆中的堆顶元素</span></span><br><span class="line">    <span class="function">Item <span class="title">getMax</span><span class="params">()</span></span>&#123;</span><br><span class="line">        assert( count &gt; <span class="number">0</span> );</span><br><span class="line">        <span class="keyword">return</span> data[<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 测试索引堆中的索引数组index和反向数组reverse</span></span><br><span class="line">    <span class="comment">// 注意:这个测试在向堆中插入元素以后, 不进行extract操作有效</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">testIndexesAndReverseIndexes</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> *copyIndexes = <span class="keyword">new</span> <span class="keyword">int</span>[count+<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">int</span> *copyReverseIndexes = <span class="keyword">new</span> <span class="keyword">int</span>[count+<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span> ; i &lt;= count ; i ++ )&#123;</span><br><span class="line">            copyIndexes[i] = indexes[i];</span><br><span class="line">            copyReverseIndexes[i] = reverse[i];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        copyIndexes[<span class="number">0</span>] = copyReverseIndexes[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">std</span>::sort(copyIndexes, copyIndexes + count + <span class="number">1</span>);</span><br><span class="line">        <span class="built_in">std</span>::sort(copyReverseIndexes, copyReverseIndexes + count + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 在对索引堆中的索引和反向索引进行排序后,</span></span><br><span class="line">        <span class="comment">// 两个数组都应该正好是1...count这count个索引</span></span><br><span class="line">        <span class="keyword">bool</span> res = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= count ; i ++ )</span><br><span class="line">            <span class="keyword">if</span>( copyIndexes[i<span class="number">-1</span>] + <span class="number">1</span> != copyIndexes[i] ||</span><br><span class="line">                    copyReverseIndexes[i<span class="number">-1</span>] + <span class="number">1</span> != copyReverseIndexes[i] )&#123;</span><br><span class="line">                res = <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">delete</span>[] copyIndexes;</span><br><span class="line">        <span class="keyword">delete</span>[] copyReverseIndexes;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>( !res )&#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;<span class="string">"Error!"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= count ; i ++ )</span><br><span class="line">            <span class="keyword">if</span>( reverse[ indexes[i] ] != i )&#123;</span><br><span class="line">                <span class="built_in">cout</span>&lt;&lt;<span class="string">"Error 2"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>Java版本的代码如下:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 最大索引堆</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IndexMaxHeap</span>&lt;<span class="title">Item</span> <span class="keyword">extends</span> <span class="title">Comparable</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> Item[] data;    <span class="comment">// 最大索引堆中的数据</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">int</span>[] indexes;  <span class="comment">// 最大索引堆中的索引, indexes[x] = i 表示索引i在x的位置</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">int</span>[] reverse;  <span class="comment">// 最大索引堆中的反向索引, reverse[i] = x 表示索引i在x的位置</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">int</span> count;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">int</span> capacity;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构造函数, 构造一个空堆, 可容纳capacity个元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">IndexMaxHeap</span><span class="params">(<span class="keyword">int</span> capacity)</span> </span>&#123;</span><br><span class="line">        data = (Item[]) <span class="keyword">new</span> Comparable[capacity + <span class="number">1</span>];</span><br><span class="line">        indexes = <span class="keyword">new</span> <span class="keyword">int</span>[capacity + <span class="number">1</span>];</span><br><span class="line">        reverse = <span class="keyword">new</span> <span class="keyword">int</span>[capacity + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= capacity; i++) &#123;</span><br><span class="line">            reverse[i] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">this</span>.capacity = capacity;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 返回索引堆中的元素个数</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 返回一个布尔值, 表示索引堆中是否为空</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> count == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 向最大索引堆中插入一个新的元素, 新元素的索引为i, 元素为item</span></span><br><span class="line">    <span class="comment">// 传入的i对用户而言,是从0索引的</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> i, Item item)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">assert</span> (count + <span class="number">1</span> &lt;= capacity);</span><br><span class="line">        <span class="keyword">assert</span> (i + <span class="number">1</span> &gt;= <span class="number">1</span> &amp;&amp; i + <span class="number">1</span> &lt;= capacity);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 再插入一个新元素前,还需要保证索引i所在的位置是没有元素的。</span></span><br><span class="line">        <span class="keyword">assert</span> ( !contain(i) );</span><br><span class="line"></span><br><span class="line">        i += <span class="number">1</span>;</span><br><span class="line">        data[i] = item;</span><br><span class="line">        indexes[count + <span class="number">1</span>] = i;</span><br><span class="line">        reverse[i] = count + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        count++;</span><br><span class="line">        shiftUp( count );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从最大索引堆中取出堆顶元素, 即索引堆中所存储的最大数据</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Item <span class="title">extractMax</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">assert</span> (count &gt; <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        Item ret = data[ indexes[<span class="number">1</span>] ];</span><br><span class="line">        swap(indexes, <span class="number">1</span>, count);</span><br><span class="line">        reverse[ indexes[<span class="number">1</span>] ] = <span class="number">1</span>;</span><br><span class="line">        reverse[ indexes[count] ] = <span class="number">0</span>;</span><br><span class="line">        count--;</span><br><span class="line"></span><br><span class="line">        shiftDown(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从最大索引堆中取出堆顶元素的索引</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">extractMaxIndex</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">assert</span> (count &gt; <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> ret = indexes[<span class="number">1</span>] - <span class="number">1</span>;</span><br><span class="line">        swap(indexes, <span class="number">1</span>, count);</span><br><span class="line">        reverse[ indexes[<span class="number">1</span>] ] = <span class="number">1</span>;</span><br><span class="line">        reverse[ indexes[count] ] = <span class="number">0</span>;</span><br><span class="line">        count--;</span><br><span class="line">        shiftDown(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 看索引i所在的位置是否存在元素</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">contain</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">assert</span> (i + <span class="number">1</span> &gt;= <span class="number">1</span> &amp;&amp; i + <span class="number">1</span> &lt;= capacity);</span><br><span class="line">        <span class="keyword">return</span> reverse[i+<span class="number">1</span>] != <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">shiftUp</span><span class="params">(<span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (k &gt; <span class="number">1</span> &amp;&amp; data[ indexes[k / <span class="number">2</span>] ].compareTo( data[ indexes[k] ] ) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            swap(indexes, k / <span class="number">2</span>, k);</span><br><span class="line">            k /= <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">shiftDown</span><span class="params">(<span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="number">2</span>*k &lt;= count) &#123;</span><br><span class="line">            <span class="keyword">int</span> j = <span class="number">2</span> * k;</span><br><span class="line">            <span class="keyword">if</span> (j + <span class="number">1</span> &lt;= count &amp;&amp; data[ indexes[j] ].compareTo( data[ indexes[j+<span class="number">1</span>] ] ) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                j += <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (data[ indexes[k] ].compareTo(data[ indexes[j] ]) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            swap(indexes, k, j);</span><br><span class="line">            k = j;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 交换索引堆中的索引i和j</span></span><br><span class="line">    <span class="comment">// 由于有了反向索引reverse数组，</span></span><br><span class="line">    <span class="comment">// indexes数组发生改变以后， 相应的就需要维护reverse数组</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> t = arr[i];</span><br><span class="line">        arr[i] = arr[j];</span><br><span class="line">        arr[j] = t;</span><br><span class="line"></span><br><span class="line">        reverse[ indexes[i] ] = i;</span><br><span class="line">        reverse[ indexes[j] ] = j;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取最大索引堆中索引为i的元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Item <span class="title">getItem</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">assert</span> (contain(i));</span><br><span class="line">        <span class="keyword">return</span> data[i + <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将最大索引堆中索引为i的元素修改为newItem</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">change</span><span class="params">(<span class="keyword">int</span> i, Item newItem)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">assert</span>(contain(i));</span><br><span class="line"></span><br><span class="line">        i += <span class="number">1</span>;</span><br><span class="line">        data[i] = newItem;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> j = reverse[i];</span><br><span class="line">        shiftUp(j);</span><br><span class="line">        shiftDown(j);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取最大索引堆中的堆顶元素</span></span><br><span class="line">    <span class="function">Item <span class="title">getMax</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">assert</span> (count &gt; <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> data[<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 测试索引堆中的索引数组index和反向数组reverse</span></span><br><span class="line">    <span class="comment">// 注意:这个测试在向堆中插入元素以后, 不进行extract操作有效</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">testIndexes</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span>[] copyIndexes = <span class="keyword">new</span> <span class="keyword">int</span>[count+<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">int</span>[] copyReverseIndexes = <span class="keyword">new</span> <span class="keyword">int</span>[count+<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">0</span> ; i &lt;= count ; i ++ ) &#123;</span><br><span class="line">            copyIndexes[i] = indexes[i];</span><br><span class="line">            copyReverseIndexes[i] = reverse[i];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        copyIndexes[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        copyReverseIndexes[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">        Arrays.sort(copyIndexes);</span><br><span class="line">        Arrays.sort(copyReverseIndexes);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 在对索引堆中的索引和反向索引进行排序后,</span></span><br><span class="line">        <span class="comment">// 两个数组都应该正好是1...count这count个索引</span></span><br><span class="line">        <span class="keyword">boolean</span> res = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= count ; i ++ )</span><br><span class="line">            <span class="keyword">if</span>( copyIndexes[i-<span class="number">1</span>] + <span class="number">1</span> != copyIndexes[i] ||</span><br><span class="line">                    copyReverseIndexes[i-<span class="number">1</span>] + <span class="number">1</span> != copyReverseIndexes[i] )&#123;</span><br><span class="line">                res = <span class="keyword">false</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>( !res )&#123;</span><br><span class="line">            System.out.println(<span class="string">"Error!"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> N = <span class="number">1000000</span>;</span><br><span class="line">        IndexMaxHeap&lt;Integer&gt; indexMaxHeap = <span class="keyword">new</span> IndexMaxHeap&lt;Integer&gt;(N);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            indexMaxHeap.insert(i, (<span class="keyword">int</span>) (Math.random() * N));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">assert</span> indexMaxHeap.testIndexes();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-  </section>
-
-  <section class="post-comments">
-
-    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
-    
-</section>
-
-
-</article>
-
-
-            <footer class="footer">
-    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-    <span class="footer__copyright">
-        &copy; 2014-2018. | 由<a href="https://hexo.io/">Hexo</a>强力驱动
-    </span>
-    <span id="busuanzi_container_site_pv">
-        本站访客数<span id="busuanzi_value_site_pv"></span>人次
-    </span>
-
-</footer>
-        </div>
+      
     </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/08/27/数据结构——最大索引堆(C++和Java实现)/" data-id="cjlqmgulz00ddsxz956vhvx18" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/索引堆/">索引堆</a></li></ul>
 
-    <!-- js files -->
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/main.js"></script>
-    <script src="/js/scale.fix.js"></script>
+    </footer>
+  </div>
+  
+    
+ <script src="/jquery/jquery.min.js"></script>
+  <div id="random_posts">
+    <h2>推荐文章</h2>
+    <div class="random_posts_ul">
+      <script>
+          var random_count =4
+          var site = {BASE_URI:'/'};
+          function load_random_posts(obj) {
+              var arr=site.posts;
+              if (!obj) return;
+              // var count = $(obj).attr('data-count') || 6;
+              for (var i, tmp, n = arr.length; n; i = Math.floor(Math.random() * n), tmp = arr[--n], arr[n] = arr[i], arr[i] = tmp);
+              arr = arr.slice(0, random_count);
+              var html = '<ul>';
+            
+              for(var j=0;j<arr.length;j++){
+                var item=arr[j];
+                html += '<li><strong>' + 
+                item.date + ':&nbsp;&nbsp;<a href="' + (site.BASE_URI+item.uri) + '">' + 
+                (item.title || item.uri) + '</a></strong>';
+                if(item.excerpt){
+                  html +='<div class="post-excerpt">'+item.excerpt+'</div>';
+                }
+                html +='</li>';
+                
+              }
+              $(obj).html(html + '</ul>');
+          }
+          $('.random_posts_ul').each(function () {
+              var c = this;
+              if (!site.posts || !site.posts.length){
+                  $.getJSON(site.BASE_URI + 'js/posts.js',function(json){site.posts = json;load_random_posts(c)});
+              } 
+               else{
+                load_random_posts(c);
+              }
+          });
+      </script>
+    </div>
+  </div>
+
+    
+<nav id="article-nav">
+  
+    <a href="/2017/09/11/数据结构——无权图的路径问题(C++和java实现)/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          数据结构——无权图的路径问题(C++和java实现)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/08/18/数据结构——优先队列-C-和Java实现/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">数据结构——优先队列(C++和Java实现)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+ 
+     
+  <div class="comments" id="comments">
+    
+     
+       
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+       
+      
+      
+  </div>
+ 
+  
+
+</section>
+           
+    <aside id="sidebar">
+  
     
 
+  
+    
+  
     
 
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript"> 
-        $(document).ready(function(){
-            MathJax.Hub.Config({ 
-                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
-            });
-        });
-    </script>
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title recent-posts">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/08/28/微信小程序——城市区县定位选择组件/">微信小程序——城市/区县定位选择组件</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/07/堆排序算法/">堆排序算法</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/23/从element-ui源码来看BEM实现/">从element-ui源码来看BEM实现</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/17/小程序开发总结/">小程序开发总结</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/30/微信小程序——使用setData修改数组中的单个对象/">微信小程序——使用setData修改数组中的单个对象</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
 
-
+  
     
 
-    <script src="/js/awesome-toc.min.js"></script>
+  
+    
+  
+    <!--微信公众号二维码-->
+
+
+  
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-left">
+      &copy; 2014 - 2018 李晓&nbsp;|&nbsp;
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+    </div>
+     <div id="footer-right">
+      联系方式&nbsp;|&nbsp;xiao.liunit@gmail.com
+    </div>
+  </div>
+</footer>
+ <script src="/jquery/jquery.min.js"></script>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    <img class="back-to-top-btn" src="/images/fly-to-top.png"/>
+<script>
+// Elevator script included on the page, already.
+window.onload = function() {
+  var elevator = new Elevator({
+    selector:'.back-to-top-btn',
+    element: document.querySelector('.back-to-top-btn'),
+    duration: 1000 // milliseconds
+  });
+}
+</script>
+      
+
+  
     <script>
-        $(document).ready(function(){
-            $.awesome_toc({
-                overlay: true,
-                contentId: "post-content",
-            });
-        });
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "e2fb4051c49842688ce669e634bc983f",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+    
+
+  
+
+
+
+
+
+
+
+<!-- author:forvoid begin -->
+<!-- author:forvoid begin -->
+
+<!-- author:forvoid end -->
+
+<!-- author:forvoid end -->
+
+
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      })
     </script>
 
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      })
+    </script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
 
-    
-    
-    <!--kill ie6 -->
-<!--[if IE 6]>
-  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
-<![endif]-->
 
+ <script src="/js/is.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/elevator.js"></script>
+  </div>
 </body>
 </html>

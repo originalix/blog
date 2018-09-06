@@ -1,232 +1,102 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-
-    
-
-    <title>
-      算法时间复杂度 | Leon的博客 
-    </title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    
-      <meta name="author" content="李晓">
-    
-    
-
-    <meta name="description" content="很多程序员，做了很长时间的编程工作却始终都弄不明白算法的时间复杂度的估算，这是很可悲的一件事情。因为弄不清楚，所以也就从不深究自己写的代码是否效率底下，是不是可以通过优化，让计算机更加快速高效。所以在我最近自学看完算法的时间复杂度这个章节之后，我决定写一篇文章回顾，加深记忆，帮助理解。">
+  <meta charset="utf-8">
+  
+  <title>算法时间复杂度 | Leon的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="很多程序员，做了很长时间的编程工作却始终都弄不明白算法的时间复杂度的估算，这是很可悲的一件事情。因为弄不清楚，所以也就从不深究自己写的代码是否效率底下，是不是可以通过优化，让计算机更加快速高效。所以在我最近自学看完算法的时间复杂度这个章节之后，我决定写一篇文章回顾，加深记忆，帮助理解。">
 <meta name="keywords" content="算法时间复杂度,推导大O阶">
 <meta property="og:type" content="article">
-<meta property="og:title" content="算法时间复杂度 | Leon的博客">
+<meta property="og:title" content="算法时间复杂度">
 <meta property="og:url" content="http://yoursite.com/2016/03/17/算法时间复杂度/index.html">
 <meta property="og:site_name" content="Leon的博客">
 <meta property="og:description" content="很多程序员，做了很长时间的编程工作却始终都弄不明白算法的时间复杂度的估算，这是很可悲的一件事情。因为弄不清楚，所以也就从不深究自己写的代码是否效率底下，是不是可以通过优化，让计算机更加快速高效。所以在我最近自学看完算法的时间复杂度这个章节之后，我决定写一篇文章回顾，加深记忆，帮助理解。">
 <meta property="og:updated_time" content="2016-08-05T06:39:47.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="算法时间复杂度 | Leon的博客">
+<meta name="twitter:title" content="算法时间复杂度">
 <meta name="twitter:description" content="很多程序员，做了很长时间的编程工作却始终都弄不明白算法的时间复杂度的估算，这是很可悲的一件事情。因为弄不清楚，所以也就从不深究自己写的代码是否效率底下，是不是可以通过优化，让计算机更加快速高效。所以在我最近自学看完算法的时间复杂度这个章节之后，我决定写一篇文章回顾，加深记忆，帮助理解。">
+  
+    <link rel="alternate" href="/atom.xml" title="Leon的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
     
-    
-    
-      <link rel="icon" type="image/x-icon" href="/favicon.png">
-    
-    <link rel="stylesheet" href="/css/uno.css">
-    <link rel="stylesheet" href="/css/highlight.css">
-    <link rel="stylesheet" href="/css/archive.css">
-    <link rel="stylesheet" href="/css/china-social-icon.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
 
 </head>
+
 <body>
-
-    <span class="mobile btn-mobile-menu">
-        <i class="icon icon-list btn-mobile-menu__icon"></i>
-        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
-    </span>
-
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
     
-
-<header class="panel-cover panel-cover--collapsed">
-
-
-  <div class="panel-main">
-
-  
-    <div class="panel-main__inner panel-inverted">
-    <div class="panel-main__content">
-
+    <div id="header-inner" class="inner">
+      <nav id="sub-nav">
         
-
-        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Leon的博客</a></h1>
-        <hr class="panel-cover__divider" />
-
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <p class="panel-cover__description">
-          每多学一点知识，就少写一行代码
-        </p>
-        <hr class="panel-cover__divider panel-cover__divider--secondary" />
-        
-
-        <div class="navigation-wrapper">
-
-          <nav class="cover-navigation cover-navigation--primary">
-            <ul class="navigation">
-
-              
-                
-                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
-              
-                
-                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
-              
-                
-                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
-              
-
-            </ul>
-          </nav>
-
-          <!-- ----------------------------
-To add a new social icon simply duplicate one of the list items from below
-and change the class in the <i> tag to match the desired social network
-and then add your link to the <a>. Here is a full list of social network
-classes that you can use:
-
-    icon-social-500px
-    icon-social-behance
-    icon-social-delicious
-    icon-social-designer-news
-    icon-social-deviant-art
-    icon-social-digg
-    icon-social-dribbble
-    icon-social-facebook
-    icon-social-flickr
-    icon-social-forrst
-    icon-social-foursquare
-    icon-social-github
-    icon-social-google-plus
-    icon-social-hi5
-    icon-social-instagram
-    icon-social-lastfm
-    icon-social-linkedin
-    icon-social-medium
-    icon-social-myspace
-    icon-social-path
-    icon-social-pinterest
-    icon-social-rdio
-    icon-social-reddit
-    icon-social-skype
-    icon-social-spotify
-    icon-social-stack-overflow
-    icon-social-steam
-    icon-social-stumbleupon
-    icon-social-treehouse
-    icon-social-tumblr
-    icon-social-twitter
-    icon-social-vimeo
-    icon-social-xbox
-    icon-social-yelp
-    icon-social-youtube
-    icon-social-zerply
-    icon-mail
-
--------------------------------->
-
-<!-- add social info here -->
-
-
-
-<nav class="cover-navigation navigation--social">
-  <ul class="navigation">
-
-    
-      <!-- Github -->
-      <li class="navigation__item">
-        <a href="https://github.com/originalix" title="Huno on GitHub">
-          <i class='icon icon-social-github'></i>
-          <span class="label">GitHub</span>
-        </a>
-      </li>
-    
-
-    <!-- China social icon -->
-    <!--
-    
-      <li class="navigation__item">
-        <a href="" title="">
-          <i class='icon cs-icon-douban'></i>
-          <span class="label">Douban</span>
-        </a>
-      </li>
-
-      <li class="navigation__item">
-        <a href="" title="">
-          <i class='icon cs-icon-weibo'></i>
-          <span class="label">Weibo</span>
-        </a>
-      </li>
-
-    -->
-
-
-
-  </ul>
-</nav>
-
-
-
-        </div>
-
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
       </div>
-
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      
     </div>
-
-    <div class="panel-cover--overlay"></div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Leon的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">每多学一点知识，就少写一行代码</a>
+        </h2>
+      
+    </div>
   </div>
 </header>
-
-    <div class="content-wrapper">
-        <div class="content-wrapper__inner entry">
-            
-
-<article class="post-container post-container--single">
-
-  <header class="post-header">
-
-    <h1 class="post-title">算法时间复杂度</h1>
-
+      <div class="outer">
+        <section id="main"><article id="post-算法时间复杂度" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/17/算法时间复杂度/" class="article-date">
+  <time datetime="2016-03-16T18:05:13.000Z" itemprop="datePublished">2016-03-17</time>
+</a>
     
-
-    <div class="post-meta">
-      <time datetime="2016-03-17" class="post-meta__date date">2016-03-17</time>
-
-      <span class="post-meta__tags tags">
-
-          
-
-          
-             &#8226; 标签:
-            <font class="tags">
-              <a class="tags-link" href="/tags/推导大O阶/">推导大O阶</a>, <a class="tags-link" href="/tags/算法时间复杂度/">算法时间复杂度</a>
-            </font>
-          
-
-      </span>
-
-
-      <span class="post-meta_statistic date" id="busuanzi_container_page_pv">
-        本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-      </span>
-
-    </div>
-
+  </div>
+  <div class="article-inner">
     
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      算法时间复杂度
+    </h1>
+  
 
-  </header>
-
-  <section id="post-content" class="article-content post">
-    <p>  很多程序员，做了很长时间的编程工作却始终都弄不明白算法的时间复杂度的估算，这是很可悲的一件事情。因为弄不清楚，所以也就从不深究自己写的代码是否效率底下，是不是可以通过优化，让计算机更加快速高效。所以在我最近自学看完算法的时间复杂度这个章节之后，我决定写一篇文章回顾，加深记忆，帮助理解。<br>  <br><a id="more"></a></p>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>  很多程序员，做了很长时间的编程工作却始终都弄不明白算法的时间复杂度的估算，这是很可悲的一件事情。因为弄不清楚，所以也就从不深究自己写的代码是否效率底下，是不是可以通过优化，让计算机更加快速高效。所以在我最近自学看完算法的时间复杂度这个章节之后，我决定写一篇文章回顾，加深记忆，帮助理解。<br>  <br><a id="more"></a></p>
 <h3 id="算法设计的要求"><a href="#算法设计的要求" class="headerlink" title="算法设计的要求"></a>算法设计的要求</h3><p>  一个好的算法的设计要求，必须符合以下的几个特性：正确性，可读性，健壮性，时间效率高和存储量低这四个特性。其中算法的前三个特性毕竟容易理解，今天就着重的关于算法的时间效率这个性质来梳理一下。</p>
 <p>  时间效率高是指在对于同一个问题，有多个算法能够解决，执行时间短的算法效率更高，执行时间长的效率低。在生活中，人们都希望花最少的钱，最短的时间，办最大的事，算法也是一样的思想。例如求一个班级的物理平均分和求全省学生的中考物理平均分，用同样一套算法的确能够解决问题，但是在占用的时间和内存上的差距是非常大的，所以非常有必要去追求一套高效率，低存储空间的算法来解决问题。</p>
 <h3 id="算法效率的度量方法"><a href="#算法效率的度量方法" class="headerlink" title="算法效率的度量方法"></a>算法效率的度量方法</h3><p>  一般我们分析一套算法的效率，有事后统计法和事前分析法，但是事后统计法显然是有很大缺陷的，首先它必须要我们先编写好一套程序，这通常需要花费很大的时间和精力。所以一般我们对一套算法的分析，需要事前分析。</p>
@@ -299,69 +169,232 @@ classes that you can use:
 <p>通过分析算法的效率，能深刻感受到愚公的精神固然可敬，但是推土机和炸药可能是更加实在和聪明。</p>
 <p>简单的算法时间复杂度的概念就先到这里结束了，以后看到新的知识再继续分享。</p>
 
-  </section>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/03/17/算法时间复杂度/" data-id="cjlqmguj7004psxz9bv579oq4" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/推导大O阶/">推导大O阶</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法时间复杂度/">算法时间复杂度</a></li></ul>
 
-  <section class="post-comments">
-
-    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    </footer>
+  </div>
+  
     
-</section>
+ <script src="/jquery/jquery.min.js"></script>
+  <div id="random_posts">
+    <h2>推荐文章</h2>
+    <div class="random_posts_ul">
+      <script>
+          var random_count =4
+          var site = {BASE_URI:'/'};
+          function load_random_posts(obj) {
+              var arr=site.posts;
+              if (!obj) return;
+              // var count = $(obj).attr('data-count') || 6;
+              for (var i, tmp, n = arr.length; n; i = Math.floor(Math.random() * n), tmp = arr[--n], arr[n] = arr[i], arr[i] = tmp);
+              arr = arr.slice(0, random_count);
+              var html = '<ul>';
+            
+              for(var j=0;j<arr.length;j++){
+                var item=arr[j];
+                html += '<li><strong>' + 
+                item.date + ':&nbsp;&nbsp;<a href="' + (site.BASE_URI+item.uri) + '">' + 
+                (item.title || item.uri) + '</a></strong>';
+                if(item.excerpt){
+                  html +='<div class="post-excerpt">'+item.excerpt+'</div>';
+                }
+                html +='</li>';
+                
+              }
+              $(obj).html(html + '</ul>');
+          }
+          $('.random_posts_ul').each(function () {
+              var c = this;
+              if (!site.posts || !site.posts.length){
+                  $.getJSON(site.BASE_URI + 'js/posts.js',function(json){site.posts = json;load_random_posts(c)});
+              } 
+               else{
+                load_random_posts(c);
+              }
+          });
+      </script>
+    </div>
+  </div>
 
+    
+<nav id="article-nav">
+  
+    <a href="/2016/03/18/iOS设计模式之简单工厂模式/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          iOS设计模式之简单工厂模式
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/03/15/iOS单例设计模式/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">iOS设计模式系列：单例设计模式</div>
+    </a>
+  
+</nav>
 
+  
 </article>
+ 
+     
+  <div class="comments" id="comments">
+    
+     
+       
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+       
+      
+      
+  </div>
+ 
+  
 
+</section>
+           
+    <aside id="sidebar">
+  
+    
 
-            <footer class="footer">
-    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-    <span class="footer__copyright">
-        &copy; 2014-2018. | 由<a href="https://hexo.io/">Hexo</a>强力驱动
-    </span>
-    <span id="busuanzi_container_site_pv">
-        本站访客数<span id="busuanzi_value_site_pv"></span>人次
-    </span>
-
-</footer>
-        </div>
+  
+    
+    <div class="widget-wrap">
+    
+      <div class="widget" id="toc-widget-fixed">
+      
+        <strong class="toc-title">文章目录</strong>
+        <div class="toc-widget-list">
+              <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#算法设计的要求"><span class="toc-number">1.</span> <span class="toc-text"><a href="#&#x7B97;&#x6CD5;&#x8BBE;&#x8BA1;&#x7684;&#x8981;&#x6C42;" class="headerlink" title="&#x7B97;&#x6CD5;&#x8BBE;&#x8BA1;&#x7684;&#x8981;&#x6C42;"></a>&#x7B97;&#x6CD5;&#x8BBE;&#x8BA1;&#x7684;&#x8981;&#x6C42;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#算法效率的度量方法"><span class="toc-number">2.</span> <span class="toc-text"><a href="#&#x7B97;&#x6CD5;&#x6548;&#x7387;&#x7684;&#x5EA6;&#x91CF;&#x65B9;&#x6CD5;" class="headerlink" title="&#x7B97;&#x6CD5;&#x6548;&#x7387;&#x7684;&#x5EA6;&#x91CF;&#x65B9;&#x6CD5;"></a>&#x7B97;&#x6CD5;&#x6548;&#x7387;&#x7684;&#x5EA6;&#x91CF;&#x65B9;&#x6CD5;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数的渐近增长"><span class="toc-number">3.</span> <span class="toc-text"><a href="#&#x51FD;&#x6570;&#x7684;&#x6E10;&#x8FD1;&#x589E;&#x957F;" class="headerlink" title="&#x51FD;&#x6570;&#x7684;&#x6E10;&#x8FD1;&#x589E;&#x957F;"></a>&#x51FD;&#x6570;&#x7684;&#x6E10;&#x8FD1;&#x589E;&#x957F;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#算法时间复杂度"><span class="toc-number">4.</span> <span class="toc-text"><a href="#&#x7B97;&#x6CD5;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;" class="headerlink" title="&#x7B97;&#x6CD5;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;"></a>&#x7B97;&#x6CD5;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#推导大O阶的方法"><span class="toc-number">5.</span> <span class="toc-text"><a href="#&#x63A8;&#x5BFC;&#x5927;O&#x9636;&#x7684;&#x65B9;&#x6CD5;" class="headerlink" title="&#x63A8;&#x5BFC;&#x5927;O&#x9636;&#x7684;&#x65B9;&#x6CD5;"></a>&#x63A8;&#x5BFC;&#x5927;O&#x9636;&#x7684;&#x65B9;&#x6CD5;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常见的时间复杂度"><span class="toc-number">6.</span> <span class="toc-text"><a href="#&#x5E38;&#x89C1;&#x7684;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;" class="headerlink" title="&#x5E38;&#x89C1;&#x7684;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;"></a>&#x5E38;&#x89C1;&#x7684;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;</span></a></li></ol>
+          </div>
+      </div>
     </div>
 
-    <!-- js files -->
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/main.js"></script>
-    <script src="/js/scale.fix.js"></script>
+  
     
 
+  
+    
+  
+    
+  
     
 
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript"> 
-        $(document).ready(function(){
-            MathJax.Hub.Config({ 
-                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
-            });
-        });
-    </script>
-
-
+  
     
+  
+    <!--微信公众号二维码-->
 
-    <script src="/js/awesome-toc.min.js"></script>
+
+  
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-left">
+      &copy; 2014 - 2018 李晓&nbsp;|&nbsp;
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+    </div>
+     <div id="footer-right">
+      联系方式&nbsp;|&nbsp;xiao.liunit@gmail.com
+    </div>
+  </div>
+</footer>
+ <script src="/jquery/jquery.min.js"></script>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    <img class="back-to-top-btn" src="/images/fly-to-top.png"/>
+<script>
+// Elevator script included on the page, already.
+window.onload = function() {
+  var elevator = new Elevator({
+    selector:'.back-to-top-btn',
+    element: document.querySelector('.back-to-top-btn'),
+    duration: 1000 // milliseconds
+  });
+}
+</script>
+      
+
+  
     <script>
-        $(document).ready(function(){
-            $.awesome_toc({
-                overlay: true,
-                contentId: "post-content",
-            });
-        });
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "e2fb4051c49842688ce669e634bc983f",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+    
+
+  
+
+
+
+
+
+
+
+<!-- author:forvoid begin -->
+<!-- author:forvoid begin -->
+
+<!-- author:forvoid end -->
+
+<!-- author:forvoid end -->
+
+
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      })
     </script>
 
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      })
+    </script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
 
-    
-    
-    <!--kill ie6 -->
-<!--[if IE 6]>
-  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
-<![endif]-->
 
+ <script src="/js/is.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/elevator.js"></script>
+  </div>
 </body>
 </html>

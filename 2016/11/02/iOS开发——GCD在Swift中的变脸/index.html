@@ -1,232 +1,102 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-
-    
-
-    <title>
-      iOS开发——GCD在Swift中的变脸 | Leon的博客 
-    </title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    
-      <meta name="author" content="李晓">
-    
-    
-
-    <meta name="description" content="Xcode8正式发布后，Swift3也随即发布，为了跟上苹果这艘大船的脚步，赶紧逼着自己看文档哦。在看文档的过程中，发现GCD的变化跟OC相比简直都要不认识了，赶紧写个文章总结下，顺手复习下GCD中死锁的概念，死锁的总结发布在另一篇文章里了。 取消过去的接口说起 GCD， 大家肯定回想起类似 dispatch_async 这样的语法。 GCD 的这个语法模式无论是和 Objc 还是 Swift 的">
+  <meta charset="utf-8">
+  
+  <title>iOS开发——GCD在Swift中的变脸 | Leon的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Xcode8正式发布后，Swift3也随即发布，为了跟上苹果这艘大船的脚步，赶紧逼着自己看文档哦。在看文档的过程中，发现GCD的变化跟OC相比简直都要不认识了，赶紧写个文章总结下，顺手复习下GCD中死锁的概念，死锁的总结发布在另一篇文章里了。 取消过去的接口说起 GCD， 大家肯定回想起类似 dispatch_async 这样的语法。 GCD 的这个语法模式无论是和 Objc 还是 Swift 的">
 <meta name="keywords" content="iOS开发,Swift,多线程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS开发——GCD在Swift中的变脸 | Leon的博客">
+<meta property="og:title" content="iOS开发——GCD在Swift中的变脸">
 <meta property="og:url" content="http://yoursite.com/2016/11/02/iOS开发——GCD在Swift中的变脸/index.html">
 <meta property="og:site_name" content="Leon的博客">
 <meta property="og:description" content="Xcode8正式发布后，Swift3也随即发布，为了跟上苹果这艘大船的脚步，赶紧逼着自己看文档哦。在看文档的过程中，发现GCD的变化跟OC相比简直都要不认识了，赶紧写个文章总结下，顺手复习下GCD中死锁的概念，死锁的总结发布在另一篇文章里了。 取消过去的接口说起 GCD， 大家肯定回想起类似 dispatch_async 这样的语法。 GCD 的这个语法模式无论是和 Objc 还是 Swift 的">
 <meta property="og:updated_time" content="2016-11-02T00:35:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS开发——GCD在Swift中的变脸 | Leon的博客">
+<meta name="twitter:title" content="iOS开发——GCD在Swift中的变脸">
 <meta name="twitter:description" content="Xcode8正式发布后，Swift3也随即发布，为了跟上苹果这艘大船的脚步，赶紧逼着自己看文档哦。在看文档的过程中，发现GCD的变化跟OC相比简直都要不认识了，赶紧写个文章总结下，顺手复习下GCD中死锁的概念，死锁的总结发布在另一篇文章里了。 取消过去的接口说起 GCD， 大家肯定回想起类似 dispatch_async 这样的语法。 GCD 的这个语法模式无论是和 Objc 还是 Swift 的">
+  
+    <link rel="alternate" href="/atom.xml" title="Leon的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
     
-    
-    
-      <link rel="icon" type="image/x-icon" href="/favicon.png">
-    
-    <link rel="stylesheet" href="/css/uno.css">
-    <link rel="stylesheet" href="/css/highlight.css">
-    <link rel="stylesheet" href="/css/archive.css">
-    <link rel="stylesheet" href="/css/china-social-icon.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
 
 </head>
+
 <body>
-
-    <span class="mobile btn-mobile-menu">
-        <i class="icon icon-list btn-mobile-menu__icon"></i>
-        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
-    </span>
-
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
     
-
-<header class="panel-cover panel-cover--collapsed">
-
-
-  <div class="panel-main">
-
-  
-    <div class="panel-main__inner panel-inverted">
-    <div class="panel-main__content">
-
+    <div id="header-inner" class="inner">
+      <nav id="sub-nav">
         
-
-        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Leon的博客</a></h1>
-        <hr class="panel-cover__divider" />
-
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <p class="panel-cover__description">
-          每多学一点知识，就少写一行代码
-        </p>
-        <hr class="panel-cover__divider panel-cover__divider--secondary" />
-        
-
-        <div class="navigation-wrapper">
-
-          <nav class="cover-navigation cover-navigation--primary">
-            <ul class="navigation">
-
-              
-                
-                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
-              
-                
-                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
-              
-                
-                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
-              
-
-            </ul>
-          </nav>
-
-          <!-- ----------------------------
-To add a new social icon simply duplicate one of the list items from below
-and change the class in the <i> tag to match the desired social network
-and then add your link to the <a>. Here is a full list of social network
-classes that you can use:
-
-    icon-social-500px
-    icon-social-behance
-    icon-social-delicious
-    icon-social-designer-news
-    icon-social-deviant-art
-    icon-social-digg
-    icon-social-dribbble
-    icon-social-facebook
-    icon-social-flickr
-    icon-social-forrst
-    icon-social-foursquare
-    icon-social-github
-    icon-social-google-plus
-    icon-social-hi5
-    icon-social-instagram
-    icon-social-lastfm
-    icon-social-linkedin
-    icon-social-medium
-    icon-social-myspace
-    icon-social-path
-    icon-social-pinterest
-    icon-social-rdio
-    icon-social-reddit
-    icon-social-skype
-    icon-social-spotify
-    icon-social-stack-overflow
-    icon-social-steam
-    icon-social-stumbleupon
-    icon-social-treehouse
-    icon-social-tumblr
-    icon-social-twitter
-    icon-social-vimeo
-    icon-social-xbox
-    icon-social-yelp
-    icon-social-youtube
-    icon-social-zerply
-    icon-mail
-
--------------------------------->
-
-<!-- add social info here -->
-
-
-
-<nav class="cover-navigation navigation--social">
-  <ul class="navigation">
-
-    
-      <!-- Github -->
-      <li class="navigation__item">
-        <a href="https://github.com/originalix" title="Huno on GitHub">
-          <i class='icon icon-social-github'></i>
-          <span class="label">GitHub</span>
-        </a>
-      </li>
-    
-
-    <!-- China social icon -->
-    <!--
-    
-      <li class="navigation__item">
-        <a href="" title="">
-          <i class='icon cs-icon-douban'></i>
-          <span class="label">Douban</span>
-        </a>
-      </li>
-
-      <li class="navigation__item">
-        <a href="" title="">
-          <i class='icon cs-icon-weibo'></i>
-          <span class="label">Weibo</span>
-        </a>
-      </li>
-
-    -->
-
-
-
-  </ul>
-</nav>
-
-
-
-        </div>
-
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
       </div>
-
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      
     </div>
-
-    <div class="panel-cover--overlay"></div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Leon的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">每多学一点知识，就少写一行代码</a>
+        </h2>
+      
+    </div>
   </div>
 </header>
-
-    <div class="content-wrapper">
-        <div class="content-wrapper__inner entry">
-            
-
-<article class="post-container post-container--single">
-
-  <header class="post-header">
-
-    <h1 class="post-title">iOS开发——GCD在Swift中的变脸</h1>
-
+      <div class="outer">
+        <section id="main"><article id="post-iOS开发——GCD在Swift中的变脸" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/11/02/iOS开发——GCD在Swift中的变脸/" class="article-date">
+  <time datetime="2016-11-02T00:34:25.000Z" itemprop="datePublished">2016-11-02</time>
+</a>
     
-
-    <div class="post-meta">
-      <time datetime="2016-11-02" class="post-meta__date date">2016-11-02</time>
-
-      <span class="post-meta__tags tags">
-
-          
-
-          
-             &#8226; 标签:
-            <font class="tags">
-              <a class="tags-link" href="/tags/Swift/">Swift</a>, <a class="tags-link" href="/tags/iOS开发/">iOS开发</a>, <a class="tags-link" href="/tags/多线程/">多线程</a>
-            </font>
-          
-
-      </span>
-
-
-      <span class="post-meta_statistic date" id="busuanzi_container_page_pv">
-        本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-      </span>
-
-    </div>
-
+  </div>
+  <div class="article-inner">
     
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      iOS开发——GCD在Swift中的变脸
+    </h1>
+  
 
-  </header>
-
-  <section id="post-content" class="article-content post">
-    <p>Xcode8正式发布后，Swift3也随即发布，为了跟上苹果这艘大船的脚步，赶紧逼着自己看文档哦。在看文档的过程中，发现GCD的变化跟OC相比简直都要不认识了，赶紧写个文章总结下，顺手复习下GCD中死锁的概念，死锁的总结发布在另一篇文章里了。</p>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>Xcode8正式发布后，Swift3也随即发布，为了跟上苹果这艘大船的脚步，赶紧逼着自己看文档哦。在看文档的过程中，发现GCD的变化跟OC相比简直都要不认识了，赶紧写个文章总结下，顺手复习下GCD中死锁的概念，死锁的总结发布在另一篇文章里了。</p>
 <h1 id="取消过去的接口"><a href="#取消过去的接口" class="headerlink" title="取消过去的接口"></a>取消过去的接口</h1><p>说起 GCD， 大家肯定回想起类似 <code>dispatch_async</code> 这样的语法。 GCD 的这个语法模式无论是和 Objc 还是 Swift 的整体风格都不太搭调。 所以 Swift 3 中对它的语法进行了彻底的改写。</p>
 <a id="more"></a>
 <p>比如最常用的，在一个异步队列中读取数据， 然后再返回主线程更新 UI， 这种操作在新的 Swift 语法中是这样的：</p>
@@ -260,69 +130,232 @@ classes that you can use:
 <p>这样一比， 立竿见影哈。 至少上面新的 GCD 语法， 我大概看了一眼，就能明白它是什么意思了。 而下面这个老的语法，如果不查阅相关文档的话，第一眼恐怕没那么容易看懂了。</p>
 <h1 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h1><p>Swift 3 对 GCD 的语法改进还是很大的。 新的语法结构还是很不错的， 当然大多数朋友应该都习惯了以前的写法，也包括我~ 所以肯定需要一点时间适应。 希望这篇文章能帮你节省查阅文档的时间， 在闲暇时刻了解一些技术点。</p>
 
-  </section>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/11/02/iOS开发——GCD在Swift中的变脸/" data-id="cjlqmguhl001vsxz90wprponz" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Swift/">Swift</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS开发/">iOS开发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/多线程/">多线程</a></li></ul>
 
-  <section class="post-comments">
-
-    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    </footer>
+  </div>
+  
     
-</section>
+ <script src="/jquery/jquery.min.js"></script>
+  <div id="random_posts">
+    <h2>推荐文章</h2>
+    <div class="random_posts_ul">
+      <script>
+          var random_count =4
+          var site = {BASE_URI:'/'};
+          function load_random_posts(obj) {
+              var arr=site.posts;
+              if (!obj) return;
+              // var count = $(obj).attr('data-count') || 6;
+              for (var i, tmp, n = arr.length; n; i = Math.floor(Math.random() * n), tmp = arr[--n], arr[n] = arr[i], arr[i] = tmp);
+              arr = arr.slice(0, random_count);
+              var html = '<ul>';
+            
+              for(var j=0;j<arr.length;j++){
+                var item=arr[j];
+                html += '<li><strong>' + 
+                item.date + ':&nbsp;&nbsp;<a href="' + (site.BASE_URI+item.uri) + '">' + 
+                (item.title || item.uri) + '</a></strong>';
+                if(item.excerpt){
+                  html +='<div class="post-excerpt">'+item.excerpt+'</div>';
+                }
+                html +='</li>';
+                
+              }
+              $(obj).html(html + '</ul>');
+          }
+          $('.random_posts_ul').each(function () {
+              var c = this;
+              if (!site.posts || !site.posts.length){
+                  $.getJSON(site.BASE_URI + 'js/posts.js',function(json){site.posts = json;load_random_posts(c)});
+              } 
+               else{
+                load_random_posts(c);
+              }
+          });
+      </script>
+    </div>
+  </div>
 
+    
+<nav id="article-nav">
+  
+    <a href="/2016/11/25/iOS开发-——-Swift版地址选择器/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          iOS开发 —— Swift版地址选择器
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/11/01/iOS——GCD的死锁案例/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">iOS——GCD的死锁案例</div>
+    </a>
+  
+</nav>
 
+  
 </article>
+ 
+     
+  <div class="comments" id="comments">
+    
+     
+       
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+       
+      
+      
+  </div>
+ 
+  
 
+</section>
+           
+    <aside id="sidebar">
+  
+    
 
-            <footer class="footer">
-    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-    <span class="footer__copyright">
-        &copy; 2014-2018. | 由<a href="https://hexo.io/">Hexo</a>强力驱动
-    </span>
-    <span id="busuanzi_container_site_pv">
-        本站访客数<span id="busuanzi_value_site_pv"></span>人次
-    </span>
-
-</footer>
-        </div>
+  
+    
+    <div class="widget-wrap">
+    
+      <div class="widget" id="toc-widget-fixed">
+      
+        <strong class="toc-title">文章目录</strong>
+        <div class="toc-widget-list">
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#取消过去的接口"><span class="toc-number">1.</span> <span class="toc-text"><a href="#&#x53D6;&#x6D88;&#x8FC7;&#x53BB;&#x7684;&#x63A5;&#x53E3;" class="headerlink" title="&#x53D6;&#x6D88;&#x8FC7;&#x53BB;&#x7684;&#x63A5;&#x53E3;"></a>&#x53D6;&#x6D88;&#x8FC7;&#x53BB;&#x7684;&#x63A5;&#x53E3;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DispatchQueue"><span class="toc-number">2.</span> <span class="toc-text"><a href="#DispatchQueue" class="headerlink" title="DispatchQueue"></a>DispatchQueue</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#main-thread"><span class="toc-number">3.</span> <span class="toc-text"><a href="#main-thread" class="headerlink" title="main thread"></a>main thread</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#优先级"><span class="toc-number">4.</span> <span class="toc-text"><a href="#&#x4F18;&#x5148;&#x7EA7;" class="headerlink" title="&#x4F18;&#x5148;&#x7EA7;"></a>&#x4F18;&#x5148;&#x7EA7;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#获取一个队列"><span class="toc-number">5.</span> <span class="toc-text"><a href="#&#x83B7;&#x53D6;&#x4E00;&#x4E2A;&#x961F;&#x5217;" class="headerlink" title="&#x83B7;&#x53D6;&#x4E00;&#x4E2A;&#x961F;&#x5217;"></a>&#x83B7;&#x53D6;&#x4E00;&#x4E2A;&#x961F;&#x5217;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#创建一个队列"><span class="toc-number">6.</span> <span class="toc-text"><a href="#&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x961F;&#x5217;" class="headerlink" title="&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x961F;&#x5217;"></a>&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x961F;&#x5217;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#组队列"><span class="toc-number">7.</span> <span class="toc-text"><a href="#&#x7EC4;&#x961F;&#x5217;" class="headerlink" title="&#x7EC4;&#x961F;&#x5217;"></a>&#x7EC4;&#x961F;&#x5217;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#dispatch-time-t"><span class="toc-number">8.</span> <span class="toc-text"><a href="#dispatch-time-t" class="headerlink" title="dispatch_time_t"></a>dispatch_time_t</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#结尾"><span class="toc-number">9.</span> <span class="toc-text"><a href="#&#x7ED3;&#x5C3E;" class="headerlink" title="&#x7ED3;&#x5C3E;"></a>&#x7ED3;&#x5C3E;</span></a></li></ol>
+          </div>
+      </div>
     </div>
 
-    <!-- js files -->
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/main.js"></script>
-    <script src="/js/scale.fix.js"></script>
+  
     
 
+  
+    
+  
+    
+  
     
 
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript"> 
-        $(document).ready(function(){
-            MathJax.Hub.Config({ 
-                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
-            });
-        });
-    </script>
-
-
+  
     
+  
+    <!--微信公众号二维码-->
 
-    <script src="/js/awesome-toc.min.js"></script>
+
+  
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-left">
+      &copy; 2014 - 2018 李晓&nbsp;|&nbsp;
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+    </div>
+     <div id="footer-right">
+      联系方式&nbsp;|&nbsp;xiao.liunit@gmail.com
+    </div>
+  </div>
+</footer>
+ <script src="/jquery/jquery.min.js"></script>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    <img class="back-to-top-btn" src="/images/fly-to-top.png"/>
+<script>
+// Elevator script included on the page, already.
+window.onload = function() {
+  var elevator = new Elevator({
+    selector:'.back-to-top-btn',
+    element: document.querySelector('.back-to-top-btn'),
+    duration: 1000 // milliseconds
+  });
+}
+</script>
+      
+
+  
     <script>
-        $(document).ready(function(){
-            $.awesome_toc({
-                overlay: true,
-                contentId: "post-content",
-            });
-        });
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "e2fb4051c49842688ce669e634bc983f",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+    
+
+  
+
+
+
+
+
+
+
+<!-- author:forvoid begin -->
+<!-- author:forvoid begin -->
+
+<!-- author:forvoid end -->
+
+<!-- author:forvoid end -->
+
+
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      })
     </script>
 
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      })
+    </script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
 
-    
-    
-    <!--kill ie6 -->
-<!--[if IE 6]>
-  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
-<![endif]-->
 
+ <script src="/js/is.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/elevator.js"></script>
+  </div>
 </body>
 </html>

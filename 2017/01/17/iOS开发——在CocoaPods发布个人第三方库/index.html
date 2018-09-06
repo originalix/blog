@@ -1,232 +1,102 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-
-    
-
-    <title>
-      iOS开发——在CocoaPods发布个人第三方库 | Leon的博客 
-    </title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    
-      <meta name="author" content="李晓">
-    
-    
-
-    <meta name="description" content="在进行日常的 iOS 开发的时候，我们肯定会用到各种第三方库，每次使用一个库的时候，各种依赖配置总是让人很头痛。幸好我们有了 CocoaPods，CocoaPods 为我们节省了大量集成第三方库的时间。在我们便捷地使用他人制作的 Pod 的时候，一定也希望能够将自己的代码制作成 Pod 供别人使用，来为开源社区做一点贡献。接下来，我们就来尝试制作一个属于自己的 Pod 库，并发布供他人使用。">
+  <meta charset="utf-8">
+  
+  <title>iOS开发——在CocoaPods发布个人第三方库 | Leon的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在进行日常的 iOS 开发的时候，我们肯定会用到各种第三方库，每次使用一个库的时候，各种依赖配置总是让人很头痛。幸好我们有了 CocoaPods，CocoaPods 为我们节省了大量集成第三方库的时间。在我们便捷地使用他人制作的 Pod 的时候，一定也希望能够将自己的代码制作成 Pod 供别人使用，来为开源社区做一点贡献。接下来，我们就来尝试制作一个属于自己的 Pod 库，并发布供他人使用。">
 <meta name="keywords" content="iOS开发,CocoaPods">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS开发——在CocoaPods发布个人第三方库 | Leon的博客">
+<meta property="og:title" content="iOS开发——在CocoaPods发布个人第三方库">
 <meta property="og:url" content="http://yoursite.com/2017/01/17/iOS开发——在CocoaPods发布个人第三方库/index.html">
 <meta property="og:site_name" content="Leon的博客">
 <meta property="og:description" content="在进行日常的 iOS 开发的时候，我们肯定会用到各种第三方库，每次使用一个库的时候，各种依赖配置总是让人很头痛。幸好我们有了 CocoaPods，CocoaPods 为我们节省了大量集成第三方库的时间。在我们便捷地使用他人制作的 Pod 的时候，一定也希望能够将自己的代码制作成 Pod 供别人使用，来为开源社区做一点贡献。接下来，我们就来尝试制作一个属于自己的 Pod 库，并发布供他人使用。">
 <meta property="og:updated_time" content="2017-01-17T09:17:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS开发——在CocoaPods发布个人第三方库 | Leon的博客">
+<meta name="twitter:title" content="iOS开发——在CocoaPods发布个人第三方库">
 <meta name="twitter:description" content="在进行日常的 iOS 开发的时候，我们肯定会用到各种第三方库，每次使用一个库的时候，各种依赖配置总是让人很头痛。幸好我们有了 CocoaPods，CocoaPods 为我们节省了大量集成第三方库的时间。在我们便捷地使用他人制作的 Pod 的时候，一定也希望能够将自己的代码制作成 Pod 供别人使用，来为开源社区做一点贡献。接下来，我们就来尝试制作一个属于自己的 Pod 库，并发布供他人使用。">
+  
+    <link rel="alternate" href="/atom.xml" title="Leon的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
     
-    
-    
-      <link rel="icon" type="image/x-icon" href="/favicon.png">
-    
-    <link rel="stylesheet" href="/css/uno.css">
-    <link rel="stylesheet" href="/css/highlight.css">
-    <link rel="stylesheet" href="/css/archive.css">
-    <link rel="stylesheet" href="/css/china-social-icon.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
 
 </head>
+
 <body>
-
-    <span class="mobile btn-mobile-menu">
-        <i class="icon icon-list btn-mobile-menu__icon"></i>
-        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
-    </span>
-
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
     
-
-<header class="panel-cover panel-cover--collapsed">
-
-
-  <div class="panel-main">
-
-  
-    <div class="panel-main__inner panel-inverted">
-    <div class="panel-main__content">
-
+    <div id="header-inner" class="inner">
+      <nav id="sub-nav">
         
-
-        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Leon的博客</a></h1>
-        <hr class="panel-cover__divider" />
-
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <p class="panel-cover__description">
-          每多学一点知识，就少写一行代码
-        </p>
-        <hr class="panel-cover__divider panel-cover__divider--secondary" />
-        
-
-        <div class="navigation-wrapper">
-
-          <nav class="cover-navigation cover-navigation--primary">
-            <ul class="navigation">
-
-              
-                
-                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
-              
-                
-                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
-              
-                
-                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
-              
-
-            </ul>
-          </nav>
-
-          <!-- ----------------------------
-To add a new social icon simply duplicate one of the list items from below
-and change the class in the <i> tag to match the desired social network
-and then add your link to the <a>. Here is a full list of social network
-classes that you can use:
-
-    icon-social-500px
-    icon-social-behance
-    icon-social-delicious
-    icon-social-designer-news
-    icon-social-deviant-art
-    icon-social-digg
-    icon-social-dribbble
-    icon-social-facebook
-    icon-social-flickr
-    icon-social-forrst
-    icon-social-foursquare
-    icon-social-github
-    icon-social-google-plus
-    icon-social-hi5
-    icon-social-instagram
-    icon-social-lastfm
-    icon-social-linkedin
-    icon-social-medium
-    icon-social-myspace
-    icon-social-path
-    icon-social-pinterest
-    icon-social-rdio
-    icon-social-reddit
-    icon-social-skype
-    icon-social-spotify
-    icon-social-stack-overflow
-    icon-social-steam
-    icon-social-stumbleupon
-    icon-social-treehouse
-    icon-social-tumblr
-    icon-social-twitter
-    icon-social-vimeo
-    icon-social-xbox
-    icon-social-yelp
-    icon-social-youtube
-    icon-social-zerply
-    icon-mail
-
--------------------------------->
-
-<!-- add social info here -->
-
-
-
-<nav class="cover-navigation navigation--social">
-  <ul class="navigation">
-
-    
-      <!-- Github -->
-      <li class="navigation__item">
-        <a href="https://github.com/originalix" title="Huno on GitHub">
-          <i class='icon icon-social-github'></i>
-          <span class="label">GitHub</span>
-        </a>
-      </li>
-    
-
-    <!-- China social icon -->
-    <!--
-    
-      <li class="navigation__item">
-        <a href="" title="">
-          <i class='icon cs-icon-douban'></i>
-          <span class="label">Douban</span>
-        </a>
-      </li>
-
-      <li class="navigation__item">
-        <a href="" title="">
-          <i class='icon cs-icon-weibo'></i>
-          <span class="label">Weibo</span>
-        </a>
-      </li>
-
-    -->
-
-
-
-  </ul>
-</nav>
-
-
-
-        </div>
-
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
       </div>
-
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      
     </div>
-
-    <div class="panel-cover--overlay"></div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Leon的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">每多学一点知识，就少写一行代码</a>
+        </h2>
+      
+    </div>
   </div>
 </header>
-
-    <div class="content-wrapper">
-        <div class="content-wrapper__inner entry">
-            
-
-<article class="post-container post-container--single">
-
-  <header class="post-header">
-
-    <h1 class="post-title">iOS开发——在CocoaPods发布个人第三方库</h1>
-
+      <div class="outer">
+        <section id="main"><article id="post-iOS开发——在CocoaPods发布个人第三方库" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/01/17/iOS开发——在CocoaPods发布个人第三方库/" class="article-date">
+  <time datetime="2017-01-17T09:14:24.000Z" itemprop="datePublished">2017-01-17</time>
+</a>
     
-
-    <div class="post-meta">
-      <time datetime="2017-01-17" class="post-meta__date date">2017-01-17</time>
-
-      <span class="post-meta__tags tags">
-
-          
-
-          
-             &#8226; 标签:
-            <font class="tags">
-              <a class="tags-link" href="/tags/CocoaPods/">CocoaPods</a>, <a class="tags-link" href="/tags/iOS开发/">iOS开发</a>
-            </font>
-          
-
-      </span>
-
-
-      <span class="post-meta_statistic date" id="busuanzi_container_page_pv">
-        本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-      </span>
-
-    </div>
-
+  </div>
+  <div class="article-inner">
     
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      iOS开发——在CocoaPods发布个人第三方库
+    </h1>
+  
 
-  </header>
-
-  <section id="post-content" class="article-content post">
-    <blockquote>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <blockquote>
 <p>在进行日常的 iOS 开发的时候，我们肯定会用到各种第三方库，每次使用一个库的时候，各种依赖配置总是让人很头痛。幸好我们有了 CocoaPods，CocoaPods 为我们节省了大量集成第三方库的时间。在我们便捷地使用他人制作的 Pod 的时候，一定也希望能够将自己的代码制作成 Pod 供别人使用，来为开源社区做一点贡献。接下来，我们就来尝试制作一个属于自己的 Pod 库，并发布供他人使用。</p>
 </blockquote>
 <p>备注：假设你已经拥有了一个完善的用于制作 Pod 的 iOS 工程。</p>
@@ -276,69 +146,232 @@ classes that you can use:
 <p>如果你出现报错，请根据提示寻找错误的原因。</p>
 <p>之后你可以运行 <code>pod setup</code> 来更新你的 Pod 依赖库后，再使用 <code>pod search LixFoundation</code> 命令来查找刚刚加入的名字叫 <code>LixFoundation</code> 的 <code>Pod</code>。</p>
 
-  </section>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/01/17/iOS开发——在CocoaPods发布个人第三方库/" data-id="cjlqmguht002asxz9b2fqr3oo" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CocoaPods/">CocoaPods</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS开发/">iOS开发</a></li></ul>
 
-  <section class="post-comments">
-
-    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    </footer>
+  </div>
+  
     
-</section>
+ <script src="/jquery/jquery.min.js"></script>
+  <div id="random_posts">
+    <h2>推荐文章</h2>
+    <div class="random_posts_ul">
+      <script>
+          var random_count =4
+          var site = {BASE_URI:'/'};
+          function load_random_posts(obj) {
+              var arr=site.posts;
+              if (!obj) return;
+              // var count = $(obj).attr('data-count') || 6;
+              for (var i, tmp, n = arr.length; n; i = Math.floor(Math.random() * n), tmp = arr[--n], arr[n] = arr[i], arr[i] = tmp);
+              arr = arr.slice(0, random_count);
+              var html = '<ul>';
+            
+              for(var j=0;j<arr.length;j++){
+                var item=arr[j];
+                html += '<li><strong>' + 
+                item.date + ':&nbsp;&nbsp;<a href="' + (site.BASE_URI+item.uri) + '">' + 
+                (item.title || item.uri) + '</a></strong>';
+                if(item.excerpt){
+                  html +='<div class="post-excerpt">'+item.excerpt+'</div>';
+                }
+                html +='</li>';
+                
+              }
+              $(obj).html(html + '</ul>');
+          }
+          $('.random_posts_ul').each(function () {
+              var c = this;
+              if (!site.posts || !site.posts.length){
+                  $.getJSON(site.BASE_URI + 'js/posts.js',function(json){site.posts = json;load_random_posts(c)});
+              } 
+               else{
+                load_random_posts(c);
+              }
+          });
+      </script>
+    </div>
+  </div>
 
+    
+<nav id="article-nav">
+  
+    <a href="/2017/01/24/iOS开发——推送跳转到指定页面/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          iOS开发——推送跳转到指定页面
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/01/11/iOS漫谈——对于项目架构的思考/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">iOS漫谈——对于项目架构的思考</div>
+    </a>
+  
+</nav>
 
+  
 </article>
+ 
+     
+  <div class="comments" id="comments">
+    
+     
+       
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+       
+      
+      
+  </div>
+ 
+  
 
+</section>
+           
+    <aside id="sidebar">
+  
+    
 
-            <footer class="footer">
-    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-    <span class="footer__copyright">
-        &copy; 2014-2018. | 由<a href="https://hexo.io/">Hexo</a>强力驱动
-    </span>
-    <span id="busuanzi_container_site_pv">
-        本站访客数<span id="busuanzi_value_site_pv"></span>人次
-    </span>
-
-</footer>
-        </div>
+  
+    
+    <div class="widget-wrap">
+    
+      <div class="widget" id="toc-widget-fixed">
+      
+        <strong class="toc-title">文章目录</strong>
+        <div class="toc-widget-list">
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#创建-Pod-库依赖的文件"><span class="toc-number">1.</span> <span class="toc-text"><a href="#&#x521B;&#x5EFA;-Pod-&#x5E93;&#x4F9D;&#x8D56;&#x7684;&#x6587;&#x4EF6;" class="headerlink" title="&#x521B;&#x5EFA; Pod &#x5E93;&#x4F9D;&#x8D56;&#x7684;&#x6587;&#x4EF6;"></a>&#x521B;&#x5EFA; Pod &#x5E93;&#x4F9D;&#x8D56;&#x7684;&#x6587;&#x4EF6;</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-podspec-文件"><span class="toc-number">1.1.</span> <span class="toc-text"><a href="#1-podspec-&#x6587;&#x4EF6;" class="headerlink" title="1. podspec &#x6587;&#x4EF6;"></a>1. podspec &#x6587;&#x4EF6;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建-podspec-文件"><span class="toc-number">1.2.</span> <span class="toc-text"><a href="#&#x521B;&#x5EFA;-podspec-&#x6587;&#x4EF6;" class="headerlink" title="&#x521B;&#x5EFA; podspec &#x6587;&#x4EF6;"></a>&#x521B;&#x5EFA; podspec &#x6587;&#x4EF6;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他应该具备的文件"><span class="toc-number">1.3.</span> <span class="toc-text"><a href="#&#x5176;&#x4ED6;&#x5E94;&#x8BE5;&#x5177;&#x5907;&#x7684;&#x6587;&#x4EF6;" class="headerlink" title="&#x5176;&#x4ED6;&#x5E94;&#x8BE5;&#x5177;&#x5907;&#x7684;&#x6587;&#x4EF6;"></a>&#x5176;&#x4ED6;&#x5E94;&#x8BE5;&#x5177;&#x5907;&#x7684;&#x6587;&#x4EF6;</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-license-文件"><span class="toc-number">1.3.1.</span> <span class="toc-text"><a href="#1-license-&#x6587;&#x4EF6;" class="headerlink" title="1. license &#x6587;&#x4EF6;"></a>1. license &#x6587;&#x4EF6;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-主文件"><span class="toc-number">1.3.2.</span> <span class="toc-text"><a href="#2-&#x4E3B;&#x6587;&#x4EF6;" class="headerlink" title="2. &#x4E3B;&#x6587;&#x4EF6;"></a>2. &#x4E3B;&#x6587;&#x4EF6;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Demo-工程"><span class="toc-number">1.3.3.</span> <span class="toc-text"><a href="#3-Demo-&#x5DE5;&#x7A0B;" class="headerlink" title="3. Demo &#x5DE5;&#x7A0B;"></a>3. Demo &#x5DE5;&#x7A0B;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-README-文件"><span class="toc-number">1.3.4.</span> <span class="toc-text"><a href="#4-README-&#x6587;&#x4EF6;" class="headerlink" title="4. README &#x6587;&#x4EF6;"></a>4. README &#x6587;&#x4EF6;</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提交修改的文件"><span class="toc-number">1.4.</span> <span class="toc-text"><a href="#&#x63D0;&#x4EA4;&#x4FEE;&#x6539;&#x7684;&#x6587;&#x4EF6;" class="headerlink" title="&#x63D0;&#x4EA4;&#x4FEE;&#x6539;&#x7684;&#x6587;&#x4EF6;`"></a>&#x63D0;&#x4EA4;&#x4FEE;&#x6539;&#x7684;&#x6587;&#x4EF6;`</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-提交修改到-Github"><span class="toc-number">1.4.1.</span> <span class="toc-text"><a href="#1-&#x63D0;&#x4EA4;&#x4FEE;&#x6539;&#x5230;-Github" class="headerlink" title="1. &#x63D0;&#x4EA4;&#x4FEE;&#x6539;&#x5230; Github"></a>1. &#x63D0;&#x4EA4;&#x4FEE;&#x6539;&#x5230; Github</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-pod-验证"><span class="toc-number">1.4.2.</span> <span class="toc-text"><a href="#2-pod-&#x9A8C;&#x8BC1;" class="headerlink" title="2. pod &#x9A8C;&#x8BC1;"></a>2. pod &#x9A8C;&#x8BC1;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-注册-Trunk"><span class="toc-number">1.4.3.</span> <span class="toc-text"><a href="#1-&#x6CE8;&#x518C;-Trunk" class="headerlink" title="1. &#x6CE8;&#x518C; Trunk"></a>1. &#x6CE8;&#x518C; Trunk</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-部署你的Pod"><span class="toc-number">1.4.4.</span> <span class="toc-text"><a href="#2-&#x90E8;&#x7F72;&#x4F60;&#x7684;Pod" class="headerlink" title="2. &#x90E8;&#x7F72;&#x4F60;&#x7684;Pod"></a>2. &#x90E8;&#x7F72;&#x4F60;&#x7684;Pod</span></a></li></ol></li></ol></li></ol>
+          </div>
+      </div>
     </div>
 
-    <!-- js files -->
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/main.js"></script>
-    <script src="/js/scale.fix.js"></script>
+  
     
 
+  
+    
+  
+    
+  
     
 
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript"> 
-        $(document).ready(function(){
-            MathJax.Hub.Config({ 
-                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
-            });
-        });
-    </script>
-
-
+  
     
+  
+    <!--微信公众号二维码-->
 
-    <script src="/js/awesome-toc.min.js"></script>
+
+  
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-left">
+      &copy; 2014 - 2018 李晓&nbsp;|&nbsp;
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+    </div>
+     <div id="footer-right">
+      联系方式&nbsp;|&nbsp;xiao.liunit@gmail.com
+    </div>
+  </div>
+</footer>
+ <script src="/jquery/jquery.min.js"></script>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    <img class="back-to-top-btn" src="/images/fly-to-top.png"/>
+<script>
+// Elevator script included on the page, already.
+window.onload = function() {
+  var elevator = new Elevator({
+    selector:'.back-to-top-btn',
+    element: document.querySelector('.back-to-top-btn'),
+    duration: 1000 // milliseconds
+  });
+}
+</script>
+      
+
+  
     <script>
-        $(document).ready(function(){
-            $.awesome_toc({
-                overlay: true,
-                contentId: "post-content",
-            });
-        });
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "e2fb4051c49842688ce669e634bc983f",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+    
+
+  
+
+
+
+
+
+
+
+<!-- author:forvoid begin -->
+<!-- author:forvoid begin -->
+
+<!-- author:forvoid end -->
+
+<!-- author:forvoid end -->
+
+
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      })
     </script>
 
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      })
+    </script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
 
-    
-    
-    <!--kill ie6 -->
-<!--[if IE 6]>
-  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
-<![endif]-->
 
+ <script src="/js/is.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/elevator.js"></script>
+  </div>
 </body>
 </html>

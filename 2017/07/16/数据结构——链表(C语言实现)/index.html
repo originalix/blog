@@ -1,232 +1,102 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-
-    
-
-    <title>
-      数据结构——链表(C语言实现) | Leon的博客 
-    </title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    
-      <meta name="author" content="李晓">
-    
-    
-
-    <meta name="description" content="提起链表，我们每个人都不会陌生，不管对数据结构的掌握如何，都或多或少的听过与用过链表这样的常见的数据结构。链表是线性表的一种，最基础的线性表，在插入与删除数据时，我们需要对表的整体或部分做移动，为了允许表可以不按照线性的顺序存储数据结构，于是链表就应运而生。链表最大的特点就是在每个节点里存储了到下一个节点的指针。由于不必按照顺序存储，链表在插入的时候可以达到O(1)的复杂度，比我们学习的最基本的线">
+  <meta charset="utf-8">
+  
+  <title>数据结构——链表(C语言实现) | Leon的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="提起链表，我们每个人都不会陌生，不管对数据结构的掌握如何，都或多或少的听过与用过链表这样的常见的数据结构。链表是线性表的一种，最基础的线性表，在插入与删除数据时，我们需要对表的整体或部分做移动，为了允许表可以不按照线性的顺序存储数据结构，于是链表就应运而生。链表最大的特点就是在每个节点里存储了到下一个节点的指针。由于不必按照顺序存储，链表在插入的时候可以达到O(1)的复杂度，比我们学习的最基本的线">
 <meta name="keywords" content="链表,数据结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据结构——链表(C语言实现) | Leon的博客">
+<meta property="og:title" content="数据结构——链表(C语言实现)">
 <meta property="og:url" content="http://yoursite.com/2017/07/16/数据结构——链表(C语言实现)/index.html">
 <meta property="og:site_name" content="Leon的博客">
 <meta property="og:description" content="提起链表，我们每个人都不会陌生，不管对数据结构的掌握如何，都或多或少的听过与用过链表这样的常见的数据结构。链表是线性表的一种，最基础的线性表，在插入与删除数据时，我们需要对表的整体或部分做移动，为了允许表可以不按照线性的顺序存储数据结构，于是链表就应运而生。链表最大的特点就是在每个节点里存储了到下一个节点的指针。由于不必按照顺序存储，链表在插入的时候可以达到O(1)的复杂度，比我们学习的最基本的线">
 <meta property="og:updated_time" content="2017-07-16T13:33:37.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据结构——链表(C语言实现) | Leon的博客">
+<meta name="twitter:title" content="数据结构——链表(C语言实现)">
 <meta name="twitter:description" content="提起链表，我们每个人都不会陌生，不管对数据结构的掌握如何，都或多或少的听过与用过链表这样的常见的数据结构。链表是线性表的一种，最基础的线性表，在插入与删除数据时，我们需要对表的整体或部分做移动，为了允许表可以不按照线性的顺序存储数据结构，于是链表就应运而生。链表最大的特点就是在每个节点里存储了到下一个节点的指针。由于不必按照顺序存储，链表在插入的时候可以达到O(1)的复杂度，比我们学习的最基本的线">
+  
+    <link rel="alternate" href="/atom.xml" title="Leon的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
     
-    
-    
-      <link rel="icon" type="image/x-icon" href="/favicon.png">
-    
-    <link rel="stylesheet" href="/css/uno.css">
-    <link rel="stylesheet" href="/css/highlight.css">
-    <link rel="stylesheet" href="/css/archive.css">
-    <link rel="stylesheet" href="/css/china-social-icon.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
 
 </head>
+
 <body>
-
-    <span class="mobile btn-mobile-menu">
-        <i class="icon icon-list btn-mobile-menu__icon"></i>
-        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
-    </span>
-
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
     
-
-<header class="panel-cover panel-cover--collapsed">
-
-
-  <div class="panel-main">
-
-  
-    <div class="panel-main__inner panel-inverted">
-    <div class="panel-main__content">
-
+    <div id="header-inner" class="inner">
+      <nav id="sub-nav">
         
-
-        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Leon的博客</a></h1>
-        <hr class="panel-cover__divider" />
-
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <p class="panel-cover__description">
-          每多学一点知识，就少写一行代码
-        </p>
-        <hr class="panel-cover__divider panel-cover__divider--secondary" />
-        
-
-        <div class="navigation-wrapper">
-
-          <nav class="cover-navigation cover-navigation--primary">
-            <ul class="navigation">
-
-              
-                
-                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
-              
-                
-                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
-              
-                
-                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
-              
-
-            </ul>
-          </nav>
-
-          <!-- ----------------------------
-To add a new social icon simply duplicate one of the list items from below
-and change the class in the <i> tag to match the desired social network
-and then add your link to the <a>. Here is a full list of social network
-classes that you can use:
-
-    icon-social-500px
-    icon-social-behance
-    icon-social-delicious
-    icon-social-designer-news
-    icon-social-deviant-art
-    icon-social-digg
-    icon-social-dribbble
-    icon-social-facebook
-    icon-social-flickr
-    icon-social-forrst
-    icon-social-foursquare
-    icon-social-github
-    icon-social-google-plus
-    icon-social-hi5
-    icon-social-instagram
-    icon-social-lastfm
-    icon-social-linkedin
-    icon-social-medium
-    icon-social-myspace
-    icon-social-path
-    icon-social-pinterest
-    icon-social-rdio
-    icon-social-reddit
-    icon-social-skype
-    icon-social-spotify
-    icon-social-stack-overflow
-    icon-social-steam
-    icon-social-stumbleupon
-    icon-social-treehouse
-    icon-social-tumblr
-    icon-social-twitter
-    icon-social-vimeo
-    icon-social-xbox
-    icon-social-yelp
-    icon-social-youtube
-    icon-social-zerply
-    icon-mail
-
--------------------------------->
-
-<!-- add social info here -->
-
-
-
-<nav class="cover-navigation navigation--social">
-  <ul class="navigation">
-
-    
-      <!-- Github -->
-      <li class="navigation__item">
-        <a href="https://github.com/originalix" title="Huno on GitHub">
-          <i class='icon icon-social-github'></i>
-          <span class="label">GitHub</span>
-        </a>
-      </li>
-    
-
-    <!-- China social icon -->
-    <!--
-    
-      <li class="navigation__item">
-        <a href="" title="">
-          <i class='icon cs-icon-douban'></i>
-          <span class="label">Douban</span>
-        </a>
-      </li>
-
-      <li class="navigation__item">
-        <a href="" title="">
-          <i class='icon cs-icon-weibo'></i>
-          <span class="label">Weibo</span>
-        </a>
-      </li>
-
-    -->
-
-
-
-  </ul>
-</nav>
-
-
-
-        </div>
-
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
       </div>
-
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      
     </div>
-
-    <div class="panel-cover--overlay"></div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Leon的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">每多学一点知识，就少写一行代码</a>
+        </h2>
+      
+    </div>
   </div>
 </header>
-
-    <div class="content-wrapper">
-        <div class="content-wrapper__inner entry">
-            
-
-<article class="post-container post-container--single">
-
-  <header class="post-header">
-
-    <h1 class="post-title">数据结构——链表(C语言实现)</h1>
-
+      <div class="outer">
+        <section id="main"><article id="post-数据结构——链表(C语言实现)" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/16/数据结构——链表(C语言实现)/" class="article-date">
+  <time datetime="2017-07-16T13:25:01.000Z" itemprop="datePublished">2017-07-16</time>
+</a>
     
-
-    <div class="post-meta">
-      <time datetime="2017-07-16" class="post-meta__date date">2017-07-16</time>
-
-      <span class="post-meta__tags tags">
-
-          
-
-          
-             &#8226; 标签:
-            <font class="tags">
-              <a class="tags-link" href="/tags/数据结构/">数据结构</a>, <a class="tags-link" href="/tags/链表/">链表</a>
-            </font>
-          
-
-      </span>
-
-
-      <span class="post-meta_statistic date" id="busuanzi_container_page_pv">
-        本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-      </span>
-
-    </div>
-
+  </div>
+  <div class="article-inner">
     
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据结构——链表(C语言实现)
+    </h1>
+  
 
-  </header>
-
-  <section id="post-content" class="article-content post">
-    <p>提起链表，我们每个人都不会陌生，不管对数据结构的掌握如何，都或多或少的听过与用过链表这样的常见的数据结构。链表是线性表的一种，最基础的线性表，在插入与删除数据时，我们需要对表的整体或部分做移动，为了允许表可以不按照线性的顺序存储数据结构，于是链表就应运而生。链表最大的特点就是在每个节点里存储了到下一个节点的指针。由于不必按照顺序存储，链表在插入的时候可以达到O(1)的复杂度，比我们学习的最基本的线性表要快得多。但是在查找一个节点，或者访问特定编号的结点则需要O(N)的时间。</p>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>提起链表，我们每个人都不会陌生，不管对数据结构的掌握如何，都或多或少的听过与用过链表这样的常见的数据结构。链表是线性表的一种，最基础的线性表，在插入与删除数据时，我们需要对表的整体或部分做移动，为了允许表可以不按照线性的顺序存储数据结构，于是链表就应运而生。链表最大的特点就是在每个节点里存储了到下一个节点的指针。由于不必按照顺序存储，链表在插入的时候可以达到O(1)的复杂度，比我们学习的最基本的线性表要快得多。但是在查找一个节点，或者访问特定编号的结点则需要O(N)的时间。</p>
 <p>使用链表结构可以克服数组链表需要预先知道数据大小的缺点，链表结构可以充分利用计算机内存空间，实现灵活的内存动态管理。但是链表失去了数组随机读取的有点，同时由于增加了指针域，空间开销较大。不过这在算法与数据结构领域是很常见的，用空间换时间，毕竟鱼和熊掌不可兼得。</p>
 <p>我的链表数据结构是使用C语言来实现的，那么下面来看一下链表的头文件定义了哪些操作。</p>
 <a id="more"></a>
@@ -234,69 +104,250 @@ classes that you can use:
 <p>下面是对于头结点的实现文件，末尾的<code>main</code>函数中还有针对各类函数的测试方法。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"List.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OK 1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ERROR 0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TRUE 1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FALSE 0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> Status;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ElementType Element;</span><br><span class="line">    Position Next;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init_list</span><span class="params">(List L)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    L = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"初始化链表成功\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">List <span class="title">create_list</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    List L = <span class="literal">NULL</span>;</span><br><span class="line">    List p1, p2;</span><br><span class="line">    p1 = (List)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct Node));</span><br><span class="line">    p2 = (List)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct Node));</span><br><span class="line">    <span class="keyword">if</span> (p1 == <span class="literal">NULL</span> || p2 == <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"内存分配失败!\n"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">        system(<span class="string">"pause"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">memset</span>(p1, <span class="number">0</span>, <span class="keyword">sizeof</span>(struct Node));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"请输入链表元素的值: \n"</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;(p1-&gt;Element));</span><br><span class="line">    p1-&gt;Next = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">while</span>(p1-&gt;Element &gt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (L == <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            L = p1;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            p2-&gt;Next = p1;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        p2 = p1;</span><br><span class="line"></span><br><span class="line">        p1 = (List)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct Node));</span><br><span class="line">        <span class="keyword">if</span> (p1 == <span class="literal">NULL</span> || p2 == <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"内存分配失败\n"</span>);</span><br><span class="line">            <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">            system(<span class="string">"pause"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">memset</span>(p1, <span class="number">0</span>, <span class="keyword">sizeof</span>(struct Node));</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"请输入链表的值: \n"</span>);</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;(p1-&gt;Element));</span><br><span class="line">        p1-&gt;Next = <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"创建链表成功\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> L;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_list</span><span class="params">(List L)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    List p = L;</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">NULL</span> == p)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"print_list: 链表为空!\n"</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"打印链表如下: \n"</span>);</span><br><span class="line">    <span class="keyword">while</span>(p != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d, \n"</span>, p-&gt;Element);</span><br><span class="line">        p = p-&gt;Next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Status <span class="title">IsEmpty</span><span class="params">(List L)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (L == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> TRUE;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Status <span class="title">IsLast</span><span class="params">(Position P, List L)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> P-&gt;Next == <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Position <span class="title">Find</span><span class="params">(ElementType X, List L)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Position P;</span><br><span class="line">    P = L-&gt;Next;</span><br><span class="line">    <span class="keyword">while</span>(P != <span class="literal">NULL</span> &amp;&amp; P-&gt;Element != X)</span><br><span class="line">    &#123;</span><br><span class="line">        P = P-&gt;Next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> P;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Delete</span><span class="params">(ElementType X, List L)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Position P, TmpCell;</span><br><span class="line"></span><br><span class="line">    P = FindPrevious(X, L);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!IsLast(P, L))</span><br><span class="line">        TmpCell = P-&gt;Next;</span><br><span class="line">        P-&gt;Next = TmpCell-&gt;Next;</span><br><span class="line">        <span class="built_in">free</span>(TmpCell);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Position <span class="title">FindPrevious</span><span class="params">(ElementType X, List L)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Position P;</span><br><span class="line"></span><br><span class="line">    P = L;</span><br><span class="line">    <span class="keyword">while</span>(P-&gt;Next != <span class="literal">NULL</span> &amp;&amp; P-&gt;Next-&gt;Element != X)</span><br><span class="line">    &#123;</span><br><span class="line">        P = P-&gt;Next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> P;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Insert</span><span class="params">(ElementType X, List L, Position P)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Position TmpCell;</span><br><span class="line"></span><br><span class="line">    TmpCell = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct Node));</span><br><span class="line">    <span class="keyword">if</span> (TmpCell == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Out of space!!!\n"</span>);</span><br><span class="line">    TmpCell-&gt;Element = X;</span><br><span class="line">    TmpCell-&gt;Next = P-&gt;Next;</span><br><span class="line">    P-&gt;Next = TmpCell;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DeleteList</span><span class="params">(List L)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Position P, Tmp;</span><br><span class="line"></span><br><span class="line">    P = L-&gt;Next;</span><br><span class="line">    L-&gt;Next = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(P != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        Tmp = P-&gt;Next;</span><br><span class="line">        <span class="built_in">free</span>(P);</span><br><span class="line">        P = Tmp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    List L;</span><br><span class="line">    init_list(L);</span><br><span class="line">    L = create_list();</span><br><span class="line">    print_list(L);</span><br><span class="line">    <span class="keyword">int</span> isEmpty = IsEmpty(L);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"链表是否为空: %d\n"</span>, isEmpty);</span><br><span class="line">    Position p = Find(<span class="number">21</span>, L);</span><br><span class="line">    <span class="keyword">if</span> (p == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"没有找到21元素\n"</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"查找21结果: %d\n"</span>, p-&gt;Element);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        Insert(i, L, p);</span><br><span class="line">    &#125;</span><br><span class="line">    Delete(<span class="number">21</span>, L);</span><br><span class="line">    DeleteList(L);</span><br><span class="line">    print_list(L);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Hello world\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-  </section>
-
-  <section class="post-comments">
-
-    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
-    
-</section>
-
-
-</article>
-
-
-            <footer class="footer">
-    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-    <span class="footer__copyright">
-        &copy; 2014-2018. | 由<a href="https://hexo.io/">Hexo</a>强力驱动
-    </span>
-    <span id="busuanzi_container_site_pv">
-        本站访客数<span id="busuanzi_value_site_pv"></span>人次
-    </span>
-
-</footer>
-        </div>
+      
     </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/07/16/数据结构——链表(C语言实现)/" data-id="cjlqmguj0004gsxz9w5euq6ek" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/链表/">链表</a></li></ul>
 
-    <!-- js files -->
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/main.js"></script>
-    <script src="/js/scale.fix.js"></script>
+    </footer>
+  </div>
+  
+    
+ <script src="/jquery/jquery.min.js"></script>
+  <div id="random_posts">
+    <h2>推荐文章</h2>
+    <div class="random_posts_ul">
+      <script>
+          var random_count =4
+          var site = {BASE_URI:'/'};
+          function load_random_posts(obj) {
+              var arr=site.posts;
+              if (!obj) return;
+              // var count = $(obj).attr('data-count') || 6;
+              for (var i, tmp, n = arr.length; n; i = Math.floor(Math.random() * n), tmp = arr[--n], arr[n] = arr[i], arr[i] = tmp);
+              arr = arr.slice(0, random_count);
+              var html = '<ul>';
+            
+              for(var j=0;j<arr.length;j++){
+                var item=arr[j];
+                html += '<li><strong>' + 
+                item.date + ':&nbsp;&nbsp;<a href="' + (site.BASE_URI+item.uri) + '">' + 
+                (item.title || item.uri) + '</a></strong>';
+                if(item.excerpt){
+                  html +='<div class="post-excerpt">'+item.excerpt+'</div>';
+                }
+                html +='</li>';
+                
+              }
+              $(obj).html(html + '</ul>');
+          }
+          $('.random_posts_ul').each(function () {
+              var c = this;
+              if (!site.posts || !site.posts.length){
+                  $.getJSON(site.BASE_URI + 'js/posts.js',function(json){site.posts = json;load_random_posts(c)});
+              } 
+               else{
+                load_random_posts(c);
+              }
+          });
+      </script>
+    </div>
+  </div>
+
+    
+<nav id="article-nav">
+  
+    <a href="/2017/07/20/数据结构——链表的游标实现-C语言/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          数据结构——链表的游标实现(C语言)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/07/07/iOS开发——十六进制字符串与NSData的转化/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">iOS开发——十六进制字符串与NSData的转化</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+ 
+     
+  <div class="comments" id="comments">
+    
+     
+       
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+       
+      
+      
+  </div>
+ 
+  
+
+</section>
+           
+    <aside id="sidebar">
+  
     
 
+  
+    
+  
     
 
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript"> 
-        $(document).ready(function(){
-            MathJax.Hub.Config({ 
-                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
-            });
-        });
-    </script>
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title recent-posts">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/08/28/微信小程序——城市区县定位选择组件/">微信小程序——城市/区县定位选择组件</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/07/堆排序算法/">堆排序算法</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/23/从element-ui源码来看BEM实现/">从element-ui源码来看BEM实现</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/17/小程序开发总结/">小程序开发总结</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/30/微信小程序——使用setData修改数组中的单个对象/">微信小程序——使用setData修改数组中的单个对象</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
 
-
+  
     
 
-    <script src="/js/awesome-toc.min.js"></script>
+  
+    
+  
+    <!--微信公众号二维码-->
+
+
+  
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-left">
+      &copy; 2014 - 2018 李晓&nbsp;|&nbsp;
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+    </div>
+     <div id="footer-right">
+      联系方式&nbsp;|&nbsp;xiao.liunit@gmail.com
+    </div>
+  </div>
+</footer>
+ <script src="/jquery/jquery.min.js"></script>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    <img class="back-to-top-btn" src="/images/fly-to-top.png"/>
+<script>
+// Elevator script included on the page, already.
+window.onload = function() {
+  var elevator = new Elevator({
+    selector:'.back-to-top-btn',
+    element: document.querySelector('.back-to-top-btn'),
+    duration: 1000 // milliseconds
+  });
+}
+</script>
+      
+
+  
     <script>
-        $(document).ready(function(){
-            $.awesome_toc({
-                overlay: true,
-                contentId: "post-content",
-            });
-        });
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "e2fb4051c49842688ce669e634bc983f",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+    
+
+  
+
+
+
+
+
+
+
+<!-- author:forvoid begin -->
+<!-- author:forvoid begin -->
+
+<!-- author:forvoid end -->
+
+<!-- author:forvoid end -->
+
+
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      })
     </script>
 
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      })
+    </script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
 
-    
-    
-    <!--kill ie6 -->
-<!--[if IE 6]>
-  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
-<![endif]-->
 
+ <script src="/js/is.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/elevator.js"></script>
+  </div>
 </body>
 </html>

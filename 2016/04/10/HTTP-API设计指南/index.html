@@ -1,232 +1,102 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-
-    
-
-    <title>
-      HTTP API设计指南 | Leon的博客 
-    </title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    
-      <meta name="author" content="李晓">
-    
-    
-
-    <meta name="description" content="HTTP API 设计指南前言这篇指南介绍描述了 HTTP+JSON API 的一种设计模式，最初摘录整理自 Heroku 平台的 API 设计指引 Heroku 平台 API 指引。 这篇指南除了详细介绍现有的 API 外，Heroku 将来新加入的内部 API 也会符合这种设计模式，我们希望非 Heroku 员工的API设计者也能感兴趣。 我们的目标是保持一致性，专注业务逻辑同时避免过度设计。">
+  <meta charset="utf-8">
+  
+  <title>HTTP API设计指南 | Leon的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="HTTP API 设计指南前言这篇指南介绍描述了 HTTP+JSON API 的一种设计模式，最初摘录整理自 Heroku 平台的 API 设计指引 Heroku 平台 API 指引。 这篇指南除了详细介绍现有的 API 外，Heroku 将来新加入的内部 API 也会符合这种设计模式，我们希望非 Heroku 员工的API设计者也能感兴趣。 我们的目标是保持一致性，专注业务逻辑同时避免过度设计。">
 <meta name="keywords" content="API设计,HTTP-API,HTTP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HTTP API设计指南 | Leon的博客">
+<meta property="og:title" content="HTTP API设计指南">
 <meta property="og:url" content="http://yoursite.com/2016/04/10/HTTP-API设计指南/index.html">
 <meta property="og:site_name" content="Leon的博客">
 <meta property="og:description" content="HTTP API 设计指南前言这篇指南介绍描述了 HTTP+JSON API 的一种设计模式，最初摘录整理自 Heroku 平台的 API 设计指引 Heroku 平台 API 指引。 这篇指南除了详细介绍现有的 API 外，Heroku 将来新加入的内部 API 也会符合这种设计模式，我们希望非 Heroku 员工的API设计者也能感兴趣。 我们的目标是保持一致性，专注业务逻辑同时避免过度设计。">
 <meta property="og:updated_time" content="2016-04-10T08:50:47.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HTTP API设计指南 | Leon的博客">
+<meta name="twitter:title" content="HTTP API设计指南">
 <meta name="twitter:description" content="HTTP API 设计指南前言这篇指南介绍描述了 HTTP+JSON API 的一种设计模式，最初摘录整理自 Heroku 平台的 API 设计指引 Heroku 平台 API 指引。 这篇指南除了详细介绍现有的 API 外，Heroku 将来新加入的内部 API 也会符合这种设计模式，我们希望非 Heroku 员工的API设计者也能感兴趣。 我们的目标是保持一致性，专注业务逻辑同时避免过度设计。">
+  
+    <link rel="alternate" href="/atom.xml" title="Leon的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
     
-    
-    
-      <link rel="icon" type="image/x-icon" href="/favicon.png">
-    
-    <link rel="stylesheet" href="/css/uno.css">
-    <link rel="stylesheet" href="/css/highlight.css">
-    <link rel="stylesheet" href="/css/archive.css">
-    <link rel="stylesheet" href="/css/china-social-icon.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
 
 </head>
+
 <body>
-
-    <span class="mobile btn-mobile-menu">
-        <i class="icon icon-list btn-mobile-menu__icon"></i>
-        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
-    </span>
-
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
     
-
-<header class="panel-cover panel-cover--collapsed">
-
-
-  <div class="panel-main">
-
-  
-    <div class="panel-main__inner panel-inverted">
-    <div class="panel-main__content">
-
+    <div id="header-inner" class="inner">
+      <nav id="sub-nav">
         
-
-        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Leon的博客</a></h1>
-        <hr class="panel-cover__divider" />
-
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <p class="panel-cover__description">
-          每多学一点知识，就少写一行代码
-        </p>
-        <hr class="panel-cover__divider panel-cover__divider--secondary" />
-        
-
-        <div class="navigation-wrapper">
-
-          <nav class="cover-navigation cover-navigation--primary">
-            <ul class="navigation">
-
-              
-                
-                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
-              
-                
-                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
-              
-                
-                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
-              
-
-            </ul>
-          </nav>
-
-          <!-- ----------------------------
-To add a new social icon simply duplicate one of the list items from below
-and change the class in the <i> tag to match the desired social network
-and then add your link to the <a>. Here is a full list of social network
-classes that you can use:
-
-    icon-social-500px
-    icon-social-behance
-    icon-social-delicious
-    icon-social-designer-news
-    icon-social-deviant-art
-    icon-social-digg
-    icon-social-dribbble
-    icon-social-facebook
-    icon-social-flickr
-    icon-social-forrst
-    icon-social-foursquare
-    icon-social-github
-    icon-social-google-plus
-    icon-social-hi5
-    icon-social-instagram
-    icon-social-lastfm
-    icon-social-linkedin
-    icon-social-medium
-    icon-social-myspace
-    icon-social-path
-    icon-social-pinterest
-    icon-social-rdio
-    icon-social-reddit
-    icon-social-skype
-    icon-social-spotify
-    icon-social-stack-overflow
-    icon-social-steam
-    icon-social-stumbleupon
-    icon-social-treehouse
-    icon-social-tumblr
-    icon-social-twitter
-    icon-social-vimeo
-    icon-social-xbox
-    icon-social-yelp
-    icon-social-youtube
-    icon-social-zerply
-    icon-mail
-
--------------------------------->
-
-<!-- add social info here -->
-
-
-
-<nav class="cover-navigation navigation--social">
-  <ul class="navigation">
-
-    
-      <!-- Github -->
-      <li class="navigation__item">
-        <a href="https://github.com/originalix" title="Huno on GitHub">
-          <i class='icon icon-social-github'></i>
-          <span class="label">GitHub</span>
-        </a>
-      </li>
-    
-
-    <!-- China social icon -->
-    <!--
-    
-      <li class="navigation__item">
-        <a href="" title="">
-          <i class='icon cs-icon-douban'></i>
-          <span class="label">Douban</span>
-        </a>
-      </li>
-
-      <li class="navigation__item">
-        <a href="" title="">
-          <i class='icon cs-icon-weibo'></i>
-          <span class="label">Weibo</span>
-        </a>
-      </li>
-
-    -->
-
-
-
-  </ul>
-</nav>
-
-
-
-        </div>
-
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
       </div>
-
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      
     </div>
-
-    <div class="panel-cover--overlay"></div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Leon的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">每多学一点知识，就少写一行代码</a>
+        </h2>
+      
+    </div>
   </div>
 </header>
-
-    <div class="content-wrapper">
-        <div class="content-wrapper__inner entry">
-            
-
-<article class="post-container post-container--single">
-
-  <header class="post-header">
-
-    <h1 class="post-title">HTTP API设计指南</h1>
-
+      <div class="outer">
+        <section id="main"><article id="post-HTTP-API设计指南" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/04/10/HTTP-API设计指南/" class="article-date">
+  <time datetime="2016-04-10T08:48:56.000Z" itemprop="datePublished">2016-04-10</time>
+</a>
     
-
-    <div class="post-meta">
-      <time datetime="2016-04-10" class="post-meta__date date">2016-04-10</time>
-
-      <span class="post-meta__tags tags">
-
-          
-
-          
-             &#8226; 标签:
-            <font class="tags">
-              <a class="tags-link" href="/tags/API设计/">API设计</a>, <a class="tags-link" href="/tags/HTTP/">HTTP</a>, <a class="tags-link" href="/tags/HTTP-API/">HTTP-API</a>
-            </font>
-          
-
-      </span>
-
-
-      <span class="post-meta_statistic date" id="busuanzi_container_page_pv">
-        本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-      </span>
-
-    </div>
-
+  </div>
+  <div class="article-inner">
     
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      HTTP API设计指南
+    </h1>
+  
 
-  </header>
-
-  <section id="post-content" class="article-content post">
-    <h1 id="HTTP-API-设计指南"><a href="#HTTP-API-设计指南" class="headerlink" title="HTTP API 设计指南"></a>HTTP API 设计指南</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这篇指南介绍描述了 HTTP+JSON API 的一种设计模式，最初摘录整理自 Heroku 平台的 API 设计指引 <a href="https://devcenter.heroku.com/articles/platform-api-reference" target="_blank" rel="noopener">Heroku 平台 API 指引</a>。</p>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <h1 id="HTTP-API-设计指南"><a href="#HTTP-API-设计指南" class="headerlink" title="HTTP API 设计指南"></a>HTTP API 设计指南</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这篇指南介绍描述了 HTTP+JSON API 的一种设计模式，最初摘录整理自 Heroku 平台的 API 设计指引 <a href="https://devcenter.heroku.com/articles/platform-api-reference" target="_blank" rel="noopener">Heroku 平台 API 指引</a>。</p>
 <p>这篇指南除了详细介绍现有的 API 外，Heroku 将来新加入的内部 API 也会符合这种设计模式，我们希望非 Heroku 员工的API设计者也能感兴趣。</p>
 <p>我们的目标是保持一致性，专注业务逻辑同时避免过度设计。我们一直试图找出一种良好的、一致的、显而易见的 API 设计方法，而并不是所谓的”最终/理想模式”。</p>
 <p>我们假设你熟悉基本的 HTTP+JSON API 设计方法，所以本篇指南并不包含所有的 API 设计基础。</p>
@@ -367,69 +237,232 @@ classes that you can use:
 <p>更多关于可能的稳定性和改变管理的方式，查看 <a href="https://devcenter.heroku.com/articles/api-compatibility-policy" target="_blank" rel="noopener">Heroku API compatibility policy</a></p>
 <p>一旦你的API宣布产品正式版本及稳定版本时，不要在当前API版本中做一些不兼容的改变。如果你需要，请创建一个新的版本的API。</p>
 
-  </section>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/04/10/HTTP-API设计指南/" data-id="cjlqmgulk00crsxz9piqs59x1" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/API设计/">API设计</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTP-API/">HTTP-API</a></li></ul>
 
-  <section class="post-comments">
-
-    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    </footer>
+  </div>
+  
     
-</section>
+ <script src="/jquery/jquery.min.js"></script>
+  <div id="random_posts">
+    <h2>推荐文章</h2>
+    <div class="random_posts_ul">
+      <script>
+          var random_count =4
+          var site = {BASE_URI:'/'};
+          function load_random_posts(obj) {
+              var arr=site.posts;
+              if (!obj) return;
+              // var count = $(obj).attr('data-count') || 6;
+              for (var i, tmp, n = arr.length; n; i = Math.floor(Math.random() * n), tmp = arr[--n], arr[n] = arr[i], arr[i] = tmp);
+              arr = arr.slice(0, random_count);
+              var html = '<ul>';
+            
+              for(var j=0;j<arr.length;j++){
+                var item=arr[j];
+                html += '<li><strong>' + 
+                item.date + ':&nbsp;&nbsp;<a href="' + (site.BASE_URI+item.uri) + '">' + 
+                (item.title || item.uri) + '</a></strong>';
+                if(item.excerpt){
+                  html +='<div class="post-excerpt">'+item.excerpt+'</div>';
+                }
+                html +='</li>';
+                
+              }
+              $(obj).html(html + '</ul>');
+          }
+          $('.random_posts_ul').each(function () {
+              var c = this;
+              if (!site.posts || !site.posts.length){
+                  $.getJSON(site.BASE_URI + 'js/posts.js',function(json){site.posts = json;load_random_posts(c)});
+              } 
+               else{
+                load_random_posts(c);
+              }
+          });
+      </script>
+    </div>
+  </div>
 
+    
+<nav id="article-nav">
+  
+    <a href="/2016/04/10/Cocoapods使用详解/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Cocoapods使用详解
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/04/07/iOS-判断设备型号、屏幕尺寸、系统版本、设备朝向/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">iOS 判断设备型号、屏幕尺寸、系统版本、设备朝向</div>
+    </a>
+  
+</nav>
 
+  
 </article>
+ 
+     
+  <div class="comments" id="comments">
+    
+     
+       
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+       
+      
+      
+  </div>
+ 
+  
 
+</section>
+           
+    <aside id="sidebar">
+  
+    
 
-            <footer class="footer">
-    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-    <span class="footer__copyright">
-        &copy; 2014-2018. | 由<a href="https://hexo.io/">Hexo</a>强力驱动
-    </span>
-    <span id="busuanzi_container_site_pv">
-        本站访客数<span id="busuanzi_value_site_pv"></span>人次
-    </span>
-
-</footer>
-        </div>
+  
+    
+    <div class="widget-wrap">
+    
+      <div class="widget" id="toc-widget-fixed">
+      
+        <strong class="toc-title">文章目录</strong>
+        <div class="toc-widget-list">
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP-API-设计指南"><span class="toc-number">1.</span> <span class="toc-text"><a href="#HTTP-API-&#x8BBE;&#x8BA1;&#x6307;&#x5357;" class="headerlink" title="HTTP API &#x8BBE;&#x8BA1;&#x6307;&#x5357;"></a>HTTP API &#x8BBE;&#x8BA1;&#x6307;&#x5357;</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.1.</span> <span class="toc-text"><a href="#&#x524D;&#x8A00;" class="headerlink" title="&#x524D;&#x8A00;"></a>&#x524D;&#x8A00;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#目录"><span class="toc-number">1.2.</span> <span class="toc-text"><a href="#&#x76EE;&#x5F55;" class="headerlink" title="&#x76EE;&#x5F55;"></a>&#x76EE;&#x5F55;</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基础"><span class="toc-number">1.2.1.</span> <span class="toc-text"><a href="#&#x57FA;&#x7840;" class="headerlink" title="&#x57FA;&#x7840;"></a>&#x57FA;&#x7840;</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#隔离关注点"><span class="toc-number">1.2.1.1.</span> <span class="toc-text"><a href="#&#x9694;&#x79BB;&#x5173;&#x6CE8;&#x70B9;" class="headerlink" title="&#x9694;&#x79BB;&#x5173;&#x6CE8;&#x70B9;"></a>&#x9694;&#x79BB;&#x5173;&#x6CE8;&#x70B9;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#强制使用安全连接（Secure-Connections）"><span class="toc-number">1.2.1.2.</span> <span class="toc-text"><a href="#&#x5F3A;&#x5236;&#x4F7F;&#x7528;&#x5B89;&#x5168;&#x8FDE;&#x63A5;&#xFF08;Secure-Connections&#xFF09;" class="headerlink" title="&#x5F3A;&#x5236;&#x4F7F;&#x7528;&#x5B89;&#x5168;&#x8FDE;&#x63A5;&#xFF08;Secure Connections&#xFF09;"></a>&#x5F3A;&#x5236;&#x4F7F;&#x7528;&#x5B89;&#x5168;&#x8FDE;&#x63A5;&#xFF08;Secure Connections&#xFF09;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#强制头信息-Accept-中提供版本号"><span class="toc-number">1.2.1.3.</span> <span class="toc-text"><a href="#&#x5F3A;&#x5236;&#x5934;&#x4FE1;&#x606F;-Accept-&#x4E2D;&#x63D0;&#x4F9B;&#x7248;&#x672C;&#x53F7;" class="headerlink" title="&#x5F3A;&#x5236;&#x5934;&#x4FE1;&#x606F; Accept &#x4E2D;&#x63D0;&#x4F9B;&#x7248;&#x672C;&#x53F7;"></a>&#x5F3A;&#x5236;&#x5934;&#x4FE1;&#x606F; Accept &#x4E2D;&#x63D0;&#x4F9B;&#x7248;&#x672C;&#x53F7;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#支持Etag缓存"><span class="toc-number">1.2.1.4.</span> <span class="toc-text"><a href="#&#x652F;&#x6301;Etag&#x7F13;&#x5B58;" class="headerlink" title="&#x652F;&#x6301;Etag&#x7F13;&#x5B58;"></a>&#x652F;&#x6301;Etag&#x7F13;&#x5B58;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#为内省而提供-Request-Id"><span class="toc-number">1.2.1.5.</span> <span class="toc-text"><a href="#&#x4E3A;&#x5185;&#x7701;&#x800C;&#x63D0;&#x4F9B;-Request-Id" class="headerlink" title="&#x4E3A;&#x5185;&#x7701;&#x800C;&#x63D0;&#x4F9B; Request-Id"></a>&#x4E3A;&#x5185;&#x7701;&#x800C;&#x63D0;&#x4F9B; Request-Id</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#通过请求中的范围（Range）拆分大的响应"><span class="toc-number">1.2.1.6.</span> <span class="toc-text"><a href="#&#x901A;&#x8FC7;&#x8BF7;&#x6C42;&#x4E2D;&#x7684;&#x8303;&#x56F4;&#xFF08;Range&#xFF09;&#x62C6;&#x5206;&#x5927;&#x7684;&#x54CD;&#x5E94;" class="headerlink" title="&#x901A;&#x8FC7;&#x8BF7;&#x6C42;&#x4E2D;&#x7684;&#x8303;&#x56F4;&#xFF08;Range&#xFF09;&#x62C6;&#x5206;&#x5927;&#x7684;&#x54CD;&#x5E94;"></a>&#x901A;&#x8FC7;&#x8BF7;&#x6C42;&#x4E2D;&#x7684;&#x8303;&#x56F4;&#xFF08;Range&#xFF09;&#x62C6;&#x5206;&#x5927;&#x7684;&#x54CD;&#x5E94;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在请求的body体使用JSON格式数据"><span class="toc-number">1.2.1.7.</span> <span class="toc-text"><a href="#&#x5728;&#x8BF7;&#x6C42;&#x7684;body&#x4F53;&#x4F7F;&#x7528;JSON&#x683C;&#x5F0F;&#x6570;&#x636E;" class="headerlink" title="&#x5728;&#x8BF7;&#x6C42;&#x7684;body&#x4F53;&#x4F7F;&#x7528;JSON&#x683C;&#x5F0F;&#x6570;&#x636E;"></a>&#x5728;&#x8BF7;&#x6C42;&#x7684;body&#x4F53;&#x4F7F;&#x7528;JSON&#x683C;&#x5F0F;&#x6570;&#x636E;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用统一的资源路径格式"><span class="toc-number">1.2.1.8.</span> <span class="toc-text"><a href="#&#x4F7F;&#x7528;&#x7EDF;&#x4E00;&#x7684;&#x8D44;&#x6E90;&#x8DEF;&#x5F84;&#x683C;&#x5F0F;" class="headerlink" title="&#x4F7F;&#x7528;&#x7EDF;&#x4E00;&#x7684;&#x8D44;&#x6E90;&#x8DEF;&#x5F84;&#x683C;&#x5F0F;"></a>&#x4F7F;&#x7528;&#x7EDF;&#x4E00;&#x7684;&#x8D44;&#x6E90;&#x8DEF;&#x5F84;&#x683C;&#x5F0F;</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#资源名（Resource-names）"><span class="toc-number">1.2.1.8.1.</span> <span class="toc-text"><a href="#&#x8D44;&#x6E90;&#x540D;&#xFF08;Resource-names&#xFF09;" class="headerlink" title="&#x8D44;&#x6E90;&#x540D;&#xFF08;Resource names&#xFF09;"></a>&#x8D44;&#x6E90;&#x540D;&#xFF08;Resource names&#xFF09;</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#行为（Actions）"><span class="toc-number">1.2.1.8.2.</span> <span class="toc-text"><a href="#&#x884C;&#x4E3A;&#xFF08;Actions&#xFF09;" class="headerlink" title="&#x884C;&#x4E3A;&#xFF08;Actions&#xFF09;"></a>&#x884C;&#x4E3A;&#xFF08;Actions&#xFF09;</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#路径和属性要小写"><span class="toc-number">1.2.1.9.</span> <span class="toc-text"><a href="#&#x8DEF;&#x5F84;&#x548C;&#x5C5E;&#x6027;&#x8981;&#x5C0F;&#x5199;" class="headerlink" title="&#x8DEF;&#x5F84;&#x548C;&#x5C5E;&#x6027;&#x8981;&#x5C0F;&#x5199;"></a>&#x8DEF;&#x5F84;&#x548C;&#x5C5E;&#x6027;&#x8981;&#x5C0F;&#x5199;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#支持方便的无id间接引用"><span class="toc-number">1.2.1.10.</span> <span class="toc-text"><a href="#&#x652F;&#x6301;&#x65B9;&#x4FBF;&#x7684;&#x65E0;id&#x95F4;&#x63A5;&#x5F15;&#x7528;" class="headerlink" title="&#x652F;&#x6301;&#x65B9;&#x4FBF;&#x7684;&#x65E0;id&#x95F4;&#x63A5;&#x5F15;&#x7528;"></a>&#x652F;&#x6301;&#x65B9;&#x4FBF;&#x7684;&#x65E0;id&#x95F4;&#x63A5;&#x5F15;&#x7528;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最小化路径嵌套"><span class="toc-number">1.2.1.11.</span> <span class="toc-text"><a href="#&#x6700;&#x5C0F;&#x5316;&#x8DEF;&#x5F84;&#x5D4C;&#x5957;" class="headerlink" title="&#x6700;&#x5C0F;&#x5316;&#x8DEF;&#x5F84;&#x5D4C;&#x5957;"></a>&#x6700;&#x5C0F;&#x5316;&#x8DEF;&#x5F84;&#x5D4C;&#x5957;</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#响应（Responses）"><span class="toc-number">1.2.2.</span> <span class="toc-text"><a href="#&#x54CD;&#x5E94;&#xFF08;Responses&#xFF09;" class="headerlink" title="&#x54CD;&#x5E94;&#xFF08;Responses&#xFF09;"></a>&#x54CD;&#x5E94;&#xFF08;Responses&#xFF09;</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#返回合适的状态码"><span class="toc-number">1.2.2.1.</span> <span class="toc-text"><a href="#&#x8FD4;&#x56DE;&#x5408;&#x9002;&#x7684;&#x72B6;&#x6001;&#x7801;" class="headerlink" title="&#x8FD4;&#x56DE;&#x5408;&#x9002;&#x7684;&#x72B6;&#x6001;&#x7801;"></a>&#x8FD4;&#x56DE;&#x5408;&#x9002;&#x7684;&#x72B6;&#x6001;&#x7801;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#提供全部可用的资源"><span class="toc-number">1.2.2.2.</span> <span class="toc-text"><a href="#&#x63D0;&#x4F9B;&#x5168;&#x90E8;&#x53EF;&#x7528;&#x7684;&#x8D44;&#x6E90;" class="headerlink" title="&#x63D0;&#x4F9B;&#x5168;&#x90E8;&#x53EF;&#x7528;&#x7684;&#x8D44;&#x6E90;"></a>&#x63D0;&#x4F9B;&#x5168;&#x90E8;&#x53EF;&#x7528;&#x7684;&#x8D44;&#x6E90;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#提供资源的-UU-ID"><span class="toc-number">1.2.2.3.</span> <span class="toc-text"><a href="#&#x63D0;&#x4F9B;&#x8D44;&#x6E90;&#x7684;-UU-ID" class="headerlink" title="&#x63D0;&#x4F9B;&#x8D44;&#x6E90;&#x7684;(UU)ID"></a>&#x63D0;&#x4F9B;&#x8D44;&#x6E90;&#x7684;(UU)ID</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#提供标准的时间戳"><span class="toc-number">1.2.2.4.</span> <span class="toc-text"><a href="#&#x63D0;&#x4F9B;&#x6807;&#x51C6;&#x7684;&#x65F6;&#x95F4;&#x6233;" class="headerlink" title="&#x63D0;&#x4F9B;&#x6807;&#x51C6;&#x7684;&#x65F6;&#x95F4;&#x6233;"></a>&#x63D0;&#x4F9B;&#x6807;&#x51C6;&#x7684;&#x65F6;&#x95F4;&#x6233;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用UTC（世界标准时间）时间，用ISO8601进行格式化"><span class="toc-number">1.2.2.5.</span> <span class="toc-text"><a href="#&#x4F7F;&#x7528;UTC&#xFF08;&#x4E16;&#x754C;&#x6807;&#x51C6;&#x65F6;&#x95F4;&#xFF09;&#x65F6;&#x95F4;&#xFF0C;&#x7528;ISO8601&#x8FDB;&#x884C;&#x683C;&#x5F0F;&#x5316;" class="headerlink" title="&#x4F7F;&#x7528;UTC&#xFF08;&#x4E16;&#x754C;&#x6807;&#x51C6;&#x65F6;&#x95F4;&#xFF09;&#x65F6;&#x95F4;&#xFF0C;&#x7528;ISO8601&#x8FDB;&#x884C;&#x683C;&#x5F0F;&#x5316;"></a>&#x4F7F;&#x7528;UTC&#xFF08;&#x4E16;&#x754C;&#x6807;&#x51C6;&#x65F6;&#x95F4;&#xFF09;&#x65F6;&#x95F4;&#xFF0C;&#x7528;ISO8601&#x8FDB;&#x884C;&#x683C;&#x5F0F;&#x5316;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#嵌套外键关系"><span class="toc-number">1.2.2.6.</span> <span class="toc-text"><a href="#&#x5D4C;&#x5957;&#x5916;&#x952E;&#x5173;&#x7CFB;" class="headerlink" title="&#x5D4C;&#x5957;&#x5916;&#x952E;&#x5173;&#x7CFB;"></a>&#x5D4C;&#x5957;&#x5916;&#x952E;&#x5173;&#x7CFB;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#生成结构化的错误"><span class="toc-number">1.2.2.7.</span> <span class="toc-text"><a href="#&#x751F;&#x6210;&#x7ED3;&#x6784;&#x5316;&#x7684;&#x9519;&#x8BEF;" class="headerlink" title="&#x751F;&#x6210;&#x7ED3;&#x6784;&#x5316;&#x7684;&#x9519;&#x8BEF;"></a>&#x751F;&#x6210;&#x7ED3;&#x6784;&#x5316;&#x7684;&#x9519;&#x8BEF;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#显示频率限制状态"><span class="toc-number">1.2.2.8.</span> <span class="toc-text"><a href="#&#x663E;&#x793A;&#x9891;&#x7387;&#x9650;&#x5236;&#x72B6;&#x6001;" class="headerlink" title="&#x663E;&#x793A;&#x9891;&#x7387;&#x9650;&#x5236;&#x72B6;&#x6001;"></a>&#x663E;&#x793A;&#x9891;&#x7387;&#x9650;&#x5236;&#x72B6;&#x6001;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#保证响应JSON最小化"><span class="toc-number">1.2.2.9.</span> <span class="toc-text"><a href="#&#x4FDD;&#x8BC1;&#x54CD;&#x5E94;JSON&#x6700;&#x5C0F;&#x5316;" class="headerlink" title="&#x4FDD;&#x8BC1;&#x54CD;&#x5E94;JSON&#x6700;&#x5C0F;&#x5316;"></a>&#x4FDD;&#x8BC1;&#x54CD;&#x5E94;JSON&#x6700;&#x5C0F;&#x5316;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#提供机器可读的JSON模式"><span class="toc-number">1.2.2.10.</span> <span class="toc-text"><a href="#&#x63D0;&#x4F9B;&#x673A;&#x5668;&#x53EF;&#x8BFB;&#x7684;JSON&#x6A21;&#x5F0F;" class="headerlink" title="&#x63D0;&#x4F9B;&#x673A;&#x5668;&#x53EF;&#x8BFB;&#x7684;JSON&#x6A21;&#x5F0F;"></a>&#x63D0;&#x4F9B;&#x673A;&#x5668;&#x53EF;&#x8BFB;&#x7684;JSON&#x6A21;&#x5F0F;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#提供人类可读的文档"><span class="toc-number">1.2.2.11.</span> <span class="toc-text"><a href="#&#x63D0;&#x4F9B;&#x4EBA;&#x7C7B;&#x53EF;&#x8BFB;&#x7684;&#x6587;&#x6863;" class="headerlink" title="&#x63D0;&#x4F9B;&#x4EBA;&#x7C7B;&#x53EF;&#x8BFB;&#x7684;&#x6587;&#x6863;"></a>&#x63D0;&#x4F9B;&#x4EBA;&#x7C7B;&#x53EF;&#x8BFB;&#x7684;&#x6587;&#x6863;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#提供可执行的例子"><span class="toc-number">1.2.2.12.</span> <span class="toc-text"><a href="#&#x63D0;&#x4F9B;&#x53EF;&#x6267;&#x884C;&#x7684;&#x4F8B;&#x5B50;" class="headerlink" title="&#x63D0;&#x4F9B;&#x53EF;&#x6267;&#x884C;&#x7684;&#x4F8B;&#x5B50;"></a>&#x63D0;&#x4F9B;&#x53EF;&#x6267;&#x884C;&#x7684;&#x4F8B;&#x5B50;</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#描述稳定性"><span class="toc-number">1.2.2.13.</span> <span class="toc-text"><a href="#&#x63CF;&#x8FF0;&#x7A33;&#x5B9A;&#x6027;" class="headerlink" title="&#x63CF;&#x8FF0;&#x7A33;&#x5B9A;&#x6027;"></a>&#x63CF;&#x8FF0;&#x7A33;&#x5B9A;&#x6027;</span></a></li></ol></li></ol></li></ol></li></ol>
+          </div>
+      </div>
     </div>
 
-    <!-- js files -->
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/main.js"></script>
-    <script src="/js/scale.fix.js"></script>
+  
     
 
+  
+    
+  
+    
+  
     
 
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript"> 
-        $(document).ready(function(){
-            MathJax.Hub.Config({ 
-                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
-            });
-        });
-    </script>
-
-
+  
     
+  
+    <!--微信公众号二维码-->
 
-    <script src="/js/awesome-toc.min.js"></script>
+
+  
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-left">
+      &copy; 2014 - 2018 李晓&nbsp;|&nbsp;
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+    </div>
+     <div id="footer-right">
+      联系方式&nbsp;|&nbsp;xiao.liunit@gmail.com
+    </div>
+  </div>
+</footer>
+ <script src="/jquery/jquery.min.js"></script>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    <img class="back-to-top-btn" src="/images/fly-to-top.png"/>
+<script>
+// Elevator script included on the page, already.
+window.onload = function() {
+  var elevator = new Elevator({
+    selector:'.back-to-top-btn',
+    element: document.querySelector('.back-to-top-btn'),
+    duration: 1000 // milliseconds
+  });
+}
+</script>
+      
+
+  
     <script>
-        $(document).ready(function(){
-            $.awesome_toc({
-                overlay: true,
-                contentId: "post-content",
-            });
-        });
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "e2fb4051c49842688ce669e634bc983f",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+    
+
+  
+
+
+
+
+
+
+
+<!-- author:forvoid begin -->
+<!-- author:forvoid begin -->
+
+<!-- author:forvoid end -->
+
+<!-- author:forvoid end -->
+
+
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      })
     </script>
 
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      })
+    </script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
 
-    
-    
-    <!--kill ie6 -->
-<!--[if IE 6]>
-  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
-<![endif]-->
 
+ <script src="/js/is.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/elevator.js"></script>
+  </div>
 </body>
 </html>
