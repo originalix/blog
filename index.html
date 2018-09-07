@@ -104,7 +104,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/28/微信小程序——城市区县定位选择组件/" data-id="cjlqmguiu0046sxz9nrbno32t" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/08/28/微信小程序——城市区县定位选择组件/" data-id="cjlr92m3i0047lxz9okes9lim" class="article-share-link">分享</a>
       
       
       
@@ -149,7 +149,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/07/堆排序算法/" data-id="cjlqmguir0040sxz9ngmx7csj" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/08/07/堆排序算法/" data-id="cjlr92m3f0041lxz9sxwz85h6" class="article-share-link">分享</a>
       
       
       
@@ -194,7 +194,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/23/从element-ui源码来看BEM实现/" data-id="cjlqmguic003csxz91mj8gkki" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/07/23/从element-ui源码来看BEM实现/" data-id="cjlr92m2z003dlxz92vqstttk" class="article-share-link">分享</a>
       
       
       
@@ -240,7 +240,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/17/小程序开发总结/" data-id="cjlqmguis0042sxz9h8z250g5" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/07/17/小程序开发总结/" data-id="cjlr92m3g0043lxz9ojyccjai" class="article-share-link">分享</a>
       
       
       
@@ -287,7 +287,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/30/微信小程序——使用setData修改数组中的单个对象/" data-id="cjlqmguit0045sxz9r0be3f0l" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/05/30/微信小程序——使用setData修改数组中的单个对象/" data-id="cjlr92m3h0046lxz9i8lnp4ee" class="article-share-link">分享</a>
       
       
       
@@ -334,7 +334,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/22/腾讯云上免费部署HTTPS/" data-id="cjlqmguj7004rsxz9kexko53f" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/05/22/腾讯云上免费部署HTTPS/" data-id="cjlr92m3w004slxz9qiu69ie8" class="article-share-link">分享</a>
       
       
       
@@ -379,7 +379,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/14/CSS——实现元素的垂直居中/" data-id="cjlqmgugb0003sxz9cxmduu4y" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/05/14/CSS——实现元素的垂直居中/" data-id="cjlr92m0v0004lxz96a3orx8v" class="article-share-link">分享</a>
       
       
       
@@ -424,7 +424,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/09/在Ubunt16-04上安装LAMP/" data-id="cjlqmguim003rsxz9lbszy7oj" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/05/09/在Ubunt16-04上安装LAMP/" data-id="cjlr92m38003slxz9ah9t0gyz" class="article-share-link">分享</a>
       
       
       
@@ -438,10 +438,583 @@
 
 
   
+    <article id="post-在Mac上使用ssh-key免密码登录服务器" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/25/在Mac上使用ssh-key免密码登录服务器/" class="article-date">
+  <time datetime="2018-04-25T12:42:50.000Z" itemprop="datePublished">2018-04-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/25/在Mac上使用ssh-key免密码登录服务器/">在Mac上使用ssh-key免密码登录服务器</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>从很早之前开始，在搭建测试服务器的时候，就不停的谷歌怎么免密登录服务器，每次配置好免密登录后，到搭建新的服务器时，又忘记了具体的命令，所以决定把这个方法记下来，方便之后日后查找。</p>
+<p>通常的来说，我们会使用 <code>ssh user@host -p port</code>这个命令，之后输入密码来登录服务器，才能ssh登录到服务器进行操作。如果一天需要登录很多遍服务器，就会输入很多次密码，偷懒的我当然不愿意这么干。而今天我们就要偷懒的进行免密码登录服务器的操作。</p>
+        
+          <p class="article-more-link">
+            <a href="/2018/04/25/在Mac上使用ssh-key免密码登录服务器/#more">继续阅读全文 »</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/04/25/在Mac上使用ssh-key免密码登录服务器/" data-id="cjlr92m37003qlxz9dnbnxeh6" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-PHP开发——yii2多图上传组件的使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/17/PHP开发——yii2多图上传组件的使用/" class="article-date">
+  <time datetime="2018-04-17T13:29:50.000Z" itemprop="datePublished">2018-04-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/17/PHP开发——yii2多图上传组件的使用/">PHP开发——yii2多图上传组件的使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近在使用yii2开发一个表单页面的时候，有多图上传的需求，稍微找了找这方面的组件，基本都安利fileInput这个组件，于是就尝试着使用这个库来完成后端表单页面的多图上传功能。使用的过程中发现还是有不少小细节需要注意的，于是记录一下使用的过程。</p>
+<p><a href="https://github.com/kartik-v/yii2-widget-fileinput" target="_blank" rel="noopener">yii2-widget-fileinput</a>这个库的github地址在这里，安装的部分就很常规了，按文档走就可以了。</p>
+        
+          <p class="article-more-link">
+            <a href="/2018/04/17/PHP开发——yii2多图上传组件的使用/#more">继续阅读全文 »</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/04/17/PHP开发——yii2多图上传组件的使用/" data-id="cjlr92m1g000llxz9chz972qf" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Yii2/">Yii2</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-在create-react-app中使用sass" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/04/在create-react-app中使用sass/" class="article-date">
+  <time datetime="2018-04-04T14:00:13.000Z" itemprop="datePublished">2018-04-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/04/在create-react-app中使用sass/">在create-react-app中使用sass</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>Sass（英文全称：Syntactically Awesome Stylesheets）是一个最初由Hampton Catlin设计并由Natalie Weizenbaum开发的层叠样式表语言。Sass是一个将脚本解析成CSS的脚本语言，即SassScript。Sass包括两套语法。最开始的语法叫做“缩进语法”，与Haml类似，使用缩进来区分代码块，并且用回车将不同规则分隔开。而较新的语法叫做“SCSS”，使用和CSS一样的块语法，即使用大括号将不同的规则分开，使用分号将具体的样式分开。通常情况下，这两套语法通过.sass和.scss两个文件扩展名区分开。相信每个前端开发者都对这种css预处理器有所耳闻。</p>
+</blockquote>
+<p>不管你是刚使用Reactjs或者是Reactjs的老司机，你们一定都听说过<code>create-react-app</code>这个脚手架，而从<code>create-react-app</code>的官方文档中，我们可以看到他们暂时还不支持直接导入LESS或者Sass。但是通过一些配置，我们还是可以从官方脚手架中使用sass/scss/less的。</p>
+        
+          <p class="article-more-link">
+            <a href="/2018/04/04/在create-react-app中使用sass/#more">继续阅读全文 »</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/04/04/在create-react-app中使用sass/" data-id="cjlr92m3b003xlxz90q2u695g" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React-js/">React.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sass/">Sass</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-在Yii2框架中使用Redis" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/28/在Yii2框架中使用Redis/" class="article-date">
+  <time datetime="2018-03-28T12:56:16.000Z" itemprop="datePublished">2018-03-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/28/在Yii2框架中使用Redis/">在Yii2框架中使用Redis</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>想要在Yii2这个PHP框架中很好的使用redis键值存储，那么首先就要推荐<a href="https://github.com/yiisoft/yii2-redis" target="_blank" rel="noopener">yii2-redis</a>这个官方的<a href="https://github.com/originalix" target="_blank" rel="noopener">Github</a>库。这个库能够很好的帮助我们在Yii2框架中使用redis，它提供缓存，Session以及ActiveRecord模式的支持。</p>
+<h2 id="安装yii2-redis库"><a href="#安装yii2-redis库" class="headerlink" title="安装yii2-redis库"></a>安装yii2-redis库</h2><p>推荐使用composer安装yii2-redis库，在你的项目根目录执行</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php composer.phar <span class="keyword">require</span> --prefer-dist yiisoft/yii2-redis:<span class="string">"~2.0.0"</span></span><br></pre></td></tr></table></figure>
+<p>或者将</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"yiisoft/yii2-redis": "~2.0.0"</span><br></pre></td></tr></table></figure>
+<p>加入你的<code>composer.json</code>文件里，之后运行<code>composer update</code>，墙内真的很慢，耐心等待即可。</p>
+        
+          <p class="article-more-link">
+            <a href="/2018/03/28/在Yii2框架中使用Redis/#more">继续阅读全文 »</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/28/在Yii2框架中使用Redis/" data-id="cjlr92m39003ulxz9yi5iwbmd" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/">Redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Yii2/">Yii2</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-ES6——箭头函数" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/25/ES6——箭头函数/" class="article-date">
+  <time datetime="2018-03-25T13:28:13.000Z" itemprop="datePublished">2018-03-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/25/ES6——箭头函数/">ES6——箭头函数</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>ES6之后，允许使用箭头<code>=&gt;</code>来定义函数。首先我们来总结一下箭头函数存在的意义，之后再来细细的看它的使用方法。</p>
+<p>箭头函数表达式的语法比函数表达式更短，并且不绑定自己的this,arguments,super或者new.target。这些函数表达式最适合用于非方法函数，并且它们不能用作构造函数。</p>
+<p>讲完了箭头函数的意义，那么我们总最基础的示例开始看，先看一个常规语法定义的函数:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">funcName</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> params + <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">funcName(<span class="number">2</span>);		<span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
+<p>如果这个函数用箭头函数改写的话，仅仅需要一行代码就够了:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> funcName = <span class="function">(<span class="params">params</span>) =&gt;</span> params + <span class="number">2</span>;</span><br><span class="line">funcName(<span class="number">2</span>); 	<span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
+        
+          <p class="article-more-link">
+            <a href="/2018/03/25/ES6——箭头函数/#more">继续阅读全文 »</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/25/ES6——箭头函数/" data-id="cjlr92m16000alxz9xc5tmmzr" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Javascript/">Javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/箭头函数/">箭头函数</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-ES6——扩展运算符使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/14/ES6——扩展运算符使用/" class="article-date">
+  <time datetime="2018-03-14T12:46:31.000Z" itemprop="datePublished">2018-03-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/14/ES6——扩展运算符使用/">ES6——扩展运算符使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近又开始把大量的时间花费在了夯实前端基础上了，看了很多的前端规范，书籍，并且敲了大量的前端代码。系统的在补习自己的前端基础，于是乎可能是日久生情，我对javascript这门语言的感情也在慢慢加深。系统的学习ES6标准一定是学习前端必要的一件事。ES6中增加了不少新特性新语法，一边学习，一边记录。</p>
+<p>初看ES6的代码，或许有许多同学不了解那三个点的用法，扩展运算符(spread)是三个点(<code>...</code>)。它好比rest的逆运算，将一个数组转化为用逗号分隔的参数序列。扩展运算符允许一个表达式在期望多个参数（用于函数调用）或多个元素（用于数组字面量）或多个变量（用于解构赋值）的位置扩展。</p>
+        
+          <p class="article-more-link">
+            <a href="/2018/03/14/ES6——扩展运算符使用/#more">继续阅读全文 »</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/14/ES6——扩展运算符使用/" data-id="cjlr92m150008lxz9fh6hvajb" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES6/">ES6</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Javascript/">Javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-Python——爬虫实战-爬取淘宝店铺内所有宝贝图片" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/07/Python——爬虫实战-爬取淘宝店铺内所有宝贝图片/" class="article-date">
+  <time datetime="2018-03-06T23:04:01.000Z" itemprop="datePublished">2018-03-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/07/Python——爬虫实战-爬取淘宝店铺内所有宝贝图片/">Python——爬虫实战 爬取淘宝店铺内所有宝贝图片</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>之前用四篇很啰嗦的入门级别的文章，带着大家一起去了解并学习在编写爬虫的过程中，最基本的几个库的用法。</p>
+<p>那么今天，我们就正式开始我们的第一篇实战内容，爬取一整个淘宝店铺里的所有宝贝的详情页，并且把详情页里的宝贝图片保存下来。我自己刚开了一个小网店，当时写出这个爬虫，也是真真正正的为我自己服务了一回呢。</p>
+<p>在写之前，我先把这个爬虫的代码分析一下，方便大家在看代码的时候，理解整个流程是怎么样的。</p>
+        
+          <p class="article-more-link">
+            <a href="/2018/03/07/Python——爬虫实战-爬取淘宝店铺内所有宝贝图片/#more">继续阅读全文 »</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/07/Python——爬虫实战-爬取淘宝店铺内所有宝贝图片/" data-id="cjlr92m1o000vlxz9p04doroq" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/爬虫/">爬虫</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-Python——爬虫入门XPath的使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/02/27/Python——爬虫入门XPath的使用/" class="article-date">
+  <time datetime="2018-02-27T12:30:35.000Z" itemprop="datePublished">2018-02-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/27/Python——爬虫入门XPath的使用/">Python——爬虫入门XPath的使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Xpath即为XML路径语言（XML Path Language）。它是一种用来确定XML文档中某部分位置的语言。</p>
+<p>XPath基于XML的树状结构，提供在数据结构树种找寻节点的能力。起初XPath的提出的初衷是将其作为一个通用的、介于XPointer与XSL间的语法模型。但是XPath很快的被开发者采用来当做小型查询语言。</p>
+<p>由于XPath确定XML文档中定位的能力，我们在用Python写爬虫时，常常使用XPath来确定HTML中的位置，辅助我们编写爬虫，抓取数据。</p>
+        
+          <p class="article-more-link">
+            <a href="/2018/02/27/Python——爬虫入门XPath的使用/#more">继续阅读全文 »</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/02/27/Python——爬虫入门XPath的使用/" data-id="cjlr92m1n000ulxz9p2uv6axm" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/XPath/">XPath</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/爬虫/">爬虫</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-Python——爬虫入门Selenium的简单使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/02/22/Python——爬虫入门Selenium的简单使用/" class="article-date">
+  <time datetime="2018-02-21T23:34:29.000Z" itemprop="datePublished">2018-02-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/22/Python——爬虫入门Selenium的简单使用/">Python——爬虫入门Selenium的简单使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>之前的两篇我们讲解了Python内的urllib库的使用，不知道大家有没有在爬取一些动态网站的时候，发现自己用urllib爬取到的内容是不对的，无法抓取到自己想要的内容，比如淘宝的店铺宝贝等，它会用js动态的加载内容，此时selenium这个家伙就能派上用场了。</p>
+<p>selenium是什么？简单的概括，它的初衷就是自动化测试工具。它支持各种浏览器，包括chrome，safari，firefox等主流界面式浏览器，如果你在这些浏览器里安装一个selenium的插件，那么便可以方便的实现Web界面的测试。换句话说selenium支持这些浏览器驱动，selenium支持多种语言开发，比如Python、Java、C、Ruby等等。</p>
+        
+          <p class="article-more-link">
+            <a href="/2018/02/22/Python——爬虫入门Selenium的简单使用/#more">继续阅读全文 »</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/02/22/Python——爬虫入门Selenium的简单使用/" data-id="cjlr92m1m000slxz9vqs1pr26" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Selenium/">Selenium</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/爬虫/">爬虫</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-Python——爬虫入门-Urllib库的进阶" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/02/07/Python——爬虫入门-Urllib库的进阶/" class="article-date">
+  <time datetime="2018-02-07T13:06:30.000Z" itemprop="datePublished">2018-02-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/07/Python——爬虫入门-Urllib库的进阶/">Python——爬虫入门 Urllib库的进阶</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>上一篇文章我们简单讲解了Urllib库的基础用法，包括如何获取请求之后的页面响应，如何使用POST请求上传数据，今天我们就来讲讲Urllib库的几个进阶用法。</p>
+        
+          <p class="article-more-link">
+            <a href="/2018/02/07/Python——爬虫入门-Urllib库的进阶/#more">继续阅读全文 »</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/02/07/Python——爬虫入门-Urllib库的进阶/" data-id="cjlr92m1l000rlxz9mc6wbqzz" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/爬虫/">爬虫</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-Python——爬虫入门-Urllib库的使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/28/Python——爬虫入门-Urllib库的使用/" class="article-date">
+  <time datetime="2018-01-28T12:44:16.000Z" itemprop="datePublished">2018-01-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/28/Python——爬虫入门-Urllib库的使用/">Python——爬虫入门 Urllib库的使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近在系统的学习Python爬虫，觉得还是比较有意思的，能够干很多的事情，所以也写点文章记录一下学习过程，帮助日后回顾。</p>
+<p>网上关于Python的爬虫文章、教程特别多，尤其是喜欢刷知乎的用户，我总是感觉其他语言都是讨论xx框架如何，xx如何进阶，而Pythoner一开专栏，保准是xx爬虫入门教学，于是想零基础的入门Python爬虫也是非常容易的一件事，但是事实上会和达到工作要求，之间要学习补充的东西还是非常非常多的。</p>
+<p>我在初学爬虫这段时间内，对于爬虫的流程，简单的概括为下面四步骤：网页 -&gt; 网页源代码 -&gt; 正则表达式 -&gt; 需要的内容。而针对这四个方面展开则有许多许多可以提升并完善的细节，例如一个网页，我们就可以从在浏览器的地址栏敲入url之后说起。当然，这里我是不准备展开来说的。</p>
+<p>而目前的文章我打算从爬虫的入门开始写，看看是否可以写出一个系列来记录，完成品是争取带大家爬出一个动态js加载的妹子页面。</p>
+<p>爬虫的功能往简单的说就是把网页源代码想办法爬下来，然后分析我们需要的内容，总结起来就是两个部分：</p>
+<ul>
+<li><p>爬！</p>
+</li>
+<li><p>提取。</p>
+</li>
+</ul>
+        
+          <p class="article-more-link">
+            <a href="/2018/01/28/Python——爬虫入门-Urllib库的使用/#more">继续阅读全文 »</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/01/28/Python——爬虫入门-Urllib库的使用/" data-id="cjlr92m1k000qlxz9f0r1v4dw" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/爬虫/">爬虫</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
+    <article id="post-Python——搞定烦人的字符串编码" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/17/Python——搞定烦人的字符串编码/" class="article-date">
+  <time datetime="2018-01-17T12:31:36.000Z" itemprop="datePublished">2018-01-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/17/Python——搞定烦人的字符串编码/">Python——搞定烦人的字符串编码</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>注意：以下讨论为Python2.x版本</p>
+<p>在学习Python之前，就听说过Python的版本圣战，最可怕的是有的写Py3的程序员觉得Py2是另一种语言….所以在刚开始学习的时候，我索性把Python3和Python2的文档都看了一遍。</p>
+<p>在之后写爬虫的过程中，我还是选择使用了Python2.x来写，原因嘛，emmmmm，可能就是因为一些好用的库或者框架的示例代码也是用旧一点的版本，所以为了效率，先用旧版本上手得了。在学习Python2之前，我还特意去比较了2和3的区别，其中着重被提及的就是字符串编码的问题，于是乎我在看旧版本文档的时候很仔细的去阅读了Python2的字符串部分。</p>
+        
+          <p class="article-more-link">
+            <a href="/2018/01/17/Python——搞定烦人的字符串编码/#more">继续阅读全文 »</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/01/17/Python——搞定烦人的字符串编码/" data-id="cjlr92m1i000nlxz9z3r00icn" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编码/">编码</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
 
 
   <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/2/">下一页&raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">下一页&raquo;</a>
   </nav>
 </section>
            
@@ -475,7 +1048,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title tagcloud">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/30DaysOfSwift/" style="font-size: 14px;">30DaysOfSwift</a> <a href="/tags/AES加密/" style="font-size: 14px;">AES加密</a> <a href="/tags/API设计/" style="font-size: 14px;">API设计</a> <a href="/tags/AVL树/" style="font-size: 14px;">AVL树</a> <a href="/tags/Algorithm/" style="font-size: 14px;">Algorithm</a> <a href="/tags/AutoLayout/" style="font-size: 15.38px;">AutoLayout</a> <a href="/tags/Block/" style="font-size: 15.38px;">Block</a> <a href="/tags/CSS/" style="font-size: 14px;">CSS</a> <a href="/tags/Carthage/" style="font-size: 14px;">Carthage</a> <a href="/tags/CocoaPods/" style="font-size: 15.38px;">CocoaPods</a> <a href="/tags/Cocoapods/" style="font-size: 14px;">Cocoapods</a> <a href="/tags/Cocoapods教程/" style="font-size: 14px;">Cocoapods教程</a> <a href="/tags/Core-Graphics绘图/" style="font-size: 14px;">Core Graphics绘图</a> <a href="/tags/Crash/" style="font-size: 14px;">Crash</a> <a href="/tags/Cute-Logger/" style="font-size: 14px;">Cute-Logger</a> <a href="/tags/Debug/" style="font-size: 14px;">Debug</a> <a href="/tags/Dijkstra/" style="font-size: 14px;">Dijkstra</a> <a href="/tags/Domin/" style="font-size: 14px;">Domin</a> <a href="/tags/ES6/" style="font-size: 15.38px;">ES6</a> <a href="/tags/FMDB/" style="font-size: 14px;">FMDB</a> <a href="/tags/GCD的死锁/" style="font-size: 14px;">GCD的死锁</a> <a href="/tags/HTTP/" style="font-size: 14px;">HTTP</a> <a href="/tags/HTTP-API/" style="font-size: 14px;">HTTP-API</a> <a href="/tags/HTTPS/" style="font-size: 14px;">HTTPS</a> <a href="/tags/Instruments/" style="font-size: 14px;">Instruments</a> <a href="/tags/Instruments工具/" style="font-size: 14px;">Instruments工具</a> <a href="/tags/JSON解析/" style="font-size: 14px;">JSON解析</a> <a href="/tags/Java/" style="font-size: 14px;">Java</a> <a href="/tags/Javascript/" style="font-size: 15.38px;">Javascript</a> <a href="/tags/LAMP/" style="font-size: 14px;">LAMP</a> <a href="/tags/Laravel/" style="font-size: 14px;">Laravel</a> <a href="/tags/Laravel部署/" style="font-size: 14px;">Laravel部署</a> <a href="/tags/Linux/" style="font-size: 22.25px;">Linux</a> <a href="/tags/MD5加密/" style="font-size: 14px;">MD5加密</a> <a href="/tags/MJExtension/" style="font-size: 14px;">MJExtension</a> <a href="/tags/Masonry/" style="font-size: 14px;">Masonry</a> <a href="/tags/NSKeyedArchiver/" style="font-size: 14px;">NSKeyedArchiver</a> <a href="/tags/Objective-C/" style="font-size: 14px;">Objective-C</a> <a href="/tags/Objective-C编码规范/" style="font-size: 14px;">Objective-C编码规范</a> <a href="/tags/PHP/" style="font-size: 18.13px;">PHP</a> <a href="/tags/Pch预编译文件/" style="font-size: 14px;">Pch预编译文件</a> <a href="/tags/Python/" style="font-size: 20.88px;">Python</a> <a href="/tags/QRCode/" style="font-size: 14px;">QRCode</a> <a href="/tags/Quartz-2D/" style="font-size: 14px;">Quartz 2D</a> <a href="/tags/React-js/" style="font-size: 14px;">React.js</a> <a href="/tags/ReactiveCocoa/" style="font-size: 14px;">ReactiveCocoa</a> <a href="/tags/Redis/" style="font-size: 14px;">Redis</a> <a href="/tags/Route/" style="font-size: 14px;">Route</a> <a href="/tags/Runtime/" style="font-size: 14px;">Runtime</a> <a href="/tags/SQLite/" style="font-size: 14px;">SQLite</a> <a href="/tags/Sass/" style="font-size: 14px;">Sass</a> <a href="/tags/Selenium/" style="font-size: 14px;">Selenium</a> <a href="/tags/Swift/" style="font-size: 19.5px;">Swift</a> <a href="/tags/Swift学习/" style="font-size: 15.38px;">Swift学习</a> <a href="/tags/Swift宏定义/" style="font-size: 14px;">Swift宏定义</a> <a href="/tags/Swift常用知识/" style="font-size: 14px;">Swift常用知识</a> <a href="/tags/UI/" style="font-size: 14px;">UI</a> <a href="/tags/UINavigationBar/" style="font-size: 15.38px;">UINavigationBar</a> <a href="/tags/UISearchBar/" style="font-size: 14px;">UISearchBar</a> <a href="/tags/UISearchController/" style="font-size: 14px;">UISearchController</a> <a href="/tags/UITableView勾选/" style="font-size: 14px;">UITableView勾选</a> <a href="/tags/UITextField/" style="font-size: 15.38px;">UITextField</a> <a href="/tags/Ubuntu-16-04/" style="font-size: 14px;">Ubuntu 16.04</a> <a href="/tags/Vagrant/" style="font-size: 14px;">Vagrant</a> <a href="/tags/Vim/" style="font-size: 15.38px;">Vim</a> <a href="/tags/XPath/" style="font-size: 14px;">XPath</a> <a href="/tags/Yii2/" style="font-size: 16.75px;">Yii2</a> <a href="/tags/clean-code/" style="font-size: 15.38px;">clean code</a> <a href="/tags/css/" style="font-size: 15.38px;">css</a> <a href="/tags/guard/" style="font-size: 14px;">guard</a> <a href="/tags/hexo命令/" style="font-size: 14px;">hexo命令</a> <a href="/tags/iOS/" style="font-size: 15.38px;">iOS</a> <a href="/tags/iOS判断设备型号/" style="font-size: 14px;">iOS判断设备型号</a> <a href="/tags/iOS开发/" style="font-size: 25px;">iOS开发</a> <a href="/tags/iOS第三方库管理/" style="font-size: 14px;">iOS第三方库管理</a> <a href="/tags/layout/" style="font-size: 14px;">layout</a> <a href="/tags/nginx/" style="font-size: 14px;">nginx</a> <a href="/tags/php/" style="font-size: 14px;">php</a> <a href="/tags/symbolicatecrash/" style="font-size: 14px;">symbolicatecrash</a> <a href="/tags/二叉查找树/" style="font-size: 14px;">二叉查找树</a> <a href="/tags/二维码扫描/" style="font-size: 14px;">二维码扫描</a> <a href="/tags/代码可读性/" style="font-size: 14px;">代码可读性</a> <a href="/tags/代码风格/" style="font-size: 15.38px;">代码风格</a> <a href="/tags/优先队列/" style="font-size: 14px;">优先队列</a> <a href="/tags/全机型适配/" style="font-size: 14px;">全机型适配</a> <a href="/tags/前端/" style="font-size: 20.88px;">前端</a> <a href="/tags/前端开发/" style="font-size: 14px;">前端开发</a> <a href="/tags/单例设计模式/" style="font-size: 14px;">单例设计模式</a> <a href="/tags/单元测试/" style="font-size: 14px;">单元测试</a> <a href="/tags/图/" style="font-size: 14px;">图</a> <a href="/tags/圆形头像/" style="font-size: 15.38px;">圆形头像</a> <a href="/tags/圆角/" style="font-size: 14px;">圆角</a> <a href="/tags/地址选择器/" style="font-size: 14px;">地址选择器</a> <a href="/tags/堆排序/" style="font-size: 14px;">堆排序</a> <a href="/tags/多线程/" style="font-size: 15.38px;">多线程</a> <a href="/tags/头像设置/" style="font-size: 14px;">头像设置</a> <a href="/tags/字典排序/" style="font-size: 14px;">字典排序</a> <a href="/tags/字符串拼接/" style="font-size: 14px;">字符串拼接</a> <a href="/tags/实用性技巧/" style="font-size: 14px;">实用性技巧</a> <a href="/tags/常用小技巧/" style="font-size: 14px;">常用小技巧</a> <a href="/tags/归档/" style="font-size: 14px;">归档</a> <a href="/tags/微信小程序/" style="font-size: 16.75px;">微信小程序</a> <a href="/tags/性能优化/" style="font-size: 15.38px;">性能优化</a> <a href="/tags/推导大O阶/" style="font-size: 14px;">推导大O阶</a> <a href="/tags/推送/" style="font-size: 14px;">推送</a> <a href="/tags/数据持久化/" style="font-size: 14px;">数据持久化</a> <a href="/tags/数据结构/" style="font-size: 23.63px;">数据结构</a> <a href="/tags/日志系统/" style="font-size: 14px;">日志系统</a> <a href="/tags/最小生成树/" style="font-size: 15.38px;">最小生成树</a> <a href="/tags/架构思考/" style="font-size: 14px;">架构思考</a> <a href="/tags/栈/" style="font-size: 14px;">栈</a> <a href="/tags/横屏解决方案/" style="font-size: 14px;">横屏解决方案</a> <a href="/tags/正则表达式/" style="font-size: 14px;">正则表达式</a> <a href="/tags/步数获取/" style="font-size: 14px;">步数获取</a> <a href="/tags/源码/" style="font-size: 14px;">源码</a> <a href="/tags/爬虫/" style="font-size: 19.5px;">爬虫</a> <a href="/tags/牛顿迭代法/" style="font-size: 14px;">牛顿迭代法</a> <a href="/tags/离屏渲染/" style="font-size: 14px;">离屏渲染</a> <a href="/tags/简单工厂模式/" style="font-size: 14px;">简单工厂模式</a> <a href="/tags/算法/" style="font-size: 20.88px;">算法</a> <a href="/tags/算法时间复杂度/" style="font-size: 14px;">算法时间复杂度</a> <a href="/tags/箭头函数/" style="font-size: 14px;">箭头函数</a> <a href="/tags/索引堆/" style="font-size: 14px;">索引堆</a> <a href="/tags/线性表/" style="font-size: 16.75px;">线性表</a> <a href="/tags/线性表的顺序存储结构/" style="font-size: 14px;">线性表的顺序存储结构</a> <a href="/tags/组件化/" style="font-size: 14px;">组件化</a> <a href="/tags/编码/" style="font-size: 14px;">编码</a> <a href="/tags/编码思考/" style="font-size: 15.38px;">编码思考</a> <a href="/tags/编码规范/" style="font-size: 14px;">编码规范</a> <a href="/tags/编程体会/" style="font-size: 14px;">编程体会</a> <a href="/tags/自动布局/" style="font-size: 14px;">自动布局</a> <a href="/tags/获取短信按钮倒计时/" style="font-size: 14px;">获取短信按钮倒计时</a> <a href="/tags/蔺老师烧脑系列/" style="font-size: 14px;">蔺老师烧脑系列</a> <a href="/tags/计时器/" style="font-size: 14px;">计时器</a> <a href="/tags/设计模式/" style="font-size: 14px;">设计模式</a> <a href="/tags/调试/" style="font-size: 14px;">调试</a> <a href="/tags/链表/" style="font-size: 16.75px;">链表</a> <a href="/tags/队列/" style="font-size: 14px;">队列</a>
+      <a href="/tags/30DaysOfSwift/" style="font-size: 14px; color: #00f">30DaysOfSwift</a> <a href="/tags/AES加密/" style="font-size: 14px; color: #00f">AES加密</a> <a href="/tags/API设计/" style="font-size: 14px; color: #00f">API设计</a> <a href="/tags/AVL树/" style="font-size: 14px; color: #00f">AVL树</a> <a href="/tags/Algorithm/" style="font-size: 14px; color: #00f">Algorithm</a> <a href="/tags/AutoLayout/" style="font-size: 15.38px; color: #1e10fd">AutoLayout</a> <a href="/tags/Block/" style="font-size: 15.38px; color: #1e10fd">Block</a> <a href="/tags/CSS/" style="font-size: 14px; color: #00f">CSS</a> <a href="/tags/Carthage/" style="font-size: 14px; color: #00f">Carthage</a> <a href="/tags/CocoaPods/" style="font-size: 15.38px; color: #1e10fd">CocoaPods</a> <a href="/tags/Cocoapods/" style="font-size: 14px; color: #00f">Cocoapods</a> <a href="/tags/Cocoapods教程/" style="font-size: 14px; color: #00f">Cocoapods教程</a> <a href="/tags/Core-Graphics绘图/" style="font-size: 14px; color: #00f">Core Graphics绘图</a> <a href="/tags/Crash/" style="font-size: 14px; color: #00f">Crash</a> <a href="/tags/Cute-Logger/" style="font-size: 14px; color: #00f">Cute-Logger</a> <a href="/tags/Debug/" style="font-size: 14px; color: #00f">Debug</a> <a href="/tags/Dijkstra/" style="font-size: 14px; color: #00f">Dijkstra</a> <a href="/tags/Domin/" style="font-size: 14px; color: #00f">Domin</a> <a href="/tags/ES6/" style="font-size: 15.38px; color: #1e10fd">ES6</a> <a href="/tags/FMDB/" style="font-size: 14px; color: #00f">FMDB</a> <a href="/tags/GCD的死锁/" style="font-size: 14px; color: #00f">GCD的死锁</a> <a href="/tags/HTTP/" style="font-size: 14px; color: #00f">HTTP</a> <a href="/tags/HTTP-API/" style="font-size: 14px; color: #00f">HTTP-API</a> <a href="/tags/HTTPS/" style="font-size: 14px; color: #00f">HTTPS</a> <a href="/tags/Instruments/" style="font-size: 14px; color: #00f">Instruments</a> <a href="/tags/Instruments工具/" style="font-size: 14px; color: #00f">Instruments工具</a> <a href="/tags/JSON解析/" style="font-size: 14px; color: #00f">JSON解析</a> <a href="/tags/Java/" style="font-size: 14px; color: #00f">Java</a> <a href="/tags/Javascript/" style="font-size: 15.38px; color: #1e10fd">Javascript</a> <a href="/tags/LAMP/" style="font-size: 14px; color: #00f">LAMP</a> <a href="/tags/Laravel/" style="font-size: 14px; color: #00f">Laravel</a> <a href="/tags/Laravel部署/" style="font-size: 14px; color: #00f">Laravel部署</a> <a href="/tags/Linux/" style="font-size: 22.25px; color: #b362f2">Linux</a> <a href="/tags/MD5加密/" style="font-size: 14px; color: #00f">MD5加密</a> <a href="/tags/MJExtension/" style="font-size: 14px; color: #00f">MJExtension</a> <a href="/tags/Masonry/" style="font-size: 14px; color: #00f">Masonry</a> <a href="/tags/NSKeyedArchiver/" style="font-size: 14px; color: #00f">NSKeyedArchiver</a> <a href="/tags/Objective-C/" style="font-size: 14px; color: #00f">Objective-C</a> <a href="/tags/Objective-C编码规范/" style="font-size: 14px; color: #00f">Objective-C编码规范</a> <a href="/tags/PHP/" style="font-size: 18.13px; color: #5931f9">PHP</a> <a href="/tags/Pch预编译文件/" style="font-size: 14px; color: #00f">Pch预编译文件</a> <a href="/tags/Python/" style="font-size: 20.88px; color: #9551f4">Python</a> <a href="/tags/QRCode/" style="font-size: 14px; color: #00f">QRCode</a> <a href="/tags/Quartz-2D/" style="font-size: 14px; color: #00f">Quartz 2D</a> <a href="/tags/React-js/" style="font-size: 14px; color: #00f">React.js</a> <a href="/tags/ReactiveCocoa/" style="font-size: 14px; color: #00f">ReactiveCocoa</a> <a href="/tags/Redis/" style="font-size: 14px; color: #00f">Redis</a> <a href="/tags/Route/" style="font-size: 14px; color: #00f">Route</a> <a href="/tags/Runtime/" style="font-size: 14px; color: #00f">Runtime</a> <a href="/tags/SQLite/" style="font-size: 14px; color: #00f">SQLite</a> <a href="/tags/Sass/" style="font-size: 14px; color: #00f">Sass</a> <a href="/tags/Selenium/" style="font-size: 14px; color: #00f">Selenium</a> <a href="/tags/Swift/" style="font-size: 19.5px; color: #7741f7">Swift</a> <a href="/tags/Swift学习/" style="font-size: 15.38px; color: #1e10fd">Swift学习</a> <a href="/tags/Swift宏定义/" style="font-size: 14px; color: #00f">Swift宏定义</a> <a href="/tags/Swift常用知识/" style="font-size: 14px; color: #00f">Swift常用知识</a> <a href="/tags/UI/" style="font-size: 14px; color: #00f">UI</a> <a href="/tags/UINavigationBar/" style="font-size: 15.38px; color: #1e10fd">UINavigationBar</a> <a href="/tags/UISearchBar/" style="font-size: 14px; color: #00f">UISearchBar</a> <a href="/tags/UISearchController/" style="font-size: 14px; color: #00f">UISearchController</a> <a href="/tags/UITableView勾选/" style="font-size: 14px; color: #00f">UITableView勾选</a> <a href="/tags/UITextField/" style="font-size: 15.38px; color: #1e10fd">UITextField</a> <a href="/tags/Ubuntu-16-04/" style="font-size: 14px; color: #00f">Ubuntu 16.04</a> <a href="/tags/Vagrant/" style="font-size: 14px; color: #00f">Vagrant</a> <a href="/tags/Vim/" style="font-size: 15.38px; color: #1e10fd">Vim</a> <a href="/tags/XPath/" style="font-size: 14px; color: #00f">XPath</a> <a href="/tags/Yii2/" style="font-size: 16.75px; color: #3c21fb">Yii2</a> <a href="/tags/clean-code/" style="font-size: 15.38px; color: #1e10fd">clean code</a> <a href="/tags/css/" style="font-size: 15.38px; color: #1e10fd">css</a> <a href="/tags/guard/" style="font-size: 14px; color: #00f">guard</a> <a href="/tags/hexo命令/" style="font-size: 14px; color: #00f">hexo命令</a> <a href="/tags/iOS/" style="font-size: 15.38px; color: #1e10fd">iOS</a> <a href="/tags/iOS判断设备型号/" style="font-size: 14px; color: #00f">iOS判断设备型号</a> <a href="/tags/iOS开发/" style="font-size: 25px; color: #ee82ee">iOS开发</a> <a href="/tags/iOS第三方库管理/" style="font-size: 14px; color: #00f">iOS第三方库管理</a> <a href="/tags/layout/" style="font-size: 14px; color: #00f">layout</a> <a href="/tags/nginx/" style="font-size: 14px; color: #00f">nginx</a> <a href="/tags/php/" style="font-size: 14px; color: #00f">php</a> <a href="/tags/symbolicatecrash/" style="font-size: 14px; color: #00f">symbolicatecrash</a> <a href="/tags/二叉查找树/" style="font-size: 14px; color: #00f">二叉查找树</a> <a href="/tags/二维码扫描/" style="font-size: 14px; color: #00f">二维码扫描</a> <a href="/tags/代码可读性/" style="font-size: 14px; color: #00f">代码可读性</a> <a href="/tags/代码风格/" style="font-size: 15.38px; color: #1e10fd">代码风格</a> <a href="/tags/优先队列/" style="font-size: 14px; color: #00f">优先队列</a> <a href="/tags/全机型适配/" style="font-size: 14px; color: #00f">全机型适配</a> <a href="/tags/前端/" style="font-size: 20.88px; color: #9551f4">前端</a> <a href="/tags/前端开发/" style="font-size: 14px; color: #00f">前端开发</a> <a href="/tags/单例设计模式/" style="font-size: 14px; color: #00f">单例设计模式</a> <a href="/tags/单元测试/" style="font-size: 14px; color: #00f">单元测试</a> <a href="/tags/图/" style="font-size: 14px; color: #00f">图</a> <a href="/tags/圆形头像/" style="font-size: 15.38px; color: #1e10fd">圆形头像</a> <a href="/tags/圆角/" style="font-size: 14px; color: #00f">圆角</a> <a href="/tags/地址选择器/" style="font-size: 14px; color: #00f">地址选择器</a> <a href="/tags/堆排序/" style="font-size: 14px; color: #00f">堆排序</a> <a href="/tags/多线程/" style="font-size: 15.38px; color: #1e10fd">多线程</a> <a href="/tags/头像设置/" style="font-size: 14px; color: #00f">头像设置</a> <a href="/tags/字典排序/" style="font-size: 14px; color: #00f">字典排序</a> <a href="/tags/字符串拼接/" style="font-size: 14px; color: #00f">字符串拼接</a> <a href="/tags/实用性技巧/" style="font-size: 14px; color: #00f">实用性技巧</a> <a href="/tags/常用小技巧/" style="font-size: 14px; color: #00f">常用小技巧</a> <a href="/tags/归档/" style="font-size: 14px; color: #00f">归档</a> <a href="/tags/微信小程序/" style="font-size: 16.75px; color: #3c21fb">微信小程序</a> <a href="/tags/性能优化/" style="font-size: 15.38px; color: #1e10fd">性能优化</a> <a href="/tags/推导大O阶/" style="font-size: 14px; color: #00f">推导大O阶</a> <a href="/tags/推送/" style="font-size: 14px; color: #00f">推送</a> <a href="/tags/数据持久化/" style="font-size: 14px; color: #00f">数据持久化</a> <a href="/tags/数据结构/" style="font-size: 23.63px; color: #d072f0">数据结构</a> <a href="/tags/日志系统/" style="font-size: 14px; color: #00f">日志系统</a> <a href="/tags/最小生成树/" style="font-size: 15.38px; color: #1e10fd">最小生成树</a> <a href="/tags/架构思考/" style="font-size: 14px; color: #00f">架构思考</a> <a href="/tags/栈/" style="font-size: 14px; color: #00f">栈</a> <a href="/tags/横屏解决方案/" style="font-size: 14px; color: #00f">横屏解决方案</a> <a href="/tags/正则表达式/" style="font-size: 14px; color: #00f">正则表达式</a> <a href="/tags/步数获取/" style="font-size: 14px; color: #00f">步数获取</a> <a href="/tags/源码/" style="font-size: 14px; color: #00f">源码</a> <a href="/tags/爬虫/" style="font-size: 19.5px; color: #7741f7">爬虫</a> <a href="/tags/牛顿迭代法/" style="font-size: 14px; color: #00f">牛顿迭代法</a> <a href="/tags/离屏渲染/" style="font-size: 14px; color: #00f">离屏渲染</a> <a href="/tags/简单工厂模式/" style="font-size: 14px; color: #00f">简单工厂模式</a> <a href="/tags/算法/" style="font-size: 20.88px; color: #9551f4">算法</a> <a href="/tags/算法时间复杂度/" style="font-size: 14px; color: #00f">算法时间复杂度</a> <a href="/tags/箭头函数/" style="font-size: 14px; color: #00f">箭头函数</a> <a href="/tags/索引堆/" style="font-size: 14px; color: #00f">索引堆</a> <a href="/tags/线性表/" style="font-size: 16.75px; color: #3c21fb">线性表</a> <a href="/tags/线性表的顺序存储结构/" style="font-size: 14px; color: #00f">线性表的顺序存储结构</a> <a href="/tags/组件化/" style="font-size: 14px; color: #00f">组件化</a> <a href="/tags/编码/" style="font-size: 14px; color: #00f">编码</a> <a href="/tags/编码思考/" style="font-size: 15.38px; color: #1e10fd">编码思考</a> <a href="/tags/编码规范/" style="font-size: 14px; color: #00f">编码规范</a> <a href="/tags/编程体会/" style="font-size: 14px; color: #00f">编程体会</a> <a href="/tags/自动布局/" style="font-size: 14px; color: #00f">自动布局</a> <a href="/tags/获取短信按钮倒计时/" style="font-size: 14px; color: #00f">获取短信按钮倒计时</a> <a href="/tags/蔺老师烧脑系列/" style="font-size: 14px; color: #00f">蔺老师烧脑系列</a> <a href="/tags/计时器/" style="font-size: 14px; color: #00f">计时器</a> <a href="/tags/设计模式/" style="font-size: 14px; color: #00f">设计模式</a> <a href="/tags/调试/" style="font-size: 14px; color: #00f">调试</a> <a href="/tags/链表/" style="font-size: 16.75px; color: #3c21fb">链表</a> <a href="/tags/队列/" style="font-size: 14px; color: #00f">队列</a>
     </div>
   </div>
 
@@ -567,16 +1140,6 @@ window.onload = function() {
       
 
   
-    <script>
-      var cloudTieConfig = {
-        url: document.location.href, 
-        sourceId: "",
-        productKey: "e2fb4051c49842688ce669e634bc983f",
-        target: "cloud-tie-wrapper"
-      };
-    </script>
-    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
-    
 
   
 
