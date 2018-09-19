@@ -38,7 +38,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -69,6 +69,59 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-Ubuntu-16-04服务器的初始化设置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/19/Ubuntu-16-04服务器的初始化设置/" class="article-date">
+  <time datetime="2018-09-19T12:59:50.000Z" itemprop="datePublished">2018-09-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/19/Ubuntu-16-04服务器的初始化设置/">Ubuntu 16.04服务器的初始化设置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近在服务器的安全性这个问题上吃了点亏，于是决定写几篇Linux服务器初始化相关的文章，来记录这次踩坑的成果。尽早的设置会让服务器更加的安全，提高它的可用性，为后续的部署程序打下基础。</p>
+<h2 id="一、root登录"><a href="#一、root登录" class="headerlink" title="一、root登录"></a>一、root登录</h2><p>在我们买下一台云服务器之后，就可以从控制台中拿到服务器的ip以及账号密码。这时我们可以通过</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@SERVER_IP_ADDRESS</span><br></pre></td></tr></table></figure>
+<p>这个命令来连接服务器。如果出现了接受有关主机的真实性的警告，就选择同意，在输入密码之后，就能完成登录过程。</p>
+<h3 id="root是什么"><a href="#root是什么" class="headerlink" title="root是什么"></a>root是什么</h3><p>在Unix与类Unix系统中，root是在所有模式（单/多用户）下对所有文件与程序拥有一切权限的用户（也即超级用户）的约定俗成的通名。</p>
+<h2 id="二、创建新用户"><a href="#二、创建新用户" class="headerlink" title="二、创建新用户"></a>二、创建新用户</h2><p>root账号的权限是非常大的，所以在我们第一次登录了root账号之后，我们就应该准备一个新账号，以后登录就使用这个新账号。所以接下来的步骤我们准备创建一个新用户。</p>
+<p>例如我要创建一个名为”leon”的新用户。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adduser leon</span><br></pre></td></tr></table></figure>
+<p>确认之后，我们需要先给账户设置一个密码。之后系统会问我们一些信息，包括全名，家庭电话，工作电话等等。如果可以的话，给账户设置一个强度较高的密码并且记住，也可以选择性的留下你的其他信息。</p>
+        
+          <p class="article-more-link">
+            <a href="/2018/09/19/Ubuntu-16-04服务器的初始化设置/#more">继续阅读全文 »</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/09/19/Ubuntu-16-04服务器的初始化设置/" data-id="cjm95o7lj00158mz91swx9qg3" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/安全/">安全</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/服务器/">服务器</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
   
     <article id="post-唠唠快速排序算法" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -102,7 +155,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/09/唠唠快速排序算法/" data-id="cjlujqtz3003quoz90frbat8x" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/09/09/唠唠快速排序算法/" data-id="cjm95o7mv003s8mz9f54l6wm6" class="article-share-link">Share</a>
       
       
       
@@ -150,7 +203,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/28/微信小程序——城市区县定位选择组件/" data-id="cjlujqtzd0049uoz9h8qohb85" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/08/28/微信小程序——城市区县定位选择组件/" data-id="cjm95o7n8004e8mz9qiy92o52" class="article-share-link">Share</a>
       
       
       
@@ -195,7 +248,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/07/堆排序算法/" data-id="cjlujqtza0043uoz9wszkhkty" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/08/07/堆排序算法/" data-id="cjm95o7n200478mz9j86eqszf" class="article-share-link">Share</a>
       
       
       
@@ -240,7 +293,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/23/从element-ui源码来看BEM实现/" data-id="cjlujqtyy003duoz97k4q60lv" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/07/23/从element-ui源码来看BEM实现/" data-id="cjm95o7mm003e8mz9bzv1bh6i" class="article-share-link">Share</a>
       
       
       
@@ -286,7 +339,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/17/小程序开发总结/" data-id="cjlujqtzb0046uoz93scgu9rr" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/07/17/小程序开发总结/" data-id="cjm95o7n000438mz933hgyrl5" class="article-share-link">Share</a>
       
       
       
@@ -333,7 +386,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/30/微信小程序——使用setData修改数组中的单个对象/" data-id="cjlujqtzc0047uoz93h7s9yk1" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/05/30/微信小程序——使用setData修改数组中的单个对象/" data-id="cjm95o7n300498mz9yf223eow" class="article-share-link">Share</a>
       
       
       
@@ -380,7 +433,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/22/腾讯云上免费部署HTTPS/" data-id="cjlujqtzs004vuoz90mc6xnxo" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/05/22/腾讯云上免费部署HTTPS/" data-id="cjm95o7nj004z8mz9b56hz2bk" class="article-share-link">Share</a>
       
       
       
@@ -425,7 +478,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/14/CSS——实现元素的垂直居中/" data-id="cjlujqtwu0003uoz9kzbdti6e" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/05/14/CSS——实现元素的垂直居中/" data-id="cjm95o7km00038mz96l001ino" class="article-share-link">Share</a>
       
       
       
@@ -470,7 +523,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/09/在Ubunt16-04上安装LAMP/" data-id="cjlujqtz5003uuoz97ljsaf9a" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/05/09/在Ubunt16-04上安装LAMP/" data-id="cjm95o7mx003x8mz9ain6hqcw" class="article-share-link">Share</a>
       
       
       
@@ -516,7 +569,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/25/在Mac上使用ssh-key免密码登录服务器/" data-id="cjlujqtz5003suoz94ydt4owy" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/04/25/在Mac上使用ssh-key免密码登录服务器/" data-id="cjm95o7mw003u8mz9nkdaw3r0" class="article-share-link">Share</a>
       
       
       
@@ -562,7 +615,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/17/PHP开发——yii2多图上传组件的使用/" data-id="cjlujqtxg000luoz9bybhc072" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/04/17/PHP开发——yii2多图上传组件的使用/" data-id="cjm95o7l4000i8mz9eqjiaieg" class="article-share-link">Share</a>
       
       
       
@@ -610,7 +663,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/04/在create-react-app中使用sass/" data-id="cjlujqtz8003zuoz9gwbotqk1" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/04/04/在create-react-app中使用sass/" data-id="cjm95o7mz00418mz9iqavc4p7" class="article-share-link">Share</a>
       
       
       
@@ -660,7 +713,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/28/在Yii2框架中使用Redis/" data-id="cjlujqtz7003xuoz959wmbeu1" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/03/28/在Yii2框架中使用Redis/" data-id="cjm95o7my003z8mz950ku219n" class="article-share-link">Share</a>
       
       
       
@@ -710,7 +763,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/25/ES6——箭头函数/" data-id="cjlujqtx7000auoz9nio3zosh" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/03/25/ES6——箭头函数/" data-id="cjm95o7kx000a8mz9pz2xvgdl" class="article-share-link">Share</a>
       
       
       
@@ -756,7 +809,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/14/ES6——扩展运算符使用/" data-id="cjlujqtx50008uoz9spr3snpm" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/03/14/ES6——扩展运算符使用/" data-id="cjm95o7kt00088mz9vhwknh52" class="article-share-link">Share</a>
       
       
       
@@ -803,7 +856,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/07/Python——爬虫实战-爬取淘宝店铺内所有宝贝图片/" data-id="cjlujqtxp000vuoz90ntsruwi" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/03/07/Python——爬虫实战-爬取淘宝店铺内所有宝贝图片/" data-id="cjm95o7le000v8mz99e0q62mn" class="article-share-link">Share</a>
       
       
       
@@ -850,7 +903,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/27/Python——爬虫入门XPath的使用/" data-id="cjlujqtxo000uuoz9k0ctnzzi" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/02/27/Python——爬虫入门XPath的使用/" data-id="cjm95o7ld000u8mz9y66ndhk8" class="article-share-link">Share</a>
       
       
       
@@ -896,7 +949,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/22/Python——爬虫入门Selenium的简单使用/" data-id="cjlujqtxn000suoz9gj60rcir" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/02/22/Python——爬虫入门Selenium的简单使用/" data-id="cjm95o7lb000s8mz9kslat9s2" class="article-share-link">Share</a>
       
       
       
@@ -941,62 +994,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/07/Python——爬虫入门-Urllib库的进阶/" data-id="cjlujqtxm000ruoz95lp17x90" class="article-share-link">分享</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/爬虫/">爬虫</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
- 
-
-
-  
-    <article id="post-Python——爬虫入门-Urllib库的使用" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/01/28/Python——爬虫入门-Urllib库的使用/" class="article-date">
-  <time datetime="2018-01-28T12:44:16.000Z" itemprop="datePublished">2018-01-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/28/Python——爬虫入门-Urllib库的使用/">Python——爬虫入门 Urllib库的使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最近在系统的学习Python爬虫，觉得还是比较有意思的，能够干很多的事情，所以也写点文章记录一下学习过程，帮助日后回顾。</p>
-<p>网上关于Python的爬虫文章、教程特别多，尤其是喜欢刷知乎的用户，我总是感觉其他语言都是讨论xx框架如何，xx如何进阶，而Pythoner一开专栏，保准是xx爬虫入门教学，于是想零基础的入门Python爬虫也是非常容易的一件事，但是事实上会和达到工作要求，之间要学习补充的东西还是非常非常多的。</p>
-<p>我在初学爬虫这段时间内，对于爬虫的流程，简单的概括为下面四步骤：网页 -&gt; 网页源代码 -&gt; 正则表达式 -&gt; 需要的内容。而针对这四个方面展开则有许多许多可以提升并完善的细节，例如一个网页，我们就可以从在浏览器的地址栏敲入url之后说起。当然，这里我是不准备展开来说的。</p>
-<p>而目前的文章我打算从爬虫的入门开始写，看看是否可以写出一个系列来记录，完成品是争取带大家爬出一个动态js加载的妹子页面。</p>
-<p>爬虫的功能往简单的说就是把网页源代码想办法爬下来，然后分析我们需要的内容，总结起来就是两个部分：</p>
-<ul>
-<li><p>爬！</p>
-</li>
-<li><p>提取。</p>
-</li>
-</ul>
-        
-          <p class="article-more-link">
-            <a href="/2018/01/28/Python——爬虫入门-Urllib库的使用/#more">继续阅读全文 »</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/28/Python——爬虫入门-Urllib库的使用/" data-id="cjlujqtxl000quoz9odqsq0n8" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/02/07/Python——爬虫入门-Urllib库的进阶/" data-id="cjm95o7la000r8mz9ccqkgdur" class="article-share-link">Share</a>
       
       
       
@@ -1013,7 +1011,7 @@
 
 
   <nav id="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">下一页&raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next&raquo;</a>
   </nav>
 </section>
            
@@ -1045,18 +1043,22 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title tagcloud">标签云</h3>
+    <h3 class="widget-title tagcloud">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/30DaysOfSwift/" style="font-size: 14px; color: #00f">30DaysOfSwift</a> <a href="/tags/AES加密/" style="font-size: 14px; color: #00f">AES加密</a> <a href="/tags/API设计/" style="font-size: 14px; color: #00f">API设计</a> <a href="/tags/AVL树/" style="font-size: 14px; color: #00f">AVL树</a> <a href="/tags/Algorithm/" style="font-size: 14px; color: #00f">Algorithm</a> <a href="/tags/AutoLayout/" style="font-size: 15.22px; color: #1a0efd">AutoLayout</a> <a href="/tags/Block/" style="font-size: 15.22px; color: #1a0efd">Block</a> <a href="/tags/CSS/" style="font-size: 14px; color: #00f">CSS</a> <a href="/tags/Carthage/" style="font-size: 14px; color: #00f">Carthage</a> <a href="/tags/CocoaPods/" style="font-size: 15.22px; color: #1a0efd">CocoaPods</a> <a href="/tags/Cocoapods/" style="font-size: 14px; color: #00f">Cocoapods</a> <a href="/tags/Cocoapods教程/" style="font-size: 14px; color: #00f">Cocoapods教程</a> <a href="/tags/Core-Graphics绘图/" style="font-size: 14px; color: #00f">Core Graphics绘图</a> <a href="/tags/Crash/" style="font-size: 14px; color: #00f">Crash</a> <a href="/tags/Cute-Logger/" style="font-size: 14px; color: #00f">Cute-Logger</a> <a href="/tags/Debug/" style="font-size: 14px; color: #00f">Debug</a> <a href="/tags/Dijkstra/" style="font-size: 14px; color: #00f">Dijkstra</a> <a href="/tags/Domin/" style="font-size: 14px; color: #00f">Domin</a> <a href="/tags/ES6/" style="font-size: 15.22px; color: #1a0efd">ES6</a> <a href="/tags/FMDB/" style="font-size: 14px; color: #00f">FMDB</a> <a href="/tags/GCD的死锁/" style="font-size: 14px; color: #00f">GCD的死锁</a> <a href="/tags/HTTP/" style="font-size: 14px; color: #00f">HTTP</a> <a href="/tags/HTTP-API/" style="font-size: 14px; color: #00f">HTTP-API</a> <a href="/tags/HTTPS/" style="font-size: 14px; color: #00f">HTTPS</a> <a href="/tags/Instruments/" style="font-size: 14px; color: #00f">Instruments</a> <a href="/tags/Instruments工具/" style="font-size: 14px; color: #00f">Instruments工具</a> <a href="/tags/JSON解析/" style="font-size: 14px; color: #00f">JSON解析</a> <a href="/tags/Java/" style="font-size: 14px; color: #00f">Java</a> <a href="/tags/Javascript/" style="font-size: 15.22px; color: #1a0efd">Javascript</a> <a href="/tags/LAMP/" style="font-size: 14px; color: #00f">LAMP</a> <a href="/tags/Laravel/" style="font-size: 14px; color: #00f">Laravel</a> <a href="/tags/Laravel部署/" style="font-size: 14px; color: #00f">Laravel部署</a> <a href="/tags/Linux/" style="font-size: 22.56px; color: #b965f2">Linux</a> <a href="/tags/MD5加密/" style="font-size: 14px; color: #00f">MD5加密</a> <a href="/tags/MJExtension/" style="font-size: 14px; color: #00f">MJExtension</a> <a href="/tags/Masonry/" style="font-size: 14px; color: #00f">Masonry</a> <a href="/tags/NSKeyedArchiver/" style="font-size: 14px; color: #00f">NSKeyedArchiver</a> <a href="/tags/Objective-C/" style="font-size: 14px; color: #00f">Objective-C</a> <a href="/tags/Objective-C编码规范/" style="font-size: 14px; color: #00f">Objective-C编码规范</a> <a href="/tags/PHP/" style="font-size: 17.67px; color: #4f2bf9">PHP</a> <a href="/tags/Pch预编译文件/" style="font-size: 14px; color: #00f">Pch预编译文件</a> <a href="/tags/Python/" style="font-size: 20.11px; color: #8448f6">Python</a> <a href="/tags/QRCode/" style="font-size: 14px; color: #00f">QRCode</a> <a href="/tags/Quartz-2D/" style="font-size: 14px; color: #00f">Quartz 2D</a> <a href="/tags/React-js/" style="font-size: 14px; color: #00f">React.js</a> <a href="/tags/ReactiveCocoa/" style="font-size: 14px; color: #00f">ReactiveCocoa</a> <a href="/tags/Redis/" style="font-size: 14px; color: #00f">Redis</a> <a href="/tags/Route/" style="font-size: 14px; color: #00f">Route</a> <a href="/tags/Runtime/" style="font-size: 14px; color: #00f">Runtime</a> <a href="/tags/SQLite/" style="font-size: 14px; color: #00f">SQLite</a> <a href="/tags/Sass/" style="font-size: 14px; color: #00f">Sass</a> <a href="/tags/Selenium/" style="font-size: 14px; color: #00f">Selenium</a> <a href="/tags/Swift/" style="font-size: 18.89px; color: #6a3af7">Swift</a> <a href="/tags/Swift学习/" style="font-size: 15.22px; color: #1a0efd">Swift学习</a> <a href="/tags/Swift宏定义/" style="font-size: 14px; color: #00f">Swift宏定义</a> <a href="/tags/Swift常用知识/" style="font-size: 14px; color: #00f">Swift常用知识</a> <a href="/tags/UI/" style="font-size: 14px; color: #00f">UI</a> <a href="/tags/UINavigationBar/" style="font-size: 15.22px; color: #1a0efd">UINavigationBar</a> <a href="/tags/UISearchBar/" style="font-size: 14px; color: #00f">UISearchBar</a> <a href="/tags/UISearchController/" style="font-size: 14px; color: #00f">UISearchController</a> <a href="/tags/UITableView勾选/" style="font-size: 14px; color: #00f">UITableView勾选</a> <a href="/tags/UITextField/" style="font-size: 15.22px; color: #1a0efd">UITextField</a> <a href="/tags/Ubuntu-16-04/" style="font-size: 14px; color: #00f">Ubuntu 16.04</a> <a href="/tags/Vagrant/" style="font-size: 14px; color: #00f">Vagrant</a> <a href="/tags/Vim/" style="font-size: 15.22px; color: #1a0efd">Vim</a> <a href="/tags/XPath/" style="font-size: 14px; color: #00f">XPath</a> <a href="/tags/Yii2/" style="font-size: 16.44px; color: #351dfb">Yii2</a> <a href="/tags/clean-code/" style="font-size: 15.22px; color: #1a0efd">clean code</a> <a href="/tags/css/" style="font-size: 15.22px; color: #1a0efd">css</a> <a href="/tags/guard/" style="font-size: 14px; color: #00f">guard</a> <a href="/tags/hexo命令/" style="font-size: 14px; color: #00f">hexo命令</a> <a href="/tags/iOS/" style="font-size: 15.22px; color: #1a0efd">iOS</a> <a href="/tags/iOS判断设备型号/" style="font-size: 14px; color: #00f">iOS判断设备型号</a> <a href="/tags/iOS开发/" style="font-size: 25px; color: #ee82ee">iOS开发</a> <a href="/tags/iOS第三方库管理/" style="font-size: 14px; color: #00f">iOS第三方库管理</a> <a href="/tags/layout/" style="font-size: 14px; color: #00f">layout</a> <a href="/tags/nginx/" style="font-size: 14px; color: #00f">nginx</a> <a href="/tags/php/" style="font-size: 14px; color: #00f">php</a> <a href="/tags/symbolicatecrash/" style="font-size: 14px; color: #00f">symbolicatecrash</a> <a href="/tags/二叉查找树/" style="font-size: 14px; color: #00f">二叉查找树</a> <a href="/tags/二维码扫描/" style="font-size: 14px; color: #00f">二维码扫描</a> <a href="/tags/代码可读性/" style="font-size: 14px; color: #00f">代码可读性</a> <a href="/tags/代码风格/" style="font-size: 15.22px; color: #1a0efd">代码风格</a> <a href="/tags/优先队列/" style="font-size: 14px; color: #00f">优先队列</a> <a href="/tags/全机型适配/" style="font-size: 14px; color: #00f">全机型适配</a> <a href="/tags/前端/" style="font-size: 20.11px; color: #8448f6">前端</a> <a href="/tags/前端开发/" style="font-size: 14px; color: #00f">前端开发</a> <a href="/tags/单例设计模式/" style="font-size: 14px; color: #00f">单例设计模式</a> <a href="/tags/单元测试/" style="font-size: 14px; color: #00f">单元测试</a> <a href="/tags/图/" style="font-size: 14px; color: #00f">图</a> <a href="/tags/圆形头像/" style="font-size: 15.22px; color: #1a0efd">圆形头像</a> <a href="/tags/圆角/" style="font-size: 14px; color: #00f">圆角</a> <a href="/tags/地址选择器/" style="font-size: 14px; color: #00f">地址选择器</a> <a href="/tags/堆排序/" style="font-size: 14px; color: #00f">堆排序</a> <a href="/tags/多线程/" style="font-size: 15.22px; color: #1a0efd">多线程</a> <a href="/tags/头像设置/" style="font-size: 14px; color: #00f">头像设置</a> <a href="/tags/字典排序/" style="font-size: 14px; color: #00f">字典排序</a> <a href="/tags/字符串拼接/" style="font-size: 14px; color: #00f">字符串拼接</a> <a href="/tags/实用性技巧/" style="font-size: 14px; color: #00f">实用性技巧</a> <a href="/tags/常用小技巧/" style="font-size: 14px; color: #00f">常用小技巧</a> <a href="/tags/归档/" style="font-size: 14px; color: #00f">归档</a> <a href="/tags/微信小程序/" style="font-size: 16.44px; color: #351dfb">微信小程序</a> <a href="/tags/性能优化/" style="font-size: 15.22px; color: #1a0efd">性能优化</a> <a href="/tags/推导大O阶/" style="font-size: 14px; color: #00f">推导大O阶</a> <a href="/tags/推送/" style="font-size: 14px; color: #00f">推送</a> <a href="/tags/数据持久化/" style="font-size: 14px; color: #00f">数据持久化</a> <a href="/tags/数据结构/" style="font-size: 23.78px; color: #d474f0">数据结构</a> <a href="/tags/日志系统/" style="font-size: 14px; color: #00f">日志系统</a> <a href="/tags/最小生成树/" style="font-size: 15.22px; color: #1a0efd">最小生成树</a> <a href="/tags/架构思考/" style="font-size: 14px; color: #00f">架构思考</a> <a href="/tags/栈/" style="font-size: 14px; color: #00f">栈</a> <a href="/tags/横屏解决方案/" style="font-size: 14px; color: #00f">横屏解决方案</a> <a href="/tags/正则表达式/" style="font-size: 14px; color: #00f">正则表达式</a> <a href="/tags/步数获取/" style="font-size: 14px; color: #00f">步数获取</a> <a href="/tags/源码/" style="font-size: 14px; color: #00f">源码</a> <a href="/tags/爬虫/" style="font-size: 18.89px; color: #6a3af7">爬虫</a> <a href="/tags/牛顿迭代法/" style="font-size: 14px; color: #00f">牛顿迭代法</a> <a href="/tags/离屏渲染/" style="font-size: 14px; color: #00f">离屏渲染</a> <a href="/tags/简单工厂模式/" style="font-size: 14px; color: #00f">简单工厂模式</a> <a href="/tags/算法/" style="font-size: 21.33px; color: #9f57f4">算法</a> <a href="/tags/算法时间复杂度/" style="font-size: 14px; color: #00f">算法时间复杂度</a> <a href="/tags/箭头函数/" style="font-size: 14px; color: #00f">箭头函数</a> <a href="/tags/索引堆/" style="font-size: 14px; color: #00f">索引堆</a> <a href="/tags/线性表/" style="font-size: 16.44px; color: #351dfb">线性表</a> <a href="/tags/线性表的顺序存储结构/" style="font-size: 14px; color: #00f">线性表的顺序存储结构</a> <a href="/tags/组件化/" style="font-size: 14px; color: #00f">组件化</a> <a href="/tags/编码/" style="font-size: 14px; color: #00f">编码</a> <a href="/tags/编码思考/" style="font-size: 15.22px; color: #1a0efd">编码思考</a> <a href="/tags/编码规范/" style="font-size: 14px; color: #00f">编码规范</a> <a href="/tags/编程体会/" style="font-size: 14px; color: #00f">编程体会</a> <a href="/tags/自动布局/" style="font-size: 14px; color: #00f">自动布局</a> <a href="/tags/获取短信按钮倒计时/" style="font-size: 14px; color: #00f">获取短信按钮倒计时</a> <a href="/tags/蔺老师烧脑系列/" style="font-size: 14px; color: #00f">蔺老师烧脑系列</a> <a href="/tags/计时器/" style="font-size: 14px; color: #00f">计时器</a> <a href="/tags/设计模式/" style="font-size: 14px; color: #00f">设计模式</a> <a href="/tags/调试/" style="font-size: 14px; color: #00f">调试</a> <a href="/tags/链表/" style="font-size: 16.44px; color: #351dfb">链表</a> <a href="/tags/队列/" style="font-size: 14px; color: #00f">队列</a>
+      <a href="/tags/30DaysOfSwift/" style="font-size: 14px; color: #00f">30DaysOfSwift</a> <a href="/tags/AES加密/" style="font-size: 14px; color: #00f">AES加密</a> <a href="/tags/API设计/" style="font-size: 14px; color: #00f">API设计</a> <a href="/tags/AVL树/" style="font-size: 14px; color: #00f">AVL树</a> <a href="/tags/Algorithm/" style="font-size: 14px; color: #00f">Algorithm</a> <a href="/tags/AutoLayout/" style="font-size: 15.22px; color: #1a0efd">AutoLayout</a> <a href="/tags/Block/" style="font-size: 15.22px; color: #1a0efd">Block</a> <a href="/tags/CSS/" style="font-size: 14px; color: #00f">CSS</a> <a href="/tags/Carthage/" style="font-size: 14px; color: #00f">Carthage</a> <a href="/tags/CocoaPods/" style="font-size: 15.22px; color: #1a0efd">CocoaPods</a> <a href="/tags/Cocoapods/" style="font-size: 14px; color: #00f">Cocoapods</a> <a href="/tags/Cocoapods教程/" style="font-size: 14px; color: #00f">Cocoapods教程</a> <a href="/tags/Core-Graphics绘图/" style="font-size: 14px; color: #00f">Core Graphics绘图</a> <a href="/tags/Crash/" style="font-size: 14px; color: #00f">Crash</a> <a href="/tags/Cute-Logger/" style="font-size: 14px; color: #00f">Cute-Logger</a> <a href="/tags/Debug/" style="font-size: 14px; color: #00f">Debug</a> <a href="/tags/Dijkstra/" style="font-size: 14px; color: #00f">Dijkstra</a> <a href="/tags/Domin/" style="font-size: 14px; color: #00f">Domin</a> <a href="/tags/ES6/" style="font-size: 15.22px; color: #1a0efd">ES6</a> <a href="/tags/FMDB/" style="font-size: 14px; color: #00f">FMDB</a> <a href="/tags/GCD的死锁/" style="font-size: 14px; color: #00f">GCD的死锁</a> <a href="/tags/HTTP/" style="font-size: 14px; color: #00f">HTTP</a> <a href="/tags/HTTP-API/" style="font-size: 14px; color: #00f">HTTP-API</a> <a href="/tags/HTTPS/" style="font-size: 14px; color: #00f">HTTPS</a> <a href="/tags/Instruments/" style="font-size: 14px; color: #00f">Instruments</a> <a href="/tags/Instruments工具/" style="font-size: 14px; color: #00f">Instruments工具</a> <a href="/tags/JSON解析/" style="font-size: 14px; color: #00f">JSON解析</a> <a href="/tags/Java/" style="font-size: 14px; color: #00f">Java</a> <a href="/tags/Javascript/" style="font-size: 15.22px; color: #1a0efd">Javascript</a> <a href="/tags/LAMP/" style="font-size: 14px; color: #00f">LAMP</a> <a href="/tags/Laravel/" style="font-size: 14px; color: #00f">Laravel</a> <a href="/tags/Laravel部署/" style="font-size: 14px; color: #00f">Laravel部署</a> <a href="/tags/Linux/" style="font-size: 22.56px; color: #b965f2">Linux</a> <a href="/tags/MD5加密/" style="font-size: 14px; color: #00f">MD5加密</a> <a href="/tags/MJExtension/" style="font-size: 14px; color: #00f">MJExtension</a> <a href="/tags/Masonry/" style="font-size: 14px; color: #00f">Masonry</a> <a href="/tags/NSKeyedArchiver/" style="font-size: 14px; color: #00f">NSKeyedArchiver</a> <a href="/tags/Objective-C/" style="font-size: 14px; color: #00f">Objective-C</a> <a href="/tags/Objective-C编码规范/" style="font-size: 14px; color: #00f">Objective-C编码规范</a> <a href="/tags/PHP/" style="font-size: 17.67px; color: #4f2bf9">PHP</a> <a href="/tags/Pch预编译文件/" style="font-size: 14px; color: #00f">Pch预编译文件</a> <a href="/tags/Python/" style="font-size: 20.11px; color: #8448f6">Python</a> <a href="/tags/QRCode/" style="font-size: 14px; color: #00f">QRCode</a> <a href="/tags/Quartz-2D/" style="font-size: 14px; color: #00f">Quartz 2D</a> <a href="/tags/React-js/" style="font-size: 14px; color: #00f">React.js</a> <a href="/tags/ReactiveCocoa/" style="font-size: 14px; color: #00f">ReactiveCocoa</a> <a href="/tags/Redis/" style="font-size: 14px; color: #00f">Redis</a> <a href="/tags/Route/" style="font-size: 14px; color: #00f">Route</a> <a href="/tags/Runtime/" style="font-size: 14px; color: #00f">Runtime</a> <a href="/tags/SQLite/" style="font-size: 14px; color: #00f">SQLite</a> <a href="/tags/Sass/" style="font-size: 14px; color: #00f">Sass</a> <a href="/tags/Selenium/" style="font-size: 14px; color: #00f">Selenium</a> <a href="/tags/Swift/" style="font-size: 18.89px; color: #6a3af7">Swift</a> <a href="/tags/Swift学习/" style="font-size: 15.22px; color: #1a0efd">Swift学习</a> <a href="/tags/Swift宏定义/" style="font-size: 14px; color: #00f">Swift宏定义</a> <a href="/tags/Swift常用知识/" style="font-size: 14px; color: #00f">Swift常用知识</a> <a href="/tags/UI/" style="font-size: 14px; color: #00f">UI</a> <a href="/tags/UINavigationBar/" style="font-size: 15.22px; color: #1a0efd">UINavigationBar</a> <a href="/tags/UISearchBar/" style="font-size: 14px; color: #00f">UISearchBar</a> <a href="/tags/UISearchController/" style="font-size: 14px; color: #00f">UISearchController</a> <a href="/tags/UITableView勾选/" style="font-size: 14px; color: #00f">UITableView勾选</a> <a href="/tags/UITextField/" style="font-size: 15.22px; color: #1a0efd">UITextField</a> <a href="/tags/Ubuntu-16-04/" style="font-size: 14px; color: #00f">Ubuntu 16.04</a> <a href="/tags/Vagrant/" style="font-size: 14px; color: #00f">Vagrant</a> <a href="/tags/Vim/" style="font-size: 15.22px; color: #1a0efd">Vim</a> <a href="/tags/XPath/" style="font-size: 14px; color: #00f">XPath</a> <a href="/tags/Yii2/" style="font-size: 16.44px; color: #351dfb">Yii2</a> <a href="/tags/clean-code/" style="font-size: 15.22px; color: #1a0efd">clean code</a> <a href="/tags/css/" style="font-size: 15.22px; color: #1a0efd">css</a> <a href="/tags/guard/" style="font-size: 14px; color: #00f">guard</a> <a href="/tags/hexo命令/" style="font-size: 14px; color: #00f">hexo命令</a> <a href="/tags/iOS/" style="font-size: 15.22px; color: #1a0efd">iOS</a> <a href="/tags/iOS判断设备型号/" style="font-size: 14px; color: #00f">iOS判断设备型号</a> <a href="/tags/iOS开发/" style="font-size: 25px; color: #ee82ee">iOS开发</a> <a href="/tags/iOS第三方库管理/" style="font-size: 14px; color: #00f">iOS第三方库管理</a> <a href="/tags/layout/" style="font-size: 14px; color: #00f">layout</a> <a href="/tags/nginx/" style="font-size: 14px; color: #00f">nginx</a> <a href="/tags/php/" style="font-size: 14px; color: #00f">php</a> <a href="/tags/symbolicatecrash/" style="font-size: 14px; color: #00f">symbolicatecrash</a> <a href="/tags/二叉查找树/" style="font-size: 14px; color: #00f">二叉查找树</a> <a href="/tags/二维码扫描/" style="font-size: 14px; color: #00f">二维码扫描</a> <a href="/tags/代码可读性/" style="font-size: 14px; color: #00f">代码可读性</a> <a href="/tags/代码风格/" style="font-size: 15.22px; color: #1a0efd">代码风格</a> <a href="/tags/优先队列/" style="font-size: 14px; color: #00f">优先队列</a> <a href="/tags/全机型适配/" style="font-size: 14px; color: #00f">全机型适配</a> <a href="/tags/前端/" style="font-size: 20.11px; color: #8448f6">前端</a> <a href="/tags/前端开发/" style="font-size: 14px; color: #00f">前端开发</a> <a href="/tags/单例设计模式/" style="font-size: 14px; color: #00f">单例设计模式</a> <a href="/tags/单元测试/" style="font-size: 14px; color: #00f">单元测试</a> <a href="/tags/图/" style="font-size: 14px; color: #00f">图</a> <a href="/tags/圆形头像/" style="font-size: 15.22px; color: #1a0efd">圆形头像</a> <a href="/tags/圆角/" style="font-size: 14px; color: #00f">圆角</a> <a href="/tags/地址选择器/" style="font-size: 14px; color: #00f">地址选择器</a> <a href="/tags/堆排序/" style="font-size: 14px; color: #00f">堆排序</a> <a href="/tags/多线程/" style="font-size: 15.22px; color: #1a0efd">多线程</a> <a href="/tags/头像设置/" style="font-size: 14px; color: #00f">头像设置</a> <a href="/tags/字典排序/" style="font-size: 14px; color: #00f">字典排序</a> <a href="/tags/字符串拼接/" style="font-size: 14px; color: #00f">字符串拼接</a> <a href="/tags/安全/" style="font-size: 14px; color: #00f">安全</a> <a href="/tags/实用性技巧/" style="font-size: 14px; color: #00f">实用性技巧</a> <a href="/tags/常用小技巧/" style="font-size: 14px; color: #00f">常用小技巧</a> <a href="/tags/归档/" style="font-size: 14px; color: #00f">归档</a> <a href="/tags/微信小程序/" style="font-size: 16.44px; color: #351dfb">微信小程序</a> <a href="/tags/性能优化/" style="font-size: 15.22px; color: #1a0efd">性能优化</a> <a href="/tags/推导大O阶/" style="font-size: 14px; color: #00f">推导大O阶</a> <a href="/tags/推送/" style="font-size: 14px; color: #00f">推送</a> <a href="/tags/数据持久化/" style="font-size: 14px; color: #00f">数据持久化</a> <a href="/tags/数据结构/" style="font-size: 23.78px; color: #d474f0">数据结构</a> <a href="/tags/日志系统/" style="font-size: 14px; color: #00f">日志系统</a> <a href="/tags/最小生成树/" style="font-size: 15.22px; color: #1a0efd">最小生成树</a> <a href="/tags/服务器/" style="font-size: 14px; color: #00f">服务器</a> <a href="/tags/架构思考/" style="font-size: 14px; color: #00f">架构思考</a> <a href="/tags/栈/" style="font-size: 14px; color: #00f">栈</a> <a href="/tags/横屏解决方案/" style="font-size: 14px; color: #00f">横屏解决方案</a> <a href="/tags/正则表达式/" style="font-size: 14px; color: #00f">正则表达式</a> <a href="/tags/步数获取/" style="font-size: 14px; color: #00f">步数获取</a> <a href="/tags/源码/" style="font-size: 14px; color: #00f">源码</a> <a href="/tags/爬虫/" style="font-size: 18.89px; color: #6a3af7">爬虫</a> <a href="/tags/牛顿迭代法/" style="font-size: 14px; color: #00f">牛顿迭代法</a> <a href="/tags/离屏渲染/" style="font-size: 14px; color: #00f">离屏渲染</a> <a href="/tags/简单工厂模式/" style="font-size: 14px; color: #00f">简单工厂模式</a> <a href="/tags/算法/" style="font-size: 21.33px; color: #9f57f4">算法</a> <a href="/tags/算法时间复杂度/" style="font-size: 14px; color: #00f">算法时间复杂度</a> <a href="/tags/箭头函数/" style="font-size: 14px; color: #00f">箭头函数</a> <a href="/tags/索引堆/" style="font-size: 14px; color: #00f">索引堆</a> <a href="/tags/线性表/" style="font-size: 16.44px; color: #351dfb">线性表</a> <a href="/tags/线性表的顺序存储结构/" style="font-size: 14px; color: #00f">线性表的顺序存储结构</a> <a href="/tags/组件化/" style="font-size: 14px; color: #00f">组件化</a> <a href="/tags/编码/" style="font-size: 14px; color: #00f">编码</a> <a href="/tags/编码思考/" style="font-size: 15.22px; color: #1a0efd">编码思考</a> <a href="/tags/编码规范/" style="font-size: 14px; color: #00f">编码规范</a> <a href="/tags/编程体会/" style="font-size: 14px; color: #00f">编程体会</a> <a href="/tags/自动布局/" style="font-size: 14px; color: #00f">自动布局</a> <a href="/tags/获取短信按钮倒计时/" style="font-size: 14px; color: #00f">获取短信按钮倒计时</a> <a href="/tags/蔺老师烧脑系列/" style="font-size: 14px; color: #00f">蔺老师烧脑系列</a> <a href="/tags/计时器/" style="font-size: 14px; color: #00f">计时器</a> <a href="/tags/设计模式/" style="font-size: 14px; color: #00f">设计模式</a> <a href="/tags/调试/" style="font-size: 14px; color: #00f">调试</a> <a href="/tags/链表/" style="font-size: 16.44px; color: #351dfb">链表</a> <a href="/tags/队列/" style="font-size: 14px; color: #00f">队列</a>
     </div>
   </div>
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title recent-posts">最新文章</h3>
+    <h3 class="widget-title recent-posts">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/09/19/Ubuntu-16-04服务器的初始化设置/">Ubuntu 16.04服务器的初始化设置</a>
+          </li>
         
           <li>
             <a href="/2018/09/09/唠唠快速排序算法/">唠唠快速排序算法</a>
@@ -1074,10 +1076,6 @@
             <a href="/2018/07/23/从element-ui源码来看BEM实现/">从element-ui源码来看BEM实现</a>
           </li>
         
-          <li>
-            <a href="/2018/07/17/小程序开发总结/">小程序开发总结</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -1085,9 +1083,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title archive">归档</h3>
+    <h3 class="widget-title archive">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/10/">October 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">June 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -1107,10 +1105,10 @@
   <div class="outer">
     <div id="footer-left">
       &copy; 2014 - 2018 李晓&nbsp;|&nbsp;
-      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+      Theme by <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
     </div>
      <div id="footer-right">
-      联系方式&nbsp;|&nbsp;xiao.liunit@gmail.com
+      Contact&nbsp;|&nbsp;xiao.liunit@gmail.com
     </div>
   </div>
 </footer>

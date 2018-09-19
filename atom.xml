@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-09-09T07:37:55.668Z</updated>
+  <updated>2018-09-19T13:00:41.870Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,38 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Ubuntu 16.04服务器的初始化设置</title>
+    <link href="http://yoursite.com/2018/09/19/Ubuntu-16-04%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E8%AE%BE%E7%BD%AE/"/>
+    <id>http://yoursite.com/2018/09/19/Ubuntu-16-04服务器的初始化设置/</id>
+    <published>2018-09-19T12:59:50.000Z</published>
+    <updated>2018-09-19T13:00:41.870Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近在服务器的安全性这个问题上吃了点亏，于是决定写几篇Linux服务器初始化相关的文章，来记录这次踩坑的成果。尽早的设置会让服务器更加的安全，提高它的可用性，为后续的部署程序打下基础。</p><h2 id="一、root登录"><a href="#一、root登录" class="headerlink" title="一、root登录"></a>一、root登录</h2><p>在我们买下一台云服务器之后，就可以从控制台中拿到服务器的ip以及账号密码。这时我们可以通过</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@SERVER_IP_ADDRESS</span><br></pre></td></tr></table></figure><p>这个命令来连接服务器。如果出现了接受有关主机的真实性的警告，就选择同意，在输入密码之后，就能完成登录过程。</p><h3 id="root是什么"><a href="#root是什么" class="headerlink" title="root是什么"></a>root是什么</h3><p>在Unix与类Unix系统中，root是在所有模式（单/多用户）下对所有文件与程序拥有一切权限的用户（也即超级用户）的约定俗成的通名。</p><h2 id="二、创建新用户"><a href="#二、创建新用户" class="headerlink" title="二、创建新用户"></a>二、创建新用户</h2><p>root账号的权限是非常大的，所以在我们第一次登录了root账号之后，我们就应该准备一个新账号，以后登录就使用这个新账号。所以接下来的步骤我们准备创建一个新用户。</p><p>例如我要创建一个名为”leon”的新用户。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adduser leon</span><br></pre></td></tr></table></figure><p>确认之后，我们需要先给账户设置一个密码。之后系统会问我们一些信息，包括全名，家庭电话，工作电话等等。如果可以的话，给账户设置一个强度较高的密码并且记住，也可以选择性的留下你的其他信息。</p><a id="more"></a><h2 id="三、赋予root权限"><a href="#三、赋予root权限" class="headerlink" title="三、赋予root权限"></a>三、赋予root权限</h2><p>我们刚刚创建的leon是一个常规账户权限的账户，但是我们在日常的使用中可能需要超级管理员的权限，使用这一权限的方法是在命令前加上<code>sudo</code>，例如：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/hosts</span><br></pre></td></tr></table></figure><p>为了避免权限不够的情况，我们要酌情的给一些确实需要并且值得信任的账户root权限，当我们使用root账户登录时这样操作，</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usermod -aG sudo leon</span><br></pre></td></tr></table></figure><p>现在我们的用户leon就已经有了运行超级用户权限的命令。</p><h2 id="四、使用ssh来登录服务器"><a href="#四、使用ssh来登录服务器" class="headerlink" title="四、使用ssh来登录服务器"></a>四、使用ssh来登录服务器</h2><p>使用ssh密钥来登录服务器可以很好的提高服务器的安全性，这个操作我在之前的博客里已经写过，在这里我就贴个链接吧。</p><p><a href="http://originalix.github.io/2018/04/25/%E5%9C%A8Mac%E4%B8%8A%E4%BD%BF%E7%94%A8ssh-key%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95%E6%9C%8D%E5%8A%A1%E5%99%A8/" target="_blank" rel="noopener">使用ssh-key免密码登录服务器</a></p><p>在完成ssh登录服务器的配置之后，我们来说说怎么禁用密码的验证方式来提高服务器的安全性。</p><h2 id="五、设置禁用密码登录"><a href="#五、设置禁用密码登录" class="headerlink" title="五、设置禁用密码登录"></a>五、设置禁用密码登录</h2><p>如果我们允许服务器能通过密码验证登录的话，那么任意一个得到我们账号密码的坏人，就可能登录到服务器上进行破坏性的操作。所以为了服务器的安全考虑，我推荐大家禁止使用密码验证的方式来登录服务器。毕竟我们在信任的电脑上已经配置了ssh-key了。</p><p>警告⚠️：一定要配置好ssh-key能够登录服务器了，才执行这一步的操作，否则你的服务器就永远登录不上去了，只能重装恢复了，可能会导致数据丢失。</p><p>使用root账户或者sudo命令，打开ssh的配置文件:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure><p>查找<code>Passwordauthentication</code>选项，删除他前面的注释#，然后将他的值改为<code>no</code>。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># sshd_config 禁用密码登录设置</span></span><br><span class="line">PasswordAuthentication no</span><br></pre></td></tr></table></figure><p>接下来找到如下两个配置，如果跟我下面保持一致，则不更改，否则更改为一致，默认配置就是如下的值:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PubkeyAuthentication yes</span><br><span class="line"></span><br><span class="line">ChallengeResponseAuthentication no</span><br></pre></td></tr></table></figure><p>当你完成这些更改后，保存并使用， 使用<code>:wq</code>保存退出。</p><p>重启ssh的程序</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl reload sshd</span><br></pre></td></tr></table></figure><p>现在密码验证就已经关闭了，你只能使用ssh来进行身份验证。</p><p>在你退出这个登录连接之前，最好开一个新窗口，对自己的配置进行验证，首先确认ssh可以成功登录，免得等一下无法登录，再尝试使用另一个账号来登录服务器，如果拒绝了密码访问，那么我们的配置就成功了。</p><h2 id="六、设置防火墙"><a href="#六、设置防火墙" class="headerlink" title="六、设置防火墙"></a>六、设置防火墙</h2><p>Ubuntu 16.04服务器可以使用UFW防火墙来确保只允许与某些服务的连接。我们可以很容易地使用这个应用程序设置基本的防火墙。</p><p>不同的应用程序可以在安装时向UFW注册其配置文件。这些配置文件允许UFW按名称管理这些应用程序。 OpenSSH，该服务允许我们现在连接到我们的服务器，已在UFW注册了一个配置文件。</p><p>您可以通过键入以下内容查看此内容：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw app list</span><br></pre></td></tr></table></figure><p>可以看到以下内容</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Available applications:</span><br><span class="line">  Apache</span><br><span class="line">  Apache Full</span><br><span class="line">  Apache Secure</span><br><span class="line">  OpenSSH</span><br></pre></td></tr></table></figure><p>我们需要确保防火墙允许ssh连接，所以我们通过如下命令来允许这些连接：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw allow OpenSSH</span><br></pre></td></tr></table></figure><p>使用如下命令来启用防火墙：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw <span class="built_in">enable</span></span><br></pre></td></tr></table></figure><p>我们也可以自行查看防火墙的状态：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw status</span><br></pre></td></tr></table></figure><p>可以看到：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Status: active</span><br><span class="line"></span><br><span class="line">To                         Action      From</span><br><span class="line">--                         ------      ----</span><br><span class="line">Apache Full                ALLOW       Anywhere</span><br><span class="line">OpenSSH                    ALLOW       Anywhere</span><br><span class="line">Apache Full (v6)           ALLOW       Anywhere (v6)</span><br><span class="line">OpenSSH (v6)               ALLOW       Anywhere (v6)</span><br></pre></td></tr></table></figure><p>例如iOS的api接口，微信小程序的配置需要使用https协议，那我们要打开443的端口访问，可以使用如下命令打开端口：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw allow 443 允许外部访问443端口</span><br></pre></td></tr></table></figure><p>到这里我们的服务器的基本配置也就已经完成了，接下来就可以单独为数据库打造安全访问的配置了。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近在服务器的安全性这个问题上吃了点亏，于是决定写几篇Linux服务器初始化相关的文章，来记录这次踩坑的成果。尽早的设置会让服务器更加的安全，提高它的可用性，为后续的部署程序打下基础。&lt;/p&gt;
+&lt;h2 id=&quot;一、root登录&quot;&gt;&lt;a href=&quot;#一、root登录&quot; class=&quot;headerlink&quot; title=&quot;一、root登录&quot;&gt;&lt;/a&gt;一、root登录&lt;/h2&gt;&lt;p&gt;在我们买下一台云服务器之后，就可以从控制台中拿到服务器的ip以及账号密码。这时我们可以通过&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ssh root@SERVER_IP_ADDRESS&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这个命令来连接服务器。如果出现了接受有关主机的真实性的警告，就选择同意，在输入密码之后，就能完成登录过程。&lt;/p&gt;
+&lt;h3 id=&quot;root是什么&quot;&gt;&lt;a href=&quot;#root是什么&quot; class=&quot;headerlink&quot; title=&quot;root是什么&quot;&gt;&lt;/a&gt;root是什么&lt;/h3&gt;&lt;p&gt;在Unix与类Unix系统中，root是在所有模式（单/多用户）下对所有文件与程序拥有一切权限的用户（也即超级用户）的约定俗成的通名。&lt;/p&gt;
+&lt;h2 id=&quot;二、创建新用户&quot;&gt;&lt;a href=&quot;#二、创建新用户&quot; class=&quot;headerlink&quot; title=&quot;二、创建新用户&quot;&gt;&lt;/a&gt;二、创建新用户&lt;/h2&gt;&lt;p&gt;root账号的权限是非常大的，所以在我们第一次登录了root账号之后，我们就应该准备一个新账号，以后登录就使用这个新账号。所以接下来的步骤我们准备创建一个新用户。&lt;/p&gt;
+&lt;p&gt;例如我要创建一个名为”leon”的新用户。&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;adduser leon&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;确认之后，我们需要先给账户设置一个密码。之后系统会问我们一些信息，包括全名，家庭电话，工作电话等等。如果可以的话，给账户设置一个强度较高的密码并且记住，也可以选择性的留下你的其他信息。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Linux" scheme="http://yoursite.com/tags/Linux/"/>
+    
+      <category term="安全" scheme="http://yoursite.com/tags/%E5%AE%89%E5%85%A8/"/>
+    
+      <category term="服务器" scheme="http://yoursite.com/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>唠唠快速排序算法</title>
@@ -466,38 +498,6 @@
     <summary type="html">
     
       &lt;p&gt;上一篇文章我们简单讲解了Urllib库的基础用法，包括如何获取请求之后的页面响应，如何使用POST请求上传数据，今天我们就来讲讲Urllib库的几个进阶用法。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Python" scheme="http://yoursite.com/tags/Python/"/>
-    
-      <category term="爬虫" scheme="http://yoursite.com/tags/%E7%88%AC%E8%99%AB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Python——爬虫入门 Urllib库的使用</title>
-    <link href="http://yoursite.com/2018/01/28/Python%E2%80%94%E2%80%94%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8-Urllib%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
-    <id>http://yoursite.com/2018/01/28/Python——爬虫入门-Urllib库的使用/</id>
-    <published>2018-01-28T12:44:16.000Z</published>
-    <updated>2018-01-28T12:45:46.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近在系统的学习Python爬虫，觉得还是比较有意思的，能够干很多的事情，所以也写点文章记录一下学习过程，帮助日后回顾。</p><p>网上关于Python的爬虫文章、教程特别多，尤其是喜欢刷知乎的用户，我总是感觉其他语言都是讨论xx框架如何，xx如何进阶，而Pythoner一开专栏，保准是xx爬虫入门教学，于是想零基础的入门Python爬虫也是非常容易的一件事，但是事实上会和达到工作要求，之间要学习补充的东西还是非常非常多的。</p><p>我在初学爬虫这段时间内，对于爬虫的流程，简单的概括为下面四步骤：网页 -&gt; 网页源代码 -&gt; 正则表达式 -&gt; 需要的内容。而针对这四个方面展开则有许多许多可以提升并完善的细节，例如一个网页，我们就可以从在浏览器的地址栏敲入url之后说起。当然，这里我是不准备展开来说的。</p><p>而目前的文章我打算从爬虫的入门开始写，看看是否可以写出一个系列来记录，完成品是争取带大家爬出一个动态js加载的妹子页面。</p><p>爬虫的功能往简单的说就是把网页源代码想办法爬下来，然后分析我们需要的内容，总结起来就是两个部分：</p><ul><li><p>爬！</p></li><li><p>提取。</p></li></ul><a id="more"></a><p>所以整个过程里需要掌握的技能就是如何爬，以及爬到之后如何处理。</p><p>所以今天的入门文章里，我们就不去介绍第三方库的工具如何使用，我们来看看Python自带的标准库——Urllib库。</p><h1 id="Urllib"><a href="#Urllib" class="headerlink" title="Urllib"></a>Urllib</h1><p>这个自带的标准库提供了诸如网页请求、响应获取、代理和cookie设置、异常处理、URL解析等等功能。</p><p>一个爬虫所需要的功能，基本上在urllib中都能找到，学习这个标准库，可以更加深入的理解之后要用到的第三方库，包括提高对于爬虫框架的理解。</p><p>那我们就从第一个网页的爬取入手，现在我们首先打开我们的编辑器，创建一个Python文件，并且在里面写入如下代码：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib2</span><br><span class="line"></span><br><span class="line">response = urllib2.urlopen(<span class="string">"http://www.baidu.com"</span>)</span><br><span class="line">print(response.read().decode(<span class="string">'utf-8'</span>))</span><br></pre></td></tr></table></figure><p>是的，就是这么简短的代码，现在我们来运行一下这个py文件。在命令行中能看到爬取到的百度网站的一堆html代码。是的，你没有看错，想抓到百度的html页面，只要这么简单的两行代码，看到命令行里反馈回来的这么多代码，是不是心里一阵痛快！</p><p>好，我们我们开始从头分析我们的三行代码，第一行，我们import了我们的urllib2的库。</p><p>第二行代码，我们使用urlopen的api，传入了url参数，执行urlopen方法后，就返回了一个response对象，我们打印的返回信息便保存在里面。</p><p>第三行代码，我们打印了response响应对象里的内容，并且转换成了utf-8编码，你可以试试如果去掉了utf-8的编码，是不是会乱码呢？</p><p>而我们请求之前，也可以根据urllib2提供的request的类，在发送请求前构造一个request的对象，然后通过urllib的urlopen函数来发送请求。例如上面请求百度的代码也可以写成这样：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib2</span><br><span class="line"></span><br><span class="line">url = <span class="string">r'http://www.baidu.com'</span></span><br><span class="line">req = urllib2.Request(url)</span><br><span class="line">html = urllib2.urlopen(req).read()</span><br><span class="line"><span class="keyword">print</span> html</span><br></pre></td></tr></table></figure><p>我们先用<code>req = urllib2.Request(url)</code>实例化了一个request对象，之后再请求打开这个网页。</p><p>而我们常用的HTTP协议里还有GET、POST等方法的请求，我们该如何实现呢，以Post请求为例，我们怎么发送一个携带着数据的请求呢。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">url = <span class="string">'http://www.baidu.com/'</span></span><br><span class="line">params = &#123;<span class="string">'name'</span> : <span class="string">'Lix'</span>, <span class="string">'location'</span> : <span class="string">'China'</span>&#125;</span><br><span class="line">data = urllib.urlencode(params)</span><br><span class="line">req = urllib2.Request(url,data)</span><br><span class="line">response = urllib2.urlopen(req)</span><br><span class="line">the_page = response.read()</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> the_page</span><br></pre></td></tr></table></figure><p>这样就可以完成一个post请求，至于GET方法，我们举例的第一段代码就是get类型的哦。</p><p>根据现在讲解的一些基本知识，我们就可以抓取到一些简单的页面的数据了，之后更深的内容我们在之后的文章里接着分析哦。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最近在系统的学习Python爬虫，觉得还是比较有意思的，能够干很多的事情，所以也写点文章记录一下学习过程，帮助日后回顾。&lt;/p&gt;
-&lt;p&gt;网上关于Python的爬虫文章、教程特别多，尤其是喜欢刷知乎的用户，我总是感觉其他语言都是讨论xx框架如何，xx如何进阶，而Pythoner一开专栏，保准是xx爬虫入门教学，于是想零基础的入门Python爬虫也是非常容易的一件事，但是事实上会和达到工作要求，之间要学习补充的东西还是非常非常多的。&lt;/p&gt;
-&lt;p&gt;我在初学爬虫这段时间内，对于爬虫的流程，简单的概括为下面四步骤：网页 -&amp;gt; 网页源代码 -&amp;gt; 正则表达式 -&amp;gt; 需要的内容。而针对这四个方面展开则有许多许多可以提升并完善的细节，例如一个网页，我们就可以从在浏览器的地址栏敲入url之后说起。当然，这里我是不准备展开来说的。&lt;/p&gt;
-&lt;p&gt;而目前的文章我打算从爬虫的入门开始写，看看是否可以写出一个系列来记录，完成品是争取带大家爬出一个动态js加载的妹子页面。&lt;/p&gt;
-&lt;p&gt;爬虫的功能往简单的说就是把网页源代码想办法爬下来，然后分析我们需要的内容，总结起来就是两个部分：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;爬！&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;提取。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
     
     </summary>
     
