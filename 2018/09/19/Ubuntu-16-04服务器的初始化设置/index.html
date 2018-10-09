@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/09/19/Ubuntu-16-04服务器的初始化设置/index.html">
 <meta property="og:site_name" content="Leon的博客">
 <meta property="og:description" content="最近在服务器的安全性这个问题上吃了点亏，于是决定写几篇Linux服务器初始化相关的文章，来记录这次踩坑的成果。尽早的设置会让服务器更加的安全，提高它的可用性，为后续的部署程序打下基础。 一、root登录在我们买下一台云服务器之后，就可以从控制台中拿到服务器的ip以及账号密码。这时我们可以通过 1ssh root@SERVER_IP_ADDRESS 这个命令来连接服务器。如果出现了接受有关主机的真实">
-<meta property="og:updated_time" content="2018-09-19T13:00:41.870Z">
+<meta property="og:updated_time" content="2018-09-19T13:04:34.770Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ubuntu 16.04服务器的初始化设置">
 <meta name="twitter:description" content="最近在服务器的安全性这个问题上吃了点亏，于是决定写几篇Linux服务器初始化相关的文章，来记录这次踩坑的成果。尽早的设置会让服务器更加的安全，提高它的可用性，为后续的部署程序打下基础。 一、root登录在我们买下一台云服务器之后，就可以从控制台中拿到服务器的ip以及账号密码。这时我们可以通过 1ssh root@SERVER_IP_ADDRESS 这个命令来连接服务器。如果出现了接受有关主机的真实">
@@ -42,7 +42,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -148,7 +148,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/09/19/Ubuntu-16-04服务器的初始化设置/" data-id="cjm95o7lj00158mz91swx9qg3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/09/19/Ubuntu-16-04服务器的初始化设置/" data-id="cjn1d9dnb0019taz9o6bn1bgz" class="article-share-link">分享</a>
       
       
       
@@ -160,7 +160,7 @@
     
  <script src="/jquery/jquery.min.js"></script>
   <div id="random_posts">
-    <h2>Recommended Posts</h2>
+    <h2>推荐文章</h2>
     <div class="random_posts_ul">
       <script>
           var random_count =4
@@ -202,9 +202,18 @@
     
 <nav id="article-nav">
   
+    <a href="/2018/10/09/服务器的Mysql初始化设置/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          服务器的Mysql初始化设置
+        
+      </div>
+    </a>
+  
   
     <a href="/2018/09/09/唠唠快速排序算法/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
+      <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">唠唠快速排序算法</div>
     </a>
   
@@ -237,7 +246,7 @@
     
       <div class="widget" id="toc-widget-fixed">
       
-        <strong class="toc-title">Content</strong>
+        <strong class="toc-title">文章目录</strong>
         <div class="toc-widget-list">
               <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、root登录"><span class="toc-number">1.</span> <span class="toc-text"><a href="#&#x4E00;&#x3001;root&#x767B;&#x5F55;" class="headerlink" title="&#x4E00;&#x3001;root&#x767B;&#x5F55;"></a>&#x4E00;&#x3001;root&#x767B;&#x5F55;</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#root是什么"><span class="toc-number">1.1.</span> <span class="toc-text"><a href="#root&#x662F;&#x4EC0;&#x4E48;" class="headerlink" title="root&#x662F;&#x4EC0;&#x4E48;"></a>root&#x662F;&#x4EC0;&#x4E48;</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、创建新用户"><span class="toc-number">2.</span> <span class="toc-text"><a href="#&#x4E8C;&#x3001;&#x521B;&#x5EFA;&#x65B0;&#x7528;&#x6237;" class="headerlink" title="&#x4E8C;&#x3001;&#x521B;&#x5EFA;&#x65B0;&#x7528;&#x6237;"></a>&#x4E8C;&#x3001;&#x521B;&#x5EFA;&#x65B0;&#x7528;&#x6237;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、赋予root权限"><span class="toc-number">3.</span> <span class="toc-text"><a href="#&#x4E09;&#x3001;&#x8D4B;&#x4E88;root&#x6743;&#x9650;" class="headerlink" title="&#x4E09;&#x3001;&#x8D4B;&#x4E88;root&#x6743;&#x9650;"></a>&#x4E09;&#x3001;&#x8D4B;&#x4E88;root&#x6743;&#x9650;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、使用ssh来登录服务器"><span class="toc-number">4.</span> <span class="toc-text"><a href="#&#x56DB;&#x3001;&#x4F7F;&#x7528;ssh&#x6765;&#x767B;&#x5F55;&#x670D;&#x52A1;&#x5668;" class="headerlink" title="&#x56DB;&#x3001;&#x4F7F;&#x7528;ssh&#x6765;&#x767B;&#x5F55;&#x670D;&#x52A1;&#x5668;"></a>&#x56DB;&#x3001;&#x4F7F;&#x7528;ssh&#x6765;&#x767B;&#x5F55;&#x670D;&#x52A1;&#x5668;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、设置禁用密码登录"><span class="toc-number">5.</span> <span class="toc-text"><a href="#&#x4E94;&#x3001;&#x8BBE;&#x7F6E;&#x7981;&#x7528;&#x5BC6;&#x7801;&#x767B;&#x5F55;" class="headerlink" title="&#x4E94;&#x3001;&#x8BBE;&#x7F6E;&#x7981;&#x7528;&#x5BC6;&#x7801;&#x767B;&#x5F55;"></a>&#x4E94;&#x3001;&#x8BBE;&#x7F6E;&#x7981;&#x7528;&#x5BC6;&#x7801;&#x767B;&#x5F55;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、设置防火墙"><span class="toc-number">6.</span> <span class="toc-text"><a href="#&#x516D;&#x3001;&#x8BBE;&#x7F6E;&#x9632;&#x706B;&#x5899;" class="headerlink" title="&#x516D;&#x3001;&#x8BBE;&#x7F6E;&#x9632;&#x706B;&#x5899;"></a>&#x516D;&#x3001;&#x8BBE;&#x7F6E;&#x9632;&#x706B;&#x5899;</span></a></li></ol>
           </div>
@@ -269,10 +278,10 @@
   <div class="outer">
     <div id="footer-left">
       &copy; 2014 - 2018 李晓&nbsp;|&nbsp;
-      Theme by <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
     </div>
      <div id="footer-right">
-      Contact&nbsp;|&nbsp;xiao.liunit@gmail.com
+      联系方式&nbsp;|&nbsp;xiao.liunit@gmail.com
     </div>
   </div>
 </footer>

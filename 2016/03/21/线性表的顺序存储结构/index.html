@@ -42,7 +42,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -181,7 +181,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/21/线性表的顺序存储结构/" data-id="cjm95o7qj00dz8mz954kp81t0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/03/21/线性表的顺序存储结构/" data-id="cjn1d9ds700e6taz99yvjqzal" class="article-share-link">分享</a>
       
       
       
@@ -193,7 +193,7 @@
     
  <script src="/jquery/jquery.min.js"></script>
   <div id="random_posts">
-    <h2>Recommended Posts</h2>
+    <h2>推荐文章</h2>
     <div class="random_posts_ul">
       <script>
           var random_count =4
@@ -236,7 +236,7 @@
 <nav id="article-nav">
   
     <a href="/2016/03/21/蔺老师烧脑系列（一）/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
+      <strong class="article-nav-caption">上一篇</strong>
       <div class="article-nav-title">
         
           蔺老师烧脑系列（一）
@@ -246,7 +246,7 @@
   
   
     <a href="/2016/03/18/iOS设计模式之简单工厂模式/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
+      <strong class="article-nav-caption">下一篇</strong>
       <div class="article-nav-title">iOS设计模式之简单工厂模式</div>
     </a>
   
@@ -279,7 +279,7 @@
     
       <div class="widget" id="toc-widget-fixed">
       
-        <strong class="toc-title">Content</strong>
+        <strong class="toc-title">文章目录</strong>
         <div class="toc-widget-list">
               <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#顺序存储定义"><span class="toc-number">1.</span> <span class="toc-text"><a href="#&#x987A;&#x5E8F;&#x5B58;&#x50A8;&#x5B9A;&#x4E49;" class="headerlink" title="&#x987A;&#x5E8F;&#x5B58;&#x50A8;&#x5B9A;&#x4E49;"></a>&#x987A;&#x5E8F;&#x5B58;&#x50A8;&#x5B9A;&#x4E49;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#顺序存储结构的代码"><span class="toc-number">2.</span> <span class="toc-text"><a href="#&#x987A;&#x5E8F;&#x5B58;&#x50A8;&#x7ED3;&#x6784;&#x7684;&#x4EE3;&#x7801;" class="headerlink" title="&#x987A;&#x5E8F;&#x5B58;&#x50A8;&#x7ED3;&#x6784;&#x7684;&#x4EE3;&#x7801;"></a>&#x987A;&#x5E8F;&#x5B58;&#x50A8;&#x7ED3;&#x6784;&#x7684;&#x4EE3;&#x7801;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#顺序存储结构的插入或删除"><span class="toc-number">3.</span> <span class="toc-text"><a href="#&#x987A;&#x5E8F;&#x5B58;&#x50A8;&#x7ED3;&#x6784;&#x7684;&#x63D2;&#x5165;&#x6216;&#x5220;&#x9664;" class="headerlink" title="&#x987A;&#x5E8F;&#x5B58;&#x50A8;&#x7ED3;&#x6784;&#x7684;&#x63D2;&#x5165;&#x6216;&#x5220;&#x9664;"></a>&#x987A;&#x5E8F;&#x5B58;&#x50A8;&#x7ED3;&#x6784;&#x7684;&#x63D2;&#x5165;&#x6216;&#x5220;&#x9664;</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#创建线性表（初始化）"><span class="toc-number">3.0.1.</span> <span class="toc-text"><a href="#&#x521B;&#x5EFA;&#x7EBF;&#x6027;&#x8868;&#xFF08;&#x521D;&#x59CB;&#x5316;&#xFF09;" class="headerlink" title="&#x521B;&#x5EFA;&#x7EBF;&#x6027;&#x8868;&#xFF08;&#x521D;&#x59CB;&#x5316;&#xFF09;"></a>&#x521B;&#x5EFA;&#x7EBF;&#x6027;&#x8868;&#xFF08;&#x521D;&#x59CB;&#x5316;&#xFF09;</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#获得元素操作"><span class="toc-number">3.0.2.</span> <span class="toc-text"><a href="#&#x83B7;&#x5F97;&#x5143;&#x7D20;&#x64CD;&#x4F5C;" class="headerlink" title="&#x83B7;&#x5F97;&#x5143;&#x7D20;&#x64CD;&#x4F5C;"></a>&#x83B7;&#x5F97;&#x5143;&#x7D20;&#x64CD;&#x4F5C;</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#插入操作"><span class="toc-number">3.0.3.</span> <span class="toc-text"><a href="#&#x63D2;&#x5165;&#x64CD;&#x4F5C;" class="headerlink" title="&#x63D2;&#x5165;&#x64CD;&#x4F5C;"></a>&#x63D2;&#x5165;&#x64CD;&#x4F5C;</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#删除操作"><span class="toc-number">3.0.4.</span> <span class="toc-text"><a href="#&#x5220;&#x9664;&#x64CD;&#x4F5C;" class="headerlink" title="&#x5220;&#x9664;&#x64CD;&#x4F5C;"></a>&#x5220;&#x9664;&#x64CD;&#x4F5C;</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#遍历线性表"><span class="toc-number">3.0.5.</span> <span class="toc-text"><a href="#&#x904D;&#x5386;&#x7EBF;&#x6027;&#x8868;" class="headerlink" title="&#x904D;&#x5386;&#x7EBF;&#x6027;&#x8868;"></a>&#x904D;&#x5386;&#x7EBF;&#x6027;&#x8868;</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#验证代码正确性"><span class="toc-number">3.0.6.</span> <span class="toc-text"><a href="#&#x9A8C;&#x8BC1;&#x4EE3;&#x7801;&#x6B63;&#x786E;&#x6027;" class="headerlink" title="&#x9A8C;&#x8BC1;&#x4EE3;&#x7801;&#x6B63;&#x786E;&#x6027;"></a>&#x9A8C;&#x8BC1;&#x4EE3;&#x7801;&#x6B63;&#x786E;&#x6027;</span></a></li></ol></li></ol></li></ol>
           </div>
@@ -311,10 +311,10 @@
   <div class="outer">
     <div id="footer-left">
       &copy; 2014 - 2018 李晓&nbsp;|&nbsp;
-      Theme by <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
     </div>
      <div id="footer-right">
-      Contact&nbsp;|&nbsp;xiao.liunit@gmail.com
+      联系方式&nbsp;|&nbsp;xiao.liunit@gmail.com
     </div>
   </div>
 </footer>

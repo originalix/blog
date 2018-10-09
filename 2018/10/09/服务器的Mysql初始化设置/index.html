@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>服务器的Mysql初始化设置 | Leon的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="继上篇博客记录了服务器的初始化安全设置之后，本篇文章会记录Mysql数据库的初始化安全设置。在操作mysql之前，最好先行备份，毕竟有“备”无患嘛。 一、修改root用户的口令在Ubuntu16.04版本的服务器上，如果安装mysql的话会要求大家设置root的密码，若是没有设置过root用户的密码，可以用下面三种方法来这是  用mysqladmin命令来改root用户口令  1mysqladmi">
+<meta name="keywords" content="Mysql,云服务器,运维">
+<meta property="og:type" content="article">
+<meta property="og:title" content="服务器的Mysql初始化设置">
+<meta property="og:url" content="http://yoursite.com/2018/10/09/服务器的Mysql初始化设置/index.html">
+<meta property="og:site_name" content="Leon的博客">
+<meta property="og:description" content="继上篇博客记录了服务器的初始化安全设置之后，本篇文章会记录Mysql数据库的初始化安全设置。在操作mysql之前，最好先行备份，毕竟有“备”无患嘛。 一、修改root用户的口令在Ubuntu16.04版本的服务器上，如果安装mysql的话会要求大家设置root的密码，若是没有设置过root用户的密码，可以用下面三种方法来这是  用mysqladmin命令来改root用户口令  1mysqladmi">
+<meta property="og:updated_time" content="2018-10-09T06:50:43.301Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="服务器的Mysql初始化设置">
+<meta name="twitter:description" content="继上篇博客记录了服务器的初始化安全设置之后，本篇文章会记录Mysql数据库的初始化安全设置。在操作mysql之前，最好先行备份，毕竟有“备”无患嘛。 一、修改root用户的口令在Ubuntu16.04版本的服务器上，如果安装mysql的话会要求大家设置root的密码，若是没有设置过root用户的密码，可以用下面三种方法来这是  用mysqladmin命令来改root用户口令  1mysqladmi">
+  
+    <link rel="alternate" href="/atom.xml" title="Leon的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    
+    <div id="header-inner" class="inner">
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Leon的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">每多学一点知识，就少写一行代码</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-服务器的Mysql初始化设置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/09/服务器的Mysql初始化设置/" class="article-date">
+  <time datetime="2018-10-09T06:49:22.000Z" itemprop="datePublished">2018-10-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      服务器的Mysql初始化设置
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>继上篇博客记录了服务器的初始化安全设置之后，本篇文章会记录Mysql数据库的初始化安全设置。在操作mysql之前，最好先行备份，毕竟有“备”无患嘛。</p>
+<h2 id="一、修改root用户的口令"><a href="#一、修改root用户的口令" class="headerlink" title="一、修改root用户的口令"></a>一、修改root用户的口令</h2><p>在Ubuntu16.04版本的服务器上，如果安装mysql的话会要求大家设置root的密码，若是没有设置过root用户的密码，可以用下面三种方法来这是</p>
+<ul>
+<li>用mysqladmin命令来改root用户口令</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqladmin -u root password 123456 // 设置mysql管理员root的密码为123456</span><br></pre></td></tr></table></figure>
+<ul>
+<li>用set password命令来修改密码：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; <span class="built_in">set</span> password <span class="keyword">for</span> root@localhost=password(<span class="string">'123456'</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>直接修改user表的root用户口令</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; use mysql;</span><br><span class="line">mysql&gt; update user <span class="built_in">set</span> password=password(<span class="string">'123456'</span>) <span class="built_in">where</span> user=<span class="string">'root'</span>;</span><br><span class="line">mysql&gt; flush privileges;</span><br></pre></td></tr></table></figure>
+<p>这就是三种修改mysql中管理员口令的操作方式。</p>
+<a id="more"></a>
+<h2 id="二、删除默认的数据库和用户"><a href="#二、删除默认的数据库和用户" class="headerlink" title="二、删除默认的数据库和用户"></a>二、删除默认的数据库和用户</h2><p>mysql初始化后会自动生成空用户和test库，但实际上这样会留有安全隐患，所以我们在这里选择全部删除的操作。我们在命令行进入mysql后执行下面这些命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; drop database <span class="built_in">test</span>;</span><br><span class="line">mysql&gt; use mysql;</span><br><span class="line">mysql&gt; delete from db;</span><br><span class="line">mysql&gt; delete from user <span class="built_in">where</span> not(host=<span class="string">"localhost"</span> and user=<span class="string">"root"</span>);</span><br><span class="line">mysql&gt; flush privileges;</span><br></pre></td></tr></table></figure>
+<h2 id="三、修改默认的管理员名称"><a href="#三、修改默认的管理员名称" class="headerlink" title="三、修改默认的管理员名称"></a>三、修改默认的管理员名称</h2><p>因为默认的管理员名称是root，为了防止别人对root这个登录名进行暴力破解，我们最好也能把root用户的名称改掉，防止穷举破解。</p>
+<p>同样的执行下面的操作就能修改用户名，这个例子里我们把数据库管理员root的名称改为original。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; use mysql;</span><br><span class="line">mysql&gt; update user <span class="built_in">set</span> user=<span class="string">"original"</span> <span class="built_in">where</span> user=<span class="string">"root"</span>;</span><br><span class="line">mysql&gt; flush privileges;</span><br></pre></td></tr></table></figure>
+<h2 id="四、禁止远程连接mysql"><a href="#四、禁止远程连接mysql" class="headerlink" title="四、禁止远程连接mysql"></a>四、禁止远程连接mysql</h2><p>正常的话我们的mysql只是后端的程序来进行连接，所以我们无需开启socket进行监听，那么我们可以关闭mysql的监听功能。</p>
+<ul>
+<li><p>在my.cnf文件里，[mysqld]的部分添加skip-networking参数。</p>
+</li>
+<li><p>mysqld服务器中参数中添加 –skip-networking 启动参数来使mysql不监听任何TCP/IP连接，增加安全性。如果要进行mysql的管理的话,可以在服务器本地安装一个phpMyadmin来进行管理。</p>
+</li>
+</ul>
+<h2 id="五、使用特定用户访问数据库"><a href="#五、使用特定用户访问数据库" class="headerlink" title="五、使用特定用户访问数据库"></a>五、使用特定用户访问数据库</h2><p>我们可以针对每个库，创建特定的账户，给予这些账户针对某个库有 update、select、delete、insert、drop table、create table等权限。这样就能很好的避免某个库被攻破后不牵连其他库了。而当我们设置完善之后，最好就不要在使用root用户来访问数据库了。</p>
+<h2 id="六、删除历史记录"><a href="#六、删除历史记录" class="headerlink" title="六、删除历史记录"></a>六、删除历史记录</h2><p>执行以上的命令会被shell记录在历史文件里，比如bash会写入用户目录的.bash_history文件，如果这些文件不慎被读，<br>那么数据库的密码就会泄漏。用户登陆数据库后执行的SQL命令也会被MySQL记录在用户目录的.mysql_history文件里。<br>如果数据库用户用SQL语句修改了数据库密码，也会因.mysql_history文件而泄漏。所以我们在shell登陆及备份的时候<br>不要在-p后直接加密码，而是在提示后再输入数据库密码。 另外这两个文件我们也应该不让它记录我们的操作，以防万一。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ rm .bash_history .mysql_history</span><br><span class="line">$ ln -s /dev/null .bash_history</span><br><span class="line">$ ln -s /dev/null .mysql_history</span><br></pre></td></tr></table></figure>
+<p>我自己常用的就是这六个步骤的设置，虽然不是很全，但是也勉强够用咯。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/10/09/服务器的Mysql初始化设置/" data-id="cjn1d9dp2004ntaz9wypzkdux" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mysql/">Mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/云服务器/">云服务器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/运维/">运维</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+ <script src="/jquery/jquery.min.js"></script>
+  <div id="random_posts">
+    <h2>推荐文章</h2>
+    <div class="random_posts_ul">
+      <script>
+          var random_count =4
+          var site = {BASE_URI:'/'};
+          function load_random_posts(obj) {
+              var arr=site.posts;
+              if (!obj) return;
+              // var count = $(obj).attr('data-count') || 6;
+              for (var i, tmp, n = arr.length; n; i = Math.floor(Math.random() * n), tmp = arr[--n], arr[n] = arr[i], arr[i] = tmp);
+              arr = arr.slice(0, random_count);
+              var html = '<ul>';
+            
+              for(var j=0;j<arr.length;j++){
+                var item=arr[j];
+                html += '<li><strong>' + 
+                item.date + ':&nbsp;&nbsp;<a href="' + (site.BASE_URI+item.uri) + '">' + 
+                (item.title || item.uri) + '</a></strong>';
+                if(item.excerpt){
+                  html +='<div class="post-excerpt">'+item.excerpt+'</div>';
+                }
+                html +='</li>';
+                
+              }
+              $(obj).html(html + '</ul>');
+          }
+          $('.random_posts_ul').each(function () {
+              var c = this;
+              if (!site.posts || !site.posts.length){
+                  $.getJSON(site.BASE_URI + 'js/posts.js',function(json){site.posts = json;load_random_posts(c)});
+              } 
+               else{
+                load_random_posts(c);
+              }
+          });
+      </script>
+    </div>
+  </div>
+
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/09/19/Ubuntu-16-04服务器的初始化设置/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">Ubuntu 16.04服务器的初始化设置</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+ 
+     
+  <div class="comments" id="comments">
+    
+     
+       
+       
+      
+      
+  </div>
+ 
+  
+
+</section>
+           
+    <aside id="sidebar">
+  
+    
+
+  
+    
+    <div class="widget-wrap">
+    
+      <div class="widget" id="toc-widget-fixed">
+      
+        <strong class="toc-title">文章目录</strong>
+        <div class="toc-widget-list">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、修改root用户的口令"><span class="toc-number">1.</span> <span class="toc-text"><a href="#&#x4E00;&#x3001;&#x4FEE;&#x6539;root&#x7528;&#x6237;&#x7684;&#x53E3;&#x4EE4;" class="headerlink" title="&#x4E00;&#x3001;&#x4FEE;&#x6539;root&#x7528;&#x6237;&#x7684;&#x53E3;&#x4EE4;"></a>&#x4E00;&#x3001;&#x4FEE;&#x6539;root&#x7528;&#x6237;&#x7684;&#x53E3;&#x4EE4;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、删除默认的数据库和用户"><span class="toc-number">2.</span> <span class="toc-text"><a href="#&#x4E8C;&#x3001;&#x5220;&#x9664;&#x9ED8;&#x8BA4;&#x7684;&#x6570;&#x636E;&#x5E93;&#x548C;&#x7528;&#x6237;" class="headerlink" title="&#x4E8C;&#x3001;&#x5220;&#x9664;&#x9ED8;&#x8BA4;&#x7684;&#x6570;&#x636E;&#x5E93;&#x548C;&#x7528;&#x6237;"></a>&#x4E8C;&#x3001;&#x5220;&#x9664;&#x9ED8;&#x8BA4;&#x7684;&#x6570;&#x636E;&#x5E93;&#x548C;&#x7528;&#x6237;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、修改默认的管理员名称"><span class="toc-number">3.</span> <span class="toc-text"><a href="#&#x4E09;&#x3001;&#x4FEE;&#x6539;&#x9ED8;&#x8BA4;&#x7684;&#x7BA1;&#x7406;&#x5458;&#x540D;&#x79F0;" class="headerlink" title="&#x4E09;&#x3001;&#x4FEE;&#x6539;&#x9ED8;&#x8BA4;&#x7684;&#x7BA1;&#x7406;&#x5458;&#x540D;&#x79F0;"></a>&#x4E09;&#x3001;&#x4FEE;&#x6539;&#x9ED8;&#x8BA4;&#x7684;&#x7BA1;&#x7406;&#x5458;&#x540D;&#x79F0;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、禁止远程连接mysql"><span class="toc-number">4.</span> <span class="toc-text"><a href="#&#x56DB;&#x3001;&#x7981;&#x6B62;&#x8FDC;&#x7A0B;&#x8FDE;&#x63A5;mysql" class="headerlink" title="&#x56DB;&#x3001;&#x7981;&#x6B62;&#x8FDC;&#x7A0B;&#x8FDE;&#x63A5;mysql"></a>&#x56DB;&#x3001;&#x7981;&#x6B62;&#x8FDC;&#x7A0B;&#x8FDE;&#x63A5;mysql</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、使用特定用户访问数据库"><span class="toc-number">5.</span> <span class="toc-text"><a href="#&#x4E94;&#x3001;&#x4F7F;&#x7528;&#x7279;&#x5B9A;&#x7528;&#x6237;&#x8BBF;&#x95EE;&#x6570;&#x636E;&#x5E93;" class="headerlink" title="&#x4E94;&#x3001;&#x4F7F;&#x7528;&#x7279;&#x5B9A;&#x7528;&#x6237;&#x8BBF;&#x95EE;&#x6570;&#x636E;&#x5E93;"></a>&#x4E94;&#x3001;&#x4F7F;&#x7528;&#x7279;&#x5B9A;&#x7528;&#x6237;&#x8BBF;&#x95EE;&#x6570;&#x636E;&#x5E93;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、删除历史记录"><span class="toc-number">6.</span> <span class="toc-text"><a href="#&#x516D;&#x3001;&#x5220;&#x9664;&#x5386;&#x53F2;&#x8BB0;&#x5F55;" class="headerlink" title="&#x516D;&#x3001;&#x5220;&#x9664;&#x5386;&#x53F2;&#x8BB0;&#x5F55;"></a>&#x516D;&#x3001;&#x5220;&#x9664;&#x5386;&#x53F2;&#x8BB0;&#x5F55;</span></a></li></ol>
+          </div>
+      </div>
+    </div>
+
+  
+    
+
+  
+    
+  
+    
+  
+    
+
+  
+    
+  
+    <!--微信公众号二维码-->
+
+
+  
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-left">
+      &copy; 2014 - 2018 李晓&nbsp;|&nbsp;
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+    </div>
+     <div id="footer-right">
+      联系方式&nbsp;|&nbsp;xiao.liunit@gmail.com
+    </div>
+  </div>
+</footer>
+ <script src="/jquery/jquery.min.js"></script>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    <img class="back-to-top-btn" src="/images/fly-to-top.png"/>
+<script>
+// Elevator script included on the page, already.
+window.onload = function() {
+  var elevator = new Elevator({
+    selector:'.back-to-top-btn',
+    element: document.querySelector('.back-to-top-btn'),
+    duration: 1000 // milliseconds
+  });
+}
+</script>
+      
+
+  
+
+  
+
+
+
+
+
+
+
+<!-- author:forvoid begin -->
+<!-- author:forvoid begin -->
+
+<!-- author:forvoid end -->
+
+<!-- author:forvoid end -->
+
+
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      })
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      })
+    </script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+ <script src="/js/is.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/elevator.js"></script>
+  </div>
+</body>
+</html>
