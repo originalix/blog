@@ -70,6 +70,54 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-iOS开发——带有暂停功能的计时器" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/12/23/iOS开发——带有暂停功能的计时器/" class="article-date">
+  <time datetime="2016-12-22T23:39:35.000Z" itemprop="datePublished">2016-12-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/23/iOS开发——带有暂停功能的计时器/">iOS开发——带有暂停功能的计时器</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>上篇博客我跟大家分享了如何在iOS系统中使用原生框架获取步数，又是大半个月过去了，运动模块的全部功能也总算完成了，也打算有始有终的把如何做一个跑步类App跟大家分享了。</p>
+<p>运动类应用中，有一个很重要的模块就是计时器，当然，这个计时器不算复杂，只要有简单的开始、暂停以及复位功能即可。那么今天我们从<strong>Model</strong>层来看看这个计时器的逻辑实现。</p>
+<p>我们先自己创建一个时间的<strong>Model</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RunningTimer</span>: <span class="title">NSObject</span> </span>&#123;</span><br><span class="line"><span class="comment">//MARK: var property</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> timeLabel: <span class="type">UILabel</span>!</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> timer: <span class="type">NSTimer</span>?</span><br><span class="line">    <span class="comment">//开始和结束时间列表</span></span><br><span class="line">    <span class="built_in">lazy</span> <span class="keyword">private</span> <span class="keyword">var</span> startTimes = [<span class="type">NSDate</span>]()</span><br><span class="line">    <span class="built_in">lazy</span> <span class="keyword">private</span> <span class="keyword">var</span> endTimes = [<span class="type">NSDate</span>]()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">internal</span> <span class="keyword">var</span> timeNumber = <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">didSet</span> &#123;</span><br><span class="line">            timeString = getTimeStringFromSecond(timeNumber)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">internal</span> <span class="keyword">private</span>(<span class="keyword">set</span>) <span class="keyword">var</span> timeString = <span class="string">"00:00:00"</span> &#123;</span><br><span class="line">        <span class="keyword">didSet</span> &#123;</span><br><span class="line">            timeLabel.text = timeString</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+          <p class="article-more-link">
+            <a href="/2016/12/23/iOS开发——带有暂停功能的计时器/#more">继续阅读全文 »</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/12/23/iOS开发——带有暂停功能的计时器/" data-id="cjogriuzc002lvfz9w8c6emsw" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Swift/">Swift</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS开发/">iOS开发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/计时器/">计时器</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
     <article id="post-iOS开发——步数获取" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/12/09/iOS开发——步数获取/" class="article-date">
@@ -102,7 +150,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/12/09/iOS开发——步数获取/" data-id="cjn1d9do3002xtaz9rvjhvtvm" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2016/12/09/iOS开发——步数获取/" data-id="cjogriuzi002wvfz97rzs24ys" class="article-share-link">分享</a>
       
       
       
@@ -151,7 +199,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/25/iOS开发-——-Swift版地址选择器/" data-id="cjn1d9dnj001rtaz9sjgb5uit" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2016/11/25/iOS开发-——-Swift版地址选择器/" data-id="cjogriuyu001kvfz9durtm59w" class="article-share-link">分享</a>
       
       
       
@@ -197,7 +245,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/02/iOS开发——GCD在Swift中的变脸/" data-id="cjn1d9dnl001xtaz9ty820kpc" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2016/11/02/iOS开发——GCD在Swift中的变脸/" data-id="cjogriuyz001uvfz9p4n61dlb" class="article-share-link">分享</a>
       
       
       
@@ -244,7 +292,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/01/iOS——GCD的死锁案例/" data-id="cjn1d9dne001htaz95k6xcvsl" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2016/11/01/iOS——GCD的死锁案例/" data-id="cjogriuys001hvfz9g608u00n" class="article-share-link">分享</a>
       
       
       
@@ -291,7 +339,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/26/iOS开发——TDD、BDD方法以及Kiwi单元测试框架/" data-id="cjn1d9drv00dltaz9b1rdsvr6" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2016/10/26/iOS开发——TDD、BDD方法以及Kiwi单元测试框架/" data-id="cjogriv2w00drvfz9845qw854" class="article-share-link">分享</a>
       
       
       
@@ -338,7 +386,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/24/iOS开发——Instruments工具调试/" data-id="cjn1d9dnn0021taz94i2l6vqv" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2016/10/24/iOS开发——Instruments工具调试/" data-id="cjogriuz1001zvfz94xjhun75" class="article-share-link">分享</a>
       
       
       
@@ -385,7 +433,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/20/iOS开发——FMDB的使用/" data-id="cjn1d9dnk001wtaz9ef0e1tqr" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2016/10/20/iOS开发——FMDB的使用/" data-id="cjogriuz0001wvfz9sdnbp89l" class="article-share-link">分享</a>
       
       
       
@@ -430,7 +478,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/13/iOS开发——Debug-CUICatalog-Invalid-asset-name-supplied-null/" data-id="cjn1d9dnj001ttaz90adruokf" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2016/10/13/iOS开发——Debug-CUICatalog-Invalid-asset-name-supplied-null/" data-id="cjogriuyy001rvfz9l8irhqvz" class="article-share-link">分享</a>
       
       
       
@@ -477,7 +525,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/08/iOS开发——UINavigationBar中踩过的坑/" data-id="cjn1d9dno0023taz9xyzh0u6t" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2016/10/08/iOS开发——UINavigationBar中踩过的坑/" data-id="cjogriuz30022vfz925by1rcz" class="article-share-link">分享</a>
       
       
       
@@ -523,7 +571,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/22/iOS开发——Carthage安装和使用教程/" data-id="cjn1d9dni001otaz9r6setgs6" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2016/09/22/iOS开发——Carthage安装和使用教程/" data-id="cjogriuyx001pvfz99l4tzl4p" class="article-share-link">分享</a>
       
       
       
@@ -571,7 +619,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/21/AES加密——Java与iOS的解决方案/" data-id="cjn1d9drn00d9taz9v4e52eia" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2016/09/21/AES加密——Java与iOS的解决方案/" data-id="cjogriv2p00dfvfz952wo1ich" class="article-share-link">分享</a>
       
       
       
@@ -617,7 +665,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/09/11/iOS开发-——-ReactiveCocoa详解/" data-id="cjn1d9drr00dftaz9q61k26vd" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2016/09/11/iOS开发-——-ReactiveCocoa详解/" data-id="cjogriv2t00dlvfz9360pb0kh" class="article-share-link">分享</a>
       
       
       
@@ -663,7 +711,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/25/iOS开发——全机型适配思路/" data-id="cjn1d9dnr002ataz9s772md9c" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2016/08/25/iOS开发——全机型适配思路/" data-id="cjogriuz50026vfz9stg5yqf1" class="article-share-link">分享</a>
       
       
       
@@ -708,7 +756,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/02/CocoaPods导入的库其头文件导入的方法以及Pch预编译文件配置/" data-id="cjn1d9dm60001taz9amgba28f" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2016/08/02/CocoaPods导入的库其头文件导入的方法以及Pch预编译文件配置/" data-id="cjogriuxw0006vfz9obd4e758" class="article-share-link">分享</a>
       
       
       
@@ -755,7 +803,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/01/30DaysOfSwift-Day1-计时器/" data-id="cjn1d9dmb0003taz93y0zptv7" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2016/08/01/30DaysOfSwift-Day1-计时器/" data-id="cjogriuxo0004vfz9sy2tov68" class="article-share-link">分享</a>
       
       
       
@@ -801,7 +849,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/01/Swift-宏定义与代码标记/" data-id="cjn1d9dn70010taz9yfa5g4ry" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2016/08/01/Swift-宏定义与代码标记/" data-id="cjogriuyj000zvfz95abnh06k" class="article-share-link">分享</a>
       
       
       
@@ -847,7 +895,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/20/iOS开发-——-Runtime/" data-id="cjn1d9drt00ditaz99ax4rscy" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2016/07/20/iOS开发-——-Runtime/" data-id="cjogriv2u00dovfz92gtk7ftu" class="article-share-link">分享</a>
       
       
       
@@ -893,7 +941,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/19/iOS开发——头像设置及本地沙盒保存，圆形头像显示/" data-id="cjn1d9drx00dqtaz9srha2jep" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2016/07/19/iOS开发——头像设置及本地沙盒保存，圆形头像显示/" data-id="cjogriv2x00dtvfz9ikls0qdw" class="article-share-link">分享</a>
       
       
       
@@ -938,56 +986,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/14/iOS-全局禁止横屏，但视频播放界面选择性横屏的解决办法/" data-id="cjn1d9dnc001btaz94vk1uqnk" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2016/07/14/iOS-全局禁止横屏，但视频播放界面选择性横屏的解决办法/" data-id="cjogriuyq001dvfz9sxf92xw1" class="article-share-link">分享</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS开发/">iOS开发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/横屏解决方案/">横屏解决方案</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
- 
-
-
-  
-    <article id="post-iOS开发——实用性技巧" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/07/08/iOS开发——实用性技巧/" class="article-date">
-  <time datetime="2016-07-08T08:23:51.000Z" itemprop="datePublished">2016-07-08</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/08/iOS开发——实用性技巧/">iOS开发——实用性技巧</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>分享一些项目中常用的方法，可以保存起来，作为自己的工具集哦。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/07/08/iOS开发——实用性技巧/#more">继续阅读全文 »</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/08/iOS开发——实用性技巧/" data-id="cjn1d9dry00dstaz9r8bo421t" class="article-share-link">分享</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS开发/">iOS开发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/实用性技巧/">实用性技巧</a></li></ul>
 
     </footer>
   </div>
@@ -1023,6 +1026,10 @@
       <ul>
         
           <li>
+            <a href="/2018/11/14/javascript——为自己的库编写更健壮的API函数/">javascript——为自己的库编写更健壮的API函数</a>
+          </li>
+        
+          <li>
             <a href="/2018/10/09/服务器的Mysql初始化设置/">服务器的Mysql初始化设置</a>
           </li>
         
@@ -1036,10 +1043,6 @@
         
           <li>
             <a href="/2018/08/28/微信小程序——城市区县定位选择组件/">微信小程序——城市/区县定位选择组件</a>
-          </li>
-        
-          <li>
-            <a href="/2018/08/07/堆排序算法/">堆排序算法</a>
           </li>
         
       </ul>

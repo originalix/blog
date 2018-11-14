@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>javascript——为自己的库编写更健壮的API函数 | Leon的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近在看书的时候，阅读了关于使用JavaScript在代码库的设计时需要注意的文章，对我的启发很大，于是决定记录一些其中的知识点，一是分享自己获取到的知识，二是辅助记忆，让我以后更注意地去编写更健壮的JavaScript函数。 首先我们要记住的一个规则就是使用undefined来代替没有值的情况。 我们来看下面的这个例子，有一个对象，有宽高的属性，我们传入宽高属性并用构造函数创建对象。 12345">
+<meta name="keywords" content="javaScript,API设计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript——为自己的库编写更健壮的API函数">
+<meta property="og:url" content="http://yoursite.com/2018/11/14/javascript——为自己的库编写更健壮的API函数/index.html">
+<meta property="og:site_name" content="Leon的博客">
+<meta property="og:description" content="最近在看书的时候，阅读了关于使用JavaScript在代码库的设计时需要注意的文章，对我的启发很大，于是决定记录一些其中的知识点，一是分享自己获取到的知识，二是辅助记忆，让我以后更注意地去编写更健壮的JavaScript函数。 首先我们要记住的一个规则就是使用undefined来代替没有值的情况。 我们来看下面的这个例子，有一个对象，有宽高的属性，我们传入宽高属性并用构造函数创建对象。 12345">
+<meta property="og:updated_time" content="2018-11-14T06:06:10.390Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript——为自己的库编写更健壮的API函数">
+<meta name="twitter:description" content="最近在看书的时候，阅读了关于使用JavaScript在代码库的设计时需要注意的文章，对我的启发很大，于是决定记录一些其中的知识点，一是分享自己获取到的知识，二是辅助记忆，让我以后更注意地去编写更健壮的JavaScript函数。 首先我们要记住的一个规则就是使用undefined来代替没有值的情况。 我们来看下面的这个例子，有一个对象，有宽高的属性，我们传入宽高属性并用构造函数创建对象。 12345">
+  
+    <link rel="alternate" href="/atom.xml" title="Leon的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    
+    <div id="header-inner" class="inner">
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/about">关于</a>
+        
+      </nav>
+      
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Leon的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">每多学一点知识，就少写一行代码</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-javascript——为自己的库编写更健壮的API函数" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/14/javascript——为自己的库编写更健壮的API函数/" class="article-date">
+  <time datetime="2018-11-14T06:05:25.000Z" itemprop="datePublished">2018-11-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      javascript——为自己的库编写更健壮的API函数
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- Table of Contents -->
+        
+        <p>最近在看书的时候，阅读了关于使用JavaScript在代码库的设计时需要注意的文章，对我的启发很大，于是决定记录一些其中的知识点，一是分享自己获取到的知识，二是辅助记忆，让我以后更注意地去编写更健壮的JavaScript函数。</p>
+<p>首先我们要记住的一个规则就是<strong>使用undefined来代替没有值的情况</strong>。</p>
+<p>我们来看下面的这个例子，有一个对象，有宽高的属性，我们传入宽高属性并用构造函数创建对象。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Element</span>(<span class="params">width, height</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.width = width || <span class="number">320</span>; <span class="comment">// wrong test</span></span><br><span class="line">  <span class="keyword">this</span>.height = height || <span class="number">240</span>; <span class="comment">// wrong test</span></span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> c1 = <span class="keyword">new</span> Element(); <span class="comment">// width: 320, height: 240</span></span><br></pre></td></tr></table></figure>
+<p>如c1这个对象一样，他创建并且使用了我们预先设置的宽高的默认值。乍一看是不是没有什么问题，可是这里就隐藏了一个bug。如果我们想创建一个宽高都为0的对象，那么这个写法就会产生问题了。</p>
+<a id="more"></a>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> c2 = <span class="keyword">new</span> Element(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">c2.width; <span class="comment">// 320</span></span><br><span class="line">c2.height; <span class="comment">// 240</span></span><br></pre></td></tr></table></figure>
+<p>可见如果目标属性可以接受0作为参数，那么我们就不能使用或来取值。而对于String类型的对象的话，使用或还是可行的。那么对于能接受0作为值的参数，我们应该如何编写代码呢？答案很简单，使用undefined来代替没有值的情况就可以了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function Element(width, height) &#123;</span><br><span class="line">  this.width = width === undefined ? 320 : width;</span><br><span class="line">  this.height = height === undefined ? 240 : height;</span><br><span class="line">  // ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var c1 = new Element(0, 0);</span><br><span class="line">c1.width; // 0</span><br><span class="line">c1.height; // 0</span><br><span class="line"></span><br><span class="line">var c2 = new Element();</span><br><span class="line">c2.width; // 320</span><br><span class="line">c2.height; // 240</span><br></pre></td></tr></table></figure>
+<p>当我们用undefined来判断是否有值的情况时，这个bug也就自然而然的没有了。</p>
+<p>第二个需要我们记住的规则是<strong>函数有时应该接受关键字对象作为参数</strong>。</p>
+<p>现在我们假设我们要设计一个第三方的弹窗库，我们有一个弹窗的对象Alert。那么我们先来看看这个构造函数:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> alert = <span class="keyword">new</span> Alert(<span class="number">100</span>, <span class="number">75</span>, <span class="number">300</span>, <span class="number">200</span>, <span class="string">'Error'</span>, message, <span class="string">'blue'</span>, <span class="string">'white'</span>, <span class="string">'black'</span>, <span class="string">'error'</span>, <span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+<p>这就是我们设计的构造函数，需要把每个参数对应的传入。如果你在阅读到这样的代码时，是不是会觉得非常难受，因为你并不知道每个参数对应着什么意思，尤其是最后一个<code>true</code>，到底代表的是什么布尔值？</p>
+<p>而如果这时我们使用关键字对象来作为参数又会是什么表现呢？</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> alert = <span class="keyword">new</span> Alert(&#123;</span><br><span class="line">  x: <span class="number">100</span>,</span><br><span class="line">  y: <span class="number">75</span>,</span><br><span class="line">  width: <span class="number">300</span>,</span><br><span class="line">  height: <span class="number">200</span>,</span><br><span class="line">  title: <span class="string">'Error'</span>,</span><br><span class="line">  message: <span class="string">'this is message'</span>,</span><br><span class="line">  titleColor: <span class="string">'blue'</span>,</span><br><span class="line">  bgColor: <span class="string">'white'</span>,</span><br><span class="line">  textColor: <span class="string">'black'</span>,</span><br><span class="line">  icon: <span class="string">'error'</span>,</span><br><span class="line">  modal: <span class="string">'true'</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>看看这个新的构造函数，是不是舒服很多了，所有的参数意义一目了然。</p>
+<p>但是这样的设计也存在一个问题，如果有的必传参数，漏传了怎么办？那么程序就会运行错误了。所以我们可以把一些必传的参数提取出来，放入构造函数的参数内。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> alert = <span class="keyword">new</span> Alert(app, message, &#123;</span><br><span class="line"> width: <span class="number">150</span>, <span class="attr">height</span>: <span class="number">100</span>,</span><br><span class="line"> title: <span class="string">"Error"</span>,</span><br><span class="line"> titleColor: <span class="string">"blue"</span>, <span class="attr">bgColor</span>: <span class="string">"white"</span>, <span class="attr">textColor</span>: <span class="string">"black"</span>,</span><br><span class="line"> icon: <span class="string">"error"</span>, <span class="attr">modal</span>: <span class="literal">true</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>如果提取出必须要传入的参数的话，构造函数就是这样了，这样看还是比较清晰的呢。那么再结合我们的第一条规则，将undefined作为没有值的情况，完整的构造函数代码，就像下面这样了：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Alert</span>(<span class="params">parent, message, opts</span>) </span>&#123;</span><br><span class="line">  opts = opts || &#123;&#125;;</span><br><span class="line">  <span class="keyword">this</span>.width = opts.width === <span class="literal">undefined</span> ? <span class="number">320</span> : opts.width;</span><br><span class="line">  <span class="keyword">this</span>.height = opts.height === <span class="literal">undefined</span> ? <span class="number">200</span> : opts.height;</span><br><span class="line">  <span class="keyword">this</span>.x = opts.x === <span class="literal">undefined</span></span><br><span class="line">         ? (parent.width / <span class="number">2</span>) - (<span class="keyword">this</span>.width / <span class="number">2</span>)</span><br><span class="line">         : opts.x;</span><br><span class="line">  <span class="keyword">this</span>.y = opts.y === <span class="literal">undefined</span></span><br><span class="line">         ? (parent.height / <span class="number">2</span>) - (<span class="keyword">this</span>.height / <span class="number">2</span>)</span><br><span class="line">         : opts.y;</span><br><span class="line">  <span class="keyword">this</span>.title = opts.title || <span class="string">'Alert'</span>;</span><br><span class="line">  <span class="keyword">this</span>.titleColor = opts.titleColor || <span class="string">'blue'</span>;</span><br><span class="line">  <span class="keyword">this</span>.bgColor = opts.bgColor || <span class="string">'white'</span>;</span><br><span class="line">  <span class="keyword">this</span>.textColor = opts.textColor || <span class="string">'black'</span>;</span><br><span class="line">  <span class="keyword">this</span>.icon = opts.icon || <span class="string">'info'</span>;</span><br><span class="line">  <span class="keyword">this</span>.modal = !!opts.modal;</span><br><span class="line">  <span class="keyword">this</span>.message = message;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再往后优化的话，还可以使用一些库里的extend方法了，由于并不是标准库的方法，我在这里也就不讲下去了。希望这些分享能给初学JavaScript的同学一点帮助。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/11/14/javascript——为自己的库编写更健壮的API函数/" data-id="cjogriuzl002zvfz96dpq4arl" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/API设计/">API设计</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaScript/">javaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+ <script src="/jquery/jquery.min.js"></script>
+  <div id="random_posts">
+    <h2>推荐文章</h2>
+    <div class="random_posts_ul">
+      <script>
+          var random_count =4
+          var site = {BASE_URI:'/'};
+          function load_random_posts(obj) {
+              var arr=site.posts;
+              if (!obj) return;
+              // var count = $(obj).attr('data-count') || 6;
+              for (var i, tmp, n = arr.length; n; i = Math.floor(Math.random() * n), tmp = arr[--n], arr[n] = arr[i], arr[i] = tmp);
+              arr = arr.slice(0, random_count);
+              var html = '<ul>';
+            
+              for(var j=0;j<arr.length;j++){
+                var item=arr[j];
+                html += '<li><strong>' + 
+                item.date + ':&nbsp;&nbsp;<a href="' + (site.BASE_URI+item.uri) + '">' + 
+                (item.title || item.uri) + '</a></strong>';
+                if(item.excerpt){
+                  html +='<div class="post-excerpt">'+item.excerpt+'</div>';
+                }
+                html +='</li>';
+                
+              }
+              $(obj).html(html + '</ul>');
+          }
+          $('.random_posts_ul').each(function () {
+              var c = this;
+              if (!site.posts || !site.posts.length){
+                  $.getJSON(site.BASE_URI + 'js/posts.js',function(json){site.posts = json;load_random_posts(c)});
+              } 
+               else{
+                load_random_posts(c);
+              }
+          });
+      </script>
+    </div>
+  </div>
+
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/10/09/服务器的Mysql初始化设置/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">服务器的Mysql初始化设置</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+ 
+     
+  <div class="comments" id="comments">
+    
+     
+       
+       
+      
+      
+  </div>
+ 
+  
+
+</section>
+           
+    <aside id="sidebar">
+  
+    
+
+  
+    
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title recent-posts">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/14/javascript——为自己的库编写更健壮的API函数/">javascript——为自己的库编写更健壮的API函数</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/09/服务器的Mysql初始化设置/">服务器的Mysql初始化设置</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/19/Ubuntu-16-04服务器的初始化设置/">Ubuntu 16.04服务器的初始化设置</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/09/唠唠快速排序算法/">唠唠快速排序算法</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/28/微信小程序——城市区县定位选择组件/">微信小程序——城市/区县定位选择组件</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  
+    <!--微信公众号二维码-->
+
+
+  
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-left">
+      &copy; 2014 - 2018 李晓&nbsp;|&nbsp;
+      主题 <a href="https://github.com/giscafer/hexo-theme-cafe/" target="_blank">Cafe</a>
+    </div>
+     <div id="footer-right">
+      联系方式&nbsp;|&nbsp;xiao.liunit@gmail.com
+    </div>
+  </div>
+</footer>
+ <script src="/jquery/jquery.min.js"></script>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/about" class="mobile-nav-link">关于</a>
+  
+</nav>
+    <img class="back-to-top-btn" src="/images/fly-to-top.png"/>
+<script>
+// Elevator script included on the page, already.
+window.onload = function() {
+  var elevator = new Elevator({
+    selector:'.back-to-top-btn',
+    element: document.querySelector('.back-to-top-btn'),
+    duration: 1000 // milliseconds
+  });
+}
+</script>
+      
+
+  
+
+  
+
+
+
+
+
+
+
+<!-- author:forvoid begin -->
+<!-- author:forvoid begin -->
+
+<!-- author:forvoid end -->
+
+<!-- author:forvoid end -->
+
+
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      })
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      })
+    </script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+ <script src="/js/is.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/elevator.js"></script>
+  </div>
+</body>
+</html>

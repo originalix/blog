@@ -70,6 +70,55 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Linux的用户管理(二)" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/21/Linux的用户管理(二)/" class="article-date">
+  <time datetime="2017-06-21T09:45:39.000Z" itemprop="datePublished">2017-06-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/21/Linux的用户管理(二)/">Linux的用户管理(二)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>上次的博客我们讲了关于Linux的用户管理的内容，现在我们来讲第二部分——系统用户组的管理。</p>
+<p>每个用户都有一个用户组，系统可以对一个用户组中的所有用户进行集中管理。不同Linux系统对用户组的规定有所不同，如Linux下的用户属于它同名的用户组，这个用户组在创建用户的同时创建。</p>
+<p>用户组的管理涉及用户组的添加、删除和修改。组的增加、删除和修改实际上就是对<code>/etc/group</code>文件的更新。</p>
+<h3 id="增加用户组"><a href="#增加用户组" class="headerlink" title="增加用户组"></a>增加用户组</h3><p>添加一个新的用户组，使用<code>groupadd</code>命令。 格式如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">groupadd [options] [group]</span><br><span class="line"></span><br><span class="line">可以使用的选项有： </span><br><span class="line">-g GID 指定新用户组的组标识号（GID）。</span><br><span class="line">-o 一般与-g选项同时使用，表示新用户组的GID可以与系统已有用户组的GID相同。</span><br></pre></td></tr></table></figure>
+        
+          <p class="article-more-link">
+            <a href="/2017/06/21/Linux的用户管理(二)/#more">继续阅读全文 »</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/06/21/Linux的用户管理(二)/" data-id="cjogriv2r00divfz9uu0imjmh" class="article-share-link">分享</a>
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+ 
+
+
+  
     <article id="post-Linux的用户管理(一)" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/06/12/Linux的用户管理(一)/" class="article-date">
@@ -102,7 +151,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/06/12/Linux的用户管理(一)/" data-id="cjn1d9dmp000etaz9xmdgsmfr" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2017/06/12/Linux的用户管理(一)/" data-id="cjogriuy6000fvfz94rvsb300" class="article-share-link">分享</a>
       
       
       
@@ -149,7 +198,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/06/02/Liunx的文件权限/" data-id="cjn1d9dms000gtaz9aa729t7p" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2017/06/02/Liunx的文件权限/" data-id="cjogriuye000qvfz9c5gr8tkn" class="article-share-link">分享</a>
       
       
       
@@ -195,7 +244,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/15/使用Vagrant来搭建开发环境/" data-id="cjn1d9dod003gtaz99lyeltu2" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2017/05/15/使用Vagrant来搭建开发环境/" data-id="cjogriuzy003ivfz9wplab5xp" class="article-share-link">分享</a>
       
       
       
@@ -243,7 +292,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/05/05/nginx配置二级域名/" data-id="cjn1d9do80037taz9m818o3hh" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2017/05/05/nginx配置二级域名/" data-id="cjogriv0d0048vfz99yx7cj76" class="article-share-link">分享</a>
       
       
       
@@ -288,7 +337,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/26/简单的编程体会/" data-id="cjn1d9dp4004staz96hmr5oe7" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2017/04/26/简单的编程体会/" data-id="cjogriv0s004tvfz9qyoe78s3" class="article-share-link">分享</a>
       
       
       
@@ -336,7 +385,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/22/最大子列和问题/" data-id="cjn1d9dp3004qtaz9o2cgygh5" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2017/04/22/最大子列和问题/" data-id="cjogriv0x0053vfz9ava0ggbu" class="article-share-link">分享</a>
       
       
       
@@ -383,7 +432,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/11/牛顿迭代法与二分法计算平方根/" data-id="cjn1d9dp5004vtaz9fihun4py" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2017/04/11/牛顿迭代法与二分法计算平方根/" data-id="cjogriv0r004rvfz9zkxrcso8" class="article-share-link">分享</a>
       
       
       
@@ -432,7 +481,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/02/《Clean-Code》-读书小节（二）/" data-id="cjn1d9do90039taz91wzclnm1" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2017/04/02/《Clean-Code》-读书小节（二）/" data-id="cjogriuzn0034vfz91smvnjy0" class="article-share-link">分享</a>
       
       
       
@@ -481,7 +530,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/24/《代码整洁之道》读书小结/" data-id="cjn1d9dob003dtaz9tpzkx4ep" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2017/03/24/《代码整洁之道》读书小结/" data-id="cjogriuzp0037vfz9ibj6mm7j" class="article-share-link">分享</a>
       
       
       
@@ -528,7 +577,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/19/在云服务器上部署Laravel/" data-id="cjn1d9dot0047taz9xlvugt0h" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2017/03/19/在云服务器上部署Laravel/" data-id="cjogriv0f004bvfz9n113yc11" class="article-share-link">分享</a>
       
       
       
@@ -574,7 +623,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/04/Laravel-——-路由的学习笔记/" data-id="cjn1d9dmn000dtaz9caqj8fy3" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2017/03/04/Laravel-——-路由的学习笔记/" data-id="cjogriuy5000dvfz9krdl1ttp" class="article-share-link">分享</a>
       
       
       
@@ -621,7 +670,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/22/Swift中的警卫队/" data-id="cjn1d9dn80013taz9fnt0nww0" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2017/02/22/Swift中的警卫队/" data-id="cjogriuyl0014vfz9760h4pr7" class="article-share-link">分享</a>
       
       
       
@@ -667,7 +716,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/08/iOS开发——影响图形性能的因素以及检测方法/" data-id="cjn1d9dny002otaz920e8zrvd" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2017/02/08/iOS开发——影响图形性能的因素以及检测方法/" data-id="cjogriuze002nvfz9pii6sh9j" class="article-share-link">分享</a>
       
       
       
@@ -714,7 +763,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/06/高性能设置圆角，告别离屏渲染/" data-id="cjn1d9dpb0053taz9koaub810" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2017/02/06/高性能设置圆角，告别离屏渲染/" data-id="cjogriv0w0051vfz97nu4s5rx" class="article-share-link">分享</a>
       
       
       
@@ -761,7 +810,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/01/24/iOS开发——推送跳转到指定页面/" data-id="cjn1d9do0002qtaz95t15mfdk" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2017/01/24/iOS开发——推送跳转到指定页面/" data-id="cjogriuzf002pvfz9yu64c0es" class="article-share-link">分享</a>
       
       
       
@@ -809,7 +858,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/01/17/iOS开发——在CocoaPods发布个人第三方库/" data-id="cjn1d9dns002dtaz9dw7y5rq6" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2017/01/17/iOS开发——在CocoaPods发布个人第三方库/" data-id="cjogriuz8002dvfz9qvyw2hz1" class="article-share-link">分享</a>
       
       
       
@@ -855,7 +904,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/01/11/iOS漫谈——对于项目架构的思考/" data-id="cjn1d9do50030taz9xyjj5a5g" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2017/01/11/iOS漫谈——对于项目架构的思考/" data-id="cjogriuzo0035vfz9ah32w326" class="article-share-link">分享</a>
       
       
       
@@ -903,7 +952,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/01/06/使用Block提高代码可读性/" data-id="cjn1d9doa003btaz9pnaf35qd" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2017/01/06/使用Block提高代码可读性/" data-id="cjogriuzu003dvfz9zqui3lae" class="article-share-link">分享</a>
       
       
       
@@ -949,59 +998,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/01/04/iOS开发——解析崩溃日志/" data-id="cjn1d9do60032taz9ye0cda76" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2017/01/04/iOS开发——解析崩溃日志/" data-id="cjogriuzm0031vfz9jm25hlnq" class="article-share-link">分享</a>
       
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Crash/">Crash</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS开发/">iOS开发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/symbolicatecrash/">symbolicatecrash</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
- 
-
-
-  
-    <article id="post-iOS开发——带有暂停功能的计时器" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/12/23/iOS开发——带有暂停功能的计时器/" class="article-date">
-  <time datetime="2016-12-22T23:39:35.000Z" itemprop="datePublished">2016-12-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/23/iOS开发——带有暂停功能的计时器/">iOS开发——带有暂停功能的计时器</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>上篇博客我跟大家分享了如何在iOS系统中使用原生框架获取步数，又是大半个月过去了，运动模块的全部功能也总算完成了，也打算有始有终的把如何做一个跑步类App跟大家分享了。</p>
-<p>运动类应用中，有一个很重要的模块就是计时器，当然，这个计时器不算复杂，只要有简单的开始、暂停以及复位功能即可。那么今天我们从<strong>Model</strong>层来看看这个计时器的逻辑实现。</p>
-<p>我们先自己创建一个时间的<strong>Model</strong></p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RunningTimer</span>: <span class="title">NSObject</span> </span>&#123;</span><br><span class="line"><span class="comment">//MARK: var property</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> timeLabel: <span class="type">UILabel</span>!</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> timer: <span class="type">NSTimer</span>?</span><br><span class="line">    <span class="comment">//开始和结束时间列表</span></span><br><span class="line">    <span class="built_in">lazy</span> <span class="keyword">private</span> <span class="keyword">var</span> startTimes = [<span class="type">NSDate</span>]()</span><br><span class="line">    <span class="built_in">lazy</span> <span class="keyword">private</span> <span class="keyword">var</span> endTimes = [<span class="type">NSDate</span>]()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">internal</span> <span class="keyword">var</span> timeNumber = <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">didSet</span> &#123;</span><br><span class="line">            timeString = getTimeStringFromSecond(timeNumber)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">internal</span> <span class="keyword">private</span>(<span class="keyword">set</span>) <span class="keyword">var</span> timeString = <span class="string">"00:00:00"</span> &#123;</span><br><span class="line">        <span class="keyword">didSet</span> &#123;</span><br><span class="line">            timeLabel.text = timeString</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-        
-          <p class="article-more-link">
-            <a href="/2016/12/23/iOS开发——带有暂停功能的计时器/#more">继续阅读全文 »</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/12/23/iOS开发——带有暂停功能的计时器/" data-id="cjn1d9dnx002ltaz9mj77pgse" class="article-share-link">分享</a>
-      
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Swift/">Swift</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS开发/">iOS开发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/计时器/">计时器</a></li></ul>
 
     </footer>
   </div>
@@ -1037,6 +1038,10 @@
       <ul>
         
           <li>
+            <a href="/2018/11/14/javascript——为自己的库编写更健壮的API函数/">javascript——为自己的库编写更健壮的API函数</a>
+          </li>
+        
+          <li>
             <a href="/2018/10/09/服务器的Mysql初始化设置/">服务器的Mysql初始化设置</a>
           </li>
         
@@ -1050,10 +1055,6 @@
         
           <li>
             <a href="/2018/08/28/微信小程序——城市区县定位选择组件/">微信小程序——城市/区县定位选择组件</a>
-          </li>
-        
-          <li>
-            <a href="/2018/08/07/堆排序算法/">堆排序算法</a>
           </li>
         
       </ul>
