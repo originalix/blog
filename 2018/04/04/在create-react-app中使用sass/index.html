@@ -100,28 +100,28 @@
 <p>Sass（英文全称：Syntactically Awesome Stylesheets）是一个最初由Hampton Catlin设计并由Natalie Weizenbaum开发的层叠样式表语言。Sass是一个将脚本解析成CSS的脚本语言，即SassScript。Sass包括两套语法。最开始的语法叫做“缩进语法”，与Haml类似，使用缩进来区分代码块，并且用回车将不同规则分隔开。而较新的语法叫做“SCSS”，使用和CSS一样的块语法，即使用大括号将不同的规则分开，使用分号将具体的样式分开。通常情况下，这两套语法通过.sass和.scss两个文件扩展名区分开。相信每个前端开发者都对这种css预处理器有所耳闻。</p>
 </blockquote>
 <p>不管你是刚使用Reactjs或者是Reactjs的老司机，你们一定都听说过<code>create-react-app</code>这个脚手架，而从<code>create-react-app</code>的官方文档中，我们可以看到他们暂时还不支持直接导入LESS或者Sass。但是通过一些配置，我们还是可以从官方脚手架中使用sass/scss/less的。</p>
-<a id="more"></a>
+<p>&lt;!--more--&gt;</p>
 <p>首先我们先安装<code>node-sass</code>这个组件，我推荐我们国内的coder使用下面的命令行安装</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g mirror-config-china --registry=http://registry.npm.taobao.org</span><br><span class="line">npm install node-sass</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g mirror-config-china --registry=http://registry.npm.taobao.org</span><br><span class="line">npm install node-sass</span><br></pre></td></tr></table></figure></p>
 <p>然后在自己项目的<code>package.json</code>中，将以下行添加到scripts中:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">"build-css": "node-sass-chokidar src/ -o src/",</span><br><span class="line">"watch-css": "npm run build-css &amp;&amp; node-sass-chokidar src/ -o src/ --watch --recursive",</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">"build-css": "node-sass-chokidar src/ -o src/",</span><br><span class="line">"watch-css": "npm run build-css &amp;&amp; node-sass-chokidar src/ -o src/ --watch --recursive",</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>Note:  在使用不同的预处理器时，请根据预处理的文档替换build-css和watch-css命令。</p>
 </blockquote>
 <p>现在，您可以将src/App.css重命名为src/App.scss并运行npm run watch-css。watch-css将在src子目录中找到每个Sass文件，并在其旁边创建一个相应的CSS文件，在我们的例子中覆盖src/App.css。由于src/app.js仍然 improt src/App.css，所以样式同样成为您的应用程序的一部分。您现在可以编辑src/App.scss，同时会生成相应的src/App.css。</p>
 <p>为了能一边编译sass，一边运行我们的前端项目，我们还需要<code>npm-run-all</code>这个工具，这是一个并行运行多个npm脚本的脚手架工具，安装方式也非常简单。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ npm install npm-run-all --save-dev</span><br><span class="line"><span class="comment"># or</span></span><br><span class="line">$ yarn add npm-run-all --dev</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ npm install npm-run-all --save-dev</span><br><span class="line"><span class="comment"># or</span></span><br><span class="line">$ yarn add npm-run-all --dev</span><br></pre></td></tr></table></figure></p>
 <p>最后，在不使用<code>ejec</code>命令的情况下，更改<code>create-react-app</code>的<code>webpack</code>配置，我们使用<code>react-app-rewired</code>来处理，安装方式如下:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install react-app-rewired --save-dev</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install react-app-rewired --save-dev</span><br></pre></td></tr></table></figure></p>
 <p>在完成这些步骤之后，我们修改<code>package.json</code>的<code>script</code>内容，让sass一边编译，一边跑着我们的前端项目，实现热更。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">"scripts": &#123;</span><br><span class="line">	"build-css": "node-sass src/ -o src/",</span><br><span class="line">	"watch-css": "npm run build-css &amp;&amp; node-sass src/ -o src/ --watch --recursive",</span><br><span class="line">	"start-js": "node scripts/start.js",</span><br><span class="line">	"start": "npm-run-all -p watch-css start-js",</span><br><span class="line">	"build": "npm run build-css &amp;&amp; node scripts/build.js",</span><br><span class="line">	"test": "node scripts/test.js --env=jsdom"</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">"scripts": &#123;</span><br><span class="line">	"build-css": "node-sass src/ -o src/",</span><br><span class="line">	"watch-css": "npm run build-css &amp;&amp; node-sass src/ -o src/ --watch --recursive",</span><br><span class="line">	"start-js": "node scripts/start.js",</span><br><span class="line">	"start": "npm-run-all -p watch-css start-js",</span><br><span class="line">	"build": "npm run build-css &amp;&amp; node scripts/build.js",</span><br><span class="line">	"test": "node scripts/test.js --env=jsdom"</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></p>
 <p><code>scripts</code>的命令如上所述，安装完之后，<code>npm start</code>就可以搞定sass的使用问题了。</p>
 <p>现在运行run npm和npm run build同样构建了Sass文件。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/04/在create-react-app中使用sass/" data-id="cjogriv06003wvfz9pwt8ccl1" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/04/04/在create-react-app中使用sass/" data-id="cjoqwp5i500463kz9qludm5lk" class="article-share-link">分享</a>
       
       
       
@@ -228,6 +228,10 @@
       <ul>
         
           <li>
+            <a href="/2018/11/21/理解prototype、getPrototypeOf和-proto-之间的不同/">理解prototype、getPrototypeOf和 _proto _之间的不同</a>
+          </li>
+        
+          <li>
             <a href="/2018/11/14/javascript——为自己的库编写更健壮的API函数/">javascript——为自己的库编写更健壮的API函数</a>
           </li>
         
@@ -241,10 +245,6 @@
         
           <li>
             <a href="/2018/09/09/唠唠快速排序算法/">唠唠快速排序算法</a>
-          </li>
-        
-          <li>
-            <a href="/2018/08/28/微信小程序——城市区县定位选择组件/">微信小程序——城市/区县定位选择组件</a>
           </li>
         
       </ul>

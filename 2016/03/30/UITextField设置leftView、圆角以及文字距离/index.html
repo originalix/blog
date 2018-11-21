@@ -5,18 +5,18 @@
   
   <title>UITextField设置leftView、圆角以及文字距离 | Leon的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天在工作中，搭建一个登录界面，因为涉及到用户名和密码的输入，所以在iOS中我们免不了要用到UITextField这个常见的输入控件。首先来看一下美工给我的效果图，这里我仅仅截出了UITextField这个部分的效果：">
+  <meta name="description" content="今天在工作中，搭建一个登录界面，因为涉及到用户名和密码的输入，所以在iOS中我们免不了要用到UITextField这个常见的输入控件。首先来看一下美工给我的效果图，这里我仅仅截出了UITextField这个部分的效果： &amp;lt;!--more--&amp;gt;  这里我们能看到这个UITextField的基本要求有如下几个：  输入框内有提示图片 之后输入的文字与输入框内的图片有间距 输入框有圆角  大">
 <meta name="keywords" content="iOS,UITextField">
 <meta property="og:type" content="article">
 <meta property="og:title" content="UITextField设置leftView、圆角以及文字距离">
 <meta property="og:url" content="http://yoursite.com/2016/03/30/UITextField设置leftView、圆角以及文字距离/index.html">
 <meta property="og:site_name" content="Leon的博客">
-<meta property="og:description" content="今天在工作中，搭建一个登录界面，因为涉及到用户名和密码的输入，所以在iOS中我们免不了要用到UITextField这个常见的输入控件。首先来看一下美工给我的效果图，这里我仅仅截出了UITextField这个部分的效果：">
+<meta property="og:description" content="今天在工作中，搭建一个登录界面，因为涉及到用户名和密码的输入，所以在iOS中我们免不了要用到UITextField这个常见的输入控件。首先来看一下美工给我的效果图，这里我仅仅截出了UITextField这个部分的效果： &amp;lt;!--more--&amp;gt;  这里我们能看到这个UITextField的基本要求有如下几个：  输入框内有提示图片 之后输入的文字与输入框内的图片有间距 输入框有圆角  大">
 <meta property="og:image" content="https://raw.githubusercontent.com/originalix/OuGeV1/master/OuGeV1/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-03-30%20%E4%B8%8A%E5%8D%881.27.27.png">
 <meta property="og:updated_time" content="2016-08-05T06:45:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="UITextField设置leftView、圆角以及文字距离">
-<meta name="twitter:description" content="今天在工作中，搭建一个登录界面，因为涉及到用户名和密码的输入，所以在iOS中我们免不了要用到UITextField这个常见的输入控件。首先来看一下美工给我的效果图，这里我仅仅截出了UITextField这个部分的效果：">
+<meta name="twitter:description" content="今天在工作中，搭建一个登录界面，因为涉及到用户名和密码的输入，所以在iOS中我们免不了要用到UITextField这个常见的输入控件。首先来看一下美工给我的效果图，这里我仅仅截出了UITextField这个部分的效果： &amp;lt;!--more--&amp;gt;  这里我们能看到这个UITextField的基本要求有如下几个：  输入框内有提示图片 之后输入的文字与输入框内的图片有间距 输入框有圆角  大">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/originalix/OuGeV1/master/OuGeV1/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-03-30%20%E4%B8%8A%E5%8D%881.27.27.png">
   
     <link rel="alternate" href="/atom.xml" title="Leon的博客" type="application/atom+xml">
@@ -99,7 +99,7 @@
         <!-- Table of Contents -->
         
         <p>今天在工作中，搭建一个登录界面，因为涉及到用户名和密码的输入，所以在iOS中我们免不了要用到UITextField这个常见的输入控件。首先来看一下美工给我的效果图，这里我仅仅截出了UITextField这个部分的效果：</p>
-<a id="more"></a>
+<p>&lt;!--more--&gt;</p>
 <p><img src="https://raw.githubusercontent.com/originalix/OuGeV1/master/OuGeV1/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-03-30%20%E4%B8%8A%E5%8D%881.27.27.png" alt="UITextField效果"></p>
 <p>这里我们能看到这个UITextField的基本要求有如下几个：</p>
 <ul>
@@ -108,26 +108,26 @@
 <li>输入框有圆角</li>
 </ul>
 <p>大致分为上面的三个特殊要求，那么我们一个一个来分析，首先是输入框内的提示图片，这里我们要讲UITextField里的两个属性，leftview和rightview，这两个属性分别能设置textField内的左右两边的视图，可以插入图片,我用最简单的代码来展示textField的leftview怎么实现。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"> <span class="built_in">UIImageView</span> *imgView = [[<span class="built_in">UIImageView</span> alloc] initWithImage:[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"github.jpg"</span>]];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UITextField</span> *textField = [[<span class="built_in">UITextField</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">20</span>)];</span><br><span class="line">    textField.leftView =imgView;</span><br><span class="line">    textField.leftViewMode = <span class="built_in">UITextFieldViewModeAlways</span>;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span> addSubview:textField];</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"> <span class="built_in">UIImageView</span> *imgView = [[<span class="built_in">UIImageView</span> alloc] initWithImage:[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"github.jpg"</span>]];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UITextField</span> *textField = [[<span class="built_in">UITextField</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">20</span>)];</span><br><span class="line">    textField.leftView =imgView;</span><br><span class="line">    textField.leftViewMode = <span class="built_in">UITextFieldViewModeAlways</span>;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span> addSubview:textField];</span><br></pre></td></tr></table></figure></p>
 <p>上面的代码，我们能很清楚的看到首先定义一个UIImageView，之后把这个imageView设置成textField的leftview，之后设置leftview的样式，就可以很简单的定义一个leftview。</p>
 <p>UITextFieldViewMode是一个枚举类型，有如下属性:</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">UITextFieldViewMode</span>) &#123;</span><br><span class="line">    <span class="built_in">UITextFieldViewModeNever</span>,</span><br><span class="line">    <span class="built_in">UITextFieldViewModeWhileEditing</span>,</span><br><span class="line">    <span class="built_in">UITextFieldViewModeUnlessEditing</span>,</span><br><span class="line">    <span class="built_in">UITextFieldViewModeAlways</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">UITextFieldViewMode</span>) &#123;</span><br><span class="line">    <span class="built_in">UITextFieldViewModeNever</span>,</span><br><span class="line">    <span class="built_in">UITextFieldViewModeWhileEditing</span>,</span><br><span class="line">    <span class="built_in">UITextFieldViewModeUnlessEditing</span>,</span><br><span class="line">    <span class="built_in">UITextFieldViewModeAlways</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
 <p>但是这样设置的TextField我们会发现，图片是紧紧贴在输入框的边缘的，看起来特别别扭不舒服，那么该怎么设置呢？我们可以子类化一个TextField，去复写它的一个方法来设置leftView的位置</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">CGRect</span>)leftViewRectForBounds:(<span class="built_in">CGRect</span>)bounds</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">CGRect</span> iconRect = [<span class="keyword">super</span> leftViewRectForBounds:bounds];</span><br><span class="line">    iconRect.origin.x += <span class="number">15</span>; <span class="comment">//像右边偏15</span></span><br><span class="line">    <span class="keyword">return</span> iconRect;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">CGRect</span>)leftViewRectForBounds:(<span class="built_in">CGRect</span>)bounds</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">CGRect</span> iconRect = [<span class="keyword">super</span> leftViewRectForBounds:bounds];</span><br><span class="line">    iconRect.origin.x += <span class="number">15</span>; <span class="comment">//像右边偏15</span></span><br><span class="line">    <span class="keyword">return</span> iconRect;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>在继承与UITextField中复写这个方法，得到的结果是leftView像右偏移15，是不是很简单呢。</p>
 <p>如果这时候我们在输入框中打字，会发现leftview确实跟最初的输入框产生的距离，但是我们打出来的字还是紧紧的黏在图片上，用户体验也极差，根据上面的思路，我们可以接着在这个子类中复写它的设置方法来实现。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//UITextField 文字与输入框的距离</span></span><br><span class="line">- (<span class="built_in">CGRect</span>)textRectForBounds:(<span class="built_in">CGRect</span>)bounds&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">CGRectInset</span>(bounds, <span class="number">45</span>, <span class="number">0</span>);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//控制文本的位置</span></span><br><span class="line">- (<span class="built_in">CGRect</span>)editingRectForBounds:(<span class="built_in">CGRect</span>)bounds&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">CGRectInset</span>(bounds, <span class="number">45</span>, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//UITextField 文字与输入框的距离</span></span><br><span class="line">- (<span class="built_in">CGRect</span>)textRectForBounds:(<span class="built_in">CGRect</span>)bounds&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">CGRectInset</span>(bounds, <span class="number">45</span>, <span class="number">0</span>);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//控制文本的位置</span></span><br><span class="line">- (<span class="built_in">CGRect</span>)editingRectForBounds:(<span class="built_in">CGRect</span>)bounds&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">CGRectInset</span>(bounds, <span class="number">45</span>, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>之前的图片是20大小，加上偏移的15那么一共是35，所以我们设置偏移45的量，即为文本比leftView的图片的最右边向右15。至此，我们已经完成了textField的文本和图片设置，最后来看一下圆角。</p>
 <p>圆角有两种实现方式，一种是在layer层处理，来渲染绘制圆角</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">    textField.layer.cornerRadius = <span class="number">4</span>;</span><br><span class="line">    textField.layer.masksToBounds = <span class="literal">YES</span>;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">    textField.layer.cornerRadius = <span class="number">4</span>;</span><br><span class="line">    textField.layer.masksToBounds = <span class="literal">YES</span>;</span><br></pre></td></tr></table></figure></p>
 <p>第二种是设置UITextfield的样式，也能实现自带圆角，但是这个圆角的值是固定的</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">textField.borderStyle = <span class="built_in">UITextBorderStyleRoundedRect</span>;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">textField.borderStyle = <span class="built_in">UITextBorderStyleRoundedRect</span>;</span><br></pre></td></tr></table></figure></p>
 <p>写到这里，这个UITextField在界面上的要求就已经基本完成了，一般我们用到的常用属性也就是这些。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/30/UITextField设置leftView、圆角以及文字距离/" data-id="cjogriuyo0019vfz9ggyayolz" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2016/03/30/UITextField设置leftView、圆角以及文字距离/" data-id="cjoqwp5gn00173kz9fly0yxlt" class="article-share-link">分享</a>
       
       
       
@@ -234,6 +234,10 @@
       <ul>
         
           <li>
+            <a href="/2018/11/21/理解prototype、getPrototypeOf和-proto-之间的不同/">理解prototype、getPrototypeOf和 _proto _之间的不同</a>
+          </li>
+        
+          <li>
             <a href="/2018/11/14/javascript——为自己的库编写更健壮的API函数/">javascript——为自己的库编写更健壮的API函数</a>
           </li>
         
@@ -247,10 +251,6 @@
         
           <li>
             <a href="/2018/09/09/唠唠快速排序算法/">唠唠快速排序算法</a>
-          </li>
-        
-          <li>
-            <a href="/2018/08/28/微信小程序——城市区县定位选择组件/">微信小程序——城市/区县定位选择组件</a>
           </li>
         
       </ul>

@@ -99,46 +99,51 @@
         <!-- Table of Contents -->
         
         <p>最近经常在自己的测试服务器上部署项目，也开了好几台测试服务器，都是用最简单的LAMP方案来建站的。毕竟是最简单易用的，LAMP即为 Linux、Web 服务器 (Apache)、 数据库服务器 (MySQL / MariaDB) 和 PHP (脚本语言)。由于我使用的都是Ubuntu 16.04的系统，所以我将记录基于Ubuntu16.04的系统中安装LAMP的过程。在这里我将默认你已经安装好Ubuntu 16.04的系统了。</p>
-<a id="more"></a>
-<h2 id="Apache2-web服务器的安装"><a href="#Apache2-web服务器的安装" class="headerlink" title="Apache2 web服务器的安装:"></a>Apache2 web服务器的安装:</h2><p>在 Ubuntu Linux 中，web服务器是Apache2，我们可以利用如下命令安装Apache2。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt update</span><br><span class="line"></span><br><span class="line">$ sudo apt install apache2 -y</span><br></pre></td></tr></table></figure>
+<p>&lt;!--more--&gt;</p>
+<h2>Apache2 web服务器的安装:</h2>
+<p>在 Ubuntu Linux 中，web服务器是Apache2，我们可以利用如下命令安装Apache2。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt update</span><br><span class="line"></span><br><span class="line">$ sudo apt install apache2 -y</span><br></pre></td></tr></table></figure></p>
 <p>当安装完成Apache2的包之后，Apache2的相关服务是启动的，并在重启后自动运行。在某些情况下，如果你的Apache2的服务并没有自动运行和启用，你可以利用如下命令来启用它：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl start apache2.service</span><br><span class="line">$ sudo systemctl <span class="built_in">enable</span> apache2.service</span><br><span class="line">$ sudo systemctl status apache2.service</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl start apache2.service</span><br><span class="line">$ sudo systemctl <span class="built_in">enable</span> apache2.service</span><br><span class="line">$ sudo systemctl status apache2.service</span><br></pre></td></tr></table></figure></p>
 <p>如果你开启了Ubuntu的防火墙（ufw）,那么你可以使用如下命令来解除web服务器的端口（80和443）限制：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ufw status</span><br><span class="line">Status: active</span><br><span class="line">$ sudo ufw allow <span class="keyword">in</span> <span class="string">'Apache Full'</span></span><br><span class="line">Rule added</span><br><span class="line">Rule added (v6)</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ufw status</span><br><span class="line">Status: active</span><br><span class="line">$ sudo ufw allow <span class="keyword">in</span> <span class="string">'Apache Full'</span></span><br><span class="line">Rule added</span><br><span class="line">Rule added (v6)</span><br></pre></td></tr></table></figure></p>
 <p>好了，这时候你已经可以输入你的服务器的IP地址来访问你的web服务器了，不出意外你会看到Apache2的欢迎页面。</p>
-<h2 id="数据库服务器的安装-MySQL-Server-5-7"><a href="#数据库服务器的安装-MySQL-Server-5-7" class="headerlink" title="数据库服务器的安装(MySQL Server 5.7):"></a>数据库服务器的安装(MySQL Server 5.7):</h2><p>MySQL 和 MariaDB 都是 Ubuntu 16.04 中的数据库服务器。 MySQL Server 和 MariaDB Server的安装包都可以在Ubuntu 的默认软件源中找到，我们可以选择其中的一个来安装。通过下面的命令来在终端中安装mysql服务器。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install mysql-server mysql-client</span><br></pre></td></tr></table></figure>
+<h2>数据库服务器的安装(MySQL Server 5.7):</h2>
+<p>MySQL 和 MariaDB 都是 Ubuntu 16.04 中的数据库服务器。 MySQL Server 和 MariaDB Server的安装包都可以在Ubuntu 的默认软件源中找到，我们可以选择其中的一个来安装。通过下面的命令来在终端中安装mysql服务器。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install mysql-server mysql-client</span><br></pre></td></tr></table></figure></p>
 <p>在安装的过程中，它会要求你设置mysql服务器的root账户的密码：</p>
 <p><img src="https://dn-linuxcn.qbox.me/data/attachment/album/201606/14/203351wti8ttrbudtwb8io.jpg" alt=""></p>
 <p>确认root账户的密码，并点击确定。</p>
 <p>MySQL 服务器的安装到此已经结束了， MySQL 服务会自动启动并启用。我们可以通过如下的命令来校验 MySQL 服务的状态。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl status mysql.service</span><br></pre></td></tr></table></figure>
-<h2 id="PHP脚本语言的安装"><a href="#PHP脚本语言的安装" class="headerlink" title="PHP脚本语言的安装:"></a>PHP脚本语言的安装:</h2><p>由于PHP7已经存在于Ubuntu的软件源中了，在终端中执行如下的命令来安装PHP7</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install php7.0-mysql php7.0-curl php7.0-json php7.0-cgi php7.0 libapache2-mod-php7.0</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl status mysql.service</span><br></pre></td></tr></table></figure></p>
+<h2>PHP脚本语言的安装:</h2>
+<p>由于PHP7已经存在于Ubuntu的软件源中了，在终端中执行如下的命令来安装PHP7</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install php7.0-mysql php7.0-curl php7.0-json php7.0-cgi php7.0 libapache2-mod-php7.0</span><br></pre></td></tr></table></figure></p>
 <p>在<code>/var/www/html</code>的apache的根目录下创建一个简单的php页面。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ touch info.php</span><br><span class="line">$ vi info.php</span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">phpinfo();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ touch info.php</span><br><span class="line">$ vi info.php</span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">phpinfo();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>在vi中编辑之后保存并退出文件。</p>
-<p>现在你可以从 web 浏览器中访问这个页面, 输入 : “http://<server_ip>/info.php” ，你可以看到如下页面。</server_ip></p>
+<p>现在你可以从 web 浏览器中访问这个页面, 输入 : “http://&lt;Server_IP&gt;/info.php” ，你可以看到如下页面。</p>
 <p>如果能看到紫色的PHPINFO页面，说明已经完全安装成功了。</p>
-<h2 id="phpMyAdmin的安装："><a href="#phpMyAdmin的安装：" class="headerlink" title="phpMyAdmin的安装："></a>phpMyAdmin的安装：</h2><p>phpMyAdmin 可以让我们通过它的 web 界面来执行所有与数据库管理和其他数据库操作相关的任务，这个安装包已经存在于 Ubuntu 的软件源中。</p>
+<h2>phpMyAdmin的安装：</h2>
+<p>phpMyAdmin 可以让我们通过它的 web 界面来执行所有与数据库管理和其他数据库操作相关的任务，这个安装包已经存在于 Ubuntu 的软件源中。</p>
 <p>利用如下的命令来在 Ubuntu server 16.04 LTS 中安装 phpMyAdmin。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install php-mbstring php7.0-mbstring php-gettext</span><br><span class="line">$ sudo systemctl restart apache2.service</span><br><span class="line">$ sudo apt install phpmyadmin</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install php-mbstring php7.0-mbstring php-gettext</span><br><span class="line">$ sudo systemctl restart apache2.service</span><br><span class="line">$ sudo apt install phpmyadmin</span><br></pre></td></tr></table></figure></p>
 <p>在以下的安装过程中，它会提示我们选择 phpMyAdmin 运行的目标服务器。</p>
 <p>选择 Apache2 并点击确定。</p>
 <p>点击确定来配置 phpMyAdmin 管理的数据库。</p>
 <p>指定 phpMyAdmin 向数据库服务器注册时所用的密码。</p>
 <p>确认 phpMyAdmin 所需的密码，并点击确认。</p>
-<p>现在可以开始尝试访问 phpMyAdmin，打开浏览器并输入 : “<a href="http://Server_IP_OR_Host_Name/phpmyadmin”" target="_blank" rel="noopener">http://Server_IP_OR_Host_Name/phpmyadmin”</a></p>
-<p>使用我们安装时设置的 root 帐户和密码。<br>当我们点击“Go”的时候，将会重定向到如下所示的 ‘phpMyAdmin’ web界面。</p>
+<p>现在可以开始尝试访问 phpMyAdmin，打开浏览器并输入 : “http://Server_IP_OR_Host_Name/phpmyadmin”</p>
+<p>使用我们安装时设置的 root 帐户和密码。
+当我们点击“Go”的时候，将会重定向到如下所示的 ‘phpMyAdmin’ web界面。</p>
 <p>如果这里出现了错误，那么记得给phpmyadmin加一个软链接，指向apache目录，</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin</span><br></pre></td></tr></table></figure></p>
 <p>到现在，LAMP 方案已经被成功安装并可以使用了，欢迎分享你的反馈和评论。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/09/在Ubunt16-04上安装LAMP/" data-id="cjogriv07003yvfz9p0u0dt6t" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/05/09/在Ubunt16-04上安装LAMP/" data-id="cjoqwp5i1003y3kz98h2n4j1b" class="article-share-link">分享</a>
       
       
       
@@ -238,7 +243,7 @@
       
         <strong class="toc-title">文章目录</strong>
         <div class="toc-widget-list">
-              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Apache2-web服务器的安装"><span class="toc-number">1.</span> <span class="toc-text"><a href="#Apache2-web&#x670D;&#x52A1;&#x5668;&#x7684;&#x5B89;&#x88C5;" class="headerlink" title="Apache2 web&#x670D;&#x52A1;&#x5668;&#x7684;&#x5B89;&#x88C5;:"></a>Apache2 web&#x670D;&#x52A1;&#x5668;&#x7684;&#x5B89;&#x88C5;:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库服务器的安装-MySQL-Server-5-7"><span class="toc-number">2.</span> <span class="toc-text"><a href="#&#x6570;&#x636E;&#x5E93;&#x670D;&#x52A1;&#x5668;&#x7684;&#x5B89;&#x88C5;-MySQL-Server-5-7" class="headerlink" title="&#x6570;&#x636E;&#x5E93;&#x670D;&#x52A1;&#x5668;&#x7684;&#x5B89;&#x88C5;(MySQL Server 5.7):"></a>&#x6570;&#x636E;&#x5E93;&#x670D;&#x52A1;&#x5668;&#x7684;&#x5B89;&#x88C5;(MySQL Server 5.7):</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PHP脚本语言的安装"><span class="toc-number">3.</span> <span class="toc-text"><a href="#PHP&#x811A;&#x672C;&#x8BED;&#x8A00;&#x7684;&#x5B89;&#x88C5;" class="headerlink" title="PHP&#x811A;&#x672C;&#x8BED;&#x8A00;&#x7684;&#x5B89;&#x88C5;:"></a>PHP&#x811A;&#x672C;&#x8BED;&#x8A00;&#x7684;&#x5B89;&#x88C5;:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#phpMyAdmin的安装："><span class="toc-number">4.</span> <span class="toc-text"><a href="#phpMyAdmin&#x7684;&#x5B89;&#x88C5;&#xFF1A;" class="headerlink" title="phpMyAdmin&#x7684;&#x5B89;&#x88C5;&#xFF1A;"></a>phpMyAdmin&#x7684;&#x5B89;&#x88C5;&#xFF1A;</span></a></li></ol>
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Apache2 web&#x670D;&#x52A1;&#x5668;&#x7684;&#x5B89;&#x88C5;:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">&#x6570;&#x636E;&#x5E93;&#x670D;&#x52A1;&#x5668;&#x7684;&#x5B89;&#x88C5;(MySQL Server 5.7):</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">PHP&#x811A;&#x672C;&#x8BED;&#x8A00;&#x7684;&#x5B89;&#x88C5;:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">phpMyAdmin&#x7684;&#x5B89;&#x88C5;&#xFF1A;</span></a></li></ol>
           </div>
       </div>
     </div>

@@ -5,17 +5,17 @@
   
   <title>Rem布局的原理探究 | Leon的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在用前端给移动端页面写布局时，我接触到了Rem布局，但是老实说我也看了几篇手淘适配的文章，并且主要的目的是拿到代码写出demo，所以对于Rem我还是停留在只会使用的阶段，但是理解的并不透彻，所以要抽出时间，把rem布局的原理搞清楚。">
+  <meta name="description" content="在用前端给移动端页面写布局时，我接触到了Rem布局，但是老实说我也看了几篇手淘适配的文章，并且主要的目的是拿到代码写出demo，所以对于Rem我还是停留在只会使用的阶段，但是理解的并不透彻，所以要抽出时间，把rem布局的原理搞清楚。 &amp;lt;!--more--&amp;gt; 什么是em 我相信所有接触学习过css布局的同学，一定在rem之前先听到过em的大名，但是大多数也许跟我一样，只是听过或者最多跟着">
 <meta name="keywords" content="前端,css,layout">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Rem布局的原理探究">
 <meta property="og:url" content="http://yoursite.com/2018/01/09/Rem布局的原理探究/index.html">
 <meta property="og:site_name" content="Leon的博客">
-<meta property="og:description" content="在用前端给移动端页面写布局时，我接触到了Rem布局，但是老实说我也看了几篇手淘适配的文章，并且主要的目的是拿到代码写出demo，所以对于Rem我还是停留在只会使用的阶段，但是理解的并不透彻，所以要抽出时间，把rem布局的原理搞清楚。">
+<meta property="og:description" content="在用前端给移动端页面写布局时，我接触到了Rem布局，但是老实说我也看了几篇手淘适配的文章，并且主要的目的是拿到代码写出demo，所以对于Rem我还是停留在只会使用的阶段，但是理解的并不透彻，所以要抽出时间，把rem布局的原理搞清楚。 &amp;lt;!--more--&amp;gt; 什么是em 我相信所有接触学习过css布局的同学，一定在rem之前先听到过em的大名，但是大多数也许跟我一样，只是听过或者最多跟着">
 <meta property="og:updated_time" content="2018-01-09T13:17:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Rem布局的原理探究">
-<meta name="twitter:description" content="在用前端给移动端页面写布局时，我接触到了Rem布局，但是老实说我也看了几篇手淘适配的文章，并且主要的目的是拿到代码写出demo，所以对于Rem我还是停留在只会使用的阶段，但是理解的并不透彻，所以要抽出时间，把rem布局的原理搞清楚。">
+<meta name="twitter:description" content="在用前端给移动端页面写布局时，我接触到了Rem布局，但是老实说我也看了几篇手淘适配的文章，并且主要的目的是拿到代码写出demo，所以对于Rem我还是停留在只会使用的阶段，但是理解的并不透彻，所以要抽出时间，把rem布局的原理搞清楚。 &amp;lt;!--more--&amp;gt; 什么是em 我相信所有接触学习过css布局的同学，一定在rem之前先听到过em的大名，但是大多数也许跟我一样，只是听过或者最多跟着">
   
     <link rel="alternate" href="/atom.xml" title="Leon的博客" type="application/atom+xml">
   
@@ -97,24 +97,26 @@
         <!-- Table of Contents -->
         
         <p>在用前端给移动端页面写布局时，我接触到了Rem布局，但是老实说我也看了几篇手淘适配的文章，并且主要的目的是拿到代码写出demo，所以对于Rem我还是停留在只会使用的阶段，但是理解的并不透彻，所以要抽出时间，把rem布局的原理搞清楚。</p>
-<a id="more"></a>
-<h1 id="什么是em"><a href="#什么是em" class="headerlink" title="什么是em"></a>什么是em</h1><p>我相信所有接触学习过css布局的同学，一定在rem之前先听到过em的大名，但是大多数也许跟我一样，只是听过或者最多跟着W3C上的教程敲过一下demo，之后的工作学习中并没有使用em这个单位，那么在聊rem之前，我们先聊聊em，毕竟混淆这两个单位的同学还是存在的。</p>
-<p>用户的浏览器渲染的默认字体大小是”16px”，换句话说，Web页面中“body”的文字大小在浏览器下默认渲染是”16px”。当然，如果用户愿意也可以改变这个字体大小。而”em”是一个相对的大小，它的大小是相对于元素父元素的font-size。比如在body下直接写一个p标签，并且设置这个p标签的字体大小是”2em”, 那么其文字大小计算出来就是相当于<code>2 * 16px = 32px</code>。一个例子就能明了，em是相对于当前元素的父元素的font-size。而之前的弹性设计，有一个关键地方就是Web的所有元素都使用“em”单位。</p>
+<p>&lt;!--more--&gt;</p>
+<h1>什么是em</h1>
+<p>我相信所有接触学习过css布局的同学，一定在rem之前先听到过em的大名，但是大多数也许跟我一样，只是听过或者最多跟着W3C上的教程敲过一下demo，之后的工作学习中并没有使用em这个单位，那么在聊rem之前，我们先聊聊em，毕竟混淆这两个单位的同学还是存在的。</p>
+<p>用户的浏览器渲染的默认字体大小是&quot;16px&quot;，换句话说，Web页面中“body”的文字大小在浏览器下默认渲染是&quot;16px&quot;。当然，如果用户愿意也可以改变这个字体大小。而&quot;em&quot;是一个相对的大小，它的大小是相对于元素父元素的font-size。比如在body下直接写一个p标签，并且设置这个p标签的字体大小是&quot;2em&quot;, 那么其文字大小计算出来就是相当于<code>2 * 16px = 32px</code>。一个例子就能明了，em是相对于当前元素的父元素的font-size。而之前的弹性设计，有一个关键地方就是Web的所有元素都使用“em”单位。</p>
 <p>体验后，是不是觉得弹性布局的页面很灵活呀，而且也像“px”一样的精确。因此，只要我们掌握了“font-size”、“px”和“em”之间的基本关系，我们就可以快速使用CSS创建精确的布局。</p>
-<h1 id="什么是Rem"><a href="#什么是Rem" class="headerlink" title="什么是Rem"></a>什么是Rem</h1><p>看完了刚才em的介绍，是不是对于em的概念逐渐清晰，并且希望用em去构建自己的弹性布局呢。且慢，心急吃不了热豆腐，不妨听我把rem也慢慢的介绍完，毕竟主角光环的都是最后才出场的。rem是css3引入的一个单位，那我们为什么要在有em这个可以充当弹性布局的单位时还要引入rem呢？</p>
+<h1>什么是Rem</h1>
+<p>看完了刚才em的介绍，是不是对于em的概念逐渐清晰，并且希望用em去构建自己的弹性布局呢。且慢，心急吃不了热豆腐，不妨听我把rem也慢慢的介绍完，毕竟主角光环的都是最后才出场的。rem是css3引入的一个单位，那我们为什么要在有em这个可以充当弹性布局的单位时还要引入rem呢？</p>
 <p>em可以让我们的页面更灵活，比起到处写死的px值，em显得更有张力，根据比例的变化来调节屏幕。有的人提出用em来做弹性布局的页面，但是还是兔内污！如果你想一边看着标注图，一边算着em值，那你可以试试哦。不过聪明的程序员是不会去做这么无脑的事情的，所以有人写过px和em转换的计算器。但是你有没有想过，如果有一天，你的父节点的字体大小发生了变化，那么对于全局可能会产生相当大的影响，手算的同学是不是要全部重新计算，唉，害怕的我直接去写px了。😨！</p>
 <p>所以针对这种繁琐运算的情况，rem应运而生，我们是这样定义rem的：</p>
 <blockquote>
 <p>rem作用于非根元素时，相对于根元素字体大小；rem作用于根元素字体大小时，相对于其出初始字体大小</p>
 </blockquote>
 <p>rem的取值有两种情况，就是设置根元素和非根元素的时候，下面看个例子：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">	<span class="attribute">font-size</span>: <span class="number">2rem</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">	<span class="attribute">font-size</span>: <span class="number">2rem</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>html是我们html页面的根元素，之前介绍em的时候，我们就知道浏览器默认渲染的字体大小是16px，所以html的字体大小是2rem，那么rem作用于根元素的字体大小相当于其初始字体大小的定论的话，html的字体大小就是32px。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">	<span class="attribute">font-size</span>: <span class="number">2rem</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">	<span class="attribute">font-size</span>: <span class="number">2rem</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>而上面p标签的这个例子中，我们之前已经知道html的字体大小是32px，那么p标签的字体大小就是<code>2 * 32px = 64px</code>。</p>
 <p>所以如果我们能合理的设置根元素的字体大小，那么rem的计算就会变得非常容易，比如手淘提出的将屏幕等宽划分成100份，那么标注图上的10px，即为0.1rem。所有的标注值除以100即可，根本不需要有计算的过程。</p>
 <p>其实rem布局的本质也就是等比缩放，一般是基于宽度，假设我们将屏幕宽度平均分成100份，每一份的宽度用x表示。 <code>x = 屏幕宽度 / 100</code>, 如果将x作为单位，x前面的数值就代表屏幕宽度的百分比。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p &#123; width: 50x &#125; //屏幕宽度的50%</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p &#123; width: 50x &#125; //屏幕宽度的50%</span><br></pre></td></tr></table></figure></p>
 <p>而理解到这里，其实我们也就知道我们让页面最上面跑的js代码到底是什么意思了，我们就是需要让html元素字体的大小，恒等于屏幕宽度的1/100。那1rem和1x就等价了。</p>
 <p>rem我们就分析到这里，到这里，可能有人会觉得在这个比较之下，em似乎完全没有用武之地，但是一个技术的存在肯定是得到很多使用者的肯定的，也是设计者几经考量才能决定放出使用的，所以技术没有高低，只是他们适用的场景，rem可能更适合写布局，而em可能就更适合来表达字体大小。所以我们要探究原理，选择合适的技术，提高自己的工作效率和作品质量。</p>
 <p>今天的探究就到这里，rem的代码我就不贴了，手淘的代码一搜一大把呢。</p>
@@ -122,7 +124,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/09/Rem布局的原理探究/" data-id="cjogriuyh000vvfz9y0pybz3k" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/01/09/Rem布局的原理探究/" data-id="cjoqwp5gi000x3kz9ozf98828" class="article-share-link">分享</a>
       
       
       
@@ -222,7 +224,7 @@
       
         <strong class="toc-title">文章目录</strong>
         <div class="toc-widget-list">
-              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#什么是em"><span class="toc-number">1.</span> <span class="toc-text"><a href="#&#x4EC0;&#x4E48;&#x662F;em" class="headerlink" title="&#x4EC0;&#x4E48;&#x662F;em"></a>&#x4EC0;&#x4E48;&#x662F;em</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#什么是Rem"><span class="toc-number">2.</span> <span class="toc-text"><a href="#&#x4EC0;&#x4E48;&#x662F;Rem" class="headerlink" title="&#x4EC0;&#x4E48;&#x662F;Rem"></a>&#x4EC0;&#x4E48;&#x662F;Rem</span></a></li></ol>
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">&#x4EC0;&#x4E48;&#x662F;em</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">&#x4EC0;&#x4E48;&#x662F;Rem</span></a></li></ol>
           </div>
       </div>
     </div>

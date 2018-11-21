@@ -5,17 +5,17 @@
   
   <title>iOS开发——字典的升序排列以及字符串拼接 | Leon的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在调用SDK包的时候，很多时候我们自己开发的第三方应用想要取得数据的时候得获得登陆令牌以及其他很多信息，比如accessToken等登陆令牌信息，而第三方SDK包往往会要求我们完成签名算法，我今天在项目中集成海康威视的网络摄像头时，就要求我必须完成签名算法才能获得信息，而签名算法的要求是这样子的。">
+  <meta name="description" content="在调用SDK包的时候，很多时候我们自己开发的第三方应用想要取得数据的时候得获得登陆令牌以及其他很多信息，比如accessToken等登陆令牌信息，而第三方SDK包往往会要求我们完成签名算法，我今天在项目中集成海康威视的网络摄像头时，就要求我必须完成签名算法才能获得信息，而签名算法的要求是这样子的。 &amp;lt;!--more--&amp;gt;  签名算法要求如下： 第一步： 算出“签名原始串”= param">
 <meta name="keywords" content="iOS开发,字典排序,字符串拼接">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS开发——字典的升序排列以及字符串拼接">
 <meta property="og:url" content="http://yoursite.com/2016/04/22/iOS开发——字典的升序排列以及字符串拼接/index.html">
 <meta property="og:site_name" content="Leon的博客">
-<meta property="og:description" content="在调用SDK包的时候，很多时候我们自己开发的第三方应用想要取得数据的时候得获得登陆令牌以及其他很多信息，比如accessToken等登陆令牌信息，而第三方SDK包往往会要求我们完成签名算法，我今天在项目中集成海康威视的网络摄像头时，就要求我必须完成签名算法才能获得信息，而签名算法的要求是这样子的。">
+<meta property="og:description" content="在调用SDK包的时候，很多时候我们自己开发的第三方应用想要取得数据的时候得获得登陆令牌以及其他很多信息，比如accessToken等登陆令牌信息，而第三方SDK包往往会要求我们完成签名算法，我今天在项目中集成海康威视的网络摄像头时，就要求我必须完成签名算法才能获得信息，而签名算法的要求是这样子的。 &amp;lt;!--more--&amp;gt;  签名算法要求如下： 第一步： 算出“签名原始串”= param">
 <meta property="og:updated_time" content="2016-08-05T06:47:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS开发——字典的升序排列以及字符串拼接">
-<meta name="twitter:description" content="在调用SDK包的时候，很多时候我们自己开发的第三方应用想要取得数据的时候得获得登陆令牌以及其他很多信息，比如accessToken等登陆令牌信息，而第三方SDK包往往会要求我们完成签名算法，我今天在项目中集成海康威视的网络摄像头时，就要求我必须完成签名算法才能获得信息，而签名算法的要求是这样子的。">
+<meta name="twitter:description" content="在调用SDK包的时候，很多时候我们自己开发的第三方应用想要取得数据的时候得获得登陆令牌以及其他很多信息，比如accessToken等登陆令牌信息，而第三方SDK包往往会要求我们完成签名算法，我今天在项目中集成海康威视的网络摄像头时，就要求我必须完成签名算法才能获得信息，而签名算法的要求是这样子的。 &amp;lt;!--more--&amp;gt;  签名算法要求如下： 第一步： 算出“签名原始串”= param">
   
     <link rel="alternate" href="/atom.xml" title="Leon的博客" type="application/atom+xml">
   
@@ -97,35 +97,36 @@
         <!-- Table of Contents -->
         
         <p>在调用SDK包的时候，很多时候我们自己开发的第三方应用想要取得数据的时候得获得登陆令牌以及其他很多信息，比如accessToken等登陆令牌信息，而第三方SDK包往往会要求我们完成签名算法，我今天在项目中集成海康威视的网络摄像头时，就要求我必须完成签名算法才能获得信息，而签名算法的要求是这样子的。</p>
-<a id="more"></a>
+<p>&lt;!--more--&gt;</p>
 <ul>
 <li>签名算法要求如下：</li>
-<li>第一步： 算出“签名原始串”= params中参数集合字符串（将所有字段按升序排列后，依次连接所有字段名及对应值）+ method（接口名字）+ time(UTC时间戳) +请求源secret。样式如下：“<attr>:<val>,…,<attr>:<val>, method:<val>,time:<val>,secret:<val>”</val></val></val></val></attr></val></attr></li>
-<li>第二步： 将“签名原始串”进行MD5校验，并转化为16进制的32位小写字符串，作为签名值sign。（注：编码格式为UTF-8）</li>
+<li>第一步： 算出“签名原始串”= params中参数集合字符串（将所有字段按升序排列后，依次连接所有字段名及对应值）+ method（接口名字）+ time(UTC时间戳) +请求源secret。样式如下：“&lt;attr&gt;:&lt;val&gt;,…,&lt;attr&gt;:&lt;val&gt;, method:&lt;val&gt;,time:&lt;val&gt;,secret:&lt;val&gt;”</li>
+<li>第二步： 将“签名原始串”进行MD5校验，并转化为16进制的32位小写字符串，作为签名值sign。（注：编码格式为UTF-8）</li>
 </ul>
 <p>所以这里我们分析，我们要完成的步骤如下，首先我们先讲集合内的字符串以升序排列，第二步我们依次按照规定的样式拼接字符串，最后我们把拼接好的字符串进行MD5校验，转化为16进制的32位小写字符串。</p>
 <p>下面我们先从字典的升序排列开始说起，我先假定一个字典。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSDictionary</span> *params = @&#123;</span><br><span class="line">                           <span class="string">@"name"</span>:<span class="string">@"LinH"</span>,</span><br><span class="line">                           <span class="string">@"hometown"</span>:<span class="string">@"Dongying"</span>,</span><br><span class="line">                           <span class="string">@"userID"</span>:<span class="string">@"330909199301271234"</span>,</span><br><span class="line">                           <span class="string">@"phone"</span>:<span class="string">@"18814868888"</span></span><br><span class="line">                           &#125;;</span><br></pre></td></tr></table></figure>
-<p>这个参数字典中一共有4个key:name、hometown、userID、phone。<br>我们该怎么样把这四个字符串按升序排列呢？</p>
+<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSDictionary</span> *params = @&#123;</span><br><span class="line">                           <span class="string">@"name"</span>:<span class="string">@"LinH"</span>,</span><br><span class="line">                           <span class="string">@"hometown"</span>:<span class="string">@"Dongying"</span>,</span><br><span class="line">                           <span class="string">@"userID"</span>:<span class="string">@"330909199301271234"</span>,</span><br><span class="line">                           <span class="string">@"phone"</span>:<span class="string">@"18814868888"</span></span><br><span class="line">                           &#125;;</span><br></pre></td></tr></table></figure></p>
+<p>这个参数字典中一共有4个key:name、hometown、userID、phone。
+我们该怎么样把这四个字符串按升序排列呢？</p>
 <p>首先我们定义一个数组，存储字典中的所有key值:</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSArray</span> *keyArray = [params allKeys];</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSArray</span> *keyArray = [params allKeys];</span><br></pre></td></tr></table></figure></p>
 <p>接下来我们定义一个排序数组，存储排序好之后的key值</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSArray</span> *sortArray = [keyArray sortedArrayUsingComparator:^<span class="built_in">NSComparisonResult</span>(<span class="keyword">id</span>  _Nonnull obj1, <span class="keyword">id</span>  _Nonnull obj2) &#123;</span><br><span class="line">    <span class="keyword">return</span> [obj1 compare:obj2 options:<span class="built_in">NSNumericSearch</span>];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSArray</span> *sortArray = [keyArray sortedArrayUsingComparator:^<span class="built_in">NSComparisonResult</span>(<span class="keyword">id</span>  _Nonnull obj1, <span class="keyword">id</span>  _Nonnull obj2) &#123;</span><br><span class="line">    <span class="keyword">return</span> [obj1 compare:obj2 options:<span class="built_in">NSNumericSearch</span>];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure></p>
 <p><strong>sortedArrayUsingComparator</strong>方法是苹果为我们提供的一个数组排序方法，利用block语法来完成排序功能。</p>
 <p>而这时，我们排序好的key值，已经按顺序存储在<strong>sortArray</strong>数组中，这时我们再创建一个数组，来按升序存储key对应的Value，通过遍历<strong>sortArray</strong>的方法。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSMutableArray</span> *valueArray = [<span class="built_in">NSMutableArray</span> array];</span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">NSString</span> *sortString <span class="keyword">in</span> sortArray) &#123;</span><br><span class="line">    [valueArray addObject:[params objectForKey:sortString]];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSMutableArray</span> *valueArray = [<span class="built_in">NSMutableArray</span> array];</span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">NSString</span> *sortString <span class="keyword">in</span> sortArray) &#123;</span><br><span class="line">    [valueArray addObject:[params objectForKey:sortString]];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>现在我们有两个数组，分别对应升序排序的key和value，所以再创建一个keyValue的数组来存储每一个key和value的格式。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSMutableArray</span> *signArray = [<span class="built_in">NSMutableArray</span> array];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; sortArray.count; i++) &#123;</span><br><span class="line">    <span class="built_in">NSString</span> *keyValueStr = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@:%@"</span>,sortArray[i],valueArray[i]];</span><br><span class="line">    [signArray addObject:keyValueStr];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>最后的一步，就是用<strong>“,”</strong>把每个字符串拼接起来，很简单。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *sign = [signArray componentsJoinedByString:<span class="string">@","</span>];</span><br><span class="line"><span class="keyword">return</span> sign;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSMutableArray</span> *signArray = [<span class="built_in">NSMutableArray</span> array];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; sortArray.count; i++) &#123;</span><br><span class="line">    <span class="built_in">NSString</span> *keyValueStr = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@:%@"</span>,sortArray[i],valueArray[i]];</span><br><span class="line">    [signArray addObject:keyValueStr];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最后的一步，就是用**“,”**把每个字符串拼接起来，很简单。</p>
+<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *sign = [signArray componentsJoinedByString:<span class="string">@","</span>];</span><br><span class="line"><span class="keyword">return</span> sign;</span><br></pre></td></tr></table></figure></p>
 <p>这时，字符串sign里存储的就是要求我们完成的，没有进行MD5校验的签名字符串了，可以打印出来看一下。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">24923</span>:<span class="number">3184830</span>] hometown:Dongying,name:LinH,phone:<span class="number">18814868888</span>,userID:<span class="number">330909199301271234</span></span><br></pre></td></tr></table></figure>
+<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">24923</span>:<span class="number">3184830</span>] hometown:Dongying,name:LinH,phone:<span class="number">18814868888</span>,userID:<span class="number">330909199301271234</span></span><br></pre></td></tr></table></figure></p>
 <p>可以看到hometown,name,phone,userID已经按首字母排序并且完成拼接。所以字典的排序我们就讲到这里，MD5加密下一篇再来讲述。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/22/iOS开发——字典的升序排列以及字符串拼接/" data-id="cjogriuzb002hvfz92lp10o9c" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2016/04/22/iOS开发——字典的升序排列以及字符串拼接/" data-id="cjoqwp5h9002h3kz924eumu2v" class="article-share-link">分享</a>
       
       
       
@@ -232,6 +233,10 @@
       <ul>
         
           <li>
+            <a href="/2018/11/21/理解prototype、getPrototypeOf和-proto-之间的不同/">理解prototype、getPrototypeOf和 _proto _之间的不同</a>
+          </li>
+        
+          <li>
             <a href="/2018/11/14/javascript——为自己的库编写更健壮的API函数/">javascript——为自己的库编写更健壮的API函数</a>
           </li>
         
@@ -245,10 +250,6 @@
         
           <li>
             <a href="/2018/09/09/唠唠快速排序算法/">唠唠快速排序算法</a>
-          </li>
-        
-          <li>
-            <a href="/2018/08/28/微信小程序——城市区县定位选择组件/">微信小程序——城市/区县定位选择组件</a>
           </li>
         
       </ul>

@@ -99,21 +99,24 @@
         <p>Xpath即为XML路径语言（XML Path Language）。它是一种用来确定XML文档中某部分位置的语言。</p>
 <p>XPath基于XML的树状结构，提供在数据结构树种找寻节点的能力。起初XPath的提出的初衷是将其作为一个通用的、介于XPointer与XSL间的语法模型。但是XPath很快的被开发者采用来当做小型查询语言。</p>
 <p>由于XPath确定XML文档中定位的能力，我们在用Python写爬虫时，常常使用XPath来确定HTML中的位置，辅助我们编写爬虫，抓取数据。</p>
-<a id="more"></a>
-<h2 id="节点"><a href="#节点" class="headerlink" title="节点"></a>节点</h2><p>在Xpath中，有七种类型的节点：元素、属性、文本、命名空间、处理指令、注释以及文档节点（或者称为根节点）。</p>
+<p>&lt;!--more--&gt;</p>
+<h2>节点</h2>
+<p>在Xpath中，有七种类型的节点：元素、属性、文本、命名空间、处理指令、注释以及文档节点（或者称为根节点）。</p>
 <p>下面举几个节点的例子来说明：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"ISO-8859-1"</span><span class="meta">?&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bookstore</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">book</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span>Harry Potter<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">author</span>&gt;</span>J K. Rowling<span class="tag">&lt;/<span class="name">author</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">year</span>&gt;</span>2005<span class="tag">&lt;/<span class="name">year</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">price</span>&gt;</span>29.99<span class="tag">&lt;/<span class="name">price</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">book</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">bookstore</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"ISO-8859-1"</span><span class="meta">?&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bookstore</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">book</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span>Harry Potter<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">author</span>&gt;</span>J K. Rowling<span class="tag">&lt;/<span class="name">author</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">year</span>&gt;</span>2005<span class="tag">&lt;/<span class="name">year</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">price</span>&gt;</span>29.99<span class="tag">&lt;/<span class="name">price</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">book</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">bookstore</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>在上面的XML文档中：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bookstore</span>&gt;</span>  (文档节点)</span><br><span class="line"><span class="tag">&lt;<span class="name">author</span>&gt;</span>J K. Rowling<span class="tag">&lt;/<span class="name">author</span>&gt;</span> (元素节点)</span><br><span class="line">lang="en" (属性节点)</span><br></pre></td></tr></table></figure>
-<h2 id="表示法"><a href="#表示法" class="headerlink" title="表示法"></a>表示法</h2><p>Xpath最常见的表达式就是路径表达式（XPath这一名称的另一来源）。路径表达式是从一个XML节点（当前的上下文节点）到另一个节点、或一组节点的书面步骤顺序。这些步骤以“/”字符分开，每一步有三个构成部分。</p>
+<p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bookstore</span>&gt;</span>  (文档节点)</span><br><span class="line"><span class="tag">&lt;<span class="name">author</span>&gt;</span>J K. Rowling<span class="tag">&lt;/<span class="name">author</span>&gt;</span> (元素节点)</span><br><span class="line">lang="en" (属性节点)</span><br></pre></td></tr></table></figure></p>
+<h2>表示法</h2>
+<p>Xpath最常见的表达式就是路径表达式（XPath这一名称的另一来源）。路径表达式是从一个XML节点（当前的上下文节点）到另一个节点、或一组节点的书面步骤顺序。这些步骤以“/”字符分开，每一步有三个构成部分。</p>
 <ul>
 <li>轴描述（用最直接的方式接近目标节点）</li>
 <li>节点测试（用于筛选节点位置和名称）</li>
 <li>节点描述（用于筛选节点的属性和子节点特征）</li>
 </ul>
 <p>一般情况下，我们使用简写后的语法，虽然完整的轴描述是一种更加贴近人类语言，利用自然语言的单词和语法来书写的描述方式，但是相比之下也更加啰嗦。</p>
-<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>我们将在下面的例子中使用这个XML文档。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"ISO-8859-1"</span><span class="meta">?&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bookstore</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">book</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span> <span class="attr">lang</span>=<span class="string">"eng"</span>&gt;</span>Harry Potter<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">price</span>&gt;</span>29.99<span class="tag">&lt;/<span class="name">price</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">book</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">book</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span> <span class="attr">lang</span>=<span class="string">"eng"</span>&gt;</span>Learning XML<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">price</span>&gt;</span>39.95<span class="tag">&lt;/<span class="name">price</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">book</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">bookstore</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2>实例</h2>
+<p>我们将在下面的例子中使用这个XML文档。</p>
+<p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"ISO-8859-1"</span><span class="meta">?&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bookstore</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">book</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span> <span class="attr">lang</span>=<span class="string">"eng"</span>&gt;</span>Harry Potter<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">price</span>&gt;</span>29.99<span class="tag">&lt;/<span class="name">price</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">book</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">book</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span> <span class="attr">lang</span>=<span class="string">"eng"</span>&gt;</span>Learning XML<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">price</span>&gt;</span>39.95<span class="tag">&lt;/<span class="name">price</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">book</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">bookstore</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>我们来使用路径表达式在上面的XML文档中选取节点。</p>
 <p>节点是通过沿着路径或者step来选取的。</p>
 <p>下面表格列举的是最有用的路径表达式:</p>
@@ -170,7 +173,7 @@
 </tr>
 <tr>
 <td>bookstore/book</td>
-<td>选取属于bookstore的子元素的所有book元素 </td>
+<td>选取属于bookstore的子元素的所有book元素</td>
 </tr>
 <tr>
 <td>//book</td>
@@ -186,7 +189,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="通配符选用节点"><a href="#通配符选用节点" class="headerlink" title="通配符选用节点"></a>通配符选用节点</h2><p>XPath通配符可用来选取未知的XML元素</p>
+<h2>通配符选用节点</h2>
+<p>XPath通配符可用来选取未知的XML元素</p>
 <table>
 <thead>
 <tr>
@@ -201,7 +205,7 @@
 </tr>
 <tr>
 <td>@*</td>
-<td>匹配任何属性节点 </td>
+<td>匹配任何属性节点</td>
 </tr>
 <tr>
 <td>node()</td>
@@ -209,16 +213,17 @@
 </tr>
 </tbody>
 </table>
-<h2 id="Python中的XPath库"><a href="#Python中的XPath库" class="headerlink" title="Python中的XPath库"></a>Python中的XPath库</h2><p>通过 Python 的 LXML 库利用 XPath 进行 HTML 的解析。</p>
+<h2>Python中的XPath库</h2>
+<p>通过 Python 的 LXML 库利用 XPath 进行 HTML 的解析。</p>
 <p>lxml用法源自 lxml python 官方文档，更多内容请直接参阅官方文档，本文对其进行翻译与整理。</p>
 <p>安装lxml</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install lxml</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install lxml</span><br></pre></td></tr></table></figure></p>
 <p>现在我们简单的介绍完了XPath的语法，对于爬虫的准备知识已经铺垫完毕了，从下一篇博客开始，就要进入爬虫的实战教程了。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/27/Python——爬虫入门XPath的使用/" data-id="cjogriuyf000svfz9274lt880" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/02/27/Python——爬虫入门XPath的使用/" data-id="cjoqwp5gg000u3kz94hdfsbf5" class="article-share-link">分享</a>
       
       
       
@@ -318,7 +323,7 @@
       
         <strong class="toc-title">文章目录</strong>
         <div class="toc-widget-list">
-              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#节点"><span class="toc-number">1.</span> <span class="toc-text"><a href="#&#x8282;&#x70B9;" class="headerlink" title="&#x8282;&#x70B9;"></a>&#x8282;&#x70B9;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#表示法"><span class="toc-number">2.</span> <span class="toc-text"><a href="#&#x8868;&#x793A;&#x6CD5;" class="headerlink" title="&#x8868;&#x793A;&#x6CD5;"></a>&#x8868;&#x793A;&#x6CD5;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实例"><span class="toc-number">3.</span> <span class="toc-text"><a href="#&#x5B9E;&#x4F8B;" class="headerlink" title="&#x5B9E;&#x4F8B;"></a>&#x5B9E;&#x4F8B;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通配符选用节点"><span class="toc-number">4.</span> <span class="toc-text"><a href="#&#x901A;&#x914D;&#x7B26;&#x9009;&#x7528;&#x8282;&#x70B9;" class="headerlink" title="&#x901A;&#x914D;&#x7B26;&#x9009;&#x7528;&#x8282;&#x70B9;"></a>&#x901A;&#x914D;&#x7B26;&#x9009;&#x7528;&#x8282;&#x70B9;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Python中的XPath库"><span class="toc-number">5.</span> <span class="toc-text"><a href="#Python&#x4E2D;&#x7684;XPath&#x5E93;" class="headerlink" title="Python&#x4E2D;&#x7684;XPath&#x5E93;"></a>Python&#x4E2D;&#x7684;XPath&#x5E93;</span></a></li></ol>
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">&#x8282;&#x70B9;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">&#x8868;&#x793A;&#x6CD5;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">&#x5B9E;&#x4F8B;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">&#x901A;&#x914D;&#x7B26;&#x9009;&#x7528;&#x8282;&#x70B9;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">Python&#x4E2D;&#x7684;XPath&#x5E93;</span></a></li></ol>
           </div>
       </div>
     </div>
