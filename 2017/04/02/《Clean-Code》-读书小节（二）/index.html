@@ -5,17 +5,17 @@
   
   <title>《Clean Code》 读书小节（二） | Leon的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="之前在看了《Clean Code》这本书的前两章时，就写下了第一篇读书小节，而随着读书的深入，便决定再总结一下后面一部分的读书心得。 那些多余的注释 相信每一个程序员都经历过一个坑，那就是去阅读甚至修改没有注释的代码。如果这些代码风格糟糕，命名不遵循规则，毫无疑问这是一段你永远都不想回忆的时光，而若是这些代码命名准确，设计模式使用的恰到好处，函数拆分合理，说不定你有一种怎么读别人的代码比回顾我自己">
+  <meta name="description" content="之前在看了《Clean Code》这本书的前两章时，就写下了第一篇读书小节，而随着读书的深入，便决定再总结一下后面一部分的读书心得。 那些多余的注释相信每一个程序员都经历过一个坑，那就是去阅读甚至修改没有注释的代码。如果这些代码风格糟糕，命名不遵循规则，毫无疑问这是一段你永远都不想回忆的时光，而若是这些代码命名准确，设计模式使用的恰到好处，函数拆分合理，说不定你有一种怎么读别人的代码比回顾我自己写">
 <meta name="keywords" content="编码思考,代码风格,clean code">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《Clean Code》 读书小节（二）">
 <meta property="og:url" content="http://yoursite.com/2017/04/02/《Clean-Code》-读书小节（二）/index.html">
 <meta property="og:site_name" content="Leon的博客">
-<meta property="og:description" content="之前在看了《Clean Code》这本书的前两章时，就写下了第一篇读书小节，而随着读书的深入，便决定再总结一下后面一部分的读书心得。 那些多余的注释 相信每一个程序员都经历过一个坑，那就是去阅读甚至修改没有注释的代码。如果这些代码风格糟糕，命名不遵循规则，毫无疑问这是一段你永远都不想回忆的时光，而若是这些代码命名准确，设计模式使用的恰到好处，函数拆分合理，说不定你有一种怎么读别人的代码比回顾我自己">
+<meta property="og:description" content="之前在看了《Clean Code》这本书的前两章时，就写下了第一篇读书小节，而随着读书的深入，便决定再总结一下后面一部分的读书心得。 那些多余的注释相信每一个程序员都经历过一个坑，那就是去阅读甚至修改没有注释的代码。如果这些代码风格糟糕，命名不遵循规则，毫无疑问这是一段你永远都不想回忆的时光，而若是这些代码命名准确，设计模式使用的恰到好处，函数拆分合理，说不定你有一种怎么读别人的代码比回顾我自己写">
 <meta property="og:updated_time" content="2017-04-02T11:06:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Clean Code》 读书小节（二）">
-<meta name="twitter:description" content="之前在看了《Clean Code》这本书的前两章时，就写下了第一篇读书小节，而随着读书的深入，便决定再总结一下后面一部分的读书心得。 那些多余的注释 相信每一个程序员都经历过一个坑，那就是去阅读甚至修改没有注释的代码。如果这些代码风格糟糕，命名不遵循规则，毫无疑问这是一段你永远都不想回忆的时光，而若是这些代码命名准确，设计模式使用的恰到好处，函数拆分合理，说不定你有一种怎么读别人的代码比回顾我自己">
+<meta name="twitter:description" content="之前在看了《Clean Code》这本书的前两章时，就写下了第一篇读书小节，而随着读书的深入，便决定再总结一下后面一部分的读书心得。 那些多余的注释相信每一个程序员都经历过一个坑，那就是去阅读甚至修改没有注释的代码。如果这些代码风格糟糕，命名不遵循规则，毫无疑问这是一段你永远都不想回忆的时光，而若是这些代码命名准确，设计模式使用的恰到好处，函数拆分合理，说不定你有一种怎么读别人的代码比回顾我自己写">
   
     <link rel="alternate" href="/atom.xml" title="Leon的博客" type="application/atom+xml">
   
@@ -97,22 +97,19 @@
         <!-- Table of Contents -->
         
         <p>之前在看了《Clean Code》这本书的前两章时，就写下了第一篇读书小节，而随着读书的深入，便决定再总结一下后面一部分的读书心得。</p>
-<h1>那些多余的注释</h1>
-<p>相信每一个程序员都经历过一个坑，那就是去阅读甚至修改没有注释的代码。如果这些代码风格糟糕，命名不遵循规则，毫无疑问这是一段你永远都不想回忆的时光，而若是这些代码命名准确，设计模式使用的恰到好处，函数拆分合理，说不定你有一种怎么读别人的代码比回顾我自己写的代码还清晰的错觉。</p>
+<h1 id="那些多余的注释"><a href="#那些多余的注释" class="headerlink" title="那些多余的注释"></a>那些多余的注释</h1><p>相信每一个程序员都经历过一个坑，那就是去阅读甚至修改没有注释的代码。如果这些代码风格糟糕，命名不遵循规则，毫无疑问这是一段你永远都不想回忆的时光，而若是这些代码命名准确，设计模式使用的恰到好处，函数拆分合理，说不定你有一种怎么读别人的代码比回顾我自己写的代码还清晰的错觉。</p>
 <p>是的，毫无疑问我一直是代码是最好的注释这个说法的拥护者之一。但是，这里有个前提，就是你必须有能力写出优秀的代码，你才有资格去不写注释。我们要一直明白一个问题，我们的代码写出来是为了给别人看的，而不是仅仅给自己看的，如果你的团队有严谨的<strong>Code Review</strong>那你好意思写出脏乱不堪的代码被投影仪放到幕布上给所有部门同事看么？对于一个新手程序员来说，请老老实实的写好每一个关键函数的注释，也请在修改函数的时候，不吝时间的修改对应的注释。若是项目的目的是为了公开API给第三方开发者使用，那么请在开放api上写好注释，这是应该完善的工作。</p>
 <p>而上述说的类型您都不是，那么我想该强调一下谈这个话题的主题了，去除那些多余的注释吧。有时候，在一些明显目的的函数上，加注释，会给阅读你代码的开发者一种错觉，你的水平很低，不足以理解代码，所以需要在简单的语句上加上注释。打个比方，你是我的面试官，有一道面试题，我在写完之后交给你，你看到的是如下格式的面试题：</p>
-<p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$arr = $User-&gt;where($where)-&gt;find(); <span class="comment">// 读取数据</span></span><br><span class="line"></span><br><span class="line">$list = [];</span><br><span class="line"><span class="keyword">foreach</span>($arr <span class="keyword">as</span> $key =&gt; $val) &#123; <span class="comment">// 遍历数组</span></span><br><span class="line">  $list[$key] = [</span><br><span class="line">    <span class="string">'name'</span> =&gt; $val[<span class="string">'name'</span>],</span><br><span class="line">    <span class="string">'age'</span> =&gt; $val[<span class="string">'age'</span>],</span><br><span class="line">  ];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$list[<span class="string">'count'</span>] = count($arr); <span class="comment">// 其他属性</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> json_encode($list); <span class="comment">// 输出 json</span></span><br></pre></td></tr></table></figure></p>
-<p>&lt;!--more--&gt;</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$arr = $User-&gt;where($where)-&gt;find(); <span class="comment">// 读取数据</span></span><br><span class="line"></span><br><span class="line">$list = [];</span><br><span class="line"><span class="keyword">foreach</span>($arr <span class="keyword">as</span> $key =&gt; $val) &#123; <span class="comment">// 遍历数组</span></span><br><span class="line">  $list[$key] = [</span><br><span class="line">    <span class="string">'name'</span> =&gt; $val[<span class="string">'name'</span>],</span><br><span class="line">    <span class="string">'age'</span> =&gt; $val[<span class="string">'age'</span>],</span><br><span class="line">  ];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$list[<span class="string">'count'</span>] = count($arr); <span class="comment">// 其他属性</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> json_encode($list); <span class="comment">// 输出 json</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>这是随手找的一个php的栗子，显而易见他不足以成为一道面试题，但是假设您今天就问我这道题，如何输出一串json格式的数据。我提交了这样一段代码给您看，那么您来体会下你看到这样一段代码的心情。不知道你会不会觉得我是认为您水平不够，才写这样的代码给你看，难道读取数据和遍历数组都需要写一个注释么？所以，请把那些自以为能让代码很易懂的注释去掉吧。大胆的去掉，假设你去了这些注释，我相信这段代码依然会一眼就明白它将执行什么任务。</p>
 <p>其实最不应该随意加注释的原因是，我们往往勤于修改代码，而疏于及时变更注释。扪心自问一下，当有个紧急bug需要你修复的时候，你匆匆开电脑修改好了bug，会顺便把注释修改了么？所以，注释有时候是带有欺骗性质的，尤其是当版本迭代的越来越频繁的时候，注释的时效性就越来越差。往往会误导你理解代码。而永远不会欺骗你的，就是代码。</p>
-<h1>格式</h1>
-<p>今天的格式我们不去讨论变量名、函数名以及缩进大小写等等代码风格的范畴，我们就来讨论一个很小的点——函数摆放的位置。</p>
+<h1 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h1><p>今天的格式我们不去讨论变量名、函数名以及缩进大小写等等代码风格的范畴，我们就来讨论一个很小的点——函数摆放的位置。</p>
 <p>在IDE越来越强大的今天，如果我们看到了函数里调用的方法，会怎么查看呢，直接按着Commond键就去查看了吧。其实很多程序员，在敲代码的大部分实际都在按着commond跳来跳去的看代码，而这时候，不起眼的函数的摆放位置就显得作用很大了。</p>
 <p>函数的格式，应该是由上至下，从最顶层的代码，逐步的向最下层靠拢。被调用的代码都排在调用他的代码之下，这样在你看到主函数里有不清楚的函数时，眼睛向下扫一扫就知道下一个函数的大致了。而当你始终保持这样的排版，那么阅读你代码的程序员，应该是非常的享受的。</p>
 <p>而我们定义的变量，亦是如此，变量的定义尽量靠近使用它的函数，而一些公共变量，请你始终保持放在同一个位置，可以是类的头部，也可以是尾部。</p>
-<h1>净化数据结构</h1>
-<p>在如今面向对象的思想下，大部分人都把东西想象成一个对象来处理，而这样的思想确实是被广为接受的，因为那样会让我们的代码更具有可读性以及践行某些设计模式，但是与之而来的就是我们该怎么处理对象内部的数据结构。有些不必让人了解的数据结构，我们应该充分的封装，做好读写属性的定义，在暴露的api中思考好命名和可读性。而继承、封装又是我们编程的必修课，在这里也就不再赘述，我还想讨论的一个现象，是暴露那些明确的数据结构，牺牲一些面向对象的思想，采取过程式编程来提高效率及可读性。举个例子：</p>
-<p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">struct</span> <span class="title">CGPoint</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> x: <span class="type">CGFloat</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> y: <span class="type">CGFloat</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">init</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">init</span>(x: <span class="type">CGFloat</span>, y: <span class="type">CGFloat</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="净化数据结构"><a href="#净化数据结构" class="headerlink" title="净化数据结构"></a>净化数据结构</h1><p>在如今面向对象的思想下，大部分人都把东西想象成一个对象来处理，而这样的思想确实是被广为接受的，因为那样会让我们的代码更具有可读性以及践行某些设计模式，但是与之而来的就是我们该怎么处理对象内部的数据结构。有些不必让人了解的数据结构，我们应该充分的封装，做好读写属性的定义，在暴露的api中思考好命名和可读性。而继承、封装又是我们编程的必修课，在这里也就不再赘述，我还想讨论的一个现象，是暴露那些明确的数据结构，牺牲一些面向对象的思想，采取过程式编程来提高效率及可读性。举个例子：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">struct</span> <span class="title">CGPoint</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> x: <span class="type">CGFloat</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> y: <span class="type">CGFloat</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">init</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">init</span>(x: <span class="type">CGFloat</span>, y: <span class="type">CGFloat</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这是Swift对于<code>CGPoint</code>这个结构体的定义，我们平时在使用<code>CGPoint</code>的过程中，直接使用构造器方法创建一个CGPoint实例。而这里对于x,y这两个属性是直接暴露的。而这也是我们众所周知的平面坐标系，所以适当的暴露你的数据结构换取可读性也是可取的。</p>
 <p>面向对象，和过程式编程本是一个冲突的思想，作为一个有思想的程序员，需要做出选择，目的是为了写出可读性更好的代码。</p>
 <p>继续看书了，下次再聊，希望可以评论交流对于编码的思考。</p>
@@ -120,7 +117,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/02/《Clean-Code》-读书小节（二）/" data-id="cjoqwp5ho003b3kz9uu06q741" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2017/04/02/《Clean-Code》-读书小节（二）/" data-id="cjp428e1f003byjz9i4iuvq9r" class="article-share-link">分享</a>
       
       
       
@@ -220,7 +217,7 @@
       
         <strong class="toc-title">文章目录</strong>
         <div class="toc-widget-list">
-              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">&#x90A3;&#x4E9B;&#x591A;&#x4F59;&#x7684;&#x6CE8;&#x91CA;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">&#x683C;&#x5F0F;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">&#x51C0;&#x5316;&#x6570;&#x636E;&#x7ED3;&#x6784;</span></a></li></ol>
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#那些多余的注释"><span class="toc-number">1.</span> <span class="toc-text"><a href="#&#x90A3;&#x4E9B;&#x591A;&#x4F59;&#x7684;&#x6CE8;&#x91CA;" class="headerlink" title="&#x90A3;&#x4E9B;&#x591A;&#x4F59;&#x7684;&#x6CE8;&#x91CA;"></a>&#x90A3;&#x4E9B;&#x591A;&#x4F59;&#x7684;&#x6CE8;&#x91CA;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#格式"><span class="toc-number">2.</span> <span class="toc-text"><a href="#&#x683C;&#x5F0F;" class="headerlink" title="&#x683C;&#x5F0F;"></a>&#x683C;&#x5F0F;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#净化数据结构"><span class="toc-number">3.</span> <span class="toc-text"><a href="#&#x51C0;&#x5316;&#x6570;&#x636E;&#x7ED3;&#x6784;" class="headerlink" title="&#x51C0;&#x5316;&#x6570;&#x636E;&#x7ED3;&#x6784;"></a>&#x51C0;&#x5316;&#x6570;&#x636E;&#x7ED3;&#x6784;</span></a></li></ol>
           </div>
       </div>
     </div>

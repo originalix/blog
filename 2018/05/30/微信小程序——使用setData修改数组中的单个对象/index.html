@@ -99,21 +99,21 @@
         <p>微信小程序已经出来挺久的时间了，之前只是在文档上粗略的看了一下，最近稍得空闲，便利用微信小程序平台写一个练手的项目，顺便学习一下小程序开发，感觉大体跟前端开发基本类似，但是因为是在微信的平台上运行，具体还是要根据小程序的规则来编写代码的，其中还是有部分的内容跟前端中常见的有所不同，于是接下来的博客里，也会顺手记录微信小程序开发过程中的一些坑，帮助后来的小程序开发者少踩一些坑，当然我踩的坑大部分都是以前的开发者踩过的，我所做的也仅仅是记录，分享。</p>
 <p>习惯使用Vue或者React这类框架的开发者们，肯定不会对修改data内中数组的单个对象而烦恼，因为这些框架已经帮我们很好的处理了这个问题，并且在文档上也写的非常清楚。</p>
 <p>比如要求是有一个数组存放了购物车的商品信息，而你在购物车内修改了单个商品的期望购买数量后，我们就要动态的更新这个单个对象的购买数量值，如果在小程序里我们会怎么做呢？</p>
-<p>&lt;!-- more --&gt;</p>
+<a id="more"></a>
 <p>如果你按照Vue的写法来实现的话，不出意外会失败。而微信小程序也只给我们提供了一个setData方法，这个方法是使用键值对的形式对数据进行修改，例如：</p>
-<p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.setData(&#123;</span><br><span class="line">    name : <span class="string">'leon'</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.setData(&#123;</span><br><span class="line">    name : <span class="string">'leon'</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>回到我们刚刚的例子里，这时候，如果你想修改单个商品的数量信息，应该怎么写？</p>
 <p>首先展示一种错误的写法：</p>
-<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Page(&#123;</span><br><span class="line">  data: &#123;</span><br><span class="line">    array: [&#123;<span class="attr">text</span>: <span class="string">'init data'</span>&#125;],</span><br><span class="line">  &#125;,</span><br><span class="line">  changeItemInArray: <span class="function"><span class="keyword">function</span> (<span class="params">index</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.setData(&#123;</span><br><span class="line">      <span class="string">'array['</span>+index+<span class="string">'].text'</span>:<span class="string">'changed data'</span></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Page(&#123;</span><br><span class="line">  data: &#123;</span><br><span class="line">    array: [&#123;<span class="attr">text</span>: <span class="string">'init data'</span>&#125;],</span><br><span class="line">  &#125;,</span><br><span class="line">  changeItemInArray: <span class="function"><span class="keyword">function</span> (<span class="params">index</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.setData(&#123;</span><br><span class="line">      <span class="string">'array['</span>+index+<span class="string">'].text'</span>:<span class="string">'changed data'</span></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>如果这样动态的写index，很显然，这样是无法使用在对象的key中的，我相信小程序的新手开发者可能尝试过这样的写法。</p>
 <p>那么正确的写法究竟是怎么样的呢？</p>
-<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">changeItemInArray: <span class="function"><span class="keyword">function</span> (<span class="params">index</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 提前准备好对象</span></span><br><span class="line">  <span class="keyword">var</span> item = <span class="keyword">this</span>.data.list[index]</span><br><span class="line">  </span><br><span class="line">  item.count = <span class="number">100</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 依旧是根据index获取数组中的对象</span></span><br><span class="line">  <span class="keyword">var</span> key = <span class="string">"list["</span>+ index + <span class="string">"]"</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.setData(&#123;</span><br><span class="line">    <span class="comment">// 这里使用键值对方式赋值</span></span><br><span class="line">    key: item </span><br><span class="line">  &#125;, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">changeItemInArray: <span class="function"><span class="keyword">function</span> (<span class="params">index</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 提前准备好对象</span></span><br><span class="line">  <span class="keyword">var</span> item = <span class="keyword">this</span>.data.list[index]</span><br><span class="line">  </span><br><span class="line">  item.count = <span class="number">100</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 依旧是根据index获取数组中的对象</span></span><br><span class="line">  <span class="keyword">var</span> key = <span class="string">"list["</span>+ index + <span class="string">"]"</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.setData(&#123;</span><br><span class="line">    <span class="comment">// 这里使用键值对方式赋值</span></span><br><span class="line">    key: item </span><br><span class="line">  &#125;, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>最后，希望以后的小程序版本更新中，有更好的赋值方法。希望这篇文章能帮助到小程序的新手开发者。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/30/微信小程序——使用setData修改数组中的单个对象/" data-id="cjoqwp5i9004a3kz9e7odlbvh" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/05/30/微信小程序——使用setData修改数组中的单个对象/" data-id="cjp428e21004ayjz9e86a1b54" class="article-share-link">分享</a>
       
       
       
@@ -220,6 +220,10 @@
       <ul>
         
           <li>
+            <a href="/2018/11/30/理解JavaScript中的浮点数/">理解JavaScript中的浮点数</a>
+          </li>
+        
+          <li>
             <a href="/2018/11/21/理解prototype、getPrototypeOf和-proto-之间的不同/">理解prototype、getPrototypeOf和 _proto _之间的不同</a>
           </li>
         
@@ -233,10 +237,6 @@
         
           <li>
             <a href="/2018/09/19/Ubuntu-16-04服务器的初始化设置/">Ubuntu 16.04服务器的初始化设置</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/09/唠唠快速排序算法/">唠唠快速排序算法</a>
           </li>
         
       </ul>

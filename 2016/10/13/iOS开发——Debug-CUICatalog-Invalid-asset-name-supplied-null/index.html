@@ -5,19 +5,19 @@
   
   <title>iOS开发——Debug CUICatalog: Invalid asset name supplied: (null) | Leon的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天看到了一个Xcode log出了一个错误 CUICatalog:Invalid asset name supplied: (null), Google了一下在StackOverflow上各位大神说应该是[UIImage imageNamed:]调用的时候, name为nil. 虽然在运行的时候界面一切正常, 但是看到这个log还是想干掉它，或许每个程序猿都是一个重度强迫症患者。 &amp;lt;!--">
+  <meta name="description" content="今天看到了一个Xcode log出了一个错误 CUICatalog:Invalid asset name supplied: (null), Google了一下在StackOverflow上各位大神说应该是[UIImage imageNamed:]调用的时候, name为nil. 虽然在运行的时候界面一切正常, 但是看到这个log还是想干掉它，或许每个程序猿都是一个重度强迫症患者。">
 <meta name="keywords" content="iOS开发,Debug">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS开发——Debug CUICatalog: Invalid asset name supplied: (null)">
 <meta property="og:url" content="http://yoursite.com/2016/10/13/iOS开发——Debug-CUICatalog-Invalid-asset-name-supplied-null/index.html">
 <meta property="og:site_name" content="Leon的博客">
-<meta property="og:description" content="今天看到了一个Xcode log出了一个错误 CUICatalog:Invalid asset name supplied: (null), Google了一下在StackOverflow上各位大神说应该是[UIImage imageNamed:]调用的时候, name为nil. 虽然在运行的时候界面一切正常, 但是看到这个log还是想干掉它，或许每个程序猿都是一个重度强迫症患者。 &amp;lt;!--">
+<meta property="og:description" content="今天看到了一个Xcode log出了一个错误 CUICatalog:Invalid asset name supplied: (null), Google了一下在StackOverflow上各位大神说应该是[UIImage imageNamed:]调用的时候, name为nil. 虽然在运行的时候界面一切正常, 但是看到这个log还是想干掉它，或许每个程序猿都是一个重度强迫症患者。">
 <meta property="og:image" content="http://i.stack.imgur.com/ATz38.png">
 <meta property="og:image" content="http://philcai.com/img/Debug2.png">
 <meta property="og:updated_time" content="2016-10-13T02:50:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS开发——Debug CUICatalog: Invalid asset name supplied: (null)">
-<meta name="twitter:description" content="今天看到了一个Xcode log出了一个错误 CUICatalog:Invalid asset name supplied: (null), Google了一下在StackOverflow上各位大神说应该是[UIImage imageNamed:]调用的时候, name为nil. 虽然在运行的时候界面一切正常, 但是看到这个log还是想干掉它，或许每个程序猿都是一个重度强迫症患者。 &amp;lt;!--">
+<meta name="twitter:description" content="今天看到了一个Xcode log出了一个错误 CUICatalog:Invalid asset name supplied: (null), Google了一下在StackOverflow上各位大神说应该是[UIImage imageNamed:]调用的时候, name为nil. 虽然在运行的时候界面一切正常, 但是看到这个log还是想干掉它，或许每个程序猿都是一个重度强迫症患者。">
 <meta name="twitter:image" content="http://i.stack.imgur.com/ATz38.png">
   
     <link rel="alternate" href="/atom.xml" title="Leon的博客" type="application/atom+xml">
@@ -100,16 +100,14 @@
         <!-- Table of Contents -->
         
         <p>今天看到了一个Xcode log出了一个错误 <code>CUICatalog:Invalid asset name supplied: (null)</code>, Google了一下在StackOverflow上各位大神说应该是<code>[UIImage imageNamed:]</code>调用的时候, name为nil. 虽然在运行的时候界面一切正常, 但是看到这个log还是想干掉它，或许每个程序猿都是一个重度强迫症患者。</p>
-<p>&lt;!--more--&gt;</p>
+<a id="more"></a>
 <p>需要解决的问题是查找所有<code>[UIImage imageNamed:]</code>调用的时候, 找到name是nil的地方, 但是整个项目一搜 <code>imageNamed</code> 显示 <code>267 results in 117 files</code>, 人工查找就算了吧,麻烦不说还显得蠢.</p>
 <p>一开始想到的是用Method Swizzle来修改<code>[UIImage imageNamed:]</code>的实现, 在name为nil的时候用断言, 查看调用栈. 但是想想写了debug之后还得删掉, 比较麻烦.</p>
 <p>于是机智的我想到了用<code>Symbolic Breakpoint</code>.</p>
 <ul>
-<li>
-<p>在Xcode的<code>Breakpoint Navigator</code>点击加号, 选择<code>Add Symbolic Breakpoint.</code></p>
+<li><p>在Xcode的<code>Breakpoint Navigator</code>点击加号, 选择<code>Add Symbolic Breakpoint.</code></p>
 </li>
-<li>
-<p>右键选择<code>Breakpoint</code>选择 <code>Edit Breakpoint</code> , 在Symbol填入<code>[UIImage imageNamed:]</code> , 在Condition填入 <code>[(NSString *)$arg3 length] == 0</code>或者<code>$arg3 == nil</code>. 可以自己尝试<code>po $arg1</code>, <code>po $arg2</code>试试看.</p>
+<li><p>右键选择<code>Breakpoint</code>选择 <code>Edit Breakpoint</code> , 在Symbol填入<code>[UIImage imageNamed:]</code> , 在Condition填入 <code>[(NSString *)$arg3 length] == 0</code>或者<code>$arg3 == nil</code>. 可以自己尝试<code>po $arg1</code>, <code>po $arg2</code>试试看.</p>
 </li>
 </ul>
 <p><img src="http://i.stack.imgur.com/ATz38.png" alt=""></p>
@@ -121,7 +119,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/13/iOS开发——Debug-CUICatalog-Invalid-asset-name-supplied-null/" data-id="cjoqwp5gy001u3kz9g772y9ag" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2016/10/13/iOS开发——Debug-CUICatalog-Invalid-asset-name-supplied-null/" data-id="cjp428e0q001wyjz9aur3xe22" class="article-share-link">分享</a>
       
       
       
@@ -228,6 +226,10 @@
       <ul>
         
           <li>
+            <a href="/2018/11/30/理解JavaScript中的浮点数/">理解JavaScript中的浮点数</a>
+          </li>
+        
+          <li>
             <a href="/2018/11/21/理解prototype、getPrototypeOf和-proto-之间的不同/">理解prototype、getPrototypeOf和 _proto _之间的不同</a>
           </li>
         
@@ -241,10 +243,6 @@
         
           <li>
             <a href="/2018/09/19/Ubuntu-16-04服务器的初始化设置/">Ubuntu 16.04服务器的初始化设置</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/09/唠唠快速排序算法/">唠唠快速排序算法</a>
           </li>
         
       </ul>

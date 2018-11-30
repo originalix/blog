@@ -5,18 +5,18 @@
   
   <title>iOS开发——影响图形性能的因素以及检测方法 | Leon的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我想各位攻城狮们肯定听过一句话：“过早的优化是万恶之源”。若是你有着丰富的项目经验，一定会对这句话有着自己的体会，而若是编程新手，那么，请牢记这句话。在一个项目开发到后期，优化就会成为一个不可避免的话题，而这时，优化以及性能问题又显得尤为重要。 本文讨论的是iOS的图形性能问题。 &amp;lt;!--more--&amp;gt; 影响性能的因素 1、 CALayer的shouldRasterize(光栅化) 这">
+  <meta name="description" content="我想各位攻城狮们肯定听过一句话：“过早的优化是万恶之源”。若是你有着丰富的项目经验，一定会对这句话有着自己的体会，而若是编程新手，那么，请牢记这句话。在一个项目开发到后期，优化就会成为一个不可避免的话题，而这时，优化以及性能问题又显得尤为重要。 本文讨论的是iOS的图形性能问题。">
 <meta name="keywords" content="iOS开发,性能优化,Instruments">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS开发——影响图形性能的因素以及检测方法">
 <meta property="og:url" content="http://yoursite.com/2017/02/08/iOS开发——影响图形性能的因素以及检测方法/index.html">
 <meta property="og:site_name" content="Leon的博客">
-<meta property="og:description" content="我想各位攻城狮们肯定听过一句话：“过早的优化是万恶之源”。若是你有着丰富的项目经验，一定会对这句话有着自己的体会，而若是编程新手，那么，请牢记这句话。在一个项目开发到后期，优化就会成为一个不可避免的话题，而这时，优化以及性能问题又显得尤为重要。 本文讨论的是iOS的图形性能问题。 &amp;lt;!--more--&amp;gt; 影响性能的因素 1、 CALayer的shouldRasterize(光栅化) 这">
+<meta property="og:description" content="我想各位攻城狮们肯定听过一句话：“过早的优化是万恶之源”。若是你有着丰富的项目经验，一定会对这句话有着自己的体会，而若是编程新手，那么，请牢记这句话。在一个项目开发到后期，优化就会成为一个不可避免的话题，而这时，优化以及性能问题又显得尤为重要。 本文讨论的是iOS的图形性能问题。">
 <meta property="og:image" content="https://raw.githubusercontent.com/lizhijiang/BlogPhotos/master/2015-08-03-1.png">
 <meta property="og:updated_time" content="2017-02-08T02:33:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS开发——影响图形性能的因素以及检测方法">
-<meta name="twitter:description" content="我想各位攻城狮们肯定听过一句话：“过早的优化是万恶之源”。若是你有着丰富的项目经验，一定会对这句话有着自己的体会，而若是编程新手，那么，请牢记这句话。在一个项目开发到后期，优化就会成为一个不可避免的话题，而这时，优化以及性能问题又显得尤为重要。 本文讨论的是iOS的图形性能问题。 &amp;lt;!--more--&amp;gt; 影响性能的因素 1、 CALayer的shouldRasterize(光栅化) 这">
+<meta name="twitter:description" content="我想各位攻城狮们肯定听过一句话：“过早的优化是万恶之源”。若是你有着丰富的项目经验，一定会对这句话有着自己的体会，而若是编程新手，那么，请牢记这句话。在一个项目开发到后期，优化就会成为一个不可避免的话题，而这时，优化以及性能问题又显得尤为重要。 本文讨论的是iOS的图形性能问题。">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/lizhijiang/BlogPhotos/master/2015-08-03-1.png">
   
     <link rel="alternate" href="/atom.xml" title="Leon的博客" type="application/atom+xml">
@@ -100,25 +100,21 @@
         
         <p>我想各位攻城狮们肯定听过一句话：“过早的优化是万恶之源”。若是你有着丰富的项目经验，一定会对这句话有着自己的体会，而若是编程新手，那么，请牢记这句话。在一个项目开发到后期，优化就会成为一个不可避免的话题，而这时，优化以及性能问题又显得尤为重要。</p>
 <p>本文讨论的是iOS的图形性能问题。</p>
-<p>&lt;!--more--&gt;</p>
-<h1>影响性能的因素</h1>
-<p>1、 <strong>CALayer</strong>的<strong>shouldRasterize</strong>(光栅化)</p>
+<a id="more"></a>
+<h1 id="影响性能的因素"><a href="#影响性能的因素" class="headerlink" title="影响性能的因素"></a>影响性能的因素</h1><p>1、 <strong>CALayer</strong>的<strong>shouldRasterize</strong>(光栅化)</p>
 <p>这个属性看上去很不好理解，光栅化是将几何数据经过一系列变换后最终转换为像素，从而呈现在显示设备上的过程。光栅化的本质是坐标变换、几何离散化。</p>
 <p>把<strong>layer</strong>的<strong>shouldRasterize</strong>设为<strong>YES</strong>后，<strong>CALayer</strong>会被光栅化为<strong>bitmap</strong>，<strong>layer</strong>的阴影等效果也会被保存到<strong>bitmap</strong>中作为缓存。在使用了<strong>shadow</strong>或<strong>cornerRadius</strong>等效果时，缓存使性能得到提升。</p>
 <p>但是在使用这个属性前，需要明确3点：</p>
 <ul>
-<li>
-<p>更新已经光栅化的<strong>CALayer</strong>会造成离屏渲染</p>
+<li><p>更新已经光栅化的<strong>CALayer</strong>会造成离屏渲染</p>
 </li>
-<li>
-<p>被光栅化的<strong>bitmap</strong>如果超过100ms没有被使用则会被移除</p>
+<li><p>被光栅化的<strong>bitmap</strong>如果超过100ms没有被使用则会被移除</p>
 </li>
-<li>
-<p>系统限制缓存的大小为<strong>2.5 x screen size</strong></p>
+<li><p>系统限制缓存的大小为<strong>2.5 x screen size</strong></p>
 </li>
 </ul>
 <p>2、<strong>Offscreen rendering</strong>(离屏渲染)</p>
-<p>讨论造成离屏渲染的原因之前，先说明什么是离屏渲染：离屏渲染指的是在图像在绘制到当前屏幕前,需要先进行一次渲染,之后才绘制到当前屏幕。在第一次渲染时，<strong>GPU(Core Animation)<strong>或</strong>CPU(Core Graphics)<strong>需要额外的一块内存来进行渲染，完成后再绘制到屏幕。<strong>offscreen</strong>到</strong>onscreen</strong>需要进行上下文切换，这个切换的性能消耗是昂贵的。</p>
+<p>讨论造成离屏渲染的原因之前，先说明什么是离屏渲染：离屏渲染指的是在图像在绘制到当前屏幕前,需要先进行一次渲染,之后才绘制到当前屏幕。在第一次渲染时，<strong>GPU(Core Animation)</strong>或<strong>CPU(Core Graphics)</strong>需要额外的一块内存来进行渲染，完成后再绘制到屏幕。<strong>offscreen</strong>到<strong>onscreen</strong>需要进行上下文切换，这个切换的性能消耗是昂贵的。</p>
 <p>因此，我们必须避免不必要的离屏渲染。</p>
 <p>造成离屏渲染的原因有：</p>
 <ul>
@@ -128,40 +124,31 @@
 <li>设置<code>CALayer</code>的<code>mask</code>属性</li>
 <li>把<code>CALayer</code>的<code>allowsGroupOpacity</code>属性设为<code>YES</code>而且<code>opacity</code>小于1</li>
 </ul>
-<p>等等...</p>
+<p>等等…</p>
 <p>由此可见，很多常用属性都会造成离屏渲染，在性能要求高的地方，就需要使用另外的实现方案。比如使用<code>shadowPath</code>代替使用<code>shadow+shadowOffset+shadowColor</code>；在需要使用圆形图片的<code>tableview</code>里，使用<code>cornerRadius</code>设置圆角是下下之选，可以用一张中间为透明圆形的图片进行遮盖来达到圆形的效果，或者在使用前就把图片裁剪为圆形。</p>
 <p>3、Blending(混合绘制)</p>
 <p>GPU会放弃绘制那些完全被其他图层遮盖的内容。如果两个图层叠加在一起，上面的图层不是完全不透明的，那么GPU便会计算合并两个图层的透明重叠像素，这个过程便是<code>blending</code>，这同样也是一个消耗资源的过程。</p>
 <p>因此，不要随便把一个视图或图层的<code>backgroundColor</code>设为透明。</p>
-<h1>使用Instrument进行检查</h1>
-<p>用<code>Xcode</code>打开你的项目，选择工具栏上的<code>Product-&gt;Profile</code>，编译成功后会打开<code>Instrument</code>，在<code>Choose a profile template</code>页面下选择<code>Core Animation</code>，进入主界面。(如果需要检测动画帧数，需要使用真机)</p>
+<h1 id="使用Instrument进行检查"><a href="#使用Instrument进行检查" class="headerlink" title="使用Instrument进行检查"></a>使用Instrument进行检查</h1><p>用<code>Xcode</code>打开你的项目，选择工具栏上的<code>Product-&gt;Profile</code>，编译成功后会打开<code>Instrument</code>，在<code>Choose a profile template</code>页面下选择<code>Core Animation</code>，进入主界面。(如果需要检测动画帧数，需要使用真机)</p>
 <p>点击左上方红色的录制按钮，开始检测：</p>
 <p><img src="https://raw.githubusercontent.com/lizhijiang/BlogPhotos/master/2015-08-03-1.png" alt=""></p>
 <p>在页面右下方，有一系列的复选框，利用这几个选项，我们可以很轻松的检查上面所提到的问题：(下面解释摘抄自iOS核心动画高级技巧第十二章)</p>
 <ul>
-<li>
-<p><strong>Color Blended Layers</strong> - 这个选项基于渲染程度对屏幕中的混合区域进行绿到红的高亮（也就是多个半透明图层的叠加）。由于重绘的原因，混合对GPU性能会有影响，同时也是滑动或者动画帧率下降的罪魁祸首之一。</p>
+<li><p><strong>Color Blended Layers</strong> - 这个选项基于渲染程度对屏幕中的混合区域进行绿到红的高亮（也就是多个半透明图层的叠加）。由于重绘的原因，混合对GPU性能会有影响，同时也是滑动或者动画帧率下降的罪魁祸首之一。</p>
 </li>
-<li>
-<p><strong>ColorHitsGreenandMissesRed</strong> - 当使用<code>shouldRasterizep</code>属性的时候，耗时的图层绘制会被缓存，然后当做一个简单的扁平图片呈现。当缓存再生的时候这个选项就用红色对栅格化图层进行了高亮。如果缓存频繁再生的话，就意味着栅格化可能会有负面的性能影响了。</p>
+<li><p><strong>ColorHitsGreenandMissesRed</strong> - 当使用<code>shouldRasterizep</code>属性的时候，耗时的图层绘制会被缓存，然后当做一个简单的扁平图片呈现。当缓存再生的时候这个选项就用红色对栅格化图层进行了高亮。如果缓存频繁再生的话，就意味着栅格化可能会有负面的性能影响了。</p>
 </li>
-<li>
-<p><strong>Color Copied Images</strong> - 有时候寄宿图片的生成意味着<code>Core Animation</code>被强制生成一些图片，然后发送到渲染服务器，而不是简单的指向原始指针。这个选项把这些图片渲染成蓝色。复制图片对内存和CPU使用来说都是一项非常昂贵的操作，所以应该尽可能的避免。</p>
+<li><p><strong>Color Copied Images</strong> - 有时候寄宿图片的生成意味着<code>Core Animation</code>被强制生成一些图片，然后发送到渲染服务器，而不是简单的指向原始指针。这个选项把这些图片渲染成蓝色。复制图片对内存和CPU使用来说都是一项非常昂贵的操作，所以应该尽可能的避免。</p>
 </li>
-<li>
-<p><strong>Color Immediately</strong> - 通常<code>Core Animation Instruments</code>以每毫秒10次的频率更新图层调试颜色。对某些效果来说，这显然太慢了。这个选项就可以用来设置每帧都更新（可能会影响到渲染性能，而且会导致帧率测量不准，所以不要一直都设置它）。</p>
+<li><p><strong>Color Immediately</strong> - 通常<code>Core Animation Instruments</code>以每毫秒10次的频率更新图层调试颜色。对某些效果来说，这显然太慢了。这个选项就可以用来设置每帧都更新（可能会影响到渲染性能，而且会导致帧率测量不准，所以不要一直都设置它）。</p>
 </li>
-<li>
-<p><strong>Color Misaligned Images</strong> - 这里会高亮那些被缩放或者拉伸以及没有正确对齐到像素边界的图片（也就是非整型坐标）。这些中的大多数通常都会导致图片的不正常缩放，如果把一张大图当缩略图显示，或者不正确地模糊图像，那么这个选项将会帮你识别出问题所在。</p>
+<li><p><strong>Color Misaligned Images</strong> - 这里会高亮那些被缩放或者拉伸以及没有正确对齐到像素边界的图片（也就是非整型坐标）。这些中的大多数通常都会导致图片的不正常缩放，如果把一张大图当缩略图显示，或者不正确地模糊图像，那么这个选项将会帮你识别出问题所在。</p>
 </li>
-<li>
-<p><strong>Color Offscreen-Rendered Yellow</strong> - 这里会把那些需要离屏渲染的图层高亮成黄色。这些图层很可能需要用<code>shadowPath</code>或者<code>shouldRasterize</code>来优化。</p>
+<li><p><strong>Color Offscreen-Rendered Yellow</strong> - 这里会把那些需要离屏渲染的图层高亮成黄色。这些图层很可能需要用<code>shadowPath</code>或者<code>shouldRasterize</code>来优化。</p>
 </li>
-<li>
-<p><strong>Color OpenGL Fast Path Blue</strong> - 这个选项会对任何直接使用OpenGL绘制的图层进行高亮。如果仅仅使用UIKit或者Core Animation的API，那么不会有任何效果。如果使用<code>GLKView</code>或者<code>CAEAGLLayer</code>，那如果不显示蓝色块的话就意味着你正在强制CPU渲染额外的纹理，而不是绘制到屏幕。</p>
+<li><p><strong>Color OpenGL Fast Path Blue</strong> - 这个选项会对任何直接使用OpenGL绘制的图层进行高亮。如果仅仅使用UIKit或者Core Animation的API，那么不会有任何效果。如果使用<code>GLKView</code>或者<code>CAEAGLLayer</code>，那如果不显示蓝色块的话就意味着你正在强制CPU渲染额外的纹理，而不是绘制到屏幕。</p>
 </li>
-<li>
-<p><strong>Flash Updated Regions</strong> - 这个选项会对重绘的内容高亮成黄色（也就是任何在软件层面使用<code>Core Graphics</code>绘制的图层）。这种绘图的速度很慢。如果频繁发生这种情况的话，这意味着有一个隐藏的bug或者说通过增加缓存或者使用替代方案会有提升性能的空间。</p>
+<li><p><strong>Flash Updated Regions</strong> - 这个选项会对重绘的内容高亮成黄色（也就是任何在软件层面使用<code>Core Graphics</code>绘制的图层）。这种绘图的速度很慢。如果频繁发生这种情况的话，这意味着有一个隐藏的bug或者说通过增加缓存或者使用替代方案会有提升性能的空间。</p>
 </li>
 </ul>
 <p>需要注意的重点是这3个：</p>
@@ -177,13 +164,12 @@
 <li><strong>Color Offscreen-Rendered Yellow</strong></li>
 </ul>
 <p>如上所述，离屏渲染的地方都标记为黄色。并非所有的黄色区域都是需要优化的，比如<code>UINavigationBar</code>，因为需要做背景模糊效果，因此它需要离屏渲染。</p>
-<h1>总结</h1>
-<p>上述的很多原因分析，希望大家不要有强迫症的感觉，要求自己的所有项目必须按这个标准执行，因为这是不可能的，只是给大家提供一个优化方向，以及出了性能问题以后的分析依据。但是在日常的编码过程中，也要时刻把性能的意识放在心上，写出优秀的代码。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>上述的很多原因分析，希望大家不要有强迫症的感觉，要求自己的所有项目必须按这个标准执行，因为这是不可能的，只是给大家提供一个优化方向，以及出了性能问题以后的分析依据。但是在日常的编码过程中，也要时刻把性能的意识放在心上，写出优秀的代码。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/08/iOS开发——影响图形性能的因素以及检测方法/" data-id="cjoqwp5hc002o3kz9igslb497" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2017/02/08/iOS开发——影响图形性能的因素以及检测方法/" data-id="cjp428e12002lyjz9oiskcczs" class="article-share-link">分享</a>
       
       
       
@@ -283,7 +269,7 @@
       
         <strong class="toc-title">文章目录</strong>
         <div class="toc-widget-list">
-              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">&#x5F71;&#x54CD;&#x6027;&#x80FD;&#x7684;&#x56E0;&#x7D20;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">&#x4F7F;&#x7528;Instrument&#x8FDB;&#x884C;&#x68C0;&#x67E5;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">&#x603B;&#x7ED3;</span></a></li></ol>
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#影响性能的因素"><span class="toc-number">1.</span> <span class="toc-text"><a href="#&#x5F71;&#x54CD;&#x6027;&#x80FD;&#x7684;&#x56E0;&#x7D20;" class="headerlink" title="&#x5F71;&#x54CD;&#x6027;&#x80FD;&#x7684;&#x56E0;&#x7D20;"></a>&#x5F71;&#x54CD;&#x6027;&#x80FD;&#x7684;&#x56E0;&#x7D20;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用Instrument进行检查"><span class="toc-number">2.</span> <span class="toc-text"><a href="#&#x4F7F;&#x7528;Instrument&#x8FDB;&#x884C;&#x68C0;&#x67E5;" class="headerlink" title="&#x4F7F;&#x7528;Instrument&#x8FDB;&#x884C;&#x68C0;&#x67E5;"></a>&#x4F7F;&#x7528;Instrument&#x8FDB;&#x884C;&#x68C0;&#x67E5;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</span></a></li></ol>
           </div>
       </div>
     </div>

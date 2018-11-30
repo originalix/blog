@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/11/21/理解prototype、getPrototypeOf和-proto-之间的不同/index.html">
 <meta property="og:site_name" content="Leon的博客">
 <meta property="og:description" content="在学习JavaScript的过程中，原型是如何也绕不过去的一个知识点。虽然在现在ES6已经非常普及的现在，许多js的程序员都已经不再用原型的知识点来编写代码了，但是充分的理解原型也是很有必要的，尤其是在阅读他人优秀的js代码时，理解原型能帮助我们更好的理解早期代码。而原型包括三个访问器，这三个访问器有时功能重叠，所以准确的理解并区分他们还是很有必要的。">
-<meta property="og:updated_time" content="2018-11-21T08:29:26.201Z">
+<meta property="og:updated_time" content="2018-11-30T13:23:00.799Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="理解prototype、getPrototypeOf和 _proto _之间的不同">
 <meta name="twitter:description" content="在学习JavaScript的过程中，原型是如何也绕不过去的一个知识点。虽然在现在ES6已经非常普及的现在，许多js的程序员都已经不再用原型的知识点来编写代码了，但是充分的理解原型也是很有必要的，尤其是在阅读他人优秀的js代码时，理解原型能帮助我们更好的理解早期代码。而原型包括三个访问器，这三个访问器有时功能重叠，所以准确的理解并区分他们还是很有必要的。">
@@ -96,7 +96,8 @@
       
         <!-- Table of Contents -->
         
-        <p>在学习JavaScript的过程中，原型是如何也绕不过去的一个知识点。虽然在现在ES6已经非常普及的现在，许多js的程序员都已经不再用原型的知识点来编写代码了，但是充分的理解原型也是很有必要的，尤其是在阅读他人优秀的js代码时，理解原型能帮助我们更好的理解早期代码。而原型包括三个访问器，这三个访问器有时功能重叠，所以准确的理解并区分他们还是很有必要的。<br><a id="more"></a></p>
+        <p>在学习JavaScript的过程中，原型是如何也绕不过去的一个知识点。虽然在现在ES6已经非常普及的现在，许多js的程序员都已经不再用原型的知识点来编写代码了，但是充分的理解原型也是很有必要的，尤其是在阅读他人优秀的js代码时，理解原型能帮助我们更好的理解早期代码。而原型包括三个访问器，这三个访问器有时功能重叠，所以准确的理解并区分他们还是很有必要的。</p>
+<a id="more"></a>
 <p>这三个访问器就是<code>prototype</code>、<code>getPrototypeOf</code>和<code>__proto__</code>，从名字上可见这三个访问器都是对prototype这个单词做了一些变化，生成这样的属性方法名。为了测试这三个方法的输出，我们先来模拟创建一个存储用户数据User的类。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">User</span>(<span class="params">name, passwordHash</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">  <span class="keyword">this</span>.passwordHash = passwordHash;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">User.prototype.toString = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">'[User '</span> + <span class="keyword">this</span>.name + <span class="string">']'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">User.prototype.checkPassword = <span class="function"><span class="keyword">function</span>(<span class="params">password</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> hash(password) === <span class="keyword">this</span>.passwordHash;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这里我们创建的这个User类的构造函数，接收两个参数，一个是用户名name，一个是密码的hash值，并且类中有两个方法<code>toString</code>以及<code>checkPassword</code>用来输出用户信息和检查密码。</p>
@@ -116,7 +117,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/21/理解prototype、getPrototypeOf和-proto-之间的不同/" data-id="cjoqwp5in004w3kz9mld8xd26" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/11/21/理解prototype、getPrototypeOf和-proto-之间的不同/" data-id="cjp428e2g004zyjz9pio937uk" class="article-share-link">分享</a>
       
       
       
@@ -170,6 +171,15 @@
     
 <nav id="article-nav">
   
+    <a href="/2018/11/30/理解JavaScript中的浮点数/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          理解JavaScript中的浮点数
+        
+      </div>
+    </a>
+  
   
     <a href="/2018/11/14/javascript——为自己的库编写更健壮的API函数/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
@@ -214,6 +224,10 @@
       <ul>
         
           <li>
+            <a href="/2018/11/30/理解JavaScript中的浮点数/">理解JavaScript中的浮点数</a>
+          </li>
+        
+          <li>
             <a href="/2018/11/21/理解prototype、getPrototypeOf和-proto-之间的不同/">理解prototype、getPrototypeOf和 _proto _之间的不同</a>
           </li>
         
@@ -227,10 +241,6 @@
         
           <li>
             <a href="/2018/09/19/Ubuntu-16-04服务器的初始化设置/">Ubuntu 16.04服务器的初始化设置</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/09/唠唠快速排序算法/">唠唠快速排序算法</a>
           </li>
         
       </ul>

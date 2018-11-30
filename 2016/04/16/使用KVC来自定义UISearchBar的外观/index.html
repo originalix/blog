@@ -97,43 +97,43 @@
         <!-- Table of Contents -->
         
         <p>以前我们在项目中使用搜索框的时候，如果用系统自带的控件则是使用UISearchDisplayController，而自从iOS8之后，系统重新给我们提供了一个搜索控件：UISearchController。在UISearchController中我们无需再自己初始化UISearchBar，只需要提供searchResult展示的视图。然而在开发中，我们往往需要根据项目的风格来改变UISearchBar的外观，通过继承的方式，我们可以完全定制符合项目风格的外观，然而有些情况下我们很难短时间内完成全部的外观定制工作，譬如我们项目用的好几个旧框架，代码中充斥着各种写好的UISearchBar的展示，而改动底层框架并不是一个较好地实践。于是我开始搜索并总结出了几个不通过继承的方式来更改UISearchBar外观的方法。</p>
-<p>&lt;!--more--&gt;</p>
+<a id="more"></a>
 <p>#获取子View</p>
 <p>我们在UISearchController或者是UISearchDisplayController中都可以直接获取到UISearchBar的实例，我们可以从这里改变一些UISearchBar的属性来改变外观显示。同时我们也可以直接获取UISearchBar的subViews,UISearchBar的subView是一个UIView的实例，这个UIView包含了所有在UISearchBar上可以展示的子视图，iOS SDK提供的UISearchBar，在iOS7之前是分为UISearchBarBackground、UISearchBarTextField、UIButton这几个类的实例组成，而在iOS7之后，是将UIButton转换为了UINavigationButton的实例。</p>
 <ul>
 <li>我们可以通过循环遍历出UISearchBar上所有展示出来的子视图</li>
 </ul>
-<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="built_in">UIView</span>*viewin[[[_searchController.searchBar</span><br><span class="line"> subviews]lastObject]subviews] ) &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>([viewisKindOfClass:<span class="built_in">NSClassFromString</span>(<span class="string">@"UISearchBarBackground"</span>)]) &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>([viewisKindOfClass:<span class="built_in">NSClassFromString</span>(<span class="string">@"UISearchBarTextField"</span>)]) &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>([viewisKindOfClass:<span class="built_in">NSClassFromString</span>(<span class="string">@"UINavigationButton"</span>)]) &#123;&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="built_in">UIView</span>*viewin[[[_searchController.searchBar</span><br><span class="line"> subviews]lastObject]subviews] ) &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>([viewisKindOfClass:<span class="built_in">NSClassFromString</span>(<span class="string">@"UISearchBarBackground"</span>)]) &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>([viewisKindOfClass:<span class="built_in">NSClassFromString</span>(<span class="string">@"UISearchBarTextField"</span>)]) &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>([viewisKindOfClass:<span class="built_in">NSClassFromString</span>(<span class="string">@"UINavigationButton"</span>)]) &#123;&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>通过KVC获取子视图</li>
 </ul>
-<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIView</span>*backgroundView = [_searchController.searchBar valueForKey:<span class="string">@"_background"</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">UITextField</span>*searchField = [_searchController.searchBar valueForKey:<span class="string">@"_searchField"</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">UIButton</span>*cancelButton = [_searchController.searchBar valueForKey:<span class="string">@"_cancelButton"</span>];</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIView</span>*backgroundView = [_searchController.searchBar valueForKey:<span class="string">@"_background"</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">UITextField</span>*searchField = [_searchController.searchBar valueForKey:<span class="string">@"_searchField"</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">UIButton</span>*cancelButton = [_searchController.searchBar valueForKey:<span class="string">@"_cancelButton"</span>];</span><br></pre></td></tr></table></figure>
 <ul>
 <li>当我们获取cancelButton时，一定要确保cancelButton包含在了UISearchBar中，必要时可以提前调用：</li>
 </ul>
-<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[_searchController.searchBar setShowsCancelButton:<span class="literal">YES</span> animated:<span class="literal">NO</span>];</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[_searchController.searchBar setShowsCancelButton:<span class="literal">YES</span> animated:<span class="literal">NO</span>];</span><br></pre></td></tr></table></figure>
 <ul>
 <li>去掉搜索框背景</li>
 </ul>
-<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="built_in">UIView</span>*viewin[[[_searchController.searchBar subviews]lastObject]subviews] ) &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>([viewisKindOfClass:<span class="built_in">NSClassFromString</span>(<span class="string">@"UISearchBarBackground"</span>)]) &#123;</span><br><span class="line"></span><br><span class="line">[view removeFromSuperview];</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="built_in">UIView</span>*viewin[[[_searchController.searchBar subviews]lastObject]subviews] ) &#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>([viewisKindOfClass:<span class="built_in">NSClassFromString</span>(<span class="string">@"UISearchBarBackground"</span>)]) &#123;</span><br><span class="line"></span><br><span class="line">[view removeFromSuperview];</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>去掉搜索框边框</li>
 </ul>
-<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[_searchController.searchBar setBackgroundImage:[<span class="built_in">UIImage</span> new]];</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[_searchController.searchBar setBackgroundImage:[<span class="built_in">UIImage</span> new]];</span><br></pre></td></tr></table></figure>
 <ul>
 <li>改变输入框文本</li>
 </ul>
-<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//提示文本颜色</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">UITextField</span>*searchField = [_searchController.searchBar valueForKey:<span class="string">@"_searchField"</span>];</span><br><span class="line"></span><br><span class="line">[searchFieldsetTextColor:[<span class="built_in">UIColorblackColor</span>]];</span><br><span class="line"></span><br><span class="line">[searchFieldsetValue:[<span class="built_in">UIColorgrayColor</span>]forKeyPath:<span class="string">@"_placeholderLabel.textColor"</span>];</span><br><span class="line"></span><br><span class="line">[searchFieldsetFont:[<span class="built_in">UIFontsystemFontOfSize</span>:<span class="number">14</span>]];</span><br><span class="line"></span><br><span class="line">[searchFieldsetBackgroundColor:[<span class="built_in">UIColorwhiteColor</span>]];</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//提示文本颜色</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">UITextField</span>*searchField = [_searchController.searchBar valueForKey:<span class="string">@"_searchField"</span>];</span><br><span class="line"></span><br><span class="line">[searchFieldsetTextColor:[<span class="built_in">UIColorblackColor</span>]];</span><br><span class="line"></span><br><span class="line">[searchFieldsetValue:[<span class="built_in">UIColorgrayColor</span>]forKeyPath:<span class="string">@"_placeholderLabel.textColor"</span>];</span><br><span class="line"></span><br><span class="line">[searchFieldsetFont:[<span class="built_in">UIFontsystemFontOfSize</span>:<span class="number">14</span>]];</span><br><span class="line"></span><br><span class="line">[searchFieldsetBackgroundColor:[<span class="built_in">UIColorwhiteColor</span>]];</span><br></pre></td></tr></table></figure>
 <ul>
 <li>改变取消按钮的title</li>
 </ul>
-<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIButton</span>*cancelButton = [_searchController.searchBar valueForKey:<span class="string">@"_cancelButton"</span>];</span><br><span class="line"></span><br><span class="line">[cancelButtonsetTitle:<span class="string">@"Close"</span>forState:<span class="built_in">UIControlStateNormal</span>];</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIButton</span>*cancelButton = [_searchController.searchBar valueForKey:<span class="string">@"_cancelButton"</span>];</span><br><span class="line"></span><br><span class="line">[cancelButtonsetTitle:<span class="string">@"Close"</span>forState:<span class="built_in">UIControlStateNormal</span>];</span><br></pre></td></tr></table></figure>
 <p>以上就是基于KVC模式来自定义UISearchBar的外观，至于怎样使用UISearchController来搜索，以及谓词的使用，下一篇文章再更新。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/04/16/使用KVC来自定义UISearchBar的外观/" data-id="cjoqwp5hv003l3kz9vwjnpman" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2016/04/16/使用KVC来自定义UISearchBar的外观/" data-id="cjp428e1m003lyjz9x94j45vj" class="article-share-link">分享</a>
       
       
       
@@ -240,6 +240,10 @@
       <ul>
         
           <li>
+            <a href="/2018/11/30/理解JavaScript中的浮点数/">理解JavaScript中的浮点数</a>
+          </li>
+        
+          <li>
             <a href="/2018/11/21/理解prototype、getPrototypeOf和-proto-之间的不同/">理解prototype、getPrototypeOf和 _proto _之间的不同</a>
           </li>
         
@@ -253,10 +257,6 @@
         
           <li>
             <a href="/2018/09/19/Ubuntu-16-04服务器的初始化设置/">Ubuntu 16.04服务器的初始化设置</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/09/唠唠快速排序算法/">唠唠快速排序算法</a>
           </li>
         
       </ul>
