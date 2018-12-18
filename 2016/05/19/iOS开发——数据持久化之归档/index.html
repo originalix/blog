@@ -5,17 +5,17 @@
   
   <title>iOS开发——数据持久化之归档 | Leon的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在实际的项目开发中，数据持久化是我们必须要考虑的一个事情，如何把我们需要的数据进行持久化处理。 在此之前，一些轻量级的数据类型我一般比较喜欢用NSUserDefaults来存储，因为首先这是一个单例，而且使用简便，数据之间传递自由，所以很适合用来保存简单的数据。 而昨天我在实际工作中，有一个数组NSMutableArray需要存储，但是使用时，报了一个错误 reason: &amp;#39;*** -[N">
+  <meta name="description" content="在实际的项目开发中，数据持久化是我们必须要考虑的一个事情，如何把我们需要的数据进行持久化处理。 在此之前，一些轻量级的数据类型我一般比较喜欢用NSUserDefaults来存储，因为首先这是一个单例，而且使用简便，数据之间传递自由，所以很适合用来保存简单的数据。 而昨天我在实际工作中，有一个数组NSMutableArray需要存储，但是使用时，报了一个错误 reason: &apos;*** -[NSUse">
 <meta name="keywords" content="iOS开发,数据持久化,NSKeyedArchiver,归档">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS开发——数据持久化之归档">
 <meta property="og:url" content="http://yoursite.com/2016/05/19/iOS开发——数据持久化之归档/index.html">
 <meta property="og:site_name" content="Leon的博客">
-<meta property="og:description" content="在实际的项目开发中，数据持久化是我们必须要考虑的一个事情，如何把我们需要的数据进行持久化处理。 在此之前，一些轻量级的数据类型我一般比较喜欢用NSUserDefaults来存储，因为首先这是一个单例，而且使用简便，数据之间传递自由，所以很适合用来保存简单的数据。 而昨天我在实际工作中，有一个数组NSMutableArray需要存储，但是使用时，报了一个错误 reason: &amp;#39;*** -[N">
+<meta property="og:description" content="在实际的项目开发中，数据持久化是我们必须要考虑的一个事情，如何把我们需要的数据进行持久化处理。 在此之前，一些轻量级的数据类型我一般比较喜欢用NSUserDefaults来存储，因为首先这是一个单例，而且使用简便，数据之间传递自由，所以很适合用来保存简单的数据。 而昨天我在实际工作中，有一个数组NSMutableArray需要存储，但是使用时，报了一个错误 reason: &apos;*** -[NSUse">
 <meta property="og:updated_time" content="2016-08-05T06:48:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS开发——数据持久化之归档">
-<meta name="twitter:description" content="在实际的项目开发中，数据持久化是我们必须要考虑的一个事情，如何把我们需要的数据进行持久化处理。 在此之前，一些轻量级的数据类型我一般比较喜欢用NSUserDefaults来存储，因为首先这是一个单例，而且使用简便，数据之间传递自由，所以很适合用来保存简单的数据。 而昨天我在实际工作中，有一个数组NSMutableArray需要存储，但是使用时，报了一个错误 reason: &amp;#39;*** -[N">
+<meta name="twitter:description" content="在实际的项目开发中，数据持久化是我们必须要考虑的一个事情，如何把我们需要的数据进行持久化处理。 在此之前，一些轻量级的数据类型我一般比较喜欢用NSUserDefaults来存储，因为首先这是一个单例，而且使用简便，数据之间传递自由，所以很适合用来保存简单的数据。 而昨天我在实际工作中，有一个数组NSMutableArray需要存储，但是使用时，报了一个错误 reason: &apos;*** -[NSUse">
   
     <link rel="alternate" href="/atom.xml" title="Leon的博客" type="application/atom+xml">
   
@@ -98,8 +98,8 @@
         
         <p>在实际的项目开发中，数据持久化是我们必须要考虑的一个事情，如何把我们需要的数据进行持久化处理。</p>
 <p>在此之前，一些轻量级的数据类型我一般比较喜欢用NSUserDefaults来存储，因为首先这是一个单例，而且使用简便，数据之间传递自由，所以很适合用来保存简单的数据。</p>
-<p>而昨天我在实际工作中，有一个数组NSMutableArray需要存储，但是使用时，报了一个错误 <code>reason: &#39;*** -[NSUserDefaults setObject:forKey:]: attempt to insert non-property list object</code>，这个报错提示我试图加入一个不支持的数据类型。可是明明NSUserDefaults支持的数据类型有：NSNumber（NSInteger、float、double），NSString，NSDate，NSArray，NSDictionary，BOOL，为什么我的NSArray不能加入呢。后来发现我的数组中的对象，是Model类的对象。</p>
-<a id="more"></a>
+<p>而昨天我在实际工作中，有一个数组NSMutableArray需要存储，但是使用时，报了一个错误 <code>reason: '*** -[NSUserDefaults setObject:forKey:]: attempt to insert non-property list object</code>，这个报错提示我试图加入一个不支持的数据类型。可是明明NSUserDefaults支持的数据类型有：NSNumber（NSInteger、float、double），NSString，NSDate，NSArray，NSDictionary，BOOL，为什么我的NSArray不能加入呢。后来发现我的数组中的对象，是Model类的对象。</p>
+<p>&lt;!--more--&gt;</p>
 <p>既然涉及到了Model类的对象，就要考虑用归档（NSKeyedArchiver）来处理它了。NSKeyedArchiver能够存储的数据范围很广，因为它对应着MVC中的Model层，即实体类。在程序中，我们会在Model层定义很多的entity，例如name、room、device等。</p>
 <p>那么对自定义对象的归档显得重要的多，因为很多时候我们都要在程序退出时保存数据，再程序恢复时重新加载，那么，归档便是一个好的选择。</p>
 <p>接下来我们来讲讲NSKeyedArchiver的使用。</p>
@@ -108,35 +108,38 @@
 </ul>
 <p>遵循NSCoding协议，我们需要实现两个方法。</p>
 <ul>
-<li><p><code>- (void)encodeWithCoder:(NSCoder *)aCoder;</code></p>
+<li>
+<p><code>- (void)encodeWithCoder:(NSCoder *)aCoder;</code></p>
 </li>
-<li><p><code>- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder;</code></p>
+<li>
+<p><code>- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder;</code></p>
 </li>
-<li><p>同时也建议对象实现<code>NSCoping</code>协议，该协议允许复制对象，遵循该协议要实现<code>- (id)copyWithZone:(nullable NSZone *)zone;</code>方法</p>
+<li>
+<p>同时也建议对象实现<code>NSCoping</code>协议，该协议允许复制对象，遵循该协议要实现<code>- (id)copyWithZone:(nullable NSZone *)zone;</code>方法</p>
 </li>
 </ul>
 <p>下面我们来看归档协议方法的实现</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="keyword">void</span>)encodeWithCoder:(<span class="built_in">NSCoder</span> *)aCoder&#123;</span><br><span class="line"><span class="comment">// 这里放置需要持久化的属性</span></span><br><span class="line">    [aCoder encodeObject:_deviceType forKey:<span class="string">@"deviceType"</span>];</span><br><span class="line">    [aCoder encodeObject:_roomType forKey:<span class="string">@"roomType"</span>];</span><br><span class="line">    [aCoder encodeObject:_brand forKey:<span class="string">@"brand"</span>];</span><br><span class="line">    [aCoder encodeObject:_version forKey:<span class="string">@"version"</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="keyword">void</span>)encodeWithCoder:(<span class="built_in">NSCoder</span> *)aCoder&#123;</span><br><span class="line"><span class="comment">// 这里放置需要持久化的属性</span></span><br><span class="line">    [aCoder encodeObject:_deviceType forKey:<span class="string">@"deviceType"</span>];</span><br><span class="line">    [aCoder encodeObject:_roomType forKey:<span class="string">@"roomType"</span>];</span><br><span class="line">    [aCoder encodeObject:_brand forKey:<span class="string">@"brand"</span>];</span><br><span class="line">    [aCoder encodeObject:_version forKey:<span class="string">@"version"</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>接下来是解档的协议方法实现</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">nullable</span> <span class="keyword">instancetype</span>)initWithCoder:(<span class="built_in">NSCoder</span> *)aDecoder&#123;</span><br><span class="line"><span class="comment">//  这里务必和encodeWithCoder方法里面的内容一致，不然会读不到数据</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span> = [<span class="keyword">super</span> init]) &#123;</span><br><span class="line">        <span class="keyword">self</span>.deviceType = [aDecoder decodeObjectForKey:<span class="string">@"deviceType"</span>];</span><br><span class="line">        <span class="keyword">self</span>.roomType = [aDecoder decodeObjectForKey:<span class="string">@"roomType"</span>];</span><br><span class="line">        <span class="keyword">self</span>.brand = [aDecoder decodeObjectForKey:<span class="string">@"brand"</span>];</span><br><span class="line">        <span class="keyword">self</span>.version = [aDecoder decodeObjectForKey:<span class="string">@"version"</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">nullable</span> <span class="keyword">instancetype</span>)initWithCoder:(<span class="built_in">NSCoder</span> *)aDecoder&#123;</span><br><span class="line"><span class="comment">//  这里务必和encodeWithCoder方法里面的内容一致，不然会读不到数据</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span> = [<span class="keyword">super</span> init]) &#123;</span><br><span class="line">        <span class="keyword">self</span>.deviceType = [aDecoder decodeObjectForKey:<span class="string">@"deviceType"</span>];</span><br><span class="line">        <span class="keyword">self</span>.roomType = [aDecoder decodeObjectForKey:<span class="string">@"roomType"</span>];</span><br><span class="line">        <span class="keyword">self</span>.brand = [aDecoder decodeObjectForKey:<span class="string">@"brand"</span>];</span><br><span class="line">        <span class="keyword">self</span>.version = [aDecoder decodeObjectForKey:<span class="string">@"version"</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>接下来是遵循了<code>NSCopying</code>协议的方法实现</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#pragma mark NSCoping</span></span><br><span class="line">- (<span class="keyword">id</span>)copyWithZone:(<span class="built_in">NSZone</span> *)zone &#123;</span><br><span class="line">    AddDeviceModel *<span class="keyword">copy</span> = [[[<span class="keyword">self</span> <span class="keyword">class</span>] allocWithZone:zone] init];</span><br><span class="line">    <span class="keyword">copy</span>.deviceType = [<span class="keyword">self</span>.deviceType copyWithZone:zone];</span><br><span class="line">    <span class="keyword">copy</span>.roomType = [<span class="keyword">self</span>.roomType copyWithZone:zone];</span><br><span class="line">    <span class="keyword">copy</span>.brand = [<span class="keyword">self</span>.brand copyWithZone:zone];</span><br><span class="line">    <span class="keyword">copy</span>.version = [<span class="keyword">self</span>.version copyWithZone:zone];</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">copy</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#pragma mark NSCoping</span></span><br><span class="line">- (<span class="keyword">id</span>)copyWithZone:(<span class="built_in">NSZone</span> *)zone &#123;</span><br><span class="line">    AddDeviceModel *<span class="keyword">copy</span> = [[[<span class="keyword">self</span> <span class="keyword">class</span>] allocWithZone:zone] init];</span><br><span class="line">    <span class="keyword">copy</span>.deviceType = [<span class="keyword">self</span>.deviceType copyWithZone:zone];</span><br><span class="line">    <span class="keyword">copy</span>.roomType = [<span class="keyword">self</span>.roomType copyWithZone:zone];</span><br><span class="line">    <span class="keyword">copy</span>.brand = [<span class="keyword">self</span>.brand copyWithZone:zone];</span><br><span class="line">    <span class="keyword">copy</span>.version = [<span class="keyword">self</span>.version copyWithZone:zone];</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">copy</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li><code>特别注意</code> 如果需要归档的类是某个自定义类的子类时，就需要在归档和解档之前先实现父类的归档和解档方法。即 <code>[super encodeWithCoder:aCoder]</code> 和<code>[super initWithCoder:aDecoder]</code> 方法</li>
 </ul>
 <p><code>使用</code> ：</p>
 <p>因为之前我提过 我们要存储一个数组，那么我们可以把数组中的数据转化成NSData类型来存储，使用<code>+ (NSData *)archivedDataWithRootObject:(id)rootObject;</code>方法。即 ：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSData</span> *data = [<span class="built_in">NSKeyedArchiver</span> archivedDataWithRootObject:_dataSource];</span><br><span class="line">[[<span class="built_in">NSUserDefaults</span> standardUserDefaults] setObject:data forKey:kEditInfraredRepeater];</span><br><span class="line">[[<span class="built_in">NSUserDefaults</span> standardUserDefaults]synchronize];</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSData</span> *data = [<span class="built_in">NSKeyedArchiver</span> archivedDataWithRootObject:_dataSource];</span><br><span class="line">[[<span class="built_in">NSUserDefaults</span> standardUserDefaults] setObject:data forKey:kEditInfraredRepeater];</span><br><span class="line">[[<span class="built_in">NSUserDefaults</span> standardUserDefaults]synchronize];</span><br></pre></td></tr></table></figure></p>
 <p>三行代码，就把NSKeyedArchiver和NSUserDefaults结合来存储数据了。</p>
 <p>而要解档使用数据，只要使用解档<code>NSKeyedUnarchiver</code>类中的<code>+ (nullable id)unarchiveObjectWithData:(NSData *)data;</code>方法就可以实现</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSData</span> *data = [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] objectForKey:kEditInfraredRepeater];</span><br><span class="line"><span class="built_in">NSArray</span> *array = [<span class="built_in">NSKeyedUnarchiver</span> unarchiveObjectWithData:data];</span><br><span class="line">_dataSource = [<span class="built_in">NSMutableArray</span> arrayWithArray:array];</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSData</span> *data = [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] objectForKey:kEditInfraredRepeater];</span><br><span class="line"><span class="built_in">NSArray</span> *array = [<span class="built_in">NSKeyedUnarchiver</span> unarchiveObjectWithData:data];</span><br><span class="line">_dataSource = [<span class="built_in">NSMutableArray</span> arrayWithArray:array];</span><br></pre></td></tr></table></figure></p>
 <p>同样也是三行代码实现。</p>
 <p>以上就是最简单的归档解档数据持久化的实现方式，至于如何用runtime进行自动归档解档，就又需要日后深入研究了。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/05/19/iOS开发——数据持久化之归档/" data-id="cjp428e15002tyjz9d5l4hjrg" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2016/05/19/iOS开发——数据持久化之归档/" data-id="cjptr3x53002ulyz9yjjfa7yf" class="article-share-link">分享</a>
       
       
       
@@ -243,6 +246,10 @@
       <ul>
         
           <li>
+            <a href="/2018/12/18/Nodejs中编写异步的单元测试代码/">Nodejs中编写异步的单元测试代码</a>
+          </li>
+        
+          <li>
             <a href="/2018/11/30/理解JavaScript中的浮点数/">理解JavaScript中的浮点数</a>
           </li>
         
@@ -256,10 +263,6 @@
         
           <li>
             <a href="/2018/10/09/服务器的Mysql初始化设置/">服务器的Mysql初始化设置</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/19/Ubuntu-16-04服务器的初始化设置/">Ubuntu 16.04服务器的初始化设置</a>
           </li>
         
       </ul>

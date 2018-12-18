@@ -102,34 +102,37 @@
 <p>而目前的文章我打算从爬虫的入门开始写，看看是否可以写出一个系列来记录，完成品是争取带大家爬出一个动态js加载的妹子页面。</p>
 <p>爬虫的功能往简单的说就是把网页源代码想办法爬下来，然后分析我们需要的内容，总结起来就是两个部分：</p>
 <ul>
-<li><p>爬！</p>
+<li>
+<p>爬！</p>
 </li>
-<li><p>提取。</p>
+<li>
+<p>提取。</p>
 </li>
 </ul>
-<a id="more"></a>
+<p>&lt;!-- more --&gt;</p>
 <p>所以整个过程里需要掌握的技能就是如何爬，以及爬到之后如何处理。</p>
 <p>所以今天的入门文章里，我们就不去介绍第三方库的工具如何使用，我们来看看Python自带的标准库——Urllib库。</p>
-<h1 id="Urllib"><a href="#Urllib" class="headerlink" title="Urllib"></a>Urllib</h1><p>这个自带的标准库提供了诸如网页请求、响应获取、代理和cookie设置、异常处理、URL解析等等功能。</p>
+<h1>Urllib</h1>
+<p>这个自带的标准库提供了诸如网页请求、响应获取、代理和cookie设置、异常处理、URL解析等等功能。</p>
 <p>一个爬虫所需要的功能，基本上在urllib中都能找到，学习这个标准库，可以更加深入的理解之后要用到的第三方库，包括提高对于爬虫框架的理解。</p>
 <p>那我们就从第一个网页的爬取入手，现在我们首先打开我们的编辑器，创建一个Python文件，并且在里面写入如下代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib2</span><br><span class="line"></span><br><span class="line">response = urllib2.urlopen(<span class="string">"http://www.baidu.com"</span>)</span><br><span class="line">print(response.read().decode(<span class="string">'utf-8'</span>))</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib2</span><br><span class="line"></span><br><span class="line">response = urllib2.urlopen(<span class="string">"http://www.baidu.com"</span>)</span><br><span class="line">print(response.read().decode(<span class="string">'utf-8'</span>))</span><br></pre></td></tr></table></figure></p>
 <p>是的，就是这么简短的代码，现在我们来运行一下这个py文件。在命令行中能看到爬取到的百度网站的一堆html代码。是的，你没有看错，想抓到百度的html页面，只要这么简单的两行代码，看到命令行里反馈回来的这么多代码，是不是心里一阵痛快！</p>
 <p>好，我们我们开始从头分析我们的三行代码，第一行，我们import了我们的urllib2的库。</p>
 <p>第二行代码，我们使用urlopen的api，传入了url参数，执行urlopen方法后，就返回了一个response对象，我们打印的返回信息便保存在里面。</p>
 <p>第三行代码，我们打印了response响应对象里的内容，并且转换成了utf-8编码，你可以试试如果去掉了utf-8的编码，是不是会乱码呢？</p>
 <p>而我们请求之前，也可以根据urllib2提供的request的类，在发送请求前构造一个request的对象，然后通过urllib的urlopen函数来发送请求。例如上面请求百度的代码也可以写成这样：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib2</span><br><span class="line"></span><br><span class="line">url = <span class="string">r'http://www.baidu.com'</span></span><br><span class="line">req = urllib2.Request(url)</span><br><span class="line">html = urllib2.urlopen(req).read()</span><br><span class="line"><span class="keyword">print</span> html</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib2</span><br><span class="line"></span><br><span class="line">url = <span class="string">r'http://www.baidu.com'</span></span><br><span class="line">req = urllib2.Request(url)</span><br><span class="line">html = urllib2.urlopen(req).read()</span><br><span class="line"><span class="keyword">print</span> html</span><br></pre></td></tr></table></figure></p>
 <p>我们先用<code>req = urllib2.Request(url)</code>实例化了一个request对象，之后再请求打开这个网页。</p>
 <p>而我们常用的HTTP协议里还有GET、POST等方法的请求，我们该如何实现呢，以Post请求为例，我们怎么发送一个携带着数据的请求呢。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">url = <span class="string">'http://www.baidu.com/'</span></span><br><span class="line">params = &#123;<span class="string">'name'</span> : <span class="string">'Lix'</span>, <span class="string">'location'</span> : <span class="string">'China'</span>&#125;</span><br><span class="line">data = urllib.urlencode(params)</span><br><span class="line">req = urllib2.Request(url,data)</span><br><span class="line">response = urllib2.urlopen(req)</span><br><span class="line">the_page = response.read()</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> the_page</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">url = <span class="string">'http://www.baidu.com/'</span></span><br><span class="line">params = &#123;<span class="string">'name'</span> : <span class="string">'Lix'</span>, <span class="string">'location'</span> : <span class="string">'China'</span>&#125;</span><br><span class="line">data = urllib.urlencode(params)</span><br><span class="line">req = urllib2.Request(url,data)</span><br><span class="line">response = urllib2.urlopen(req)</span><br><span class="line">the_page = response.read()</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> the_page</span><br></pre></td></tr></table></figure></p>
 <p>这样就可以完成一个post请求，至于GET方法，我们举例的第一段代码就是get类型的哦。</p>
 <p>根据现在讲解的一些基本知识，我们就可以抓取到一些简单的页面的数据了，之后更深的内容我们在之后的文章里接着分析哦。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/28/Python——爬虫入门-Urllib库的使用/" data-id="cjp428e02000nyjz9t3uif29r" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/01/28/Python——爬虫入门-Urllib库的使用/" data-id="cjptr3x44000ulyz9s5xi5mg8" class="article-share-link">分享</a>
       
       
       
@@ -229,7 +232,7 @@
       
         <strong class="toc-title">文章目录</strong>
         <div class="toc-widget-list">
-              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Urllib"><span class="toc-number">1.</span> <span class="toc-text"><a href="#Urllib" class="headerlink" title="Urllib"></a>Urllib</span></a></li></ol>
+              <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Urllib</span></a></li></ol>
           </div>
       </div>
     </div>

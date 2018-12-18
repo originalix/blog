@@ -99,20 +99,20 @@
         <p>如果你除了JavaScript外还有接触过其他的编程语言，那么你应该会发现在别的编程语言中，数值型的数据类型有好几种，例如Objective-C中的int，double， float，long等，而在JavaScript中就有一个特殊的点，它只有Number这一种数值型的数据类型。因为这一特殊性，Number也是ECMAScript中需要特别关注的一个数据类型了。</p>
 <p>而一句话来概括JavaScript中的Number类型就是，这是由IEEE754格式来表示整数和浮点数值(双精度数值)。</p>
 <p>双精度浮点数值能准确的表示高达53位精度的整数，从-2^53到2^53这个区间的所有整数都是有效的双精度浮点数，因此，尽管JavaScript中缺少明显的整数类型，但是依然可以进行整数运算。</p>
-<a id="more"></a>
+<p>&lt;!--more--&gt;</p>
 <p>所谓浮点数值，就是该树脂中必须包含一个小数点，并且小数点后面必须至少有一位数字。虽然个位数点前面可以没有整数，但是一般的编程过程中不推荐这种写法。</p>
 <p>大多数的算术运算符都可以使用整数、实数或两者的组合进行计算。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0.1</span> * <span class="number">0.19</span> <span class="comment">// 0.19</span></span><br><span class="line"><span class="number">-99</span> + <span class="number">100</span>； <span class="comment">// 1</span></span><br><span class="line"><span class="number">21</span><span class="number">-12.3</span>; <span class="comment">//  8.7</span></span><br><span class="line"><span class="number">2.5</span> / <span class="number">5</span>; <span class="comment">// 0.5</span></span><br><span class="line"><span class="number">21</span> % <span class="number">8</span>; <span class="comment">// 5</span></span><br></pre></td></tr></table></figure>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0.1</span> * <span class="number">0.19</span> <span class="comment">// 0.19</span></span><br><span class="line"><span class="number">-99</span> + <span class="number">100</span>； <span class="comment">// 1</span></span><br><span class="line"><span class="number">21</span><span class="number">-12.3</span>; <span class="comment">//  8.7</span></span><br><span class="line"><span class="number">2.5</span> / <span class="number">5</span>; <span class="comment">// 0.5</span></span><br><span class="line"><span class="number">21</span> % <span class="number">8</span>; <span class="comment">// 5</span></span><br></pre></td></tr></table></figure></p>
 <p>由于保存浮点数值需要的内存空间是保存整数值的两倍，因此ECMAScript会不失时机地将浮点数值转换为整数值。显然，如果小数点后面没有跟任何数字，那么这个数值就可以作为整数值来保存。同样的，如果浮点数值本身表示的就是一个小数（1.0），那么该数值也会被转换为整数。</p>
 <p>关于浮点数最后的警示是，我们应该时刻对它们保持警惕，浮点数看似跟其他语言的浮点数并无两样，但是它们是出了名的不精确。甚至一些看起来最简单的算术运算都会产生不正确的结果。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0.1</span> + <span class="number">0.2</span>; <span class="comment">// 0.30000000000000004</span></span><br></pre></td></tr></table></figure>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0.1</span> + <span class="number">0.2</span>; <span class="comment">// 0.30000000000000004</span></span><br></pre></td></tr></table></figure></p>
 <p>这里使用的必须是这个经典的例子，也是被当做面试题问过无数遍的问题。尽管64位的精度已经相当高了，但是双精度浮点数也只能表示一组有限的数字，而不能表示所有的实数集。浮点运算只能产生近似的结果，四舍五入到最接近的可表示的实数。</p>
 <p>关于浮点数会产生舍入误差的问题，有一点需要明确：这是使用基于IEEE754数值的浮点计算的通病，ECMAScript并非独此一家，其他使用相同数值格式的语言也存在这个问题。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/30/理解JavaScript中的浮点数/" data-id="cjp428e2f004wyjz9elgixsxq" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2018/11/30/理解JavaScript中的浮点数/" data-id="cjptr3x6h004zlyz9p7ri7dzy" class="article-share-link">分享</a>
       
       
       
@@ -166,6 +166,15 @@
     
 <nav id="article-nav">
   
+    <a href="/2018/12/18/Nodejs中编写异步的单元测试代码/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Nodejs中编写异步的单元测试代码
+        
+      </div>
+    </a>
+  
   
     <a href="/2018/11/21/理解prototype、getPrototypeOf和-proto-之间的不同/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
@@ -210,6 +219,10 @@
       <ul>
         
           <li>
+            <a href="/2018/12/18/Nodejs中编写异步的单元测试代码/">Nodejs中编写异步的单元测试代码</a>
+          </li>
+        
+          <li>
             <a href="/2018/11/30/理解JavaScript中的浮点数/">理解JavaScript中的浮点数</a>
           </li>
         
@@ -223,10 +236,6 @@
         
           <li>
             <a href="/2018/10/09/服务器的Mysql初始化设置/">服务器的Mysql初始化设置</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/19/Ubuntu-16-04服务器的初始化设置/">Ubuntu 16.04服务器的初始化设置</a>
           </li>
         
       </ul>

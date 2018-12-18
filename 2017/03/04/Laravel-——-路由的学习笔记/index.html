@@ -98,19 +98,19 @@
         
         <p>最近的工作非常忙，公司从项目紧张起来之后，一直在实施996加班制度，工作强度虽然如此，但是任然要利用有限的空余时间来学习。之前都有在前端方面的学习，所以一直想学习PHP，好把前后端的知识能贯穿起来做。现在有个很小的目标就是完成自己的第一个前后端串联的作品。</p>
 <p>在一周之前开始系统学习PHP，在把语法过完之后，就开始找寻自己想首先研习的框架，方案有很多，最后我还是在众多方案中选择了<code>Laravel</code>，理由很简单 —— 优雅编程。</p>
-<a id="more"></a>
+<p>&lt;!--more--&gt;</p>
 <p>我一直觉得编程都不是一件枯燥的事情，能够把一个复杂的逻辑用简洁清晰的代码呈现出来，是一件很棒的事情。但是奈何功力尚浅，有时候空有一个优雅的开头，却在之后越来越复杂的业务逻辑中迷失了初心。所以首先选择一个以优雅著称的框架，之后慢慢修炼自己，写出美的代码才是正道。</p>
 <p>吐槽完毕，咱来正式的记录下学习Laravel框架的一些笔记，因为之前配置开发环境的什么的网上的blog一抓一大把，我也在上面吐了三升血，所以咱一句都不提开发环境的配置了。如果你配置好了开发环境，看到了<code>Laravel 5</code>这个标题，那么，我们就正式与Laravel见面了。</p>
 <p>新手第一次用Laravel，必须先掌握的一个知识点就是路由 —— <code>Route</code>, 因为之前在做iOS开发时，iOS的设计模式里也提出过路由的概念，我也大致的了解过，所以对于路由我并不陌生，熟悉了Laravel<code>Route</code>之后，诚实的说Laravel又一次提升了我对路由系统的认知，不由得感叹这个Laravel中路由系统的强大和优美，尤其当你把他和中间件结合起来看的时候。不过由于学习Laravel时间过短，我所能感受到的也只是皮毛而已。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Route::get(<span class="string">'homepage'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> view(<span class="string">'welcome'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>举个🌰，上面的代码是Laravel中最基本的路由设置，<strong>get</strong>后面的<strong>‘homepage’</strong>说明这个路由的跳转域名就是<strong>index/homepage</strong>,而返回的操作则是<code>return view(&#39;welcome&#39;)</code>,即为跳转到view层的welcome界面。只接受来自HTTP的GET请求。</p>
+<p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Route::get(<span class="string">'homepage'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> view(<span class="string">'welcome'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>举个🌰，上面的代码是Laravel中最基本的路由设置，<strong>get</strong>后面的**'homepage'<strong>说明这个路由的跳转域名就是</strong>index/homepage**,而返回的操作则是<code>return view('welcome')</code>,即为跳转到view层的welcome界面。只接受来自HTTP的GET请求。</p>
 <p>上面的讲解，会让你很清晰的理解这段代码到底是什么意思。而这种一目了然也是Laravel的优雅之一。</p>
 <p>至于其余的，我觉得文档应该比我讲的更明白，我也就不拿例子出来讲了。若是学习笔记等同于抄文档，那也失去了意义，更倾向于写一些心得体会。PHP的路，还很漫长呢。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/04/Laravel-——-路由的学习笔记/" data-id="cjp428dzt000dyjz9i9ikt5uv" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2017/03/04/Laravel-——-路由的学习笔记/" data-id="cjptr3x3t000dlyz9whrkb3bi" class="article-share-link">分享</a>
       
       
       
@@ -217,6 +217,10 @@
       <ul>
         
           <li>
+            <a href="/2018/12/18/Nodejs中编写异步的单元测试代码/">Nodejs中编写异步的单元测试代码</a>
+          </li>
+        
+          <li>
             <a href="/2018/11/30/理解JavaScript中的浮点数/">理解JavaScript中的浮点数</a>
           </li>
         
@@ -230,10 +234,6 @@
         
           <li>
             <a href="/2018/10/09/服务器的Mysql初始化设置/">服务器的Mysql初始化设置</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/19/Ubuntu-16-04服务器的初始化设置/">Ubuntu 16.04服务器的初始化设置</a>
           </li>
         
       </ul>

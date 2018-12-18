@@ -5,17 +5,17 @@
   
   <title>简单的编程体会 | Leon的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天的这篇博文，我不谈及具体的编程技术，只想从这段时间的学习以及写代码的过程中，分享一下自己的编程体会。">
+  <meta name="description" content="今天的这篇博文，我不谈及具体的编程技术，只想从这段时间的学习以及写代码的过程中，分享一下自己的编程体会。 &amp;lt;!--more--&amp;gt; 上周呢，项目中碰到了一个新的任务，要接入一个第三方外设厂商的蓝牙设备，对方公司提供了一个sdk。其实接入一个sdk这个小事情呢，每个从业者都会碰到，合理的选用第三方的sdk服务能大大缩短我们的开发时间，让我们把目光都放到自己的核心业务上去。而碰巧这个sdk">
 <meta name="keywords" content="编程体会">
 <meta property="og:type" content="article">
 <meta property="og:title" content="简单的编程体会">
 <meta property="og:url" content="http://yoursite.com/2017/04/26/简单的编程体会/index.html">
 <meta property="og:site_name" content="Leon的博客">
-<meta property="og:description" content="今天的这篇博文，我不谈及具体的编程技术，只想从这段时间的学习以及写代码的过程中，分享一下自己的编程体会。">
+<meta property="og:description" content="今天的这篇博文，我不谈及具体的编程技术，只想从这段时间的学习以及写代码的过程中，分享一下自己的编程体会。 &amp;lt;!--more--&amp;gt; 上周呢，项目中碰到了一个新的任务，要接入一个第三方外设厂商的蓝牙设备，对方公司提供了一个sdk。其实接入一个sdk这个小事情呢，每个从业者都会碰到，合理的选用第三方的sdk服务能大大缩短我们的开发时间，让我们把目光都放到自己的核心业务上去。而碰巧这个sdk">
 <meta property="og:updated_time" content="2017-04-26T09:10:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="简单的编程体会">
-<meta name="twitter:description" content="今天的这篇博文，我不谈及具体的编程技术，只想从这段时间的学习以及写代码的过程中，分享一下自己的编程体会。">
+<meta name="twitter:description" content="今天的这篇博文，我不谈及具体的编程技术，只想从这段时间的学习以及写代码的过程中，分享一下自己的编程体会。 &amp;lt;!--more--&amp;gt; 上周呢，项目中碰到了一个新的任务，要接入一个第三方外设厂商的蓝牙设备，对方公司提供了一个sdk。其实接入一个sdk这个小事情呢，每个从业者都会碰到，合理的选用第三方的sdk服务能大大缩短我们的开发时间，让我们把目光都放到自己的核心业务上去。而碰巧这个sdk">
   
     <link rel="alternate" href="/atom.xml" title="Leon的博客" type="application/atom+xml">
   
@@ -97,7 +97,7 @@
         <!-- Table of Contents -->
         
         <p>今天的这篇博文，我不谈及具体的编程技术，只想从这段时间的学习以及写代码的过程中，分享一下自己的编程体会。</p>
-<a id="more"></a>
+<p>&lt;!--more--&gt;</p>
 <p>上周呢，项目中碰到了一个新的任务，要接入一个第三方外设厂商的蓝牙设备，对方公司提供了一个sdk。其实接入一个sdk这个小事情呢，每个从业者都会碰到，合理的选用第三方的sdk服务能大大缩短我们的开发时间，让我们把目光都放到自己的核心业务上去。而碰巧这个sdk是对方公司新写出来的，于是，本着怀疑的态度，我开始了对这个sdk包的接入工作。</p>
 <p>由于这个sdk包是新版，为了预防后面的升级，为了松耦合，我在这个第三方库上加了一层完整的封装。仔细的整理好项目的需求，封装了一层适用于项目的API接口，并且提供给团队的小伙伴使用。而既然是要提供给团队的小伙伴使用的API，我在编写代码的过程中慎之又慎，单元测试覆盖率基本达到了95%以上。很早以前我有一篇博文，是专门讲TDD模式和一款Kiwi的测试框架，其实那个阶段的我，更多的是停留在对那款单元测试的框架使用和摸索上，并没有极大程度的重视TDD的思想。而在又重读《Clean Code》这本书之后，单元测试的这根弦又在我脑子里绷紧了。</p>
 <p>于是在这次的编码过程中，没有经过单元测试的代码，坚决不能放在生产环境里成了我坚持的原则，每一行代码都必须跑过，在各种条件下测试过，才会成为放心的代码，才能在之后放心的重构。不然小伙伴调用API的时候如果产生了一堆bug，你让我这张脸往哪搁。在这样的实践之下，我逐渐尝到了测试驱动开发这个思想的甜头，之前我还有接入其他设备的经验，但是当时赶工期，缺乏系统的单元测试，使得上线后bug不断，有时候debug时定位都要花费一些功夫，但是当你的每行代码都跑过单元测试时，你会对你的代码很有信心，并且能梳理的逻辑更清楚。况且，你要进行单元测试，那么以最小单元模块为单位的代码块或者函数，也必然是一段短小的代码，符合短函数的要求，最近苛刻的要求自己绝对不写超过20行的代码。只为函数的单一职责和逻辑清晰。</p>
@@ -109,7 +109,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/04/26/简单的编程体会/" data-id="cjp428e2h0051yjz9z1ykjzh0" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2017/04/26/简单的编程体会/" data-id="cjptr3x6f004ylyz9pvu75f0p" class="article-share-link">分享</a>
       
       
       
@@ -216,6 +216,10 @@
       <ul>
         
           <li>
+            <a href="/2018/12/18/Nodejs中编写异步的单元测试代码/">Nodejs中编写异步的单元测试代码</a>
+          </li>
+        
+          <li>
             <a href="/2018/11/30/理解JavaScript中的浮点数/">理解JavaScript中的浮点数</a>
           </li>
         
@@ -229,10 +233,6 @@
         
           <li>
             <a href="/2018/10/09/服务器的Mysql初始化设置/">服务器的Mysql初始化设置</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/19/Ubuntu-16-04服务器的初始化设置/">Ubuntu 16.04服务器的初始化设置</a>
           </li>
         
       </ul>

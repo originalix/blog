@@ -5,17 +5,17 @@
   
   <title>iOS开发——步数获取 | Leon的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="最近半个月的开发工作，重点一直是类似于悦跑圈、咕咚这样的运动产品的功能，所以在处理iOS设备在运动中的表现也是积累了一些经验。 打算之后的文章，开始把整体的运动功能，分成简单的模块，来介绍一下。那么今天我们就来围绕iOS设备的计步功能，稍微简单的聊一聊。">
+  <meta name="description" content="最近半个月的开发工作，重点一直是类似于悦跑圈、咕咚这样的运动产品的功能，所以在处理iOS设备在运动中的表现也是积累了一些经验。 打算之后的文章，开始把整体的运动功能，分成简单的模块，来介绍一下。那么今天我们就来围绕iOS设备的计步功能，稍微简单的聊一聊。 &amp;lt;!--more--&amp;gt; 大家可能都看过或者知晓HealthKit这个框架，但是实际上，一般去研究过这个框架的，都会知道，实时的获取运">
 <meta name="keywords" content="iOS开发,Swift,步数获取">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS开发——步数获取">
 <meta property="og:url" content="http://yoursite.com/2016/12/09/iOS开发——步数获取/index.html">
 <meta property="og:site_name" content="Leon的博客">
-<meta property="og:description" content="最近半个月的开发工作，重点一直是类似于悦跑圈、咕咚这样的运动产品的功能，所以在处理iOS设备在运动中的表现也是积累了一些经验。 打算之后的文章，开始把整体的运动功能，分成简单的模块，来介绍一下。那么今天我们就来围绕iOS设备的计步功能，稍微简单的聊一聊。">
+<meta property="og:description" content="最近半个月的开发工作，重点一直是类似于悦跑圈、咕咚这样的运动产品的功能，所以在处理iOS设备在运动中的表现也是积累了一些经验。 打算之后的文章，开始把整体的运动功能，分成简单的模块，来介绍一下。那么今天我们就来围绕iOS设备的计步功能，稍微简单的聊一聊。 &amp;lt;!--more--&amp;gt; 大家可能都看过或者知晓HealthKit这个框架，但是实际上，一般去研究过这个框架的，都会知道，实时的获取运">
 <meta property="og:updated_time" content="2016-12-08T23:14:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS开发——步数获取">
-<meta name="twitter:description" content="最近半个月的开发工作，重点一直是类似于悦跑圈、咕咚这样的运动产品的功能，所以在处理iOS设备在运动中的表现也是积累了一些经验。 打算之后的文章，开始把整体的运动功能，分成简单的模块，来介绍一下。那么今天我们就来围绕iOS设备的计步功能，稍微简单的聊一聊。">
+<meta name="twitter:description" content="最近半个月的开发工作，重点一直是类似于悦跑圈、咕咚这样的运动产品的功能，所以在处理iOS设备在运动中的表现也是积累了一些经验。 打算之后的文章，开始把整体的运动功能，分成简单的模块，来介绍一下。那么今天我们就来围绕iOS设备的计步功能，稍微简单的聊一聊。 &amp;lt;!--more--&amp;gt; 大家可能都看过或者知晓HealthKit这个框架，但是实际上，一般去研究过这个框架的，都会知道，实时的获取运">
   
     <link rel="alternate" href="/atom.xml" title="Leon的博客" type="application/atom+xml">
   
@@ -98,24 +98,24 @@
         
         <p>最近半个月的开发工作，重点一直是类似于悦跑圈、咕咚这样的运动产品的功能，所以在处理iOS设备在运动中的表现也是积累了一些经验。</p>
 <p>打算之后的文章，开始把整体的运动功能，分成简单的模块，来介绍一下。那么今天我们就来围绕iOS设备的计步功能，稍微简单的聊一聊。</p>
-<a id="more"></a>
+<p>&lt;!--more--&gt;</p>
 <p>大家可能都看过或者知晓<code>HealthKit</code>这个框架，但是实际上，一般去研究过这个框架的，都会知道，实时的获取运动数据，并不是用这个框架的，尤其是步数，这个框架如果你在健康中没有开启步数权限的话，是获取不到的。</p>
 <p>所以讲到了实时获取运动数据，苹果还提供了另一个框架给我们使用 —— <code>CoreMotion</code>框架。在这个框架中，我们可以获取加速度、步数等等等等运动数据，今天我们主要是讲讲步数是怎么获取的。</p>
 <p>首先我们要去引用这个框架 <code>import CoreMotion</code>。</p>
 <p>然后生成两个时间，分别为查询步数的起止时间，<code>CoreMotion</code>中会保存七天的运动数据,假设我们生成的时间为<code>startTime</code>,<code>endTime</code>.</p>
 <p>分别对这两个时间进行初始化</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StepCounter</span>: <span class="title">NSObject</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> startTime: <span class="type">NSDate</span>?</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> endTime: <span class="type">NSDate</span>!</span><br><span class="line">    </span><br><span class="line">   <span class="comment">//在这里我只是随意初始化， 你可以根据自己具体的时间周期去设置时间</span></span><br><span class="line">   startTime = <span class="type">NSDate</span>()</span><br><span class="line">   endTime = <span class="type">NSDate</span>()</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StepCounter</span>: <span class="title">NSObject</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> startTime: <span class="type">NSDate</span>?</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> endTime: <span class="type">NSDate</span>!</span><br><span class="line">    </span><br><span class="line">   <span class="comment">//在这里我只是随意初始化， 你可以根据自己具体的时间周期去设置时间</span></span><br><span class="line">   startTime = <span class="type">NSDate</span>()</span><br><span class="line">   endTime = <span class="type">NSDate</span>()</span><br></pre></td></tr></table></figure></p>
 <p><code>CoreMotion</code>框架中，专门有一个类是负责处理步数的，就是<code>CMPedometer</code>，所以在这里我们想获取到步数信息，也要创建一个这个对象,并且同时创建一个<code>int</code>对象保存步数数据</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">var</span> pedometer: <span class="type">CMPedometer</span>!</span><br><span class="line"><span class="built_in">lazy</span> <span class="keyword">private</span> <span class="keyword">var</span> numberOfSteps = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">var</span> pedometer: <span class="type">CMPedometer</span>!</span><br><span class="line"><span class="built_in">lazy</span> <span class="keyword">private</span> <span class="keyword">var</span> numberOfSteps = <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
 <p>接下来 我们来看看具体获取步数的代码。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">func</span> <span class="title">getPedonmeterData</span><span class="params">()</span></span>&#123;</span><br><span class="line">    pedometer = <span class="type">CMPedometer</span>()</span><br><span class="line">    <span class="keyword">if</span> <span class="type">CMPedometer</span>.isStepCountingAvailable()&#123;</span><br><span class="line">        <span class="keyword">if</span> startTime != <span class="literal">nil</span>&#123;</span><br><span class="line">            pedometer.queryPedometerDataFromDate(startTime!, toDate: endTime, withHandler: &#123; (data, error) <span class="keyword">in</span></span><br><span class="line">                <span class="keyword">if</span> error != <span class="literal">nil</span>&#123;</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">"<span class="subst">\(error?.localizedDescription)</span>"</span>)</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="keyword">if</span> data != <span class="literal">nil</span>&#123;</span><br><span class="line">                        dispatch_async(dispatch_get_main_queue(), &#123;</span><br><span class="line">                            <span class="keyword">self</span>.numberOfSteps = <span class="type">Int</span>(data!.numberOfSteps)</span><br><span class="line">                        &#125;)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">func</span> <span class="title">getPedonmeterData</span><span class="params">()</span></span>&#123;</span><br><span class="line">    pedometer = <span class="type">CMPedometer</span>()</span><br><span class="line">    <span class="keyword">if</span> <span class="type">CMPedometer</span>.isStepCountingAvailable()&#123;</span><br><span class="line">        <span class="keyword">if</span> startTime != <span class="literal">nil</span>&#123;</span><br><span class="line">            pedometer.queryPedometerDataFromDate(startTime!, toDate: endTime, withHandler: &#123; (data, error) <span class="keyword">in</span></span><br><span class="line">                <span class="keyword">if</span> error != <span class="literal">nil</span>&#123;</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">"<span class="subst">\(error?.localizedDescription)</span>"</span>)</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="keyword">if</span> data != <span class="literal">nil</span>&#123;</span><br><span class="line">                        dispatch_async(dispatch_get_main_queue(), &#123;</span><br><span class="line">                            <span class="keyword">self</span>.numberOfSteps = <span class="type">Int</span>(data!.numberOfSteps)</span><br><span class="line">                        &#125;)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>代码是否简单易懂，先判断该设备是否支持计步功能，若是时间不为空，那么调用<code>public func queryPedometerDataFromDate(start: NSDate, toDate end: NSDate, withHandler handler: CMPedometerHandler)</code>函数去查询步数数据，传入的参数有起止时间，之后的操作在闭包中完成，分别判断是否有错误信息以及返回的数据时，就可以轻易的获取到步数。</p>
 <p>今天的分享就到这里了，代码非常简短易懂，就不往GitHub上丢了</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/12/09/iOS开发——步数获取/" data-id="cjp428e17002xyjz96haaen43" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2016/12/09/iOS开发——步数获取/" data-id="cjptr3x54002wlyz9ji6zd0il" class="article-share-link">分享</a>
       
       
       
@@ -222,6 +222,10 @@
       <ul>
         
           <li>
+            <a href="/2018/12/18/Nodejs中编写异步的单元测试代码/">Nodejs中编写异步的单元测试代码</a>
+          </li>
+        
+          <li>
             <a href="/2018/11/30/理解JavaScript中的浮点数/">理解JavaScript中的浮点数</a>
           </li>
         
@@ -235,10 +239,6 @@
         
           <li>
             <a href="/2018/10/09/服务器的Mysql初始化设置/">服务器的Mysql初始化设置</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/19/Ubuntu-16-04服务器的初始化设置/">Ubuntu 16.04服务器的初始化设置</a>
           </li>
         
       </ul>

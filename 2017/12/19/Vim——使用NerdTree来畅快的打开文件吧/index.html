@@ -5,18 +5,18 @@
   
   <title>Vim——使用NerdTree来畅快的打开文件吧 | Leon的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在上一章我介绍完用Vundle来管理Vim中所有的插件后，今天我又要强推一个Vim的文件管理插件Nerdtree,相信所有使用Vim的同学都知道文件管理插件NerdTree,这个几乎是所有拥护Vim的开发人员都会使用的插件，今天就总结一下如何合理的使用NerdTree。">
+  <meta name="description" content="在上一章我介绍完用Vundle来管理Vim中所有的插件后，今天我又要强推一个Vim的文件管理插件Nerdtree,相信所有使用Vim的同学都知道文件管理插件NerdTree,这个几乎是所有拥护Vim的开发人员都会使用的插件，今天就总结一下如何合理的使用NerdTree。 &amp;lt;!--more--&amp;gt; 首先我们来看一下NerdTree的官方效果图:  安装的话就使用咱们上一篇讲的Vundle插">
 <meta name="keywords" content="Vim">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Vim——使用NerdTree来畅快的打开文件吧">
 <meta property="og:url" content="http://yoursite.com/2017/12/19/Vim——使用NerdTree来畅快的打开文件吧/index.html">
 <meta property="og:site_name" content="Leon的博客">
-<meta property="og:description" content="在上一章我介绍完用Vundle来管理Vim中所有的插件后，今天我又要强推一个Vim的文件管理插件Nerdtree,相信所有使用Vim的同学都知道文件管理插件NerdTree,这个几乎是所有拥护Vim的开发人员都会使用的插件，今天就总结一下如何合理的使用NerdTree。">
+<meta property="og:description" content="在上一章我介绍完用Vundle来管理Vim中所有的插件后，今天我又要强推一个Vim的文件管理插件Nerdtree,相信所有使用Vim的同学都知道文件管理插件NerdTree,这个几乎是所有拥护Vim的开发人员都会使用的插件，今天就总结一下如何合理的使用NerdTree。 &amp;lt;!--more--&amp;gt; 首先我们来看一下NerdTree的官方效果图:  安装的话就使用咱们上一篇讲的Vundle插">
 <meta property="og:image" content="https://github.com/scrooloose/nerdtree/raw/master/screenshot.png">
 <meta property="og:updated_time" content="2017-12-18T23:17:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vim——使用NerdTree来畅快的打开文件吧">
-<meta name="twitter:description" content="在上一章我介绍完用Vundle来管理Vim中所有的插件后，今天我又要强推一个Vim的文件管理插件Nerdtree,相信所有使用Vim的同学都知道文件管理插件NerdTree,这个几乎是所有拥护Vim的开发人员都会使用的插件，今天就总结一下如何合理的使用NerdTree。">
+<meta name="twitter:description" content="在上一章我介绍完用Vundle来管理Vim中所有的插件后，今天我又要强推一个Vim的文件管理插件Nerdtree,相信所有使用Vim的同学都知道文件管理插件NerdTree,这个几乎是所有拥护Vim的开发人员都会使用的插件，今天就总结一下如何合理的使用NerdTree。 &amp;lt;!--more--&amp;gt; 首先我们来看一下NerdTree的官方效果图:  安装的话就使用咱们上一篇讲的Vundle插">
 <meta name="twitter:image" content="https://github.com/scrooloose/nerdtree/raw/master/screenshot.png">
   
     <link rel="alternate" href="/atom.xml" title="Leon的博客" type="application/atom+xml">
@@ -99,25 +99,25 @@
         <!-- Table of Contents -->
         
         <p>在上一章我介绍完用<a href="https://github.com/VundleVim/Vundle.vim" target="_blank" rel="noopener">Vundle</a>来管理Vim中所有的插件后，今天我又要强推一个Vim的文件管理插件<a href="https://github.com/scrooloose/nerdtree" target="_blank" rel="noopener">Nerdtree</a>,相信所有使用Vim的同学都知道文件管理插件NerdTree,这个几乎是所有拥护Vim的开发人员都会使用的插件，今天就总结一下如何合理的使用NerdTree。</p>
-<a id="more"></a>
+<p>&lt;!--more--&gt;</p>
 <p>首先我们来看一下NerdTree的官方效果图:</p>
 <p><img src="https://github.com/scrooloose/nerdtree/raw/master/screenshot.png" alt="Nerdtree"></p>
 <p>安装的话就使用咱们上一篇讲的Vundle插件进行安装，至于安装这样的小细节咱们在此就不再赘述。</p>
 <p>当安装完成后，我们会有疑惑，如何召唤神龙打开NerdTree的文件列表呢？</p>
 <p>答案非常简单，在你的<code>.vimrc</code>文件中添加<code>map &lt;C-n&gt; :NERDTreeToggle&lt;CR&gt;</code>这样一行语句，那么你便能通过<code>ctrl+n</code>来开启关闭Nerdtree了。</p>
 <p>而如果你对Nerdtree已经到达爱不释手的地步，希望只要打开了vim，就能看到Nerdtree的可爱界面，那么你可以增加自动启动的配置语句:</p>
-<p><code>autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 &amp;&amp; isdirectory(argv()[0]) &amp;&amp; !exists(&quot;s:std_in&quot;) | exe &#39;NERDTree&#39; argv()[0] | wincmd p | ene | endif</code></p>
+<p><code>autocmd StdinReadPre * let s:std_in=1 autocmd VimEnter * if argc() == 1 &amp;&amp; isdirectory(argv()[0]) &amp;&amp; !exists(&quot;s:std_in&quot;) | exe 'NERDTree' argv()[0] | wincmd p | ene | endif</code></p>
 <p>ok，把它写入到你的<code>.vimrc</code>文件中，nerdtree就会跟着你的vim自动启动了。</p>
 <p>在增加了自动启动之后，我们也会碰到比较烦人的事情，就是有时我们编辑完文件退出后，窗口里就留下来nerdtree，还需要自己再退出一次，除非用:qall。该怎么解决这个问题呢？</p>
 <p><code>autocmd bufenter * if (winnr(&quot;$&quot;) == 1 &amp;&amp; exists(&quot;b:NERDTree&quot;) &amp;&amp; b:NERDTree.isTabTree()) | q | endif</code></p>
 <p>那么将上面的配置语句添加好之后，nerdtree就会在孤零零一个人的时候，悄悄地退去。</p>
 <p>Nerdtree的基本操作，附上给你哟：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">?: 快速帮助文档</span><br><span class="line">o: 打开一个目录或者打开文件，创建的是buffer，也可以用来打开书签</span><br><span class="line">go: 打开一个文件，但是光标仍然留在NERDTree，创建的是buffer</span><br><span class="line">t: 打开一个文件，创建的是Tab，对书签同样生效</span><br><span class="line">T: 打开一个文件，但是光标仍然留在NERDTree，创建的是Tab，对书签同样生效</span><br><span class="line">i: 水平分割创建文件的窗口，创建的是buffer</span><br><span class="line">gi: 水平分割创建文件的窗口，但是光标仍然留在NERDTree</span><br><span class="line">s: 垂直分割创建文件的窗口，创建的是buffer</span><br><span class="line">gs: 和gi，go类似</span><br><span class="line">x: 收起当前打开的目录</span><br><span class="line">X: 收起所有打开的目录</span><br><span class="line">e: 以文件管理的方式打开选中的目录</span><br><span class="line">D: 删除书签</span><br><span class="line">P: 大写，跳转到当前根路径</span><br><span class="line">p: 小写，跳转到光标所在的上一级路径</span><br><span class="line">K: 跳转到第一个子路径</span><br><span class="line">J: 跳转到最后一个子路径</span><br><span class="line">&lt;C-j&gt;和&lt;C-k&gt;: 在同级目录和文件间移动，忽略子目录和子文件</span><br><span class="line">C: 将根路径设置为光标所在的目录</span><br><span class="line">u: 设置上级目录为根路径</span><br><span class="line">U: 设置上级目录为跟路径，但是维持原来目录打开的状态</span><br><span class="line">r: 刷新光标所在的目录</span><br><span class="line">R: 刷新当前根路径</span><br><span class="line">I: 显示或者不显示隐藏文件</span><br><span class="line">f: 打开和关闭文件过滤器</span><br><span class="line">q: 关闭NERDTree</span><br><span class="line">A: 全屏显示NERDTree，或者关闭全屏</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">?: 快速帮助文档</span><br><span class="line">o: 打开一个目录或者打开文件，创建的是buffer，也可以用来打开书签</span><br><span class="line">go: 打开一个文件，但是光标仍然留在NERDTree，创建的是buffer</span><br><span class="line">t: 打开一个文件，创建的是Tab，对书签同样生效</span><br><span class="line">T: 打开一个文件，但是光标仍然留在NERDTree，创建的是Tab，对书签同样生效</span><br><span class="line">i: 水平分割创建文件的窗口，创建的是buffer</span><br><span class="line">gi: 水平分割创建文件的窗口，但是光标仍然留在NERDTree</span><br><span class="line">s: 垂直分割创建文件的窗口，创建的是buffer</span><br><span class="line">gs: 和gi，go类似</span><br><span class="line">x: 收起当前打开的目录</span><br><span class="line">X: 收起所有打开的目录</span><br><span class="line">e: 以文件管理的方式打开选中的目录</span><br><span class="line">D: 删除书签</span><br><span class="line">P: 大写，跳转到当前根路径</span><br><span class="line">p: 小写，跳转到光标所在的上一级路径</span><br><span class="line">K: 跳转到第一个子路径</span><br><span class="line">J: 跳转到最后一个子路径</span><br><span class="line">&lt;C-j&gt;和&lt;C-k&gt;: 在同级目录和文件间移动，忽略子目录和子文件</span><br><span class="line">C: 将根路径设置为光标所在的目录</span><br><span class="line">u: 设置上级目录为根路径</span><br><span class="line">U: 设置上级目录为跟路径，但是维持原来目录打开的状态</span><br><span class="line">r: 刷新光标所在的目录</span><br><span class="line">R: 刷新当前根路径</span><br><span class="line">I: 显示或者不显示隐藏文件</span><br><span class="line">f: 打开和关闭文件过滤器</span><br><span class="line">q: 关闭NERDTree</span><br><span class="line">A: 全屏显示NERDTree，或者关闭全屏</span><br></pre></td></tr></table></figure></p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/19/Vim——使用NerdTree来畅快的打开文件吧/" data-id="cjp428e0g001byjz9qd4w8vp1" class="article-share-link">分享</a>
+      <a data-url="http://yoursite.com/2017/12/19/Vim——使用NerdTree来畅快的打开文件吧/" data-id="cjptr3x4e001blyz9hjpvahlu" class="article-share-link">分享</a>
       
       
       
@@ -224,6 +224,10 @@ autocmd VimEnter * if argc() == 1 &amp;&amp; isdirectory(argv()[0]) &amp;&amp; !
       <ul>
         
           <li>
+            <a href="/2018/12/18/Nodejs中编写异步的单元测试代码/">Nodejs中编写异步的单元测试代码</a>
+          </li>
+        
+          <li>
             <a href="/2018/11/30/理解JavaScript中的浮点数/">理解JavaScript中的浮点数</a>
           </li>
         
@@ -237,10 +241,6 @@ autocmd VimEnter * if argc() == 1 &amp;&amp; isdirectory(argv()[0]) &amp;&amp; !
         
           <li>
             <a href="/2018/10/09/服务器的Mysql初始化设置/">服务器的Mysql初始化设置</a>
-          </li>
-        
-          <li>
-            <a href="/2018/09/19/Ubuntu-16-04服务器的初始化设置/">Ubuntu 16.04服务器的初始化设置</a>
           </li>
         
       </ul>
