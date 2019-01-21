@@ -1,0 +1,204 @@
+---
+title: Swift学习笔记（一）
+date: 2016-06-24 21:58:43
+tags: ["Swift学习"]
+
+---
+
+
+
+简单记录学习Swift的笔记
+
+###简单值
+
+- 使用`let`来声明常量，使用`var`来声明变量。
+
+- 常量或者变量的类型，必须和你赋给它们的值一样。然而，不用明确地声明类型，声明的同时赋值的话，编译器会自动推断类型。
+
+- 如果初始值没有提供足够的信息（或者没有初始值），那你需要在变量后面声明类型，用冒号分割。
+
+- 值永远不会被隐式转换为其他类型。如果你需要把一个值转换成其他类型，请显式转换。
+
+例如 
+
+```swift
+let label = "The width is"
+let width = 94
+let widthLabel = label + String(width)
+```
+
+<!--more-->
+
+- 有一种更简单的把值转换成字符串的方法：把值写到括号中，并且在括号之前写一个反斜杠。
+
+```swift
+let firstWord = "Lin"
+let secondWord = "i love \(firstWord)"
+```
+
+- 使用方括号[]来创建数组和字典，并使用下标或者键（key）来访问元素。最后一个元素后面允许有个逗号。
+
+```swift
+var shoppingList = ["catfish", "water", "tulips", "blue paint"]
+shoppingList[1]
+
+var occupations = [
+    "Malcolm": "Captain",
+    "Kaylee": "Mechanic",
+]
+occupations["Jayne"] = "Public Relations"
+
+```
+
+- 要创建一个空数组或者字典，使用初始化语法。
+
+```swift
+let emptyArray = [String]()
+let emptyDictionary = [String: String]()
+
+```
+
+- 如果类型信息可以被推断出来，你可以用`[]`和`[:]`来创建空数组和空字典——就像你声明变量或者给函数传参数的时候一样。
+
+```swift
+shoppingList = []
+occupations = [:]
+```
+
+### 控制流
+
+- 使用`if`和`switch`来进行条件操作，使用`for-in`、`for`、`while`和`repeat-while`来进行循环。
+
+- 包裹条件和循环变量括号可以省略，但是语句体的大括号是必须的。
+
+```swift
+let individualScores = [75, 43, 103, 87, 12]
+var teamScore = 0
+for score in individualScores {
+    if score > 50 {
+        teamScore += 3
+    } else {
+        teamScore += 1
+    }
+}
+print(teamScore)
+
+```
+
+- 在`if`语句中，条件必须是一个布尔表达式
+
+- 你可以一起使用`if`和`let`来处理值缺失的情况。这些值可由可选值来代表。一个可选的值是一个具体的值或者是`nil`以表示值缺失。在类型后面加一个问号来标记这个变量的值是可选的。
+
+```swift
+var optionalString: String? = "Hello"
+print(optionalString == nil)
+
+var optionalName: String? = "Lin"
+var greeting = "Hello!"
+
+optionalName = nil
+if optionalName == nil {
+   greeting = "Lix love Lin 🙄"
+}else{
+    let name = optionalName
+    greeting = "\(name) love Lix 🌚"
+}
+
+```
+
+- 如果变量的可选值是`nil`，条件会判断为`false`，大括号中的代码会被跳过。如果不是`nil`，会将值赋给`let`后面的常量，这样代码块中就可以使用这个值了。
+
+- 另一种处理可选值的方法是通过使用` ?? `操作符来提供一个默认值。如果可选值缺失的话，可以使用默认值来代替。
+
+```swift
+let nickName: String? = "球球 🤗"
+let fullName: String? = "LinHong"
+let informalGreeting = "Hi \(nickName ?? fullName)"
+
+```
+
+- `switch`支持任意类型的数据以及各种比较操作——不仅仅是整数以及测试相等。
+
+```swift
+let sport = "basketball"
+switch sport {
+case "football":
+    print("this is the first sport")
+    
+case "running":
+    print("Lin was running everyday")
+    
+case let x where x.hasSuffix("ball"):
+    print("Lix play \(sport) everyday")
+    
+default:
+    print("keep moving")
+}
+
+```
+
+- 运行`switch`中匹配到的子句之后，程序会退出`switch`语句，并不会继续向下运行，所以不需要在每个子句结尾写`break`。
+
+- 你可以使用`for-in`来遍历字典，需要两个变量来表示每个键值对。字典是一个无序的集合，所以他们的键和值以任意顺序迭代结束。
+
+```swift
+let interestingNumbers = [
+    "Prime": [2,3,5,7,11],
+    "Fibonacci": [1,1,2,3,5,8,13],
+    "Square": [1,4,9,16]
+]
+
+var largest = 0
+var numberClass = "number"
+for (kind, numbers) in interestingNumbers {
+    for number in numbers {
+        if number > largest {
+            largest = number
+            numberClass = kind
+        }
+    }
+}
+
+print(largest)
+print(numberClass)
+
+```
+
+- 使用`while`来重复运行一段代码直到不满足条件。循环条件也可以在结尾，保证能至少循环一次。
+
+```swift
+var n = 2
+while n < 100 {
+    n = n * 2
+}
+print(n)
+
+var m = 2
+repeat {
+ m = m * 2
+} while m < 100     //循环条件可以在结尾，至少保证循环一次
+print(m)
+
+```
+
+- 你可以在循环中使用`..<`来表示范围。
+
+```swift
+var total = 0
+for i in 0..<4 {
+    total += i
+}
+print(total)
+
+```
+
+- 使用`..<`创建的范围不包含上界，如果想包含的话需要使用`...`。
+
+```swift
+var total = 0
+for i in 0...100 {
+    total += i
+}
+print(total)
+
+```

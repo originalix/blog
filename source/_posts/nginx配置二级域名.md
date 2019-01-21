@@ -1,0 +1,129 @@
+---
+title: nginx配置二级域名
+date: 2017-05-05 17:23:29
+tags: ["nginx", "Linux", "Domin"]
+
+---
+
+最近为了练手Vue框架，写了一个博客项目，昨天刚刚把个人博客部署上线，因为前后端分离，所以使用Ajax来请求后端api接口获取数据，部署的过程中碰到了一个坑。我只有一个域名，所以想让一级域名`originalix.com`来访问博客，而使用二级域名`demo.originalix.com`来访问后端页面并且请求api。
+
+怎么做呢，在查阅了资料以后发现，首先应该在域名供应商中添加一条二级域名的记录，比如我想使用的是**demo**。
+
+![](http://originalix.github.io/assets/img/nginxdomain.png)
+
+设置好域名后，在本地**ping**一下看看能不能**ping**通过 `demo.originalix.com`
+
+<!--more-->
+
+接下来，ssh进服务器，找到你安装的nginx，启动并且配置。
+
+- 安装nginx
+
+```
+sudo apt-get install nginx
+```
+
+- 重启nginx
+
+```
+sudo service nginx start
+```
+
+- 进入nginx配置文件
+
+```
+sudo vim /etc/nginx/sites-available/default
+```
+
+在配置文件中可以这样写
+
+```
+server {  
+    listen 80;
+    server_name originalix.com;
+
+    location / {
+        proxy_set_header   X-Real-IP $remote_addr;
+        proxy_set_header   Host      $http_host;
+        proxy_pass         http://127.0.0.1:2368;
+    }
+}
+server {  
+    listen 80;
+    server_name demo.originalix.com;
+
+    location / {
+        proxy_set_header   X-Real-IP $remote_addr;
+        proxy_set_header   Host      $http_host;
+        proxy_pass         http://127.0.0.1:8000;
+    }
+}
+```
+
+而我具体是因为后端是`Laravel`框架的项目，所以我得配置文件是这样写的
+
+```
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/;
+
+    index index.html index.htm index.nginx-debian.html;
+
+    # server_name 110.223.38.82;
+    server_name http://originalix.xyz;
+
+    location / {
+            try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+            try_files $uri /index.php =404;
+            fastcgi_split_path_info ^(.+\.php)(/.+)$;
+            fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+            fastcgi_index index.php;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            include fastcgi_params;
+    }
+}
+
+server {
+    listen 80;
+    server_name demo.originalix.com;
+    root /var/www/originalix/public;
+    index index.php index.html index.htm;
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+    location ~ \.php$ {
+      try_files $uri /index.php =404;
+      fastcgi_split_path_info ^(.+\.php)(/.+)$;
+      fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+      fastcgi_index index.php;
+      fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+      include fastcgi_params;
+    }
+}
+```
+
+之后重启nginx，并且打开浏览器，输入 `demo.originalix.com` 就ok了
+
+ps:在整个过程中如果遇到什么问题，比如 nginx启动失败。可以看一下这里：
+
+```
+//这个命令可以看一下你的nginx配置文件有没有问题，
+//如果有问题它会指出，做相应的修改，直到没报错
+nginx -t 
+
+
+//查看日志。比如我nginx -t明明没问题，老是启动失败，
+//看了日志才知道 Address already in use，端口被占用o(╯□╰)o
+cat /var/log/nginx/error.log  
+```
+
+还是那句话，失败了一定要学会看日志！！！看日志！！！看日志！！！
+
+很简单的事情，我也是摸索了一会儿，崩溃ing。
+
+所以写个博客记录下来，希望能帮助到大家。

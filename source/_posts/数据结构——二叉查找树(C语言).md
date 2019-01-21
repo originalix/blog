@@ -1,0 +1,285 @@
+---
+title: 数据结构——二叉查找树(C语言)
+date: 2017-07-29 21:08:33
+tags: ["数据结构", "二叉查找树"]
+
+---
+
+二叉查找树，也称作二叉搜索树，有序二叉树，排序二叉树，而当一棵空树或者具有下列性质的二叉树，就可以被定义为二叉查找树：
+
+- 若任意节点的左子树不空，则左子树上所有节点的值均小于它的根节点的值。
+
+- 若任意节点的右子树不空，则右子树上所有节点的值均大于它的根节点的值。
+
+- 任意节点的左、右子树也分别为二叉查找树。
+
+- 没有键值相等的节点。
+
+二叉查找树相比于其他数据结构的优势在查找、插入的时间复杂度较低，为O(log n)。二叉查找树是基础性数据结构，用于构建更为抽象的数据结构,如集合、multiset、关联数组等。对于大量的输入数据，链表的线性访问时间太慢，不宜使用。
+
+<!--more-->
+
+下面来看我们为二叉查找树定义的抽象行为：
+
+```c
+#ifndef _Tree_H
+
+struct TreeNode;
+typedef struct TreeNode *Position;
+typedef struct TreeNode *SearchTree;
+typedef int ElementType;
+
+SearchTree MakeEmpty( SearchTree T );
+Position Find( ElementType X, SearchTree T );
+Position FindMin( SearchTree T );
+Position FindMax( SearchTree T );
+SearchTree Insert( ElementType X, SearchTree T );
+SearchTree Delete( ElementType X, SearchTree T );
+ElementType Retrieve( Position P );
+
+#endif
+
+```
+
+而对于上述抽象行为的实现，我们先来给出实现代码:
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "Tree.h"
+
+#define OK 1
+#define ERROR 0
+#define TRUE 1
+#define FALSE 0
+
+typedef int Status;
+
+struct TreeNode
+{
+    ElementType Element;
+    SearchTree Left;
+    SearchTree Right;
+};
+
+SearchTree MakeEmpty(SearchTree T)
+{
+    if (T != NULL)
+    {
+        MakeEmpty(T->Left);
+        MakeEmpty(T->Right);
+        free(T);
+    }
+    return NULL;
+}
+
+Position Find(ElementType X, SearchTree T)
+{
+    if( T == NULL )
+        return NULL;
+    if (X < T->Element )
+        return Find(X, T->Left);
+    else
+    if (X > T->Element)
+        return Find(X, T->Right);
+    else
+        return T;
+}
+
+Position FindMin(SearchTree T)
+{
+    if ( T == NULL )
+        return NULL;
+    else
+    if ( T-> Left == NULL )
+        return T;
+    else
+        return FindMin( T->Left );
+}
+
+Position FindMax(SearchTree T)
+{
+    if ( T != NULL )
+        while(T->Right != NULL)
+            T = T->Right;
+    return T;
+}
+
+SearchTree Insert(ElementType X, SearchTree T)
+{
+    if (T == NULL)
+    {
+
+        /* Create and return a one-node tree */
+        T = malloc(sizeof( struct TreeNode ));
+        if ( T == NULL )
+            printf("Out of space!!!\n");
+        else
+        {
+            T->Element = X;
+            T->Left = T->Right = NULL;
+        }
+    }
+    else if (X < T->Element)
+        T->Left = Insert(X, T->Left);
+    else if (X > T->Element)
+        T->Right = Insert(X, T->Right);
+    /* Else X is in the tree already; we'll do nothing */
+
+    return T;
+}
+
+SearchTree Delete(ElementType X, SearchTree T)
+{
+    Position TmpCell;
+    if (T == NULL)
+        printf("Element not found\n");
+    else if (X < T->Element) /* Go left */
+        T->Right = Delete(X, T->Left);
+    else if (X > T->Element) /* Go Right */
+        T->Right = Delete(X, T->Left);
+    else if (T->Left && T->Right) /* Two Children */
+    {
+        /* Replace with smallest in right subtree */
+        TmpCell = FindMin(T->Right);
+        T->Element = TmpCell->Element;
+        T->Right = Delete(T->Element, T->Right);
+    }
+    else /* One or zero children */
+    {
+        TmpCell = T;
+        if (T->Left == NULL) /* Also handles 0 children */
+            T = T->Right;
+        else if (T->Right == NULL)
+            T = T->Left;
+        free( TmpCell );
+    }
+
+    return T;
+}
+
+ElementType Retrieve(Position P)
+{
+    return P->Element;
+}
+
+/**
+ * 前序遍历"二叉树"
+ * @param T Tree
+ */
+void PreorderTravel(SearchTree T)
+{
+    if (T != NULL)
+    {
+        printf("%d\n", T->Element);
+        PreorderTravel(T->Left);
+        PreorderTravel(T->Right);
+    }
+}
+
+/**
+ * 中序遍历"二叉树"
+ * @param T Tree
+ */
+void InorderTravel(SearchTree T)
+{
+    if (T != NULL)
+    {
+        InorderTravel(T->Left);
+        printf("%d\n", T->Element);
+        InorderTravel(T->Right);
+    }
+}
+
+/**
+ * 后序遍历二叉树
+ * @param T Tree
+ */
+void PostorderTravel(SearchTree T)
+{
+    if (T != NULL)
+    {
+        PostorderTravel(T->Left);
+        PostorderTravel(T->Right);
+        printf("%d\n", T->Element);
+    }
+}
+
+void PrintTree(SearchTree T, ElementType Element, int direction)
+{
+    if (T != NULL)
+    {
+        if (direction == 0)
+            printf("%2d is root\n", T->Element);
+        else
+            printf("%2d is %2d's %6s child\n", T->Element, Element, direction == 1 ? "right" : "left");
+
+        PrintTree(T->Left, T->Element, -1);
+        PrintTree(T->Right, T->Element, 1);
+    }
+}
+```
+
+最后我们对我们的实现代码，在`main`函数中进行测试:
+
+```c
+int main(int argc, char const *argv[])
+{
+    printf("Hello Leon\n");
+    SearchTree T;
+    MakeEmpty(T);
+
+    T = Insert(21, T);
+    T = Insert(2150, T);
+    T = Insert(127, T);
+    T = Insert(121, T);
+
+    printf("树的详细信息: \n");
+    PrintTree(T, T->Element, 0);
+
+    printf("前序遍历二叉树: \n");
+    PreorderTravel(T);
+
+    printf("中序遍历二叉树: \n");
+    InorderTravel(T);
+
+    printf("后序遍历二叉树: \n");
+    PostorderTravel(T);
+
+    printf("最大值: %d\n", FindMax(T)->Element);
+    printf("最小值: %d\n", FindMin(T)->Element);
+
+    return 0;
+}
+```
+
+编译运行这个C文件，控制台打印的信息如下:
+
+```c
+Hello wsx
+树的详细信息:
+21 is root
+2150 is 21's  right child
+127 is 2150's   left child
+121 is 127's   left child
+前序遍历二叉树:
+21
+2150
+127
+121
+中序遍历二叉树:
+21
+121
+127
+2150
+后序遍历二叉树:
+121
+127
+2150
+21
+最大值: 2150
+最小值: 21
+```
+
+测试成功。
