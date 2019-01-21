@@ -1,0 +1,171 @@
+---
+title: iOS开发——正则表达式验证密码、手机号
+date: 2016-05-03 21:03:28
+tags: ["iOS开发","正则表达式"]
+
+---
+
+App的实际应用中，用户登陆功能基本是每个App都有需求的一个功能。而当前我们很常规的做法，就是让用户把手机号作为自己的用户名，而在注册获取短信验证码的过程中，我们首先要完成的一个步骤，就是校验用户的手机号是否是符合规则的手机号，而这种问题，一般称之为字符串匹配问题。
+
+当遇到字符串匹配问题时，有一种常用的解决方法就是正则表达式。通过iOS中的NSRegularExpression这个类就可以帮助我们实现这个。
+
+**下面先来介绍一下正则表达式的基本语法。**
+
+<!--more--> 
+
+# 正则表达式基本语法
+
+## 正则表达式常见字符
+
+```objc
+    test            # 匹配包含test的字符串
+    .               # 匹配除换行符外任意字符
+    \               # 转义字符
+    [abc]或[a-c]    # 匹配字符类，如例子匹配a,b,c中的任何一个
+    [^abc]          # 匹配除了a,b,c以外的所有字符
+
+```
+
+## 正则表达式特殊字符
+
+```objc
+\d                  # 数字，等同于[0-9]
+\D                  # 非数字
+\s                  # 空白字符（包括换行、Tab等）
+\S                  # 非空白字符
+\w                  # 单词，等用于[a-zA-Z0-9_]
+\W                  # 非单词
+
+```
+
+## 正则表达式数量词
+
+```objc
+c*                  # 匹配字符"c" 0或无限次
+c+                  # 匹配字符"c" 1次以上
+c?                  # 匹配字符"c" 0或1次
+c{3}                # 匹配字符"c" 3次
+c{3,5}              # 匹配字符"c" 3到5次
+
+```
+## 正则表达式边界匹配
+
+```objc
+^abc                # 匹配"abc"开头的字符串
+abc$                # 匹配"abc"结尾的字符串
+
+```
+
+## 正则表达式逻辑或分组
+
+```objc
+c|b                 # 匹配"c"或"b"
+(ab|cd)             # 匹配"ab"或"cd"
+(?P<name>abc)       # 匹配"abc"并命名为name
+(?P=name)           # 前文中的name组
+
+```
+
+# 实例分析 匹配用户手机号
+
+根据上面的语法，我用OC语言写出来的正则表达式匹配手机号的代码如下:
+
+```objc
+NSString *pattern = @"^1+[3578]+\\d{9}";
+NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
+BOOL isMatch = [pred evaluateWithObject:telNumber];
+return isMatch; 
+```
+
+我们来分析我写的这段正则表达式，首先是边界匹配**^1**手机号一定是1开头，所以我们的开头用边界匹配1。
+
+**[3578]** 我们用中括号**[]**来匹配字符类，说明第二位数字是3、5、7、8中任意一个就可以，目前17也是新开号段，所以得考虑进去匹配上。
+
+最后**\\\d{9}**这里要拆分开看，首先\d表示数字，等同于**[0-9]**,而**{9}**表示匹配数字**\d** 9次。这样，就完成了一个11位手机号码的校验。
+
+# 封装常用的正则表达式方法
+
+在这里，我把常用的正则表达式的匹配方法，封装起来，项目中基本都会用到
+
+- 以下是.h头文件中的声明
+
+```objc
+#pragma 正则匹配手机号
++ (BOOL)checkTelNumber:(NSString *) telNumber;
+#pragma 正则匹配用户密码6-18位数字和字母组合
++ (BOOL)checkPassword:(NSString *) password;
+#pragma 正则匹配用户姓名,20位的中文或英文
++ (BOOL)checkUserName : (NSString *) userName;
+#pragma 正则匹配用户身份证号
++ (BOOL)checkUserIdCard: (NSString *) idCard;
+#pragma 正则匹配URL
++ (BOOL)checkURL : (NSString *) url;
+
+```
+
+- 以下是.m文件中的具体实现,直接复制到自己的项目中即可用
+
+```objc
+#pragma 正则匹配手机号
++ (BOOL)checkTelNumber:(NSString *) telNumber
+{
+    NSString *pattern = @"^1+[3578]+\\d{9}";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
+    BOOL isMatch = [pred evaluateWithObject:telNumber];
+    return isMatch;
+}
+
+
+#pragma 正则匹配用户密码6-18位数字和字母组合
++ (BOOL)checkPassword:(NSString *) password
+{
+    NSString *pattern = @"^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,18}";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
+    BOOL isMatch = [pred evaluateWithObject:password];
+    return isMatch;
+    
+}
+
+#pragma 正则匹配用户姓名,20位的中文或英文
++ (BOOL)checkUserName : (NSString *) userName
+{
+    NSString *pattern = @"^[a-zA-Z\u4E00-\u9FA5]{1,20}";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
+    BOOL isMatch = [pred evaluateWithObject:userName];
+    return isMatch;
+    
+}
+
+
+#pragma 正则匹配用户身份证号15或18位
++ (BOOL)checkUserIdCard: (NSString *) idCard
+{
+    NSString *pattern = @"(^[0-9]{15}$)|([0-9]{17}([0-9]|X)$)";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
+    BOOL isMatch = [pred evaluateWithObject:idCard];
+    return isMatch;
+}
+
+#pragma 正则匹员工号,12位的数字
++ (BOOL)checkEmployeeNumber : (NSString *) number
+{
+    NSString *pattern = @"^[0-9]{12}";
+    
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
+    BOOL isMatch = [pred evaluateWithObject:number];
+    return isMatch;
+    
+}
+
+#pragma 正则匹配URL
++ (BOOL)checkURL : (NSString *) url
+{
+    NSString *pattern = @"^[0-9A-Za-z]{1,50}";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
+    BOOL isMatch = [pred evaluateWithObject:url];
+    return isMatch;
+}
+
+```
+
+今天的正则表达式就分析到这里，正则表达式的关键点，还是根据语法来自己判断，实在不行，就敲敲代码实践咯~

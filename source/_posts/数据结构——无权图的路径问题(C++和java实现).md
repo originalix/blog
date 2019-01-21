@@ -1,0 +1,244 @@
+---
+title: 数据结构——无权图的路径问题(C++和java实现)
+date: 2017-09-11 14:20:32
+tags: ["数据结构", "算法", "图"]
+
+---
+
+好像又是接近半个月没有更新，这半个月忙着结婚的各项事情，本来预计的学习任务也拖拖拉拉，进度缓慢。吐槽一句，拍婚纱照真的是最非常非常累的一件事情，不想再有下次了。
+
+好吧，言归正传，今天就在这周缓慢的学习进度中，抽取出来一个比较有代表性的知识点，记录一下吧。
+
+首先，首次接触图这个类型的数据结构，我们先来看一下图的定义，了解一下到底什么是图。
+
+<!--more-->
+
+图是由顶点的有穷非空集合和顶点之间的边的集合组成，通常表示为:G(V,E), 其中G表示一个图，V是图G中顶点的集合，E是图G中边的集合。
+
+接下来我们把图的定义与线性表定义的进行一下对比，让我们来更好的体会一下图的各种定义与其他数据结构的差异:
+
+- 线性表中，我们把数据元素叫做元素，树种将数据元素叫结点，在图中的数据元素，我们则称之为顶点。
+- 线性表中没有数据元素，称为空表。树种可以没有结点，叫做空树。但是在图结构中，不允许没有顶点。在定义中，若V是顶点的集合，则强调了顶点集合V是有穷非空的。
+- 线性表中，相邻的数据元素之间具有线性关系，树结构中，相邻两层的结点具有层次关系，而图中，任意两个顶点之间都可能有关系，顶点之间的逻辑关系用边来表示，边集可以是空的。
+
+图的定义我们就暂时讲到这里，更细致的定义希望大家自己在网络或者书籍中获取资料，毕竟我写的再多，也不如教科书详尽，今天我们就来讲一个图的应用，关于路径查找的问题。在这里我想先说明，我们的路径查找是一种针对无向图的路径查找，比如给出起始点A，查询顶点A至顶点B是否有路径，若是有路径，则打印出A至B的路径。而这个路径，我们寻找的不一定是最短路径。
+
+其实分析这个问题就可以知道，这是对图的深度优先遍历(Depth-First-Search 简称DFS)的一个应用，若是我们能实现了图的深度优先遍历，那么查找路径的问题也就迎刃而解。
+
+接下来就先给出C++的代码，来展示解决查询路径问题的思路：
+
+```c++
+#include <iostream>
+#include <vector>
+#include <stack>
+#include <cassert>
+
+using namespace std;
+
+// 路径查询
+template<typename Graph>
+class Path {
+
+private:
+    Graph &G; // 图的引用
+    int s;    // 起始点
+    bool* visited; // 记录dfs的过程中节点是否被访问
+    int* from; // 记录路径，from[i]表示查找的路径上i的上一个节点
+
+    // 图的深度优先遍历
+    void dfs( int v ) {
+        visited[v] = true;
+
+        typename Graph::adjIterator adj(G, v);
+        for (int i = adj.begin(); !adj.end(); i = adj.next()) {
+            if (!visited[i]) {
+                from[i] = v;
+                dfs(i);
+            }
+        }
+    } 
+
+public:
+    // 构造函数、寻路算法、寻找图graph从s点到其他点的路径
+    Path(Graph &graph, int s): G(graph) {
+
+        // 算法初始化
+        assert( s >= 0 && s < G.V() );
+
+        visited = new bool[G.V()];
+        from = new int[G.V()];
+
+        for (int i = 0; i < G.V(); i++) {
+            visited[i] = false;
+            from[i] = -1;
+        }
+
+        this->s = s;
+
+        // 寻路算法
+        dfs(s);
+    }
+
+    // 析构函数
+    ~Path() {
+        delete[] visited;
+        delete[] from;
+    }
+
+    // 查询从s点到w点是否有路径
+    bool hasPath( int w ) {
+        assert( w >= 0 && w < G.V() );
+        return visited[w];
+    }
+
+    // 查询s点到w点的路径，存放在vec中
+    void path( int w, vector<int> &vec ) {
+        assert( hasPath(w) );
+
+        stack<int> stack;
+        // 通过from数组逆向查找到从s到w的路径，存放在栈中
+        int p = w;
+        while (p != -1) {
+            stack.push(p);
+            p = from[p];
+        }
+
+        // 从栈中依次取出元素，获得顺序从s到w的路径
+        vec.clear();
+        while ( !stack.empty() ) {
+            vec.push_back( stack.top() );
+            stack.pop();
+        }
+    }
+
+    // 打印从s点到w点的路径
+    void showPath( int w ) { 
+        assert( hasPath(w) );
+
+        vector<int> vec;
+        path(w, vec);
+        for (int i = 0; i < vec.size(); i++) {
+            cout << vec[i];
+            if (i == vec.size() - 1)
+                cout << endl;
+            else
+                cout << " -> ";
+        }
+    }
+};
+```
+
+通过上面的代码可以得知，我们首先在构造函数中传入我们的图数据结构graph，以及我们标记的起始点S。而通过`showPath()`函数我们能够展示起始点S至任意点的路径，测试代码就如下所示:
+
+```c++
+int main() {
+    string filename = "testG2.txt";
+    SparseGraph g = SparseGraph(7, false);
+    ReadGraph<SparseGraph> readGraph(g, filename);
+    g.show();
+    cout << endl;
+
+    // 比较使用深度优先遍历和广度优先遍历获得路径的不同
+    // 广度优先遍历获得的是无权图的最短路径
+    Path<SparseGraph> dfs(g, 0);
+    cout << "DFS : " << endl;
+    dfs.showPath(6);
+
+    ShortestPath<SparseGraph> bfs(g, 0);
+    cout << "BFS : ";
+    bfs.showPath(6);    
+    
+    return 0;
+}
+```
+
+而Java版本的代码也是类似，只是某些函数的返回值变化了一点，代码如下:
+
+```java
+public class Path {
+
+    private Graph G;  // 图的引用
+    private int s;  // 起始点
+    private boolean[] visited;  // 记录dfs的过程中节点是否被访问
+    private int[] from;  // 记录路径，from[i]表示查找的路径上i的上一个节点
+
+    /**
+     * 构造函数，寻路算法，寻找图graph从点s到其他点的路径
+     * @param graph graph
+     * @param s 寻路起始点s
+     */
+    public Path(Graph graph, int s) {
+        assert s >= 0 && s < graph.V();
+
+        this.G = graph;
+        this.s = s;
+
+        visited = new boolean[G.V()];
+        from = new int[G.V()];
+
+        for (int i = 0; i < G.V(); i++) {
+            visited[i] = false;
+            from[i] = -1;
+        }
+
+        dfs(s);
+    }
+
+    /**
+     * 深度优先遍历
+     * @param v 从v点开始深度优先遍历
+     */
+    private void dfs(int v) {
+        visited[v] = true;
+
+        for (int i: G.adj(v)) {
+            if (!visited[i]) {
+                from[i] = v;
+                dfs(i);
+            }
+        }
+    }
+
+    // 查询从s点到w点是否存在路径
+    public boolean hasPath(int w) {
+        assert w >= 0 && w < G.V();
+        return visited[w];
+    }
+
+    // 查询点s到点w的路径，存放在vec中
+    public Vector<Integer> path(int w) {
+        assert(hasPath(w));
+
+        Stack<Integer> stack = new Stack<Integer>();
+        int p = w;
+        while (p != -1) {
+            stack.push(p);
+            p = from[p];
+        }
+
+        Vector<Integer> vec = new Vector<Integer>();
+        while (!stack.isEmpty()) {
+            vec.add(stack.pop());
+        }
+
+        return vec;
+    }
+
+    // 打印出从点s到点w的路径
+    public void showPath(int w) {
+        assert (hasPath(w));
+
+        Vector<Integer> vec = path(w);
+        for (int i = 0; i < vec.size(); i++) {
+            System.out.print(vec.elementAt(i));
+            if (i == vec.size() - 1) {
+                System.out.println();
+            } else {
+                System.out.print(" -> ");
+            }
+        }
+    }
+}
+```
+
+今天的无权图的路径问题就讲解到这里，之后的知识点等学习整理之后，再行记录。

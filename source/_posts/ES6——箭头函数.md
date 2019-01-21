@@ -1,0 +1,125 @@
+---
+title: ES6——箭头函数
+date: 2018-03-25 21:28:13
+tags: ["ES6", "Javascript", "箭头函数"]
+
+---
+
+ES6之后，允许使用箭头`=>`来定义函数。首先我们来总结一下箭头函数存在的意义，之后再来细细的看它的使用方法。
+
+箭头函数表达式的语法比函数表达式更短，并且不绑定自己的this,arguments,super或者new.target。这些函数表达式最适合用于非方法函数，并且它们不能用作构造函数。
+
+讲完了箭头函数的意义，那么我们总最基础的示例开始看，先看一个常规语法定义的函数:
+
+```js
+function funcName(params) {
+	return params + 2;
+}
+
+funcName(2);		// 4
+```
+
+如果这个函数用箭头函数改写的话，仅仅需要一行代码就够了:
+
+```js
+const funcName = (params) => params + 2;
+funcName(2); 	// 4
+```
+
+<!-- more -->
+
+如果箭头函数的代码块部分多于一条语句，就要使用大括号将它们括起来，如果有返回值，就要使用return语句返回。如果表达式是单一的，则可以只用小括号`()`。例如我上面的例子。
+
+```js
+var sum = (number1, number2) => { return number1 + number2; }
+```
+
+而箭头函数的参数部分，可以用一个圆括号来代表参数部分。如果有多个参数则用`,`分隔。
+
+```js
+// 参数示例
+var f = () => 5;
+
+var sum = (num1, num2) => { return num1 + num2; }
+```
+
+总结起来就是:
+
+```js
+(参数1, 参数2, …, 参数N) => { 函数声明 }
+(参数1, 参数2, …, 参数N) => 表达式（单一）
+//相当于：(参数1, 参数2, …, 参数N) =>{ return 表达式; }
+
+// 当只有一个参数时，圆括号是可选的：
+(单一参数) => {函数声明}
+单一参数 => {函数声明}
+
+// 没有参数的函数应该写成一对圆括号。
+() => {函数声明}
+```
+
+箭头函数的一个用处就是简化回调函数。
+
+```js
+var materials = [
+  'Hydrogen',
+  'Helium',
+  'Lithium',
+  'Beryllium'
+];
+
+// 如果是常规写法的话
+materials.map(function(material) { 
+  return material.length; 
+}); // [8, 6, 7, 9]
+
+// 而使用箭头函数简化的话
+materials.map(material => material.length); // [8, 6, 7, 9]
+```
+
+可以看到，如果用箭头函数，代码简化到了一行，并且清晰醒目。
+
+在箭头函数出现之前，每个新定义的函数都有它自己的this值。而箭头函数体内的this值，就是定义时所在的对象，而不是使用时所在的对象。
+
+```js
+function foo() {
+	setTimeout(() => {
+		console.log('id', this.id);
+	}, 100);
+}
+
+var id = 21;
+
+foo.call({ id: 50 });
+```
+
+上面的代码中，`setTimeout`的参数是一个箭头函数，这个箭头函数的定义生效是在foo函数生成时的，而它的真正执行要等到100毫秒之后，如果是普通函数，执行时this应该指向全局函数window，这时应该输出21。但是箭头函数导致this总是指向函数定义生效时所在的对象，所以输出的是50。
+
+通过call或者apply也可以调用箭头函数。
+
+由于this已经在词法层面完成了绑定，通过call()或apply()方法调用一个函数时，只是传入了参数而已，对this并没有什么影响：
+
+```js
+var adder = {
+  base : 1,
+    
+  add : function(a) {
+    var f = v => v + this.base;
+    return f(a);
+  },
+
+  addThruCall: function(a) {
+    var f = v => v + this.base;
+    var b = {
+      base : 2
+    };
+            
+    return f.call(b, a);
+  }
+};
+
+console.log(adder.add(1));         // 输出 2
+console.log(adder.addThruCall(1)); // 仍然输出 2（而不是3 ——译者注）
+```
+
+箭头函数的用法还有很多种，我只是记录下初学的东西，还有很多深入用法的要在日常的编码中去思考。建议参考阮一峰老师的ES6的这本书。

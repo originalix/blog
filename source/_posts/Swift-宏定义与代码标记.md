@@ -1,0 +1,72 @@
+---
+title: Swift 宏定义与代码标记
+date: 2016-08-01 16:14:10
+tags: ["iOS开发", "Swift宏定义", "Swift常用知识"]
+
+---
+
+
+# Swift中的”宏”
+
+写**Objective-C**的时候常常会用到各种宏定义,但是**Swift**中貌似没有宏的这种定义,更多的是通过全局常量或者全局函数来实现这一效果.我们只需要建立一个文件(假设为Const.swift),把想用的定义在里面,无须导入头文件什么的,就可以在全局用啦.
+
+**举几个简单的例子：**
+
+<!--more-->
+
+
+```swift
+import UIKit
+import Foundation
+
+/**
+*   替代oc中的#define,列举一些常用宏
+*/
+
+// 屏幕宽度
+let kScreenWidth = UIScreen.mainScreen().bounds.size.width
+// 屏幕高度
+let kScreenHeight = UIScreen.mainScreen().bounds.size.height
+
+/**
+*   除了一些简单的属性直接用常量表达,更推荐用全局函数来定义替代宏
+*/
+// 判断系统版本
+func kIS_IOS7() ->Bool { return (UIDevice.currentDevice().systemVersion as NSString).doubleValue >= 7.0 }
+func kIS_IOS8() -> Bool { return (UIDevice.currentDevice().systemVersion as NSString).doubleValue >= 8.0 }
+
+// RGBA的颜色设置
+func kRGBA (r:CGFloat, g:CGFloat, b:CGFloat, a:CGFloat) -> UIColor {
+    return UIColor(red: r/255.0, green: g/255.0, blue: b/255.0, alpha: a)
+}
+
+// App沙盒路径
+func kAppPath() -> String! {
+    return NSHomeDirectory()
+}
+
+// Documents路径
+func kBundleDocumentPath() -> String! {
+    return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first as! String
+}
+
+// Caches路径
+func KCachesPath() -> String! {
+    return NSSearchPathForDirectoriesInDomains(.CachesDirectory, .UserDomainMask, true).first as! String
+}
+```
+
+# Swift中的”#pragma mark”
+
+在今天初用**Swift**编码时，我发现平时很习惯的 `#pragma mark` 不见了，去查了资料才发现**Swift**中这个也改了,现在**Swift**中的用法如下
+
+```swift
+// MARK: - XXXXXX    相当于#pragma mark - XXXXXX
+
+// TODO: XXXXXX      相当于#pragma mark XXXXXX
+
+// FIXME: XXXXXX     相当于额....随意了
+
+如果MARK后不加 - ，那么就不会有分割线效果
+
+```

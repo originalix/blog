@@ -1,0 +1,33 @@
+---
+title: iOS 判断设备型号、屏幕尺寸、系统版本、设备朝向
+date: 2016-04-07 10:52:55
+tags: ["iOS开发","iOS判断设备型号"]
+
+---
+
+现在的iOS开发中，因为iPhone的尺寸越来越多，有时候自动布局也很难适配出很精美的UI界面，难免有时候想根据机型来适配界面，所以在这里教大家一种很简单的来判断机型的方法。就是根据屏幕尺寸来判断。
+
+<!--more-->
+
+
+```objc
+//判断设备型号
+#define UI_IS_LANDSCAPE         ([UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeLeft || [UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeRight)
+#define UI_IS_IPAD              ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+#define UI_IS_IPHONE            ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+#define UI_IS_IPHONE4           (UI_IS_IPHONE && [[UIScreen mainScreen] bounds].size.height < 568.0)
+#define UI_IS_IPHONE5           (UI_IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 568.0)
+#define UI_IS_IPHONE6           (UI_IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 667.0)
+#define UI_IS_IPHONE6PLUS       (UI_IS_IPHONE && [[UIScreen mainScreen] bounds].size.height == 736.0 || [[UIScreen mainScreen] bounds].size.width == 736.0) // Both orientations
+#define UI_IS_IOS8_AND_HIGHER   ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0)
+
+```
+
+使用方法：
+
+1、在你喜欢的头文件或地方中加入 上面的预定义。
+
+
+2、举个栗子，在代码中使用if(UI_IS_IPHONE4)
+
+用过之后才发现真的是特别简单的。

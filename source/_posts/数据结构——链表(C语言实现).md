@@ -1,0 +1,235 @@
+---
+title: 数据结构——链表(C语言实现)
+date: 2017-07-16 21:25:01
+tags: ["数据结构", "链表"]
+
+---
+
+提起链表，我们每个人都不会陌生，不管对数据结构的掌握如何，都或多或少的听过与用过链表这样的常见的数据结构。链表是线性表的一种，最基础的线性表，在插入与删除数据时，我们需要对表的整体或部分做移动，为了允许表可以不按照线性的顺序存储数据结构，于是链表就应运而生。链表最大的特点就是在每个节点里存储了到下一个节点的指针。由于不必按照顺序存储，链表在插入的时候可以达到O(1)的复杂度，比我们学习的最基本的线性表要快得多。但是在查找一个节点，或者访问特定编号的结点则需要O(N)的时间。
+
+使用链表结构可以克服数组链表需要预先知道数据大小的缺点，链表结构可以充分利用计算机内存空间，实现灵活的内存动态管理。但是链表失去了数组随机读取的有点，同时由于增加了指针域，空间开销较大。不过这在算法与数据结构领域是很常见的，用空间换时间，毕竟鱼和熊掌不可兼得。
+
+我的链表数据结构是使用C语言来实现的，那么下面来看一下链表的头文件定义了哪些操作。
+
+<!--more-->
+
+
+```c
+#ifndef _List_H
+
+struct Node;
+typedef struct Node *PtrToNode;
+typedef PtrToNode List;
+typedef PtrToNode Position;
+typedef int ElementType;
+
+List MakeEmpty(List L);
+int IsEmpty(List L);
+int IsLast(Position P, List L);
+Position Find(ElementType X, List L);
+void Delete( ElementType X, List L);
+Position FindPrevious( ElementType X, List L);
+void Insert( ElementType X, List L, Position P);
+void DeleteList( List L );
+Position Header( List L );
+Position First( List L);
+Position Advance( Position P );
+ElementType Retrieve( Position P );
+
+#endif /* _List_H */
+
+```
+
+下面是对于头结点的实现文件，末尾的`main`函数中还有针对各类函数的测试方法。
+
+```c
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "List.h"
+
+#define OK 1
+#define ERROR 0
+#define TRUE 1
+#define FALSE 0
+
+typedef int Status;
+
+struct Node
+{
+    ElementType Element;
+    Position Next;
+};
+
+void init_list(List L)
+{
+    L = NULL;
+    printf("初始化链表成功\n");
+}
+
+List create_list()
+{
+    List L = NULL;
+    List p1, p2;
+    p1 = (List)malloc(sizeof(struct Node));
+    p2 = (List)malloc(sizeof(struct Node));
+    if (p1 == NULL || p2 == NULL)
+    {
+        printf("内存分配失败!\n");
+        exit(0);
+        system("pause");
+    }
+    memset(p1, 0, sizeof(struct Node));
+    printf("请输入链表元素的值: \n");
+    scanf("%d", &(p1->Element));
+    p1->Next = NULL;
+    while(p1->Element > 0)
+    {
+        if (L == NULL)
+        {
+            L = p1;
+        }
+        else
+        {
+            p2->Next = p1;
+        }
+
+        p2 = p1;
+
+        p1 = (List)malloc(sizeof(struct Node));
+        if (p1 == NULL || p2 == NULL)
+        {
+            printf("内存分配失败\n");
+            exit(0);
+            system("pause");
+        }
+        memset(p1, 0, sizeof(struct Node));
+        printf("请输入链表的值: \n");
+        scanf("%d", &(p1->Element));
+        p1->Next = NULL;
+    }
+    printf("创建链表成功\n");
+    return L;
+}
+
+void print_list(List L)
+{
+    List p = L;
+    if (NULL == p)
+    {
+        printf("print_list: 链表为空!\n");
+        return;
+    }
+
+    printf("打印链表如下: \n");
+    while(p != NULL)
+    {
+        printf("%d, \n", p->Element);
+        p = p->Next;
+    }
+    printf("\n");
+    return;
+}
+
+Status IsEmpty(List L)
+{
+    if (L == NULL)
+        return TRUE;
+    else
+        return FALSE;
+}
+
+Status IsLast(Position P, List L)
+{
+    return P->Next == NULL;
+}
+
+Position Find(ElementType X, List L)
+{
+    Position P;
+    P = L->Next;
+    while(P != NULL && P->Element != X)
+    {
+        P = P->Next;
+    }
+    return P;
+}
+
+void Delete(ElementType X, List L)
+{
+    Position P, TmpCell;
+
+    P = FindPrevious(X, L);
+
+    if (!IsLast(P, L))
+        TmpCell = P->Next;
+        P->Next = TmpCell->Next;
+        free(TmpCell);
+}
+
+Position FindPrevious(ElementType X, List L)
+{
+    Position P;
+
+    P = L;
+    while(P->Next != NULL && P->Next->Element != X)
+    {
+        P = P->Next;
+    }
+    return P;
+}
+
+void Insert(ElementType X, List L, Position P)
+{
+    Position TmpCell;
+
+    TmpCell = malloc(sizeof(struct Node));
+    if (TmpCell == NULL)
+        printf("Out of space!!!\n");
+    TmpCell->Element = X;
+    TmpCell->Next = P->Next;
+    P->Next = TmpCell;
+}
+
+void DeleteList(List L)
+{
+    Position P, Tmp;
+
+    P = L->Next;
+    L->Next = NULL;
+
+    while(P != NULL)
+    {
+        Tmp = P->Next;
+        free(P);
+        P = Tmp;
+    }
+}
+
+int main(int argc, char const *argv[])
+{
+    List L;
+    init_list(L);
+    L = create_list();
+    print_list(L);
+    int isEmpty = IsEmpty(L);
+    printf("链表是否为空: %d\n", isEmpty);
+    Position p = Find(21, L);
+    if (p == NULL)
+        printf("没有找到21元素\n");
+    else
+        printf("查找21结果: %d\n", p->Element);
+    for (int i = 0; i < 10; i++)
+    {
+        Insert(i, L, p);
+    }
+    Delete(21, L);
+    DeleteList(L);
+    print_list(L);
+    printf("Hello world\n");
+    return 0;
+}
+
+```
+

@@ -1,0 +1,121 @@
+---
+title: ES6——扩展运算符使用
+date: 2018-03-14 20:46:31
+tags: ["前端", "ES6", "Javascript"]
+
+---
+
+最近又开始把大量的时间花费在了夯实前端基础上了，看了很多的前端规范，书籍，并且敲了大量的前端代码。系统的在补习自己的前端基础，于是乎可能是日久生情，我对javascript这门语言的感情也在慢慢加深。系统的学习ES6标准一定是学习前端必要的一件事。ES6中增加了不少新特性新语法，一边学习，一边记录。
+
+初看ES6的代码，或许有许多同学不了解那三个点的用法，扩展运算符(spread)是三个点(`...`)。它好比rest的逆运算，将一个数组转化为用逗号分隔的参数序列。扩展运算符允许一个表达式在期望多个参数（用于函数调用）或多个元素（用于数组字面量）或多个变量（用于解构赋值）的位置扩展。
+
+<!--more-->
+
+来看一个用于函数调用的例子：
+
+```javascript
+myFunction(...iterableObj);
+```
+
+用于数组字面量的例子:
+
+```javascript
+const[...iterableObj] = [1, 3, 5, 7, 9];
+
+[...iterableObj, 0, 2, 4, 6, 8];
+// [1, 3, 5, 7, 9, 0, 2, 4, 6, 8]
+
+[0, 2, ...iterableObj, 4, 6, 8]
+// [0, 2, 1, 3, 5, 7, 9, 4, 6, 8]
+```
+
+用于对象字面量：
+
+```js
+let objClone = { ...obj};
+
+```
+
+> 这里要注意，**...rest**必须是参数列表的最后一个参数！
+> 
+> 但是 **...spread**无限制
+
+
+
+## 扩展运算符的使用示例
+
+### 替换apply方法
+
+在需要使用数组作为函数参数的情况下，通常使用`apply`方法：
+
+```js
+function myFunction(x, y, z) { }
+var args = [0, 1, 2]
+myFunction.apply(null, args);
+```
+
+如果使用了扩展运算符，我们可以这么来表示：
+
+```js
+function myFunction(x, y, z) { }
+var args = [0, 1, 2];
+myFunction(...args);
+```
+
+还可以同时展开多个数组:
+
+```js
+function myFunction(v, w, x, y, z) { }
+var args = [0, 1];
+myFunction(-1, ...args, 2, ...[3]);
+```
+
+### 更方便的数组字面量
+
+如果已经有一个数组，此时还需要再新建一个数组，要求新数组包含已有数组的数组项的话，就要用push，splice，concat等数组方法，但是有了扩展运算符之后，这些麻烦似乎都不存在了。
+
+
+```js
+let parts = ['shoulder', 'knees'];
+
+let Tshirts = ['Lee', 'Nike'];
+
+
+let lyrics = ['head', ...parts, 'and', 'toes'];
+
+// ["head", "shoulder", "knees", "and", "toes"]
+
+
+
+let lyrics = ['head', ...parts, 'and', 'toes', ...Tshirts];
+
+// ["head", "shoulder", "knees", "and", "toes", "Lee", "Nike"]
+```
+
+就像扩展参数列表一样， `...`可以在数组字面量中的任何地方使用，可以多次使用。
+
+### 复制数组
+
+```js
+let arr = [1, 2, 3];
+let arr2 = [...arr]; // 就像是 arr.slice()
+
+arr2.push(4); 
+
+console.log(arr2) // [1, 2, 3, 4]
+// arr 不受影响
+```
+
+### 配合new运算符
+
+在ES5中，我们无法使用同时使用new运算符和apply方法（apply方法调用[[call]]而不是[[Construct]]）。在ES6中，我们可以使用扩展运算符，就和普通的函数调用一样。
+
+```js
+let dateFields = [1970, 0, 1];  
+// 1 Jan 1970
+let d = new Date(...dateFields);
+
+
+let dateFields = readDateFields(database);
+let d = new Date(...dateFields);
+```
