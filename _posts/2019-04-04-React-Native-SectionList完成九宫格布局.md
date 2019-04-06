@@ -26,7 +26,7 @@ keywords: React-Native, SectionList, 九宫格
 
 在看一下我们需要实现的效果:
 
-![图片](../assets/images/rn_sectionlist.png)
+![图片](/assets/images/rn_sectionlist.png)
 
 类似于这样的九宫格效果。
 
