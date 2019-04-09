@@ -1,7 +1,7 @@
 ---
-layout: wiki
+layout: post
 title: 管理不同 git 系统的多个 ssh-key
-categories: Git
+categories: Linux, git
 description: 多个 ssh-key 的管理问题
 keywords: Git, SSH-KEY
 ---
