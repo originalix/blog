@@ -6,4 +6,4 @@ description: Filco Minila 背后开关键位备忘
 keywords: Minila
 ---
 
-![/assets/images/minila_switch](switch)
+![switch](/assets/images/minila_switch.jpg)
