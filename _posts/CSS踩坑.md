@@ -1,0 +1,51 @@
+1、Android浏览器下line-height垂直居中产生偏离
+
+
+
+举例：按钮中使用 line-height 来做垂直居中，但实际字体处于偏上方位置，此问题被 UI 提出放在 1.4.2 的修改中
+
+
+
+A: 这个问题通过css是无法解决的，即使解决了也是一种通过微调来实现的hack方法，因为文字在content-area内部渲染的时候已经偏移了，而css的居中方案都是控制的整个content-area的居中。
+
+此处建议垂直居中可以使用flex布局来做，比如：
+
+height: 36px;
+display: flex;
+align-items: center;
+
+justify-content: center;
+
+线上的移动端页面垂直居中我大部分都是这么写的，三端表现都很一致。
+
+
+
+2、hairline 问题
+
+已知方法：1、安卓浏览器无法处理 .5px，所以 .5px在安卓手机上依然按照 1px 渲染
+
+                  2、目前 styles/mixins/hairline.less 中定义了 hairline 的 Mixins , 是一种伪类 + transform 实现的实现方式
+
+                        优点：所有场景都能满足，支持圆角
+
+                        缺点：对于已经使用伪类的元素(例如clearfix)，可能需要多层嵌套
+
+                       暴露问题：该方法本身应该是最优解，但是在 lib-flexible 的 rem 适配方案中，在安卓平台中1px的边框在转化为rem时，在andriod webview以及部分低版本ios webview 会看不到
+
+                                         该种情况频繁发生在一个界面有多个 hairline 的时候，例如表单界面，暂时未找到解决办法
+
+                  3、使用 box-shadow 模拟边框
+
+                       利用css 对阴影处理的方式实现0.5px的效果
+                       样式设置：.box-shadow-1px {
+
+                                           box-shadow: inset 0px -1px 1px -1px #c8c7cc;
+
+                                        }
+
+                       优点：代码量少, 可以满足大部分场景，经过实测，在安卓手机上表现不错，未出现缺少线条情况，并且渲染出的样式符合 hairline 要求
+
+                      缺点：边框有阴影，颜色变浅，并且封装的易用性不如 hairline 灵活
+
+建议：在大面积使用 hairline 的时候，使用方法 3，其余情况使用方法 2
+
