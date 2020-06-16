@@ -8,7 +8,7 @@ keywords: js, javascript，array，数组, 数组使用
 
 > 作为一名前端工程师，数组应该是我们写的最频繁的一种数据结构。所以弄懂 js 中的数组用法，是非常有必要的一件事情。今天我就准备按分类，总结一下数组的各种用法。
 
-## `Property`
+## Property
 
 | 属性名 | 说明 |
 |---|---|
@@ -17,7 +17,7 @@ keywords: js, javascript，array，数组, 数组使用
 
 由于 `length` 和 `prototype` 两个属性比较通用，所以这里不过多的介绍。
 
-## `Method`
+## Method
 
 | 方法名 | 说明 |
 |---|---|
@@ -25,7 +25,7 @@ keywords: js, javascript，array，数组, 数组使用
 | `Array.isArray()` | 判断变量是否是一个数组 |
 | `Array.of()` | 根据参数来创建新的数组实例，参数数量和类型任意 |
 
-### `Array.from()`
+### Array.from()
 
 对于 `Array.from` 有以下几个点要注意
     - 可以通过伪数组对象(有 `length` 属性)、可迭代对象(可以获取对象中的元素，如 `Map` 和 `Set` 等)来创建数组对象。
@@ -44,7 +44,7 @@ Array.from([1, 2, 3], x => x + 1)
 `Array.from(obj, mapFn)` 相当于 `Array.from(obj).map(mapFn)`。
 
 
-### `Array.isArray()`
+### Array.isArray()
 
 根据值是否是数组，返回 `true` 或 `false`
 
@@ -54,7 +54,7 @@ Array.isArray({ foo: 'bar' }) // false
 Array.isArray('foo') // false
 ```
 
-### `Array.of()`
+### Array.of()
 
 `Array.of()` 和 `Array` 构造函数之间的区别在于处理整数参数，`Array.of(7)`创建具有单个元素 7 的数组，而 `Array(7)` 创建一个长度为 7 的空数组。
 
@@ -64,7 +64,7 @@ Array.of('🥎') // ['🥎']
 Array.of('🏓', '🏐', '🏉') // ['🏓', '🏐', '🏉']
 ```
 
-## 实例方法
+## Instance Method
 
 对于数组的实例方法，我们将它们分为修改器方法、访问方法以及迭代方法。
 
@@ -84,7 +84,7 @@ Array.of('🏓', '🏐', '🏉') // ['🏓', '🏐', '🏉']
 
 关于修改器方法，对于传参的索引值有个要注意的地方。对于 `fill()` 、 `copyWithin()`、 `splice()` 等方法，传参索引的基底为 0，如果是负数，那么一般是从数组的末尾开始计算的。
 
-### `copyWithin()`
+### copyWithin()
 
 ```js
 const array = [0, 1, 2, 3, 4, 5]
@@ -94,7 +94,7 @@ console.log(array.copyWithin(1, 3)) // [3, 3, 4, 5, 4, 5]
 
 该函数接收三个参数 `target` 、 `start` 、 `end` ，如果 `end` 被忽略，则会一直复制到数组底部。
 
-### `fill()`
+### fill()
 
 ```js
 [1, 2, 3].fill(4) // [4, 4, 4]
@@ -106,7 +106,7 @@ console.log(array.copyWithin(1, 3)) // [3, 3, 4, 5, 4, 5]
 
 `fill` 方法是一个通用方法，不要求 `this` 是数组对象
 
-### `push()` && `pop()`
+### push() && pop()
 
 我们将 `push()` 和 `pop()` 放在一起看，因为这两个方法的操作是相对的，可以将这个操作理解成压栈和出栈，符合先进后出原则，以方便理解。这里要注意的是这两个方法的返回值，`pop()` 返回出栈的元素，而 `push()` 返回新数组的长度。
 
@@ -121,7 +121,7 @@ console.log(array) // ['🏓', '🏀', '⚽️', '🥊']
 console.log(ball) // '🏈'
 ```
 
-### `shift()` && `unshift()`
+### shift() && unshift()
 
 我们将 `shift()` 和 `unshift()` 放在一起看，因为这两个操作也是相对的，可以将这个操作理解成队列，符合先进先出原则，方便理解。这里要注意的是他们的返回值，`shift()` 返回被删除的元素，而 `unshift()` 返回数组的新长度。
 
@@ -133,7 +133,7 @@ console.log(array.shift()) // '🏀'
 array.unshift('🎾') // ['🎾', '🏀']
 ```
 
-### `reverse()`
+### reverse()
 
 这个函数颠倒数组中元素的排列顺序，返回一个颠倒数组的引用
 
@@ -159,7 +159,7 @@ numbers.sort((a, b) => a - b)
 console.log(numbers) // [0, 1, 2, 3, 4, 5, 6]
 ```
 
-### `splice()`
+### splice()
 
 `splice()` 方法通过删除或替换现有元素或者原地添加新的元素来修改数组，并以数组形式返回被修改的内容。此方法也会改变原数组。
 
@@ -188,7 +188,7 @@ console.log(removed) // ['🏈']
 | `toString()` | 返回一个表示当前数组字面量的字符串 | 数组字面量字符串 |
 | `toLocaleString()` | 返回一个由所有数组元素组合而成的本地化后的字符串 | 本地化后的字符串 |
 
-### `concat()`
+### concat()
 
 ```js
 const ball = ['⚽️', '🏀', '🏈']
@@ -201,7 +201,7 @@ ball.concat(animal)
 新生成数组的参数，依次是该参数的元素或参数本身。它不会递归到嵌套数组的参数中。
 
 
-### `slice()`
+### slice()
 
 `slice()` 方法返回的，是由 `begin` 和 `end` 参数决定的原数组的浅拷贝。
 
@@ -215,7 +215,7 @@ const newArray = array.slice(2)
 console.log(newArray) // ['🦁', '🐮']
 ```
 
-### `includes()`
+### includes()
 
 `includes()` 是 ES6 的中新标准，用来判断一个数组是否包含一个指定的值，如果包含则返回 `true` ，否则返回 `false` 。
 
@@ -227,7 +227,7 @@ console.log(newArray) // ['🦁', '🐮']
 ['🐯', '🦁', '🐮'].includes('🐷') // false
 ```
 
-### `indexOf()` && `lastIndexOf()`
+### indexOf() && lastIndexOf()
 
 这两个方法，也推荐放在一起看，他们都是返回在数组中找到给定元素的索引，区别是一个从左边寻找，一个从右边寻找。如果找不到，则返回 -1 。
 
@@ -243,7 +243,7 @@ array.lastIndexOf('🐨') // 0
 array.lastIndexOf('🐷') // -1
 ```
 
-### `toSource()` && `toString()` && `toLocaleString()`
+### toSource() && toString() && toLocaleString()
 
 这三个函数都是返回数组字面量的字符串，但是各有区别
 
@@ -288,7 +288,7 @@ console.log(localeString);
 
 所以为了代码的可读性和可维护性，不要在迭代方法的回调函数中对原数组进行操作。
 
-### `forEach()`
+### forEach()
 
 `forEach()` 方法对数组中的每个函数执行一次给定的函数。它遍历的范围在第一次调用 `callback` 前就会确定。之后添加到数组的项不会被 `callback` 访问到；已存在的值如果被改变，则传递给 `callback` 的值是遍历到这些值的那一刻的值；如果数组在迭代时被修改了，则其他的元素会被跳过。
 
@@ -308,7 +308,7 @@ for (let i = 0; i < animals.length; i++) {
 animals.forEach(animal => copy.push(animal))
 ```
 
-### `every()` && `some()`
+### every() && some()
 
 如果是要判断数组中，元素是否满足给定条件，那么建议使用 `every()` 或者 `some()` 方法，而不要使用 `filter()` 方法来过滤，原因是当前者碰到一个会使 `callback` 返回 `false` 或者 `true` 的值时，会立即返回 `false`, 而 `filter()` 会持续的遍历整个数组。
 
@@ -322,7 +322,7 @@ animals.forEach(animal => copy.push(animal))
 [12, 10, 3, 43].some(x => x >= 0) // false
 ```
 
-### `map()` && `filter()`
+### map() && filter()
 
 这两个函数放在一起说的原因是因为我经常看到有弄不明白这两个具体用法的开发者，将这两个函数作为循环来使用，因为这两个函数都会遍历数组中的所有元素，当你不打算使用新返回的数组而使用 `map()` 或 `filter()` 是违背设计初衷的。
 
@@ -340,7 +340,7 @@ const filterArray = origin.filter(x => x > 10)
 console.log(filterArray) // [14, 16]
 ```
 
-### `entries()` && `keys()` && `values()`
+### entries() && keys() && values()
 
 这三个方法放在一起说，是因为这三个方法都会返回一个数组迭代器对象。
 
@@ -348,7 +348,7 @@ console.log(filterArray) // [14, 16]
 - `keys()` 该迭代器会包含所有数组元素的键
 - `values()` 该迭代器会包含所有数组元素的值
 
-### `find()` && `findIndex()`
+### find() && findIndex()
 
 这两个方法是是查找元素的方法
 - `find()` 方法会返回找到第一个满足测试函数的元素，如果找不到，则返回 `undefined`
@@ -363,7 +363,7 @@ console.log(found) // 12
 console.log(foundIndex) // 1
 ```
 
-### `reduce()` && `reduceRight()`
+### reduce() && reduceRight()
 
 `reduce()` 方法对数组中的每个元素执行一个由你提供的 `reduce` 函数，将其结果汇总为单个返回值。
 
