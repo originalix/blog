@@ -59,7 +59,7 @@ foo()
 
 ![3.png](/assets/images/eventloop/3.png)
 
-4、接下来执行 foo 函数的第四行，是 `con'sole.log(4)` 。毫无疑问，直接输出，于是此时的控制台中是这样的👇
+4、接下来执行 foo 函数的第四行，是 `console.log(4)` 。毫无疑问，直接输出，于是此时的控制台中是这样的👇
 
 ![4.png](/assets/images/eventloop/4.png)
 
