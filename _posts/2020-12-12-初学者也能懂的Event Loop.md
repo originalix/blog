@@ -1,9 +1,9 @@
 ---
 layout: post
 title: 初学者也能懂的Event Loop
-categories: event loop, 事件循环, 前端, JavaScript
+categories: 前端  JavaScript
 description: 初学者也能懂的事件循环
-keywords: event loop, 事件循环, 前端, JavaScript
+keywords: EventLoop 事件循环 前端
 ---
 
 对于初学者来说，在面试或者学习的过程中，几乎都能接触到事件循环 (Event Loop) 这个名词，但是对于一个刚入门的前端工程师来说大部分都不明白事件循环到底是什么东西，以及它的作用是什么。今天这篇文章就是以一段代码和图片的示例来展示一个简单的事件循环的过程，希望看完这篇文章，能够让你对 JavaScript 的事件循环有一个基本的概念。
