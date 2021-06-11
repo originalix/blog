@@ -1,11 +1,10 @@
 - name: Software Engineer Keywords
   keywords:
       - JavaScript
+      - TypeScript
       - Node.js
       - Objective-C
       - Swift
-      - PHP
-      - Python
 
 - name: Mobile Developer Keywords
   keywords:
