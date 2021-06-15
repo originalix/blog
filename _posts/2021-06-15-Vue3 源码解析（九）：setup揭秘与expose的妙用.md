@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Vue3 源码解析（九）：组件中的setup究竟做了什么
+title: Vue3 源码解析（九）：setup 揭秘与 expose 的妙用
 categories: [前端, Vue]
 description: 带你解读 Vue3 源码，setup, 组件
 keywords: Vue3, Vue源码, setup, 组件
