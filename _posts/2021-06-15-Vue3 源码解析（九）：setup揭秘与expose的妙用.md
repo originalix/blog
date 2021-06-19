@@ -7,13 +7,13 @@ keywords: Vue3, Vue源码, setup, 组件
 
 ---
 
-在前几篇文章中我们一起学习了 Vue3 中新颖的 Composition API，而今天笔者要带大家一起看一下 Vue3 中的另一个新鲜的写法 —— setup。
+在前几篇文章中我们一起学习了 Vue3 中新颖的 Composition API，而今天我要带大家一起看一下 Vue3 中的另一个新鲜的写法 —— setup。
 
 在绝大多数情况，我们书写的组件都是有状态的组件，而这类组件在初始化的过程中会被标记为 stateful comonents，当 Vue3 检测到我们在处理这类有状态组件时，就会调用函数 setupStatefulComponent ，来初始化一个状态化组件。处理组件部分的源码位置在: `@vue/runtime-core/src/component.ts` 。
 
 ## setupStatefulComponent
 
-接下来笔者就带着大家一起来剖析一下 setupStatefulComponent 的过程：
+接下来我就带着大家一起来剖析一下 setupStatefulComponent 的过程：
 
 ```ts
 function setupStatefulComponent(
@@ -270,11 +270,10 @@ export function finishComponentSetup(
 
 ## 总结
 
-今天笔者介绍了一个有状态的组件的初始化的过程，在 setup 函数初始化部分进行了仔细的讲解，我们不仅学习了 setup 上下文初始化的条件，也明确的知晓了 setup 上下文究竟给我们暴露了哪些属性，并且从中学到了一个新的 RFC 提案： expose 属性。
+今天我介绍了一个有状态的组件的初始化的过程，在 setup 函数初始化部分进行了仔细的讲解，我们不仅学习了 setup 上下文初始化的条件，也明确的知晓了 setup 上下文究竟给我们暴露了哪些属性，并且从中学到了一个新的 RFC 提案： expose 属性。
 
 我们学习了 setup 函数执行的过程以及 Vue 是如何处理捕获 setup 的返回结果的。
 
 最后我们讲解了组件初始化时，不论是否使用 setup 都会执行的 finishComponentSetup 函数，通过这个函数内部的逻辑我们了解了一个组件在初始化完毕时，渲染函数设置的规则。
 
-最后，如果这篇文章能够帮助到你了解 Vue3 中 setup 的小细节，希望能给本文点一个喜欢❤️。如果想继续追踪后续文章，也可以关注我的账号或 follow 我的 [github](https://github.com/originalix)，再次谢谢各位可爱的看官老爷。
-
+如果这篇文章能够帮助到你了解 Vue3 中 setup 的小细节，希望能给本文点一个喜欢❤️。如果想继续追踪后续文章，也可以关注我的账号，再次谢谢能阅读至此的你。
